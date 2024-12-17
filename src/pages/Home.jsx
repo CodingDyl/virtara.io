@@ -6,6 +6,7 @@ import { BentoGrid, BentoGridItem } from "../components/ui/bento-grid";
 import { IconBrandFigma, IconBrandGithub, IconBrandGoogle, IconBrandTwitter } from "@tabler/icons-react";
 import { AnimatedTestimonials } from "../components/ui/animated-testimonials";
 import Footer from '../components/Footer';
+import Chatbot from '../chatbot/Chatbot';
 
 function Home() {
   const projectImages = [
@@ -81,6 +82,7 @@ function Home() {
 
   return (
     <div className="bg-[#0F0F0F] min-h-screen">
+      <Chatbot />
       <Navbar />
 
       <section className="min-h-screen relative flex items-center justify-center pt-40">
