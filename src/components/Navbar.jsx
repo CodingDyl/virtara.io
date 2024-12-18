@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from "framer-motion";
 import { HiMenu, HiX } from 'react-icons/hi';
 import { smallLogo } from '../assets';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,6 +52,7 @@ const Navbar = () => {
         <div className="px-6 py-2">
           <div className="flex items-center justify-between">
             {/* Logo */}
+            <Link to="/">
             <motion.div 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -59,7 +61,8 @@ const Navbar = () => {
               <img src={smallLogo} alt="Virtara Logo" className="w-6 h-6" />
               Virtara.io
             </motion.div>
-            
+            </Link>
+
             {/* Mobile Menu Button */}
             <motion.button 
               whileHover={{ scale: 1.1 }}
@@ -73,7 +76,7 @@ const Navbar = () => {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center bg-[#1C1C1C] rounded-full p-1">
-              {['Work', 'Services', 'About'].map((item) => (
+              {['Work', 'Services', 'Blog'].map((item) => (
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -84,6 +87,7 @@ const Navbar = () => {
                   {item}
                 </motion.a>
               ))}
+              <Link to="/contact">
               <motion.button 
                 whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.9)" }}
                 whileTap={{ scale: 0.95 }}
@@ -91,6 +95,7 @@ const Navbar = () => {
               >
                 Contact
               </motion.button>
+              </Link>
             </div>
           </div>
 

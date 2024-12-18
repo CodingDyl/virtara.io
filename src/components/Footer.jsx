@@ -91,7 +91,7 @@ const Footer = () => {
             <div>
               <h4 className="text-lg font-semibold mb-6">Company</h4>
               <ul className="space-y-4">
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors">About</a></li>
+                <li><a href="#" className="text-white/70 hover:text-white transition-colors">Blog</a></li>
                 <li><a href="#" className="text-white/70 hover:text-white transition-colors">Portfolio</a></li>
                 <li><a href="#" className="text-white/70 hover:text-white transition-colors">Careers</a></li>
                 <li><a href="#" className="text-white/70 hover:text-white transition-colors">Contact</a></li>
@@ -102,10 +102,10 @@ const Footer = () => {
             <div>
               <h4 className="text-lg font-semibold mb-6">Contact</h4>
               <ul className="space-y-4">
-                <li className="text-white/70">123 Business Street</li>
-                <li className="text-white/70">New York, NY 10001</li>
-                <li><a href="mailto:hello@virtec.com" className="text-white/70 hover:text-white transition-colors">hello@virtec.com</a></li>
-                <li><a href="tel:+1234567890" className="text-white/70 hover:text-white transition-colors">+1 (234) 567-890</a></li>
+                <li className="text-white/70">16 Hume Road</li>
+                <li className="text-white/70">South Africa, Johannesburg, 2092</li>
+                <li><a href="mailto:hello@virtec.com" className="text-white/70 hover:text-white transition-colors">info@virtara.io</a></li>
+                <li><a href="tel:+1234567890" className="text-white/70 hover:text-white transition-colors">(011) 786 5645</a></li>
               </ul>
             </div>
           </div>

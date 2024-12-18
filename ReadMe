@@ -1,5 +1,5 @@
-##Design Guidelines
-###Overall Look and Feel:
+## Design Guidelines
+### Overall Look and Feel:
 
 A clean, minimalistic design with visually striking elements.
 Incorporate smooth animations (e.g., scroll effects, hover interactions) to enhance engagement.
@@ -22,7 +22,7 @@ Sticky navigation bar for easy access.
 Menu items: Home, Services, Web Design, Marketing, Portfolio, Testimonials, Blog, Contact Us.
 Dropdown menus for services with quick descriptions.
 Page Breakdown
-1. Homepage:
+# 1. Homepage:
 Hero Section:
 Tagline: “Boost Your Brand with Stunning Websites and Smart Marketing.”
 Subtext: “Innovative Web Design and Cutting-Edge Marketing Services to Grow Your Business.”
@@ -40,7 +40,7 @@ Testimonials:
 Slider with client reviews, star ratings, and logos.
 Footer:
 Quick links, contact info, social media icons, and a newsletter signup.
-2. Web Design Page:
+# 2. Web Design Page:
 Headline: “Modern Web Design Tailored to Your Needs.”
 Subsections:
 Services:
@@ -53,7 +53,7 @@ Pricing:
 Transparent tiers with benefits of each plan.
 Call-to-Action:
 “Get Your Free Web Design Quote” with a form.
-3. Marketing Page:
+# 3. Marketing Page:
 Headline: “Drive Results with Targeted Marketing Strategies.”
 Subsections:
 Services:
@@ -64,13 +64,13 @@ Pricing:
 Packages for startups, small businesses, and larger clients.
 Call-to-Action:
 “Let’s Grow Your Business.”
-4. Portfolio Page:
+# 4. Portfolio Page:
 Design:
 Grid or masonry layout with high-quality images.
 Filters for Web Design and Marketing projects.
 Case Study Links:
 “View Details” button for each project to show before-and-after results.
-5. Contact Page:
+# 5. Contact Page:
 Form:
 Fields: Name, Email, Phone, Select Service (Web Design/Marketing/Both), Message.
 Include a file upload option for briefs or requirements.
