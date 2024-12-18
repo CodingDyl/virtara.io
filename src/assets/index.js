@@ -9,4 +9,6 @@ import brand_strat from "./brand_strat.png"
 import seo_op from "./seo_op.png"
 import digi_marketing from "./digi_marketing.png"
 
-export { virtec, vaja, mpower, bg_hero, web_design_bento, brand_strat, seo_op, digi_marketing }
+import smallLogo from "./web_logo_bg.png"
+
+export { virtec, vaja, mpower, bg_hero, web_design_bento, brand_strat, seo_op, digi_marketing, smallLogo }

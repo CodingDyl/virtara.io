@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from "framer-motion";
 import { HiMenu, HiX } from 'react-icons/hi';
+import { smallLogo } from '../assets';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,8 +54,9 @@ const Navbar = () => {
             <motion.div 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="text-white font-medium text-sm cursor-pointer"
+              className="text-white font-medium text-sm cursor-pointer flex items-center gap-2"
             >
+              <img src={smallLogo} alt="Virtara Logo" className="w-6 h-6" />
               Virtara.io
             </motion.div>
             
