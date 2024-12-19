@@ -107,7 +107,7 @@ function Home() {
             <div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
               Creating digital experiences that 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#4ECDC4]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
                 {" "}matter
               </span>
             </h1>
@@ -176,7 +176,10 @@ function Home() {
          <section className="min-h-screen py-20">
           <div className="container mx-auto px-6">
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
-              Obtaining Customers Made Easy
+              Obtaining Customers Made
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+                {" "}Easy
+              </span>
             </h2>
             <p className="text-lg text-white/70 mb-12">
               We understand that every business is unique, and we tailor our strategies to meet your specific needs. Whether you're looking to increase brand awareness, drive sales, or enhance customer engagement, our team is here to help.
@@ -201,7 +204,10 @@ function Home() {
          <section className="min-h-screen py-20 bg-gradient-to-b from-[#0F0F0F] to-[#161616]">
            <div className="container mx-auto px-6">
              <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
-               Our Featured Work
+               Our Featured
+               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+                 {" "}Work
+               </span>
              </h2>
              <p className="text-lg text-white/70 mb-12">
                Explore our portfolio of successful projects and see how we've helped businesses transform their digital presence.
@@ -246,6 +252,15 @@ function Home() {
          {/* testimonials */}
          <section className=" py-20 bg-gradient-to-b from-[#0F0F0F] to-[#161616]">
            <div className="container mx-auto px-6">
+             <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
+               What Our Clients
+               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+                 {" "}Say
+               </span>
+             </h2>
+             <p className="text-lg text-white/70 mb-12">
+               Don't just take our word for it. Here's what our clients have to say about their experience working with us.
+             </p>
              <AnimatedTestimonials testimonials={testimonials} />
            </div>
          </section>
