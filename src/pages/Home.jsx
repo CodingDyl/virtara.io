@@ -19,15 +19,15 @@ function Home() {
     },
     { 
       image: vaja, 
-      link: "https://vaja.com",
+      link: "https://vaja.co.za",
       title: "Vaja",
-      description: "Premium leather accessories with innovative design"
+      description: "Premium Sauna's & steam rooms with innovative design"
     },
     { 
       image: mpower, 
-      link: "https://mpowerratings.com",
+      link: "https://mpowerratings.co.za",
       title: "MPower Ratings",
-      description: "Advanced analytics and rating systems for sports"
+      description: "BEE Rating & Verification"
     },
   ];
 
