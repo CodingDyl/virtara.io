@@ -74,7 +74,7 @@ const Work = () => {
   const marketingPricing = [
     {
       name: "Startup",
-      price: "$799/month",
+      price: "R4000/month",
       features: [
         "Basic SEO Setup",
         "Social Media Management (2 platforms)",
@@ -85,7 +85,7 @@ const Work = () => {
     },
     {
       name: "Growth",
-      price: "$1,999/month",
+      price: "R10,000/month",
       features: [
         "Advanced SEO Optimization",
         "Social Media Management (4 platforms)",

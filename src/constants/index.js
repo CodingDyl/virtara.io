@@ -41,7 +41,7 @@
   const pricingTiers = [
     {
       name: "Starter",
-      price: "$999",
+      price: "R10,000",
       features: [
         "Custom Design",
         "Mobile Responsive",
@@ -52,7 +52,7 @@
     },
     {
       name: "Professional",
-      price: "$2,499",
+      price: "R25,000",
       features: [
         "Everything in Starter",
         "E-Commerce Integration",
