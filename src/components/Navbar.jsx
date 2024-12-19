@@ -111,7 +111,8 @@ const Navbar = () => {
                 exit="exit"
                 className="md:hidden mt-4 bg-[#1C1C1C] rounded-2xl p-4 space-y-2 border border-white/10"
               >
-                {['Work', 'Services', 'About'].map((item, index) => (
+                {['Work', 'Services', 'Blog'].map((item, index) => (
+                  <Link to={`/${item.toLowerCase()}`}>
                   <motion.a
                     key={item}
                     href={`#${item.toLowerCase()}`}
@@ -122,7 +123,9 @@ const Navbar = () => {
                   >
                     {item}
                   </motion.a>
+                  </Link>
                 ))}
+                <Link to="/contact">
                 <motion.button 
                   className="w-full px-4 py-2 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition-all"
                   initial={{ opacity: 0, x: -20 }}
@@ -131,6 +134,7 @@ const Navbar = () => {
                 >
                   Contact
                 </motion.button>
+                </Link>
               </motion.div>
             )}
           </AnimatePresence>
