@@ -101,7 +101,7 @@ function Home() {
       <Chatbot />
       <Navbar />
 
-      <section className="min-h-screen relative flex items-center justify-center pt-20 md:pt-40">
+      <section className="min-h-screen relative flex items-center justify-center pt-32 md:pt-40">
         <div 
           className="absolute inset-0 z-0"
           style={{

@@ -35,7 +35,7 @@ const Work = () => {
     <div className="bg-[#0F0F0F] min-h-screen">
       <Navbar />
 
-      <section className="min-h-screen pt-20 md:pt-32 pb-12 md:pb-20">
+      <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">
         <div className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

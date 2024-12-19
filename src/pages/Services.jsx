@@ -114,7 +114,7 @@ const Work = () => {
     <div className="bg-[#0F0F0F] min-h-screen">
       <Navbar />
 
-      <section className="min-h-screen pt-32 pb-20">
+      <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">
         <div className="container mx-auto px-6">
           {/* Tab Navigation */}
           <div className="flex justify-center mb-16">

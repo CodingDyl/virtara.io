@@ -109,32 +109,31 @@ const Navbar = () => {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                className="md:hidden mt-4 bg-[#1C1C1C] rounded-2xl p-4 space-y-2 border border-white/10"
+                className="md:hidden absolute left-0 right-0 top-full mt-4 bg-[#1C1C1C] rounded-2xl p-4 space-y-2 border border-white/10"
               >
-                {['Work', 'Services', 'Blog'].map((item, index) => (
-                  <Link to={`/${item.toLowerCase()}`}>
-                  <motion.a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    className="block text-sm text-white/70 hover:text-white px-4 py-2 rounded-full hover:bg-[#262626] transition-all"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    {item}
-                  </motion.a>
-                  </Link>
-                ))}
-                <Link to="/contact">
-                <motion.button 
-                  className="w-full px-4 py-2 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition-all"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 }}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  Contact
-                </motion.button>
-                </Link>
+                  {['Work', 'Services', 'Blog'].map((item) => (
+                    <Link key={item} to={`/${item.toLowerCase()}`}>
+                      <motion.a
+                        href={`#${item.toLowerCase()}`}
+                        className="block text-sm text-white/70 hover:text-white px-4 py-2 rounded-full hover:bg-[#262626] transition-all"
+                      >
+                        {item}
+                      </motion.a>
+                    </Link>
+                  ))}
+                  <Link to="/contact">
+                    <motion.button 
+                      className="w-full px-4 py-2 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition-all"
+                    >
+                      Contact
+                    </motion.button>
+                  </Link>
+                </motion.div>
               </motion.div>
             )}
           </AnimatePresence>

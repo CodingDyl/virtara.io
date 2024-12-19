@@ -80,7 +80,9 @@ const Chatbot = () => {
                   margin: '8px 0',
                   padding: '8px 12px',
                   borderRadius: '8px',
-                  backgroundColor: msg.sender === 'user' ? 'rgba(78, 205, 196, 0.1)' : 'rgba(255, 255, 255, 0.05)',
+                  backgroundColor: msg.sender === 'user' 
+                    ? 'rgba(0, 242, 254, 0.1)'
+                    : 'rgba(255, 255, 255, 0.05)',
                   color: '#fff',
                 }}
               >
@@ -92,6 +94,7 @@ const Chatbot = () => {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
             placeholder="Type your message"
             style={{ 
               width: '100%', 
@@ -110,15 +113,15 @@ const Chatbot = () => {
               width: '100%', 
               padding: '10px', 
               borderRadius: '8px',
-              backgroundColor: '#4ECDC4',
+              background: 'linear-gradient(to right, #00f2fe, #ff00e5)',
               border: 'none',
               color: '#000',
               fontWeight: '500',
               cursor: 'pointer',
-              transition: 'background-color 0.2s'
+              transition: 'opacity 0.2s'
             }}
-            onMouseOver={e => e.currentTarget.style.backgroundColor = '#45b8b0'}
-            onMouseOut={e => e.currentTarget.style.backgroundColor = '#4ECDC4'}
+            onMouseOver={e => e.currentTarget.style.opacity = '0.9'}
+            onMouseOut={e => e.currentTarget.style.opacity = '1'}
           >
             Send
           </button>
@@ -134,24 +137,24 @@ const Chatbot = () => {
           width: '60px',
           height: '60px',
           borderRadius: '50%',
-          backgroundColor: '#4ECDC4',
+          background: 'linear-gradient(to right, #00f2fe, #ff00e5)',
           border: 'none',
-          boxShadow: '0 2px 20px rgba(78, 205, 196, 0.3)',
+          boxShadow: '0 2px 20px rgba(0, 242, 254, 0.3)',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           color: '#0F0F0F',
           fontSize: '24px',
-          transition: 'transform 0.2s, background-color 0.2s'
+          transition: 'transform 0.2s, opacity 0.2s'
         }}
         onMouseOver={e => {
           e.currentTarget.style.transform = 'scale(1.05)';
-          e.currentTarget.style.backgroundColor = '#45b8b0';
+          e.currentTarget.style.opacity = '0.9';
         }}
         onMouseOut={e => {
           e.currentTarget.style.transform = 'scale(1)';
-          e.currentTarget.style.backgroundColor = '#4ECDC4';
+          e.currentTarget.style.opacity = '1';
         }}
       >
         {isOpen ? '×' : '💬'}
