@@ -104,8 +104,8 @@ const Footer = () => {
               <ul className="space-y-4">
                 <li className="text-white/70">16 Hume Road</li>
                 <li className="text-white/70">South Africa, Johannesburg, 2092</li>
-                <li><a href="mailto:hello@virtec.com" className="text-white/70 hover:text-white transition-colors">info@virtara.io</a></li>
-                <li><a href="tel:+1234567890" className="text-white/70 hover:text-white transition-colors">(011) 786 5645</a></li>
+                <li><a href="mailto:info@virtara.io" className="text-white/70 hover:text-white transition-colors">info@virtara.io</a></li>
+                <li><a href="tel:+27723271040" className="text-white/70 hover:text-white transition-colors">+27 (072) 327 1040</a></li>
               </ul>
             </div>
           </div>
@@ -114,7 +114,7 @@ const Footer = () => {
           <div className="pt-8 border-t border-white/10">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <p className="text-white/70 text-sm">
-                © {currentYear} Virtec. All rights reserved.
+                © {currentYear} Virtara. All rights reserved.
               </p>
               <div className="flex space-x-6 text-sm">
                 <a href="#" className="text-white/70 hover:text-white transition-colors">Privacy Policy</a>

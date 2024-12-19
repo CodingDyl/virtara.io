@@ -76,7 +76,8 @@ const Navbar = () => {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center bg-[#1C1C1C] rounded-full p-1">
-              {['Work', 'Services', 'Blog'].map((item) => (
+              {['Services', 'Work', 'Blog'].map((item) => (
+                <Link to={`/${item.toLowerCase()}`}>
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -86,6 +87,7 @@ const Navbar = () => {
                 >
                   {item}
                 </motion.a>
+                </Link>
               ))}
               <Link to="/contact">
               <motion.button 
