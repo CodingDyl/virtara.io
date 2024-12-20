@@ -44,7 +44,7 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             {/* Brand Column */}
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold">Virtec</h3>
+              <h3 className="text-2xl font-bold">Virtara</h3>
               <p className="text-white/70">
                 Creating digital experiences that transform businesses and inspire growth.
               </p>
@@ -104,7 +104,7 @@ const Footer = () => {
               <ul className="space-y-4">
                 <li className="text-white/70">16 Hume Road</li>
                 <li className="text-white/70">South Africa, Johannesburg, 2092</li>
-                <li><a href="mailto:info@virtara.io" className="text-white/70 hover:text-white transition-colors">info@virtara.io</a></li>
+                <li><a href="mailto:info@virtara.co.za" className="text-white/70 hover:text-white transition-colors">info@virtara.co.za</a></li>
                 <li><a href="tel:+27723271040" className="text-white/70 hover:text-white transition-colors">+27 (072) 327 1040</a></li>
               </ul>
             </div>

@@ -59,7 +59,7 @@ const Navbar = () => {
               className="text-white font-medium text-sm cursor-pointer flex items-center gap-2"
             >
               <img src={smallLogo} alt="Virtara Logo" className="w-6 h-6" />
-              Virtara.io
+              Virtara
             </motion.div>
             </Link>
 
@@ -77,26 +77,28 @@ const Navbar = () => {
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center bg-[#1C1C1C] rounded-full p-1">
               {['Services', 'Work', 'Blog'].map((item) => (
-                <Link to={`/${item.toLowerCase()}`}>
-                <motion.a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="text-sm text-white/70 hover:text-white px-4 py-2 rounded-full hover:bg-[#262626] transition-all"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                <Link 
+                  key={item} 
+                  to={`/${item.toLowerCase()}`}
+                  onClick={() => setIsOpen(false)}
                 >
-                  {item}
-                </motion.a>
+                  <motion.div
+                    className="text-sm text-white/70 hover:text-white px-4 py-2 rounded-full hover:bg-[#262626] transition-all"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {item}
+                  </motion.div>
                 </Link>
               ))}
-              <Link to="/contact">
-              <motion.button 
-                whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.9)" }}
-                whileTap={{ scale: 0.95 }}
-                className="ml-1 px-4 py-2 bg-white text-black text-sm font-medium rounded-full transition-all"
-              >
-                Contact
-              </motion.button>
+              <Link to="/contact" onClick={() => setIsOpen(false)}>
+                <motion.button 
+                  whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.9)" }}
+                  whileTap={{ scale: 0.95 }}
+                  className="ml-1 px-4 py-2 bg-white text-black text-sm font-medium rounded-full transition-all"
+                >
+                  Contact
+                </motion.button>
               </Link>
             </div>
           </div>
@@ -117,16 +119,19 @@ const Navbar = () => {
                   transition={{ duration: 0.2 }}
                 >
                   {['Work', 'Services', 'Blog'].map((item) => (
-                    <Link key={item} to={`/${item.toLowerCase()}`}>
-                      <motion.a
-                        href={`#${item.toLowerCase()}`}
+                    <Link 
+                      key={item} 
+                      to={`/${item.toLowerCase()}`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <motion.div
                         className="block text-sm text-white/70 hover:text-white px-4 py-2 rounded-full hover:bg-[#262626] transition-all"
                       >
                         {item}
-                      </motion.a>
+                      </motion.div>
                     </Link>
                   ))}
-                  <Link to="/contact">
+                  <Link to="/contact" onClick={() => setIsOpen(false)}>
                     <motion.button 
                       className="w-full px-4 py-2 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition-all"
                     >
