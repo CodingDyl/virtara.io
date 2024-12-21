@@ -56,7 +56,7 @@ const Navbar = () => {
             <motion.div 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="text-white font-medium text-sm cursor-pointer flex items-center gap-2"
+              className="text-white font-bold text-xl cursor-pointer flex items-center gap-2"
             >
               <img src={smallLogo} alt="Virtara Logo" className="w-6 h-6" />
               Virtara
@@ -76,7 +76,7 @@ const Navbar = () => {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center bg-[#1C1C1C] rounded-full p-1">
-              {['Services', 'Work', 'Blog'].map((item) => (
+              {['Services', 'Portfolio', 'Blog'].map((item) => (
                 <Link 
                   key={item} 
                   to={`/${item.toLowerCase()}`}
@@ -118,7 +118,7 @@ const Navbar = () => {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {['Work', 'Services', 'Blog'].map((item) => (
+                  {['Portfolio', 'Services', 'Blog'].map((item) => (
                     <Link 
                       key={item} 
                       to={`/${item.toLowerCase()}`}

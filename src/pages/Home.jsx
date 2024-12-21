@@ -6,8 +6,8 @@ import { BentoGrid, BentoGridItem } from "../components/ui/bento-grid";
 import { IconBrandFigma, IconBrandGithub, IconBrandGoogle, IconBrandTwitter } from "@tabler/icons-react";
 import { AnimatedTestimonials } from "../components/ui/animated-testimonials";
 import Footer from '../components/Footer';
-import Chatbot from '../chatbot/Chatbot';
 import { PinContainer } from "../components/ui/3d-pin";
+import { Link } from 'react-router-dom';
 
 function Home() {
   const projectImages = [
@@ -98,7 +98,6 @@ function Home() {
 
   return (
     <div className="bg-[#0F0F0F] min-h-screen">
-      <Chatbot />
       <Navbar />
 
       <section className="min-h-screen relative flex items-center justify-center pt-32 md:pt-40">
@@ -144,18 +143,24 @@ function Home() {
             </div>
 
             <div className="space-y-4 flex flex-col items-center lg:items-start my-auto gap-10 lg:gap-20">
+              <Link to="/services#development">
               <div className="flex items-center gap-4">
                 <span className="text-white/40">01</span>
-                <span className="text-white text-xl">Web Design & Development</span>
+                <span className="text-white text-xl no-underline hover:underline">Web Design & Development</span>
               </div>
+              </Link>
+              <Link to="/services#marketing">
               <div className="flex items-center gap-4">
                 <span className="text-white/40">02</span>
-                <span className="text-white text-xl">Digital Marketing</span>
+                <span className="text-white text-xl no-underline hover:underline">Digital Marketing</span>
               </div>
+              </Link>
+              <Link to="/brand-strategy">
               <div className="flex items-center gap-4">
                 <span className="text-white/40">03</span>
-                <span className="text-white text-xl">Brand Strategy</span>
+                <span className="text-white text-xl no-underline hover:underline">Brand Strategy</span>
               </div>
+              </Link>
             </div>
           </motion.div>
 

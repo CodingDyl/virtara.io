@@ -5,6 +5,8 @@ import Contact from './pages/Contact'
 import Services from './pages/Services'
 import Work from './pages/Work'
 import Blog from './pages/Blog'
+import BrandStrategy from './pages/BrandStrategy'
+
 function App() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
@@ -13,8 +15,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/work" element={<Work />} />
+          <Route path="/portfolio" element={<Work />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/brand-strategy" element={<BrandStrategy />} />
         </Routes>
       </Router>
     </MantineProvider>

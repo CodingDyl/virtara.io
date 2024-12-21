@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowRight, FaCode, FaShoppingCart, FaRobot, FaTools, FaSearch, FaHashtag, FaAd, FaEnvelope } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { pricingTiers, process } from '../constants';
+import { useLocation } from 'react-router-dom';
 
 const Work = () => {
   const [activeTab, setActiveTab] = useState('development');
   const [activeFilter, setActiveFilter] = useState('all');
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === '#marketing') {
+      setActiveTab('marketing');
+    } else if (location.hash === '#development') {
+      setActiveTab('development');
+    }
+  }, [location]);
 
   const services = [
     {
@@ -119,7 +129,8 @@ const Work = () => {
           {/* Tab Navigation */}
           <div className="flex justify-center mb-16">
             <div className="inline-flex rounded-full bg-white/5 p-1">
-              <button
+              <a
+                href="#development"
                 onClick={() => setActiveTab('development')}
                 className={`px-8 py-3 rounded-full transition-colors ${
                   activeTab === 'development' 
@@ -128,8 +139,9 @@ const Work = () => {
                 }`}
               >
                 Web Development
-              </button>
-              <button
+              </a>
+              <a
+                href="#marketing"
                 onClick={() => setActiveTab('marketing')}
                 className={`px-8 py-3 rounded-full transition-colors ${
                   activeTab === 'marketing' 
@@ -138,13 +150,14 @@ const Work = () => {
                 }`}
               >
                 Digital Marketing
-              </button>
+              </a>
             </div>
           </div>
 
           <AnimatePresence mode='wait'>
             {activeTab === 'development' ? (
               <motion.div
+                id="development"
                 key="development"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -262,6 +275,7 @@ const Work = () => {
               </motion.div>
             ) : (
               <motion.div
+                id="marketing"
                 key="marketing"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
