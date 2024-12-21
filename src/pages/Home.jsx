@@ -135,6 +135,7 @@ function Home() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="px-8 py-4 bg-white text-black rounded-full font-medium flex items-center gap-2 hover:bg-white/90 transition-colors"
+                  onClick={() => window.location.href = '/starta-project'}
                 >
                   Start a project
                   <FaArrowRight />
