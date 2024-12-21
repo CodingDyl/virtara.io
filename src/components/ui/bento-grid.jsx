@@ -20,7 +20,6 @@ export const BentoGridItem = ({
   className,
   title,
   description,
-  header,
   image,
 }) => {
   return (
@@ -37,9 +36,6 @@ export const BentoGridItem = ({
             alt={title}
             className="w-full h-full object-cover rounded-lg"
           />
-          <div className="absolute inset-0 z-10">
-            {header}
-          </div>
         </div>
       )}
       <div className="group-hover/bento:translate-x-2 transition duration-200 mt-auto">

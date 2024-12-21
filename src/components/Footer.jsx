@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -80,10 +81,10 @@ const Footer = () => {
             <div>
               <h4 className="text-lg font-semibold mb-6">Services</h4>
               <ul className="space-y-4">
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors">Web Design</a></li>
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors">Digital Marketing</a></li>
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors">Brand Strategy</a></li>
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors">SEO Optimization</a></li>
+                <li><Link to="/services#development" className="text-white/70 hover:text-white transition-colors">Web Design</Link></li>
+                <li><Link to="/services#marketing" className="text-white/70 hover:text-white transition-colors">Digital Marketing</Link></li>
+                <li><Link to="/brand-strategy" className="text-white/70 hover:text-white transition-colors">Brand Strategy</Link></li>
+                <li><Link to="/services#marketing" className="text-white/70 hover:text-white transition-colors">SEO Optimization</Link></li>
               </ul>
             </div>
 
@@ -91,10 +92,10 @@ const Footer = () => {
             <div>
               <h4 className="text-lg font-semibold mb-6">Company</h4>
               <ul className="space-y-4">
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors">Portfolio</a></li>
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors">Contact</a></li>
+                <li><Link to="/blog" className="text-white/70 hover:text-white transition-colors">Blog</Link></li>
+                <li><Link to="/portfolio" className="text-white/70 hover:text-white transition-colors">Portfolio</Link></li>
+                <li><Link to="/careers" className="text-white/70 hover:text-white transition-colors">Careers</Link></li>
+                <li><Link to="/contact" className="text-white/70 hover:text-white transition-colors">Contact</Link></li>
               </ul>
             </div>
 
@@ -117,9 +118,9 @@ const Footer = () => {
                 © {currentYear} Virtara. All rights reserved.
               </p>
               <div className="flex space-x-6 text-sm">
-                <a href="#" className="text-white/70 hover:text-white transition-colors">Privacy Policy</a>
-                <a href="#" className="text-white/70 hover:text-white transition-colors">Terms of Service</a>
-                <a href="#" className="text-white/70 hover:text-white transition-colors">Cookie Policy</a>
+                <Link to="/privacy-policy" className="text-white/70 hover:text-white transition-colors">Privacy Policy</Link>
+                <Link to="/terms-of-service" className="text-white/70 hover:text-white transition-colors">Terms of Service</Link>
+                <Link to="/cookie-policy" className="text-white/70 hover:text-white transition-colors">Cookie Policy</Link>
               </div>
             </div>
           </div>
