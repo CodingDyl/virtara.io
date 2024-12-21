@@ -7,6 +7,10 @@ import Work from './pages/Work'
 import Blog from './pages/Blog'
 import BrandStrategy from './pages/BrandStrategy'
 import StartaProject from './pages/StartaProject'
+import PrivacyPolicy from './pages/Legal/PrivacyPolicy'
+import TermsOfService from './pages/Legal/TermsOfService'
+import CookiePolicy from './pages/Legal/CookiePolicy'
+
 function App() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
@@ -19,6 +23,10 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/brand-strategy" element={<BrandStrategy />} />
           <Route path="/starta-project" element={<StartaProject />} />
+
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />  
         </Routes>
       </Router>
     </MantineProvider>

@@ -84,32 +84,32 @@ import seo_op from "../assets/seo_op.png";
 
   const testimonials = [
     { 
-        quote: "Virtec transformed our outdated website into a modern masterpiece. We've seen a 40% increase in engagement since the redesign.", 
-        name: "Alice Green", 
+        quote: "Virtara transformed our outdated website into a modern masterpiece. We've seen a 40% increase in engagement since the redesign.", 
+        name: "Alice Green | Vaja", 
         designation: "Marketing Director", 
         src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
     },
     { 
-        quote: "The team at Virtec understood our vision perfectly and delivered a site that exceeded our expectations. Amazing work!", 
-        name: "David Patel", 
+        quote: "The team at Virtara understood our vision perfectly and delivered a site that exceeded our expectations. Amazing work!", 
+        name: "David Patel | Get Bird", 
         designation: "Founder", 
         src: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
     },
     { 
-        quote: "Working with Virtec was a seamless experience. They’re creative, professional, and truly care about delivering quality.", 
-        name: "Sophia Taylor", 
+        quote: "Working with Virtara was a seamless experience. They’re creative, professional, and truly care about delivering quality.", 
+        name: "Sophia Taylor | Virtec Marketing", 
         designation: "Operations Manager", 
         src: "https://images.unsplash.com/photo-1525186402429-b4ff38bedec6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
     },
     { 
-        quote: "Virtec’s unique designs set our business apart. Their team is always responsive and ready to help. Highly recommend!", 
-        name: "Michael Brown", 
+        quote: "Virtara’s unique designs set our business apart. Their team is always responsive and ready to help. Highly recommend!", 
+        name: "Michael Brown | Vaja", 
         designation: "CEO", 
         src: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
     },
     { 
-        quote: "I couldn’t be happier with the results from Virtec. Their attention to detail and dedication is unmatched.", 
-        name: "Emily Clark", 
+        quote: "I couldn’t be happier with the results from Virtara. Their attention to detail and dedication is unmatched.", 
+        name: "Emily Clark | Mpower Ratings", 
         designation: "Product Manager", 
         src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
     }

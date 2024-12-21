@@ -11,4 +11,7 @@ import digi_marketing from "./digi_marketing.png"
 
 import smallLogo from "./web_logo_bg.png"
 
-export { virtec, vaja, mpower, bg_hero, web_design_bento, brand_strat, seo_op, digi_marketing, smallLogo }
+import marketing_1 from "./marketing_1.png"
+import marketing_2 from "./marketing_2.png"
+
+export { virtec, vaja, mpower, bg_hero, web_design_bento, brand_strat, seo_op, digi_marketing, smallLogo, marketing_1, marketing_2, }

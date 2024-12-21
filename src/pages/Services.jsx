@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { pricingTiers, process } from '../constants';
 import { useLocation } from 'react-router-dom';
+import { marketing_1, marketing_2 } from '../assets';
 
 const Work = () => {
   const [activeTab, setActiveTab] = useState('development');
@@ -70,13 +71,13 @@ const Work = () => {
       title: "E-commerce Growth",
       stats: "120% Traffic Increase",
       description: "Implemented SEO strategy resulting in doubled organic traffic",
-      image: "https://via.placeholder.com/600x400"
+      image: marketing_2
     },
     {
       title: "Social Media Success",
       stats: "300% Engagement Growth",
       description: "Developed content strategy that tripled user engagement",
-      image: "https://via.placeholder.com/600x400"
+      image: marketing_1
     },
     // Add more case studies
   ];
