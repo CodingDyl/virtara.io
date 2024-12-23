@@ -132,7 +132,12 @@ const Work = () => {
             <div className="inline-flex rounded-full bg-white/5 p-1">
               <a
                 href="#development"
-                onClick={() => setActiveTab('development')}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveTab('development');
+                  window.scrollTo(0, 0);
+                  window.location.hash = 'development';
+                }}
                 className={`px-8 py-3 rounded-full transition-colors ${
                   activeTab === 'development' 
                     ? 'bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white' 

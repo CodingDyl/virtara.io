@@ -46,18 +46,18 @@ import seo_op from "../assets/seo_op.png";
   const pricingTiers = [
     {
       name: "Starter",
-      price: "R10,000 - R20,000",
+      price: "R10,000 - R25,000",
       features: [
         "Custom Design",
         "Mobile Responsive",
-        "3 Pages",
+        "4 Pages",
         "Contact Form",
         "Basic SEO"
       ]
     },
     {
       name: "Professional",
-      price: "R30,000 – R50,000",
+      price: "R30,000 – R90,000",
       features: [
         "Everything in Starter",
         "E-Commerce Integration",

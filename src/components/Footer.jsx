@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 import { FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -22,6 +23,13 @@ const Footer = () => {
       document.querySelector('footer')?.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
+
+  const handleLinkClick = (path) => {
+    navigate(path);
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTo(0, 0);
+    document.body.scrollTo(0, 0);
+  };
 
   return (
     <footer className="bg-gradient-to-b from-[#161616] to-[#0F0F0F] text-white relative overflow-hidden">
@@ -81,10 +89,10 @@ const Footer = () => {
             <div>
               <h4 className="text-lg font-semibold mb-6">Services</h4>
               <ul className="space-y-4">
-                <li><Link to="/services#development" className="text-white/70 hover:text-white transition-colors">Web Design</Link></li>
-                <li><Link to="/services#marketing" className="text-white/70 hover:text-white transition-colors">Digital Marketing</Link></li>
-                <li><Link to="/brand-strategy" className="text-white/70 hover:text-white transition-colors">Brand Strategy</Link></li>
-                <li><Link to="/services#marketing" className="text-white/70 hover:text-white transition-colors">SEO Optimization</Link></li>
+                <li><Link to="/services#development" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/services#development')}>Web Design</Link></li>
+                <li><Link to="/services#marketing" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/services#marketing')}>Digital Marketing</Link></li>
+                <li><Link to="/brand-strategy" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/brand-strategy')}>Brand Strategy</Link></li>
+                <li><Link to="/services#marketing" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/services#marketing')}>SEO Optimization</Link></li>
               </ul>
             </div>
 
@@ -92,10 +100,10 @@ const Footer = () => {
             <div>
               <h4 className="text-lg font-semibold mb-6">Company</h4>
               <ul className="space-y-4">
-                <li><Link to="/blog" className="text-white/70 hover:text-white transition-colors">Blog</Link></li>
-                <li><Link to="/portfolio" className="text-white/70 hover:text-white transition-colors">Portfolio</Link></li>
-                <li><Link to="/careers" className="text-white/70 hover:text-white transition-colors">Careers</Link></li>
-                <li><Link to="/contact" className="text-white/70 hover:text-white transition-colors">Contact</Link></li>
+                <li><Link to="/blog" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/blog')}>Blog</Link></li>
+                <li><Link to="/portfolio" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/portfolio')}>Portfolio</Link></li>
+                <li><Link to="/careers" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/careers')}>Careers</Link></li>
+                <li><Link to="/contact" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/contact')}>Contact</Link></li>
               </ul>
             </div>
 

@@ -12,6 +12,7 @@
   "dependencies": {
     "@mantine/core": "^7.15.1",
     "@mantine/hooks": "^7.15.1",
+    "@sanity/client": "^6.24.1",
     "@tabler/icons-react": "^3.24.0",
     "axios": "^1.7.9",
     "class-variance-authority": "^0.7.1",

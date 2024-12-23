@@ -1,44 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCalendar, FaClock, FaTags, FaArrowRight } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { client } from '../lib/sanity';
 
 const Blog = () => {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const categories = ['all', 'web development', 'digital marketing', 'design', 'technology'];
 
-  const blogPosts = [
-    {
-      title: "The Future of Web Development: What's Next in 2024",
-      excerpt: "Explore the latest trends and technologies shaping the future of web development, from AI integration to advanced frameworks.",
-      category: "web development",
-      readTime: "5 min read",
-      date: "March 15, 2024",
-      image: "https://images.unsplash.com/photo-1627398242454-45a1465c2479",
-      tags: ["React", "AI", "Web3"]
-    },
-    {
-      title: "Mastering Digital Marketing in the AI Era",
-      excerpt: "Learn how artificial intelligence is revolutionizing digital marketing strategies and how to stay ahead of the curve.",
-      category: "digital marketing",
-      readTime: "7 min read",
-      date: "March 12, 2024",
-      image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a",
-      tags: ["Marketing", "AI", "Strategy"]
-    },
-    {
-      title: "Essential UI/UX Design Principles for 2024",
-      excerpt: "Discover the key design principles that will help you create more engaging and user-friendly digital experiences.",
-      category: "design",
-      readTime: "6 min read",
-      date: "March 10, 2024",
-      image: "https://images.unsplash.com/photo-1626785774625-0b1c09197357",
-      tags: ["UI/UX", "Design", "Trends"]
-    },
-    // Add more dummy blog posts as needed
-  ];
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const query = `*[_type == "post"] {
+          title,
+          body,
+          "slug": slug.current,
+          "author": author->name,
+          "categories": categories[]->title,
+          publishedAt,
+          "mainImage": mainImage.asset->url
+        }`;
+        
+        const posts = await client.fetch(query);
+        setBlogPosts(posts);
+        console.log('Fetched posts:', posts);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
 
   const filteredPosts = activeCategory === 'all' 
     ? blogPosts 
@@ -89,67 +87,81 @@ const Blog = () => {
           </div>
 
           {/* Blog Posts Grid */}
-          <AnimatePresence mode='wait'>
-            <motion.div
-              layout
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
-            >
-              {filteredPosts.map((post, index) => (
-                <motion.article
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white/5 rounded-xl md:rounded-2xl overflow-hidden hover:bg-white/10 transition-colors group"
-                >
-                  <div className="relative h-40 sm:h-48 overflow-hidden">
-                    <img 
-                      src={post.image} 
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                  <div className="p-4 sm:p-6">
-                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-white/60 mb-3 sm:mb-4">
-                      <span className="flex items-center gap-1">
-                        <FaCalendar className="w-4 h-4" />
-                        {post.date}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <FaClock className="w-4 h-4" />
-                        {post.readTime}
-                      </span>
+          {loading ? (
+            <div className="text-center text-white">
+              <p>Loading posts...</p>
+            </div>
+          ) : filteredPosts.length === 0 ? (
+            <div className="text-center text-white">
+              <p>No posts found in this category.</p>
+            </div>
+          ) : (
+            <AnimatePresence mode='wait'>
+              <motion.div
+                layout
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
+              >
+                {filteredPosts.map((post, index) => (
+                  <motion.article
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="bg-white/5 rounded-xl md:rounded-2xl overflow-hidden hover:bg-white/10 transition-colors group"
+                  >
+                    <div className="relative h-40 sm:h-48 overflow-hidden">
+                      <img 
+                        src={post.mainImage} 
+                        alt={post.title}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      />
                     </div>
-                    <h2 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 line-clamp-2">
-                      {post.title}
-                    </h2>
-                    <p className="text-sm sm:text-base text-white/70 mb-3 sm:mb-4 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex flex-wrap items-center gap-2 mb-3 sm:mb-4">
-                      <FaTags className="w-4 h-4 text-[#00f2fe]" />
-                      {post.tags.map((tag, tagIndex) => (
-                        <span 
-                          key={tagIndex}
-                          className="text-xs sm:text-sm text-white/60 bg-white/5 px-2 py-1 rounded"
-                        >
-                          {tag}
+                    <div className="p-4 sm:p-6">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-white/60 mb-3 sm:mb-4">
+                        <span className="flex items-center gap-1">
+                          <FaCalendar className="w-4 h-4" />
+                          {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
                         </span>
-                      ))}
+                        {post.author && (
+                          <span className="flex items-center gap-1">
+                            By {post.author}
+                          </span>
+                        )}
+                      </div>
+                      <h2 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 line-clamp-2">
+                        {post.title}
+                      </h2>
+                      {post.categories && (
+                        <div className="flex flex-wrap items-center gap-2 mb-3 sm:mb-4">
+                          <FaTags className="w-4 h-4 text-[#00f2fe]" />
+                          {post.categories.map((category, categoryIndex) => (
+                            <span 
+                              key={categoryIndex}
+                              className="text-xs sm:text-sm text-white/60 bg-white/5 px-2 py-1 rounded"
+                            >
+                              {category}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      <motion.button
+                        whileHover={{ x: 5 }}
+                        className="flex items-center gap-2 text-[#00f2fe] font-medium"
+                      >
+                        Read More
+                        <FaArrowRight className="w-4 h-4" />
+                      </motion.button>
                     </div>
-                    <motion.button
-                      whileHover={{ x: 5 }}
-                      className="flex items-center gap-2 text-[#00f2fe] font-medium"
-                    >
-                      Read More
-                      <FaArrowRight className="w-4 h-4" />
-                    </motion.button>
-                  </div>
-                </motion.article>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+                  </motion.article>
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          )}
 
           {/* Newsletter Section */}
           <motion.div

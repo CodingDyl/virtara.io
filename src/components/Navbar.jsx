@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from "framer-motion";
 import { HiMenu, HiX } from 'react-icons/hi';
 import { smallLogo } from '../assets';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Enhanced menu animations
   const menuVariants = {
@@ -46,6 +47,17 @@ const Navbar = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const handleLinkClick = (path) => {
+    setIsOpen(false);
+    navigate(path);
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
+  };
+
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-6">
       <nav className="max-w-[720px] w-full bg-[#141414]/90 rounded-full border border-white/10 backdrop-blur-md">
@@ -56,9 +68,9 @@ const Navbar = () => {
             <motion.div 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="text-white font-bold text-xl cursor-pointer flex items-center gap-2"
+              className="text-white font-bold text-lg md:text-3xl cursor-pointer flex items-center gap-2"
             >
-              <img src={smallLogo} alt="Virtara Logo" className="w-6 h-6" />
+              <img src={smallLogo} alt="Virtara Logo" className="w-6 md:w-10 h-6 md:h-10" />
               Virtara
             </motion.div>
             </Link>
@@ -80,7 +92,7 @@ const Navbar = () => {
                 <Link 
                   key={item} 
                   to={`/${item.toLowerCase()}`}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => handleLinkClick(`/${item.toLowerCase()}`)}
                 >
                   <motion.div
                     className="text-sm text-white/70 hover:text-white px-4 py-2 rounded-full hover:bg-[#262626] transition-all"
@@ -91,7 +103,7 @@ const Navbar = () => {
                   </motion.div>
                 </Link>
               ))}
-              <Link to="/contact" onClick={() => setIsOpen(false)}>
+              <Link to="/contact" onClick={() => handleLinkClick('/contact')}>
                 <motion.button 
                   whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.9)" }}
                   whileTap={{ scale: 0.95 }}
@@ -122,7 +134,7 @@ const Navbar = () => {
                     <Link 
                       key={item} 
                       to={`/${item.toLowerCase()}`}
-                      onClick={() => setIsOpen(false)}
+                      onClick={() => handleLinkClick(`/${item.toLowerCase()}`)}
                     >
                       <motion.div
                         className="block text-sm text-white/70 hover:text-white px-4 py-2 rounded-full hover:bg-[#262626] transition-all"
@@ -131,7 +143,7 @@ const Navbar = () => {
                       </motion.div>
                     </Link>
                   ))}
-                  <Link to="/contact" onClick={() => setIsOpen(false)}>
+                  <Link to="/contact" onClick={() => handleLinkClick('/contact')}>
                     <motion.button 
                       className="w-full px-4 py-2 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition-all"
                     >
