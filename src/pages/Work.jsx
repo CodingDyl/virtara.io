@@ -24,7 +24,7 @@ const Work = () => {
       link: "https://virtecmarketing.com"
     },
     {
-      title: "Vaja Construction",
+      title: "Vaja",
       category: "web",
       image: vaja,
       description: "Modern web presence for construction excellence",
@@ -37,7 +37,7 @@ const Work = () => {
       link: "https://vaja-web.vercel.app"
     },
     {
-      title: "MPower Fitness",
+      title: "MPower Ratings",
       category: "marketing",
       image: mpower,
       description: "Digital marketing campaign and brand refresh",
