@@ -4,30 +4,32 @@ import { FaCalendar, FaClock, FaTags, FaArrowRight } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { client } from '../lib/sanity';
+import { Link } from 'react-router-dom';
 
 const Blog = () => {
+  const categories = ['all', 'Trends', 'Digital Marketing', 'Technology', 'AI'];
   const [activeCategory, setActiveCategory] = useState('all');
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const categories = ['all', 'web development', 'digital marketing', 'design', 'technology'];
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const query = `*[_type == "post"] {
+          _id,
           title,
-          body,
-          "slug": slug.current,
-          "author": author->name,
-          "categories": categories[]->title,
           publishedAt,
-          "mainImage": mainImage.asset->url
+          excerpt,
+          readTime,
+          "slug": slug.current,
+          "mainImage": mainImage.asset->url,
+          "author": author->name,
+          "categories": categories[]->title
         }`;
         
         const posts = await client.fetch(query);
+        console.log('Fetched posts with categories:', posts);
         setBlogPosts(posts);
-        console.log('Fetched posts:', posts);
       } catch (error) {
         console.error('Error fetching posts:', error);
       } finally {
@@ -38,9 +40,16 @@ const Blog = () => {
     fetchPosts();
   }, []);
 
-  const filteredPosts = activeCategory === 'all' 
-    ? blogPosts 
-    : blogPosts.filter(post => post.category === activeCategory);
+  const filteredPosts = activeCategory === 'all'
+    ? blogPosts
+    : blogPosts.filter(post => 
+        post.categories && post.categories.some(category => 
+          category === activeCategory
+        )
+      );
+
+  console.log('Active category:', activeCategory);
+  console.log('Filtered posts:', filteredPosts);
 
   return (
     <div className="bg-[#0F0F0F] min-h-screen">
@@ -149,13 +158,15 @@ const Blog = () => {
                           ))}
                         </div>
                       )}
-                      <motion.button
-                        whileHover={{ x: 5 }}
-                        className="flex items-center gap-2 text-[#00f2fe] font-medium"
-                      >
-                        Read More
-                        <FaArrowRight className="w-4 h-4" />
-                      </motion.button>
+                      <Link to={`/blog/${post.slug}`}>
+                        <motion.button
+                          whileHover={{ x: 5 }}
+                          className="flex items-center gap-2 text-[#00f2fe] font-medium"
+                        >
+                          Read More
+                          <FaArrowRight className="w-4 h-4" />
+                        </motion.button>
+                      </Link>
                     </div>
                   </motion.article>
                 ))}

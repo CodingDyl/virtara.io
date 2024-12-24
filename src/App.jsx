@@ -12,6 +12,7 @@ import TermsOfService from './pages/Legal/TermsOfService'
 import CookiePolicy from './pages/Legal/CookiePolicy'
 import ScrollToTop from './components/ScrollToTop'
 import { useEffect } from 'react';
+import BlogPost from './pages/BlogPost';
 
 function App() {
   useEffect(() => {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/portfolio" element={<Work />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/brand-strategy" element={<BrandStrategy />} />
           <Route path="/starta-project" element={<StartaProject />} />
 

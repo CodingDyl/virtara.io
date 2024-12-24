@@ -27,7 +27,45 @@ export default {
           },
         },
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            color: 'rgb(255 255 255 / 0.7)',
+            a: {
+              color: '#00f2fe',
+              '&:hover': {
+                color: '#ff00e5',
+              },
+            },
+            h1: {
+              color: 'white',
+            },
+            h2: {
+              color: 'white',
+            },
+            h3: {
+              color: 'white',
+            },
+            h4: {
+              color: 'white',
+            },
+            strong: {
+              color: 'white',
+            },
+            code: {
+              color: 'white',
+            },
+            blockquote: {
+              color: 'rgb(255 255 255 / 0.7)',
+              borderLeftColor: '#00f2fe',
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [
+    require('@tailwindcss/typography'),
+    tailwindcssAnimate,
+  ],
 }

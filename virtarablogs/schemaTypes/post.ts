@@ -49,6 +49,20 @@ export default defineType({
       title: 'Body',
       type: 'blockContent',
     }),
+    defineField({
+      name: 'excerpt',
+      title: 'Excerpt',
+      type: 'text',
+      description: 'A short summary of the blog post',
+      validation: Rule => Rule.max(200)
+    }),
+    defineField({
+      name: 'readTime',
+      title: 'Read Time',
+      type: 'number',
+      description: 'Estimated reading time in minutes',
+      validation: Rule => Rule.required().min(1)
+    }),
   ],
 
   preview: {
