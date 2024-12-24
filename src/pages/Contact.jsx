@@ -70,8 +70,8 @@ const Contact = () => {
     {
       icon: <FaEnvelope className="w-6 h-6" />,
       title: "Email",
-      content: "info@virtara.io",
-      link: "mailto:info@virtara.io"
+      content: "info@virtara.co.za",
+      link: "mailto:info@virtara.co.za"
     },
     {
       icon: <FaPhone className="w-6 h-6" />,
