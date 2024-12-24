@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight, FaReact, FaNodeJs, FaJava, FaApple, FaAndroid } from 'react-icons/fa';
+import { SiTailwindcss, SiSanity, SiFirebase, SiThreedotjs, SiFlutter, SiAndroidstudio } from 'react-icons/si';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -25,10 +26,16 @@ const Work = () => {
   ];
 
   const technologies = [
-    { name: "React", icon: "react-icon.svg" },
-    { name: "Node.js", icon: "nodejs-icon.svg" },
-    { name: "TailwindCSS", icon: "tailwind-icon.svg" },
-    // Add more technologies
+    { name: "React", Icon: FaReact },
+    { name: "Node.js", Icon: FaNodeJs },
+    { name: "TailwindCSS", Icon: SiTailwindcss },
+    { name: "Sanity", Icon: SiSanity },
+    { name: "Java", Icon: FaJava },
+    { name: "Three.js", Icon: SiThreedotjs },
+    { name: "Firebase", Icon: SiFirebase },
+    { name: "Flutter", Icon: SiFlutter },
+    { name: "Android Studio", Icon: SiAndroidstudio },
+    { name: "iOS Development", Icon: FaApple },
   ];
 
   return (
@@ -131,7 +138,7 @@ const Work = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="flex flex-col items-center p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-white/5 hover:bg-white/10 transition-colors"
                 >
-                  <img src={tech.icon} alt={tech.name} className="w-8 sm:w-12 h-8 sm:h-12 mb-3 sm:mb-4" />
+                  <tech.Icon className="w-8 sm:w-12 h-8 sm:h-12 mb-3 sm:mb-4 text-white/70" />
                   <span className="text-sm sm:text-base text-white/70">{tech.name}</span>
                 </motion.div>
               ))}
