@@ -4,8 +4,7 @@ import { FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import emailjs from '@emailjs/browser';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Notification from '../components/Notifications/notification';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +14,11 @@ const Contact = () => {
     message: ''
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [notification, setNotification] = useState({
+    message: '',
+    type: '',
+    isVisible: false
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -41,29 +45,27 @@ const Contact = () => {
         'tlvH-LCyKA7B18wvK'
       );
       
-      toast.success('Message sent successfully! We will get back to you soon.', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
+      setNotification({
+        message: 'Message sent successfully! We will get back to you soon.',
+        type: 'success',
+        isVisible: true
       });
       
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
       console.error('Error sending email:', error);
-      toast.error('Failed to send message. Please try again later.', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
+      setNotification({
+        message: 'Failed to send message. Please try again later.',
+        type: 'error',
+        isVisible: true
       });
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const closeNotification = () => {
+    setNotification(prev => ({ ...prev, isVisible: false }));
   };
 
   const contactInfo = [
@@ -90,7 +92,12 @@ const Contact = () => {
   return (
     <div className="bg-[#0F0F0F] min-h-screen">
       <Navbar />
-      <ToastContainer theme="dark" />
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        isVisible={notification.isVisible}
+        onClose={closeNotification}
+      />
 
       <section className="min-h-screen pt-32 md:pt-24 lg:pt-32 pb-12 md:pb-16 lg:pb-20">
         <div className="container mx-auto px-4 sm:px-6">

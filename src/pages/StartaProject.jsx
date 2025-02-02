@@ -2,11 +2,96 @@ import { motion } from "framer-motion";
 import { FaArrowRight } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { useState } from "react";
+import Notification from '../components/Notifications/notification';
+import sendEmail from "../server/workflow";
+
 
 function StartaProject() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    website: "",
+    budget: "",
+    service: "",
+    message: "",
+  });
+
+  const [notification, setNotification] = useState({
+    message: '',
+    type: '',
+    isVisible: false
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const closeNotification = () => {
+    setNotification(prev => ({ ...prev, isVisible: false }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await sendEmail(
+        "New Project Inquiry",
+        `
+        Name: ${formData.name}
+        Email: ${formData.email}
+        Phone: ${formData.phone}
+
+        Company: ${formData.company}
+        Website: ${formData.website}
+        Budget: ${formData.budget}
+        Service: ${formData.service}
+        Message: ${formData.message}
+      `
+      );
+
+      console.log(response);
+      setNotification({
+        message: "Email sent successfully!",
+        type: "success",
+        isVisible: true
+      });
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        website: "",
+        budget: "",
+        service: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error(error);
+      setNotification({
+        message: "Failed to send email. Please try again later.",
+        type: "error",
+        isVisible: true
+      });
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        website: "",
+        budget: "",
+        service: "",
+        message: "",
+      });
+    }
+  };
+
   const services = [
     {
       category: "Web Development",
+
       options: [
         "Custom Website Design",
         "E-Commerce Solutions",
@@ -40,15 +125,15 @@ function StartaProject() {
     "Large (R50,000 - R100,000)",
     "Enterprise (R100,000+)"
   ];
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-  };
-
   return (
     <div className="bg-[#0F0F0F] min-h-screen">
       <Navbar />
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        isVisible={notification.isVisible}
+        onClose={closeNotification}
+      />
 
       <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">
         <div className="container mx-auto px-6">
@@ -156,6 +241,7 @@ function StartaProject() {
                 whileTap={{ scale: 0.98 }}
                 type="submit"
                 className="px-12 py-4 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium flex items-center gap-2 hover:opacity-90 transition-opacity"
+                onClick={handleSubmit}
               >
                 Schedule Consultation
                 <FaArrowRight />
