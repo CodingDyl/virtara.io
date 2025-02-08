@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { client } from '../lib/sanity';
 import { PortableText } from '@portabletext/react';
+import { Helmet } from 'react-helmet-async';
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -61,95 +62,103 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="bg-[#0F0F0F] min-h-screen">
-      <Navbar />
+    <>
+      <Helmet>
+        <title>{`${post.title} | Virtara Blog`}</title>
+        <meta name="description" content={post.excerpt || post.description} />
+        <meta name="keywords" content={post.keywords || 'digital marketing, web development, design trends'} />
+        <link rel="canonical" href={`https://virtara.co.za/blog/${post.slug}`} />
+      </Helmet>
+      <div className="bg-[#0F0F0F] min-h-screen">
+        <Navbar />
 
-      <article className="pt-32 pb-20">
-        <div className="container mx-auto px-4 sm:px-6">
-          {/* Back Button */}
-          <motion.button
-            onClick={() => navigate('/blog')}
-            whileHover={{ x: -5 }}
-            className="flex items-center gap-2 text-white/70 hover:text-white mb-8"
-          >
-            <FaArrowLeft className="w-4 h-4" />
-            Back to Blog
-          </motion.button>
-
-          {/* Hero Section */}
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+        <article className="pt-32 pb-20">
+          <div className="container mx-auto px-4 sm:px-6">
+            {/* Back Button */}
+            <motion.button
+              onClick={() => navigate('/blog')}
+              whileHover={{ x: -5 }}
+              className="flex items-center gap-2 text-white/70 hover:text-white mb-8"
             >
-              {/* Main Image */}
-              <div className="relative h-[400px] rounded-2xl overflow-hidden mb-8">
-                <img 
-                  src={post.mainImage} 
-                  alt={post.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] to-transparent" />
-              </div>
+              <FaArrowLeft className="w-4 h-4" />
+              Back to Blog
+            </motion.button>
 
-              {/* Meta Information */}
-              <div className="flex flex-wrap items-center gap-4 text-sm text-white/60 mb-4">
-                <span className="flex items-center gap-2">
-                  <FaCalendar className="w-4 h-4" />
-                  {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
-                </span>
-                {post.readTime && (
-                  <span className="flex items-center gap-2">
-                    <FaClock className="w-4 h-4" />
-                    {post.readTime} min read
-                  </span>
-                )}
-                {post.author && (
-                  <span>By {post.author}</span>
-                )}
-              </div>
-
-              {/* Title */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                {post.title}
-              </h1>
-
-              {/* Categories */}
-              {post.categories && (
-                <div className="flex flex-wrap items-center gap-2 mb-8">
-                  <FaTags className="w-4 h-4 text-[#00f2fe]" />
-                  {post.categories.map((category, index) => (
-                    <span 
-                      key={index}
-                      className="text-sm text-white/60 bg-white/5 px-3 py-1 rounded-full"
-                    >
-                      {category}
-                    </span>
-                  ))}
+            {/* Hero Section */}
+            <div className="max-w-4xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                {/* Main Image */}
+                <div className="relative h-[400px] rounded-2xl overflow-hidden mb-8">
+                  <img 
+                    src={post.mainImage} 
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] to-transparent" />
                 </div>
-              )}
-            </motion.div>
 
-            {/* Content */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="prose prose-invert prose-lg max-w-none"
-            >
-              <PortableText value={post.body} />
-            </motion.div>
+                {/* Meta Information */}
+                <div className="flex flex-wrap items-center gap-4 text-sm text-white/60 mb-4">
+                  <span className="flex items-center gap-2">
+                    <FaCalendar className="w-4 h-4" />
+                    {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </span>
+                  {post.readTime && (
+                    <span className="flex items-center gap-2">
+                      <FaClock className="w-4 h-4" />
+                      {post.readTime} min read
+                    </span>
+                  )}
+                  {post.author && (
+                    <span>By {post.author}</span>
+                  )}
+                </div>
+
+                {/* Title */}
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                  {post.title}
+                </h1>
+
+                {/* Categories */}
+                {post.categories && (
+                  <div className="flex flex-wrap items-center gap-2 mb-8">
+                    <FaTags className="w-4 h-4 text-[#00f2fe]" />
+                    {post.categories.map((category, index) => (
+                      <span 
+                        key={index}
+                        className="text-sm text-white/60 bg-white/5 px-3 py-1 rounded-full"
+                      >
+                        {category}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </motion.div>
+
+              {/* Content */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="prose prose-invert prose-lg max-w-none"
+              >
+                <PortableText value={post.body} />
+              </motion.div>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 

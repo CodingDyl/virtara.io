@@ -91,8 +91,9 @@ const Footer = () => {
               <ul className="space-y-4">
                 <li><Link to="/services#development" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/services#development')}>Web Design</Link></li>
                 <li><Link to="/services#marketing" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/services#marketing')}>Digital Marketing</Link></li>
-                <li><Link to="/brand-strategy" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/brand-strategy')}>Brand Strategy</Link></li>
+                <li><Link to="/brand-strategy-services" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/brand-strategy-services')}>Brand Strategy</Link></li>
                 <li><Link to="/services#marketing" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/services#marketing')}>SEO Optimization</Link></li>
+
               </ul>
             </div>
 
@@ -100,12 +101,13 @@ const Footer = () => {
             <div>
               <h4 className="text-lg font-semibold mb-6">Company</h4>
               <ul className="space-y-4">
-                <li><Link to="/blog" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/blog')}>Blog</Link></li>
-                <li><Link to="/portfolio" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/portfolio')}>Portfolio</Link></li>
-                <li><Link to="/careers" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/careers')}>Careers</Link></li>
-                <li><Link to="/contact" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/contact')}>Contact</Link></li>
+                <li><Link to="/web-development-blog" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/web-development-blog')}>Blog</Link></li>
+                <li><Link to="/our-work" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/our-work')}>Portfolio</Link></li>
+
+                <li><Link to="/contact-us" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/contact-us')}>Contact</Link></li>
               </ul>
             </div>
+
 
             {/* Contact Column */}
             <div>
@@ -126,9 +128,10 @@ const Footer = () => {
                 © {currentYear} Virtara. All rights reserved.
               </p>
               <div className="flex space-x-6 text-sm">
-                <Link to="/privacy-policy" className="text-white/70 hover:text-white transition-colors">Privacy Policy</Link>
-                <Link to="/terms-of-service" className="text-white/70 hover:text-white transition-colors">Terms of Service</Link>
-                <Link to="/cookie-policy" className="text-white/70 hover:text-white transition-colors">Cookie Policy</Link>
+                <Link to="/legal/privacy-policy" className="text-white/70 hover:text-white transition-colors">Privacy Policy</Link>
+                <Link to="/legal/terms-of-service" className="text-white/70 hover:text-white transition-colors">Terms of Service</Link>
+                <Link to="/legal/cookie-policy" className="text-white/70 hover:text-white transition-colors">Cookie Policy</Link>
+
               </div>
             </div>
           </div>

@@ -29,17 +29,17 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/contact-us" element={<Contact />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/portfolio" element={<Work />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/brand-strategy" element={<BrandStrategy />} />
-          <Route path="/starta-project" element={<StartaProject />} />
+          <Route path="/our-work" element={<Work />} />
+          <Route path="/web-development-blog" element={<Blog />} />
+          <Route path="/web-development-blog/:slug" element={<BlogPost />} />
+          <Route path="/brand-strategy-services" element={<BrandStrategy />} />
+          <Route path="/start-your-project" element={<StartaProject />} />
 
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms-of-service" element={<TermsOfService />} />
-          <Route path="/cookie-policy" element={<CookiePolicy />} />  
+          <Route path="/legal/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/legal/terms-of-service" element={<TermsOfService />} />
+          <Route path="/legal/cookie-policy" element={<CookiePolicy />} />  
         </Routes>
       </Router>
     </MantineProvider>

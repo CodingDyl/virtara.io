@@ -79,23 +79,22 @@ function Home() {
                 </span>
               </h1>
               
-              <div className="space-y-6 mb-8">
+              <div className="space-y-6 mb-8 flex flex-col gap-2 items-center md:items-start">
                 <p className="text-lg text-white/70">
                   We craft innovative digital solutions that help brands stand out and connect with their audience.
                 </p>
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="px-8 py-4 bg-white text-black rounded-full font-medium flex items-center gap-2 hover:bg-white/90 transition-colors"
-                  onClick={() => {
-                    window.scrollTo(0, 0);
-                    window.location.href = '/starta-project';
-                  }}
-                >
-                  Start a project
-                  <FaArrowRight />
-                </motion.button>
+                <Link to="/start-your-project">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="px-8 py-4 bg-white text-black rounded-full font-medium flex items-center gap-2 hover:bg-white/90 transition-colors cursor-pointer"
+                  >
+                    Start Your Project
+                    <FaArrowRight />
+                  </motion.button>
+                </Link>
               </div>
+
             </div>
 
             <div className="space-y-4 flex flex-col items-center lg:items-start my-auto gap-10 lg:gap-20">
@@ -111,10 +110,11 @@ function Home() {
                 <span className="text-white text-xl no-underline hover:underline">Digital Marketing</span>
               </div>
               </Link>
-              <Link to="/brand-strategy">
+              <Link to="/brand-strategy-services">
               <div className="flex items-center gap-4">
                 <span className="text-white/40">03</span>
                 <span className="text-white text-xl no-underline hover:underline">Brand Strategy</span>
+
               </div>
               </Link>
             </div>

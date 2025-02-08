@@ -88,22 +88,26 @@ const Navbar = () => {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center bg-[#1C1C1C] rounded-full p-1">
-              {['Services', 'Portfolio', 'Blog'].map((item) => (
+              {[
+                { title: 'Services', path: 'services' },
+                { title: 'Our Work', path: 'our-work' },
+                { title: 'Blog', path: 'web-development-blog' }
+              ].map(({ title, path }) => (
                 <Link 
-                  key={item} 
-                  to={`/${item.toLowerCase()}`}
-                  onClick={() => handleLinkClick(`/${item.toLowerCase()}`)}
+                  key={path} 
+                  to={`/${path}`}
+                  onClick={() => handleLinkClick(`/${path}`)}
                 >
                   <motion.div
                     className="text-sm text-white/70 hover:text-white px-4 py-2 rounded-full hover:bg-[#262626] transition-all"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    {item}
+                    {title}
                   </motion.div>
                 </Link>
               ))}
-              <Link to="/contact" onClick={() => handleLinkClick('/contact')}>
+              <Link to="/contact-us" onClick={() => handleLinkClick('/contact')}>
                 <motion.button 
                   whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.9)" }}
                   whileTap={{ scale: 0.95 }}
@@ -130,20 +134,24 @@ const Navbar = () => {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {['Portfolio', 'Services', 'Blog'].map((item) => (
+                  {[
+                    { title: 'Our Work', path: 'our-work' },
+                    { title: 'Services', path: 'services' },
+                    { title: 'Blog', path: 'web-development-blog' }
+                  ].map(({ title, path }) => (
                     <Link 
-                      key={item} 
-                      to={`/${item.toLowerCase()}`}
-                      onClick={() => handleLinkClick(`/${item.toLowerCase()}`)}
+                      key={path} 
+                      to={`/${path}`}
+                      onClick={() => handleLinkClick(`/${path}`)}
                     >
                       <motion.div
                         className="block text-sm text-white/70 hover:text-white px-4 py-2 rounded-full hover:bg-[#262626] transition-all"
                       >
-                        {item}
+                        {title}
                       </motion.div>
                     </Link>
                   ))}
-                  <Link to="/contact" onClick={() => handleLinkClick('/contact')}>
+                  <Link to="/contact-us" onClick={() => handleLinkClick('/contact-us')}>
                     <motion.button 
                       className="w-full px-4 py-2 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition-all"
                     >
