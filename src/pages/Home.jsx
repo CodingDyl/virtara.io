@@ -15,27 +15,30 @@ function Home() {
   return (
     <main className="bg-[#0F0F0F] min-h-screen">
       <Helmet>
-        <title>Digital Agency | Web Design, Development & Marketing Services</title>
+        <title>Virtara | Web Design, Development | Digital Agency & Marketing Services</title>
         <meta name="description" content="Transform your digital presence with our innovative web design, development, and digital marketing solutions. Creating digital experiences that matter for modern businesses." />
         <meta name="keywords" content="digital agency, web design, web development, digital marketing, brand strategy, SEO" />
-        <link rel="canonical" href="https://yourdomain.com" />
+        <link rel="canonical" href="https://virtara.co.za" />
         
+
         {/* Schema Markup */}
         <script type="application/ld+json">
           {`
             {
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
-              "name": "Your Agency Name",
+              "name": "Virtara",
               "description": "We craft innovative digital solutions that help brands stand out and connect with their audience.",
               "image": "${bg_hero}",
-              "url": "https://yourdomain.com",
+              "url": "https://www.virtara.co.za",
               "address": {
                 "@type": "PostalAddress",
-                "addressCountry": "Your Country"
+                "addressCountry": "South Africa"
               },
-              "priceRange": "$$",
-              "serviceType": ["Web Design", "Digital Marketing", "Brand Strategy"]
+
+              "priceRange": "R1000 - R500000",
+
+              "serviceType": ["Web Design", "Web Development", "Software Development", "Digital Marketing", "Brand Strategy"]
             }
           `}
         </script>
