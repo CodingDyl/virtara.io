@@ -72,6 +72,7 @@ export const AnimatedTestimonials = ({
                   <Image
                     src={testimonial.src}
                     alt={testimonial.name}
+                    loading="lazy"
                     width={500}
                     height={500}
                     draggable={false}

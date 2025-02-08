@@ -1,9 +1,8 @@
 import { motion }from "framer-motion";
 import { FaArrowRight } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
-import { virtec, vaja, mpower, bg_hero, web_design_bento, brand_strat, seo_op, digi_marketing } from '../assets';
+import { bg_hero,} from '../assets';
 import { BentoGrid, BentoGridItem } from "../components/ui/bento-grid";
-import { IconBrandFigma, IconBrandGithub, IconBrandGoogle, IconBrandTwitter } from "@tabler/icons-react";
 import { AnimatedTestimonials } from "../components/ui/animated-testimonials";
 import Footer from '../components/Footer';
 import { PinContainer } from "../components/ui/3d-pin";
@@ -46,13 +45,19 @@ function Home() {
 
       <section className="min-h-screen relative flex items-center justify-center pt-32 md:pt-40">
         <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `url(${bg_hero})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
+          className="absolute inset-0 z-0 bg-[#0F0F0F]"
         >
+          <img
+            src={bg_hero}
+            alt="Background"
+            fetchPriority="high"
+            loading="eager"
+            className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500"
+            onLoad={(e) => e.target.classList.remove('opacity-0')}
+            style={{
+              willChange: 'opacity',
+            }}
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0F0F0F]/90 via-[#0F0F0F]/80 to-[#0F0F0F]" />
         </div>
 
