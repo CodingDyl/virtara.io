@@ -13,6 +13,7 @@ import CookiePolicy from './pages/Legal/CookiePolicy'
 import ScrollToTop from './components/ScrollToTop'
 import { useEffect } from 'react';
 import BlogPost from './pages/BlogPost';
+import { HelmetProvider } from 'react-helmet-async'
 
 function App() {
   useEffect(() => {
@@ -22,6 +23,7 @@ function App() {
   }, []);
 
   return (
+    <HelmetProvider>
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <Router>
         <ScrollToTop />
@@ -41,6 +43,7 @@ function App() {
         </Routes>
       </Router>
     </MantineProvider>
+    </HelmetProvider>
   )
 }
 

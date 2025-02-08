@@ -9,11 +9,39 @@ import Footer from '../components/Footer';
 import { PinContainer } from "../components/ui/3d-pin";
 import { Link } from 'react-router-dom';
 import { testimonials, projectImages, items } from '../constants';
+import { Helmet } from 'react-helmet-async';
 
 function Home() {
 
   return (
-    <div className="bg-[#0F0F0F] min-h-screen">
+    <main className="bg-[#0F0F0F] min-h-screen">
+      <Helmet>
+        <title>Digital Agency | Web Design, Development & Marketing Services</title>
+        <meta name="description" content="Transform your digital presence with our innovative web design, development, and digital marketing solutions. Creating digital experiences that matter for modern businesses." />
+        <meta name="keywords" content="digital agency, web design, web development, digital marketing, brand strategy, SEO" />
+        <link rel="canonical" href="https://yourdomain.com" />
+        
+        {/* Schema Markup */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "ProfessionalService",
+              "name": "Your Agency Name",
+              "description": "We craft innovative digital solutions that help brands stand out and connect with their audience.",
+              "image": "${bg_hero}",
+              "url": "https://yourdomain.com",
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "Your Country"
+              },
+              "priceRange": "$$",
+              "serviceType": ["Web Design", "Digital Marketing", "Brand Strategy"]
+            }
+          `}
+        </script>
+      </Helmet>
+
       <Navbar />
 
       <section className="min-h-screen relative flex items-center justify-center pt-32 md:pt-40">
@@ -171,11 +199,14 @@ function Home() {
                   </div>
                   <div 
                     className="flex flex-1 w-full rounded-lg mt-4 overflow-hidden border border-white/10"
+                    role="img" 
+                    aria-label={project.title}
                   >
                     <img 
                       src={project.image} 
-                      alt={project.title}
+                      alt={`${project.title} - Project showcase`}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   </div>
                 </div>
@@ -214,7 +245,7 @@ function Home() {
       </section>
 
       <Footer />
-    </div>
+    </main>
   )
 }
 
