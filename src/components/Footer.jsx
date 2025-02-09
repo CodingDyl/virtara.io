@@ -61,7 +61,8 @@ const Footer = () => {
                 <motion.a
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  href="#"
+                  href="https://x.com/Virtara_SA"
+                  target="_blank"
                   className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
                 >
                   <FaTwitter />
@@ -69,7 +70,8 @@ const Footer = () => {
                 <motion.a
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  href="#"
+                  href="https://www.linkedin.com/company/virtara"
+                  target="_blank"
                   className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
                 >
                   <FaLinkedinIn />
@@ -77,7 +79,8 @@ const Footer = () => {
                 <motion.a
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  href="#"
+                  href="https://www.instagram.com/virtara.io/"
+                  target="_blank"
                   className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
                 >
                   <FaInstagram />
