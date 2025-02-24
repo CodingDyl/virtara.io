@@ -14,6 +14,8 @@ import ScrollToTop from './components/ScrollToTop'
 import { useEffect } from 'react';
 import BlogPost from './pages/BlogPost';
 import { HelmetProvider } from 'react-helmet-async'
+import HealthCheck from './pages/Resources/HealthCheck/HealthCheck'
+import HealthThankYou from './pages/Resources/HealthCheck/HealthThankYou'
 
 function App() {
   useEffect(() => {
@@ -36,6 +38,9 @@ function App() {
           <Route path="/web-development-blog/:slug" element={<BlogPost />} />
           <Route path="/brand-strategy-services" element={<BrandStrategy />} />
           <Route path="/start-your-project" element={<StartaProject />} />
+
+          <Route path="/resources/health-check" element={<HealthCheck />} />
+          <Route path="/thank-you" element={<HealthThankYou />} />
 
           <Route path="/legal/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/legal/terms-of-service" element={<TermsOfService />} />
