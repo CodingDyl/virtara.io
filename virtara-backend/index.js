@@ -2,7 +2,6 @@ const express = require('express');
 const fetch = require('node-fetch');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const path = require('path');
 
 dotenv.config();
 const app = express();
@@ -10,20 +9,8 @@ app.use(express.json());
 
 app.use(cors({
     origin: 'http://localhost:5173' || 'https://www.virtara.co.za', // Allow only your Vite frontend
-    methods: ['POST', 'GET'], // Allow POST requests
+    methods: ['POST'], // Allow POST requests
   }));
-
-app.use(express.static(path.join(__dirname, 'files')));
-
-app.get('/files/website-health-check.pdf', (req, res) => {
-    const filePath = path.join(__dirname, 'files', 'website-health-check.pdf');
-    res.sendFile(filePath, (err) => {
-      if (err) {
-        console.error('File send error:', err);
-        res.status(404).send('File not found');
-      }
-    });
-  });
 
   app.post('/api/subscribe', async (req, res) => {
     const { email, name } = req.body;
