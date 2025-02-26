@@ -4,7 +4,6 @@ import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import healthCheck from '../../../../public/virtara_website_health_check.pdf';
 import { healthCheckPreview } from '../../../assets';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,19 +21,26 @@ const Checklist = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      // Call the subscribe API endpoint
+      const response = await fetch('https://virtara-backend.vercel.app/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          name: formData.name
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+      const data = await response.json();
+      console.log(data);
       // Show success state
       setIsSuccess(true);
-      
-      // Download the PDF in the background
-      const link = document.createElement('a');
-      link.href = healthCheck;
-      link.download = 'website_health_check.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
 
       // Wait a moment to ensure the download starts
       await new Promise(resolve => setTimeout(resolve, 500));
@@ -44,6 +50,11 @@ const Checklist = () => {
       
     } catch (error) {
       console.error('Error submitting form:', error);
+      setIsSubmitting(false);
+      setIsSuccess(false);
+      // You might want to add error state handling here
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
