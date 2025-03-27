@@ -72,10 +72,10 @@ function Home() {
             className="max-w-4xl mx-auto flex flex-col lg:flex-row items-center lg:items-start justify-center text-center lg:text-left gap-12"
           >
             <div className="flex-1">
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
-                Grow Effortlessly With Websites That 
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8 capitalize">
+                Grow effortlessly with websites that 
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                  {" "}Deliver
+                  {" "}deliver
                 </span>
               </h1>
               
@@ -104,13 +104,13 @@ function Home() {
                 <span className="text-white text-xl no-underline hover:underline">Web Design & Development</span>
               </div>
               </Link>
-              <Link to="/services#marketing">
+              <Link to="/brand-strategy-services">
               <div className="flex items-center gap-4">
                 <span className="text-white/40">02</span>
                 <span className="text-white text-xl no-underline hover:underline ">Maintenance & Support</span>
               </div>
               </Link>
-              <Link to="/brand-strategy-services">
+              <Link to="/services#seo">
               <div className="flex items-center gap-4">
                 <span className="text-white/40">03</span>
                 <span className="text-white text-xl no-underline hover:underline">SEO Optimisation</span>

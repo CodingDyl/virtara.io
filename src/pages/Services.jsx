@@ -14,8 +14,8 @@ const Work = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.hash === '#marketing') {
-      setActiveTab('marketing');
+    if (location.hash === '#seo') {
+      setActiveTab('seo');
     } else if (location.hash === '#development') {
       setActiveTab('development');
     }
@@ -47,77 +47,80 @@ const Work = () => {
   const marketingServices = [
     {
       icon: <FaSearch className="w-8 h-8" />,
-      title: "Search Engine Optimization",
-      description: "Boost your visibility and rank higher in search results."
+      title: "Technical SEO",
+      description: "Optimize your site's structure, speed, and mobile responsiveness."
     },
     {
       icon: <FaHashtag className="w-8 h-8" />,
-      title: "Social Media Marketing",
-      description: "Engage your audience across all social platforms."
+      title: "Keyword Strategy",
+      description: "Research and target high-value search terms for your industry."
     },
     {
       icon: <FaAd className="w-8 h-8" />,
-      title: "Paid Advertising",
-      description: "Strategic PPC campaigns that drive conversions."
+      title: "Content Optimization",
+      description: "Create and optimize content that ranks and converts."
     },
     {
       icon: <FaEnvelope className="w-8 h-8" />,
-      title: "Email Marketing",
-      description: "Nurture leads and boost customer retention."
+      title: "Link Building",
+      description: "Build authority with quality backlinks from relevant sites."
     }
   ];
 
   const marketingCaseStudies = [
     {
-      title: "E-commerce Growth",
-      stats: "120% Traffic Increase",
-      description: "Implemented SEO strategy resulting in doubled organic traffic",
-      image: marketing_2
-    },
-    {
-      title: "Social Media Success",
-      stats: "300% Engagement Growth",
-      description: "Developed content strategy that tripled user engagement",
+      title: "Local Business Growth",
+      stats: "400% Organic Traffic Increase",
+      description: "Helped a local restaurant rank #1 for key local search terms",
       image: marketing_1
     },
-    // Add more case studies
+    {
+      title: "E-commerce Success",
+      stats: "200% More Search Visibility",
+      description: "Doubled organic product page rankings and sales",
+      image: marketing_2
+    }
   ];
 
   const marketingPricing = [
     {
-      name: "Startup",
-      price: "R4000/month",
+      name: "Basic SEO",
+      price: "R3,500 once-off",
+      subPrice: "or R1,500/month",
       features: [
-        "Basic SEO Setup",
-        "Social Media Management (2 platforms)",
-        "Monthly Analytics Report",
-        "Email Marketing Setup",
-        "Basic PPC Campaign"
+        "Keyword Research (5-10 keywords)",
+        "On-Page Optimization (5 pages)",
+        "Technical SEO Fixes",
+        "Google Search Console Setup",
+        "Performance Reports",
+        "Perfect for Small Businesses"
       ]
     },
     {
-      name: "Growth",
-      price: "R10,000/month",
+      name: "Advanced SEO",
+      price: "R10,000 once-off",
+      subPrice: "or R4,000/month",
       features: [
-        "Advanced SEO Optimization",
-        "Social Media Management (4 platforms)",
-        "Bi-weekly Analytics Reports",
-        "Email Marketing Automation",
-        "Advanced PPC Campaigns",
-        "Content Marketing"
+        "20-30 Targeted Keywords",
+        "Content Optimization (10 pages)",
+        "Local SEO & Citations",
+        "3-5 Quality Backlinks",
+        "Monthly Analytics Reports",
+        "Ideal for Growing Businesses"
       ],
       highlighted: true
     },
     {
-      name: "Enterprise",
-      price: "Custom",
+      name: "Enterprise SEO",
+      price: "R25,000+ once-off",
+      subPrice: "or R8,000/month",
       features: [
-        "Full-Service SEO",
-        "Comprehensive Social Media",
-        "Weekly Reports",
-        "Advanced Marketing Automation",
-        "Multi-Channel Campaigns",
-        "Dedicated Account Manager"
+        "50-Page Technical Audit",
+        "5 SEO-Optimized Blog Posts",
+        "10+ Authority Backlinks",
+        "Competitor Analysis",
+        "Custom ROI Dashboard",
+        "For National/Global Brands"
       ]
     }
   ];
@@ -155,15 +158,15 @@ const Work = () => {
                   Web Development
                 </a>
                 <a
-                  href="#marketing"
-                  onClick={() => setActiveTab('marketing')}
+                  href="#seo"
+                  onClick={() => setActiveTab('seo')}
                   className={`px-8 py-3 rounded-full transition-colors ${
-                    activeTab === 'marketing' 
+                    activeTab === 'seo' 
                       ? 'bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white' 
                       : 'text-white/70 hover:text-white'
                   }`}
                 >
-                  Digital Marketing
+                  SEO Optimisation
                 </a>
               </div>
             </div>
@@ -249,7 +252,8 @@ const Work = () => {
                           }`}
                         >
                           <h3 className="text-white text-2xl font-bold mb-4">{tier.name}</h3>
-                          <div className="text-3xl font-bold text-[#00f2fe] mb-6">{tier.price}</div>
+                          <div className="text-3xl font-bold text-[#00f2fe] mb-2">{tier.price}</div>
+                          <div className="text-lg text-[#00f2fe]/70 mb-6">{tier.subPrice}</div>
                           <ul className="space-y-4 mb-8">
                             {tier.features.map((feature, fIndex) => (
                               <li key={fIndex} className="text-white/70 flex items-center">
@@ -289,17 +293,17 @@ const Work = () => {
                 </motion.div>
               ) : (
                 <motion.div
-                  id="marketing"
-                  key="marketing"
+                  id="seo"
+                  key="seo"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
-                    Drive Results with
+                  <h1 className="text-center text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
+                    Rank Higher with
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                      {" "}Targeted Marketing
+                      {" "}Strategic SEO
                     </span>
                   </h1>
                   
@@ -364,7 +368,8 @@ const Work = () => {
                           }`}
                         >
                           <h3 className="text-white text-2xl font-bold mb-4">{tier.name}</h3>
-                          <div className="text-3xl font-bold text-[#00f2fe] mb-6">{tier.price}</div>
+                          <div className="text-3xl font-bold text-[#00f2fe] mb-2">{tier.price}</div>
+                          <div className="text-lg text-[#00f2fe]/70 mb-6">{tier.subPrice}</div>
                           <ul className="space-y-4 mb-8">
                             {tier.features.map((feature, fIndex) => (
                               <li key={fIndex} className="text-white/70 flex items-center">
@@ -392,13 +397,13 @@ const Work = () => {
                     transition={{ duration: 0.8 }}
                     className="text-center"
                   >
-                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Grow Your Business?</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Improve Your Rankings?</h2>
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       className="px-8 py-4 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium hover:opacity-90 transition-opacity"
                     >
-                      Let's Talk Strategy
+                      Ready to Grow your Business?
                     </motion.button>
                   </motion.div>
                 </motion.div>
