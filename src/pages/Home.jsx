@@ -81,7 +81,7 @@ function Home() {
               
               <div className="space-y-6 mb-8 flex flex-col gap-2 items-center md:items-start">
                 <p className="text-lg text-white/70">
-                  We craft innovative digital solutions that help brands stand out and connect with their audience.
+                  We craft innovative digital solutions that help your business stand out, attract customers, and drive real growth.
                 </p>
                 <Link to="/start-your-project">
                   <motion.button
@@ -89,7 +89,7 @@ function Home() {
                     whileTap={{ scale: 0.98 }}
                     className="px-8 py-4 bg-white text-black rounded-full font-medium flex items-center gap-2 hover:bg-white/90 transition-colors cursor-pointer"
                   >
-                    Start Your Project
+                    Get Your Growth-Ready Website
                     <FaArrowRight />
                   </motion.button>
                 </Link>

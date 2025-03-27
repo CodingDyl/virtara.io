@@ -96,19 +96,19 @@ import seo_op from "../assets/seo_op.png";
         src: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
     },
     { 
-        quote: "Working with Virtara was a seamless experience. They’re creative, professional, and truly care about delivering quality.", 
+        quote: "Working with Virtara was a seamless experience. They're creative, professional, and truly care about delivering quality.", 
         name: "Sophia Taylor | Virtec Marketing", 
         designation: "Operations Manager", 
         src: "https://images.unsplash.com/photo-1525186402429-b4ff38bedec6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
     },
     { 
-        quote: "Virtara’s unique designs set our business apart. Their team is always responsive and ready to help. Highly recommend!", 
+        quote: "Virtara's unique designs set our business apart. Their team is always responsive and ready to help. Highly recommend!", 
         name: "Michael Brown | Vaja", 
         designation: "CEO", 
         src: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
     },
     { 
-        quote: "I couldn’t be happier with the results from Virtara. Their attention to detail and dedication is unmatched.", 
+        quote: "I couldn't be happier with the results from Virtara. Their attention to detail and dedication is unmatched.", 
         name: "Emily Clark | Mpower Ratings", 
         designation: "Product Manager", 
         src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
@@ -144,8 +144,8 @@ const items = [
     image: web_design_bento,
   },
   {
-    title: "Digital Marketing",
-    description: "Strategic digital marketing solutions to boost your online presence and reach your target audience.",
+    title: "Website Maintenance & Support",
+    description: "Keep your website secure, optimized, and running smoothly.",
     className: "md:col-span-1",
     image: digi_marketing,
   },
@@ -161,6 +161,7 @@ const items = [
     className: "md:col-span-2",
     image: seo_op,
   },
+  
 ];
 
   export {process, projects, pricingTiers, testimonials, projectImages, items};
