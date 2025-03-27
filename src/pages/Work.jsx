@@ -9,12 +9,9 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 
 const Work = () => {
-  const [activeFilter, setActiveFilter] = useState('all');
-
   const projects = [
     {
       title: "Virtec Marketing",
-      category: "web",
       image: virtec,
       description: "Complete website redesign and digital transformation",
       technologies: ["React", "TailwindCSS", "Node.js"],
@@ -27,7 +24,6 @@ const Work = () => {
     },
     {
       title: "Vaja",
-      category: "web",
       image: vaja,
       description: "Modern web presence for construction excellence",
       technologies: ["React", "TailwindCSS", "Three.js"],
@@ -40,7 +36,6 @@ const Work = () => {
     },
     {
       title: "MPower Ratings",
-      category: "marketing",
       image: mpower,
       description: "Digital marketing campaign and brand refresh",
       technologies: ["React", "Firebase", "Node.js"],
@@ -96,70 +91,49 @@ const Work = () => {
               </p>
             </motion.div>
 
-            {/* Filter Buttons */}
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 md:mb-12">
-              {['all', 'web', 'marketing'].map((filter) => (
-                <motion.button
-                  key={filter}
-                  onClick={() => setActiveFilter(filter)}
-                  className={`px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base rounded-full transition-colors ${
-                    activeFilter === filter 
-                      ? 'bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white' 
-                      : 'bg-white/5 text-white/70 hover:text-white'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {filter.charAt(0).toUpperCase() + filter.slice(1)}
-                </motion.button>
-              ))}
-            </div>
-
             {/* Projects Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-12 md:mb-20">
               <AnimatePresence mode='wait'>
-                {projects
-                  .filter(project => activeFilter === 'all' || project.category === activeFilter)
-                  .map((project, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-white/5 p-[2px]"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] rounded-xl sm:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <div className="relative rounded-xl sm:rounded-2xl overflow-hidden bg-[#0F0F0F]">
-                        <img 
-                          src={project.image} 
-                          alt={project.title}
-                          className="w-full h-[200px] sm:h-[250px] lg:h-[300px] object-cover transition-all duration-300 group-hover:scale-105 group-hover:brightness-50"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-                          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">{project.title}</h3>
-                            <p className="text-sm sm:text-base text-white/70 mb-3 sm:mb-4">{project.description}</p>
-                            <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
-                              {project.technologies.map((tech, i) => (
-                                <span key={i} className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/70">
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
-                            <motion.button
-                              whileHover={{ scale: 1.02 }}
-                              whileTap={{ scale: 0.98 }}
-                              onClick={() => window.open(project.link, '_blank')}
-                              className="w-full sm:w-auto px-4 sm:px-6 py-2 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full text-sm sm:text-base font-medium flex items-center justify-center sm:justify-start gap-2 hover:opacity-90 transition-opacity"
-                            >
-                              View Site
-                              <FaArrowRight className="text-sm sm:text-base" />
-                            </motion.button>
+                {projects.map((project, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-white/5 p-[2px]"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] rounded-xl sm:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="relative rounded-xl sm:rounded-2xl overflow-hidden bg-[#0F0F0F]">
+                      <img 
+                        src={project.image} 
+                        alt={project.title}
+                        className="w-full h-[200px] sm:h-[250px] lg:h-[300px] object-cover transition-all duration-300 group-hover:scale-105 group-hover:brightness-50"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                          <h3 className="text-lg sm:text-xl font-bold text-white mb-2">{project.title}</h3>
+                          <p className="text-sm sm:text-base text-white/70 mb-3 sm:mb-4">{project.description}</p>
+                          <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
+                            {project.technologies.map((tech, i) => (
+                              <span key={i} className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/70">
+                                {tech}
+                              </span>
+                            ))}
                           </div>
+                          <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            onClick={() => window.open(project.link, '_blank')}
+                            className="w-full sm:w-auto px-4 sm:px-6 py-2 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full text-sm sm:text-base font-medium flex items-center justify-center sm:justify-start gap-2 hover:opacity-90 transition-opacity"
+                          >
+                            View Site
+                            <FaArrowRight className="text-sm sm:text-base" />
+                          </motion.button>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
+                  </motion.div>
                 ))}
               </AnimatePresence>
             </div>

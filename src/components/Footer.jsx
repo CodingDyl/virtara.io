@@ -93,9 +93,8 @@ const Footer = () => {
               <h4 className="text-lg font-semibold mb-6">Services</h4>
               <ul className="space-y-4">
                 <li><Link to="/services#development" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/services#development')}>Web Design</Link></li>
-                <li><Link to="/services#marketing" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/services#marketing')}>Digital Marketing</Link></li>
-                <li><Link to="/brand-strategy-services" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/brand-strategy-services')}>Brand Strategy</Link></li>
-                <li><Link to="/services#marketing" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/services#marketing')}>SEO Optimization</Link></li>
+                <li><Link to="/maintenance-support" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/maintenance-support')}>Maintenance & Support</Link></li>
+                <li><Link to="/services#seo" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/services#seo')}>SEO Optimization</Link></li>
 
               </ul>
             </div>
