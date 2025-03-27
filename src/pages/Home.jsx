@@ -36,7 +36,7 @@ function Home() {
                 "addressCountry": "South Africa"
               },
 
-              "priceRange": "R1000 - R500000",
+              "priceRange": "R4000 - R500000",
 
               "serviceType": ["Web Design", "Web Development", "Software Development", "Digital Marketing", "Brand Strategy"]
             }
@@ -73,9 +73,9 @@ function Home() {
           >
             <div className="flex-1">
               <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
-                Creating digital experiences that 
+                Grow Effortlessly With Websites That 
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                  {" "}matter
+                  {" "}Deliver
                 </span>
               </h1>
               
@@ -107,13 +107,13 @@ function Home() {
               <Link to="/services#marketing">
               <div className="flex items-center gap-4">
                 <span className="text-white/40">02</span>
-                <span className="text-white text-xl no-underline hover:underline">Digital Marketing</span>
+                <span className="text-white text-xl no-underline hover:underline ">Maintenance & Support</span>
               </div>
               </Link>
               <Link to="/brand-strategy-services">
               <div className="flex items-center gap-4">
                 <span className="text-white/40">03</span>
-                <span className="text-white text-xl no-underline hover:underline">Brand Strategy</span>
+                <span className="text-white text-xl no-underline hover:underline">SEO Optimisation</span>
 
               </div>
               </Link>

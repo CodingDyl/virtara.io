@@ -35,6 +35,19 @@ function StartaProject() {
     setNotification(prev => ({ ...prev, isVisible: false }));
   };
 
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      company: "",
+      website: "",
+      budget: "",
+      service: "",
+      message: "",
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -54,20 +67,11 @@ function StartaProject() {
       );
 
       console.log(response);
+      resetForm();
       setNotification({
         message: "Email sent successfully!",
         type: "success",
         isVisible: true
-      });
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        website: "",
-        budget: "",
-        service: "",
-        message: "",
       });
     } catch (error) {
       console.error(error);
