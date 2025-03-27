@@ -104,7 +104,7 @@ function Home() {
                 <span className="text-white text-xl no-underline hover:underline">Web Design & Development</span>
               </div>
               </Link>
-              <Link to="/brand-strategy-services">
+              <Link to="/maintenance-support">
               <div className="flex items-center gap-4">
                 <span className="text-white/40">02</span>
                 <span className="text-white text-xl no-underline hover:underline ">Maintenance & Support</span>

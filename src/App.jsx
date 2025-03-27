@@ -5,7 +5,7 @@ import Contact from './pages/Contact'
 import Services from './pages/Services'
 import Work from './pages/Work'
 import Blog from './pages/Blog'
-import BrandStrategy from './pages/BrandStrategy'
+import BrandStrategy from './pages/MaintenanceSupport'
 import StartaProject from './pages/StartaProject'
 import PrivacyPolicy from './pages/Legal/PrivacyPolicy'
 import TermsOfService from './pages/Legal/TermsOfService'
@@ -16,7 +16,7 @@ import BlogPost from './pages/BlogPost';
 import { HelmetProvider } from 'react-helmet-async'
 import HealthCheck from './pages/Resources/HealthCheck/HealthCheck'
 import HealthThankYou from './pages/Resources/HealthCheck/HealthThankYou'
-
+import MaintenanceSupport from './pages/MaintenanceSupport'
 function App() {
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
@@ -36,7 +36,7 @@ function App() {
           <Route path="/our-work" element={<Work />} />
           <Route path="/web-development-blog" element={<Blog />} />
           <Route path="/web-development-blog/:slug" element={<BlogPost />} />
-          <Route path="/brand-strategy-services" element={<BrandStrategy />} />
+          <Route path="/maintenance-support" element={<MaintenanceSupport />} />
           <Route path="/start-your-project" element={<StartaProject />} />
 
           <Route path="/resources/health-check" element={<HealthCheck />} />
