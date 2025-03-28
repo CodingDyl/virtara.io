@@ -17,6 +17,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import HealthCheck from './pages/Resources/HealthCheck/HealthCheck'
 import HealthThankYou from './pages/Resources/HealthCheck/HealthThankYou'
 import MaintenanceSupport from './pages/MaintenanceSupport'
+import Starter from './pages/TailoredRoutes/WebDevelopment/Starter/Starter'
 function App() {
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
@@ -45,6 +46,8 @@ function App() {
           <Route path="/legal/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/legal/terms-of-service" element={<TermsOfService />} />
           <Route path="/legal/cookie-policy" element={<CookiePolicy />} />  
+
+          <Route path="/web-development/starter" element={<Starter />} />
         </Routes>
       </Router>
     </MantineProvider>

@@ -7,11 +7,13 @@ import { pricingTiers, process } from '../constants';
 import { useLocation } from 'react-router-dom';
 import { marketing_1, marketing_2 } from '../assets';
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 
 const Work = () => {
   const [activeTab, setActiveTab] = useState('development');
   const [activeFilter, setActiveFilter] = useState('all');
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.hash === '#seo') {
@@ -266,6 +268,7 @@ const Work = () => {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             className="w-full px-6 py-3 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium hover:opacity-90 transition-opacity"
+                            onClick={() => navigate('/web-development/starter')}
                           >
                             Get Started
                           </motion.button>
