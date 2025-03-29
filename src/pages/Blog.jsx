@@ -6,12 +6,16 @@ import Footer from '../components/Footer';
 import { client } from '../lib/sanity';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { toast, Toaster } from 'react-hot-toast';
+import { subscribeToNewsletter } from '../config/firebase';
 
 const Blog = () => {
   const categories = ['all', 'Trends', 'Digital Marketing', 'Technology', 'AI'];
   const [activeCategory, setActiveCategory] = useState('all');
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -52,6 +56,43 @@ const Blog = () => {
   console.log('Active category:', activeCategory);
   console.log('Filtered posts:', filteredPosts);
 
+  const isValidEmail = (email) => {
+    // Regular expression for email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    
+    if (!email) {
+      toast.error('Please enter an email address');
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    try {
+      const result = await subscribeToNewsletter(email);
+      
+      if (result.success) {
+        toast.success(result.message);
+        setEmail(''); // Clear the input
+      } else {
+        toast.error(result.message);
+      }
+    } catch (error) {
+      toast.error('An unexpected error occurred');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -60,6 +101,7 @@ const Blog = () => {
         <meta name="keywords" content="digital marketing blog, web development tips, design trends, SEO insights, business growth" />
         <link rel="canonical" href="https://virtara.co.za/blog" />
       </Helmet>
+      <Toaster position="top-right" />
       <div className="bg-[#0F0F0F] min-h-screen">
         <Navbar />
 
@@ -195,20 +237,26 @@ const Blog = () => {
               <p className="text-sm md:text-base text-white/70 mb-6 md:mb-8">
                 Subscribe to our newsletter for the latest insights and articles
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <input
                   type="email"
                   placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="flex-1 px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-white/5 border border-white/10 text-white text-sm md:text-base focus:border-[#4ECDC4] focus:outline-none"
                 />
                 <motion.button
+                  type="submit"
+                  disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="px-6 sm:px-8 py-2 sm:py-3 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium text-sm md:text-base"
+                  className={`px-6 sm:px-8 py-2 sm:py-3 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium text-sm md:text-base ${
+                    isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
+                  }`}
                 >
-                  Subscribe
+                  {isSubmitting ? 'Subscribing...' : 'Subscribe'}
                 </motion.button>
-              </div>
+              </form>
             </motion.div>
           </div>
         </section>
