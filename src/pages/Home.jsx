@@ -72,10 +72,10 @@ function Home() {
             className="max-w-4xl mx-auto flex flex-col lg:flex-row items-center lg:items-start justify-center text-center lg:text-left gap-12"
           >
             <div className="flex-1">
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8 capitalize">
-                Grow effortlessly with websites that 
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight mb-8">
+                Effortless Growth. Impactful
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                  {" "}deliver
+                  {" "}Websites.
                 </span>
               </h1>
               
@@ -89,7 +89,7 @@ function Home() {
                     whileTap={{ scale: 0.98 }}
                     className="px-8 py-4 bg-white text-black rounded-full font-medium flex items-center gap-2 hover:bg-white/90 transition-colors cursor-pointer"
                   >
-                    Get Your Growth-Ready Website
+                    Schedule a Free Strategy Session
                     <FaArrowRight />
                   </motion.button>
                 </Link>

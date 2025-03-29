@@ -4,7 +4,7 @@ import Footer from '../../../../components/Footer';
 import Notification from '../../../../components/Notifications/notification';
 import WebDevForm from '../components/WebDevForm';
 
-const Starter = () => {
+const Professional = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,11 +14,15 @@ const Starter = () => {
     existingWebsite: '',
     websiteGoal: '',
     mainPriority: '',
-    brandingMaterials: [],
-    additionalFeatures: [],
-    seoOptimization: false,
-    contentWriting: false,
-    maintenance: false
+    brandColors: '',
+    targetAudience: '',
+    competitors: '',
+    desiredFeatures: [],
+    customIntegrations: [],
+    seoStrategy: false,
+    contentStrategy: false,
+    analyticsSetup: false,
+    maintenancePlan: false
   });
 
   const [notification, setNotification] = useState({
@@ -31,7 +35,7 @@ const Starter = () => {
     const { name, value, type, checked } = e.target;
     
     if (type === 'checkbox') {
-      if (name === 'brandingMaterials' || name === 'additionalFeatures') {
+      if (name === 'desiredFeatures' || name === 'customIntegrations') {
         const updatedArray = checked
           ? [...formData[name], value]
           : formData[name].filter(item => item !== value);
@@ -47,24 +51,35 @@ const Starter = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setNotification({
-      message: "Thanks for your interest! We'll reach out within 24 hours to discuss your project.",
+      message: "Thank you for choosing our Professional package! We'll contact you within 24 hours to discuss your project in detail.",
       type: 'success',
       isVisible: true
     });
   };
 
-  // Additional fields specific to Starter tier
+  // Additional fields specific to Professional tier
   const additionalFields = (
-    <div className="grid grid-cols-1 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       <div>
-        <label className="block text-white/70 mb-2">Existing Website (if any)</label>
+        <label className="block text-white/70 mb-2">Brand Colors</label>
         <input
-          type="url"
-          name="existingWebsite"
-          value={formData.existingWebsite}
+          type="text"
+          name="brandColors"
+          value={formData.brandColors}
           onChange={handleInputChange}
           className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
-          placeholder="https://example.com"
+          placeholder="e.g., #FF0000, #00FF00"
+        />
+      </div>
+      <div>
+        <label className="block text-white/70 mb-2">Target Audience</label>
+        <input
+          type="text"
+          name="targetAudience"
+          value={formData.targetAudience}
+          onChange={handleInputChange}
+          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
+          placeholder="Describe your ideal customer"
         />
       </div>
     </div>
@@ -83,7 +98,7 @@ const Starter = () => {
       <section className="min-h-screen pt-32 md:pt-24 lg:pt-32 pb-12 md:pb-16 lg:pb-20">
         <div className="container mx-auto px-4 sm:px-6">
           <WebDevForm
-            tier="Starter"
+            tier="Professional"
             formData={formData}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
@@ -97,4 +112,4 @@ const Starter = () => {
   );
 };
 
-export default Starter;
+export default Professional;

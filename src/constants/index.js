@@ -164,4 +164,95 @@ const items = [
   
 ];
 
-  export {process, projects, pricingTiers, testimonials, projectImages, items};
+const formIndustries = {
+  starter: [
+    'Retail',
+    'Services',
+    'Personal Brand',
+    'Healthcare',
+    'Education',
+    'Technology',
+    'Other'
+  ],
+  professional: [
+    'E-commerce',
+    'Professional Services',
+    'Healthcare',
+    'Technology',
+    'Education',
+    'Real Estate',
+    'Manufacturing',
+    'Other'
+  ],
+  enterprise: [
+    'Enterprise Software',
+    'Financial Services',
+    'Healthcare Systems',
+    'Government',
+    'Large Retail',
+    'Manufacturing',
+    'Logistics',
+    'Other'
+  ]
+};
+
+const formWebsiteGoals = {
+  starter: [
+    'Portfolio',
+    'Online Store',
+    'Information',
+    'Blog',
+    'Lead Generation',
+    'Other'
+  ],
+  professional: [
+    'Online Store',
+    'Lead Generation',
+    'Brand Awareness',
+    'Customer Portal',
+    'Service Booking',
+    'Content Platform',
+    'Other'
+  ],
+  enterprise: [
+    'Digital Transformation',
+    'Enterprise Platform',
+    'Multi-region Deployment',
+    'Custom Software Solution',
+    'Integration Hub',
+    'Data Analytics Platform',
+    'Other'
+  ]
+};
+
+const formPriorities = {
+  starter: [
+    'Design',
+    'Functionality',
+    'Speed',
+    'SEO',
+    'Mobile Experience',
+    'Other'
+  ],
+  professional: [
+    'User Experience',
+    'Advanced Functionality',
+    'Performance',
+    'SEO & Marketing',
+    'Security',
+    'Scalability',
+    'Other'
+  ],
+  enterprise: [
+    'Scalability',
+    'Security & Compliance',
+    'Integration Capabilities',
+    'Performance',
+    'Global Reach',
+    'Data Management',
+    'Custom Solutions',
+    'Other'
+  ]
+};
+
+export {process, projects, pricingTiers, testimonials, projectImages, items, formIndustries, formWebsiteGoals, formPriorities};

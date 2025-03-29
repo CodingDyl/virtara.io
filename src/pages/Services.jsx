@@ -268,7 +268,7 @@ const Work = () => {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             className="w-full px-6 py-3 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium hover:opacity-90 transition-opacity"
-                            onClick={() => navigate('/web-development/starter')}
+                            onClick={() => navigate(`/web-development/${tier.name.toLowerCase()}`)}
                           >
                             Get Started
                           </motion.button>

@@ -18,6 +18,9 @@ import HealthCheck from './pages/Resources/HealthCheck/HealthCheck'
 import HealthThankYou from './pages/Resources/HealthCheck/HealthThankYou'
 import MaintenanceSupport from './pages/MaintenanceSupport'
 import Starter from './pages/TailoredRoutes/WebDevelopment/Starter/Starter'
+import Professional from './pages/TailoredRoutes/WebDevelopment/Professional/Professional'
+import Enterprise from './pages/TailoredRoutes/WebDevelopment/Enterprise/Enterprise'
+
 function App() {
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
@@ -48,6 +51,8 @@ function App() {
           <Route path="/legal/cookie-policy" element={<CookiePolicy />} />  
 
           <Route path="/web-development/starter" element={<Starter />} />
+          <Route path="/web-development/professional" element={<Professional />} />
+          <Route path="/web-development/enterprise" element={<Enterprise />} />
         </Routes>
       </Router>
     </MantineProvider>
