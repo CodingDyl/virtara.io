@@ -76,7 +76,7 @@ const BlogPost = () => {
           <div className="container mx-auto px-4 sm:px-6">
             {/* Back Button */}
             <motion.button
-              onClick={() => navigate('/blog')}
+              onClick={() => navigate('/web-development-blog')}
               whileHover={{ x: -5 }}
               className="flex items-center gap-2 text-white/70 hover:text-white mb-8"
             >
