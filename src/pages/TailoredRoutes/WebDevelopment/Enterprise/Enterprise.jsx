@@ -3,8 +3,11 @@ import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
 import Notification from '../../../../components/Notifications/notification';
 import WebDevForm from '../components/WebDevForm';
+import sendEmail from "../../../../server/workflow";
+import { useNavigate } from 'react-router-dom';
 
 const Enterprise = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -53,11 +56,58 @@ const Enterprise = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setNotification({
-      message: "Thank you for your interest in our Enterprise solutions. Our team will contact you within 24 hours to schedule a detailed consultation.",
-      type: 'success',
-      isVisible: true
-    });
+    
+    try {
+      await sendEmail(
+        "New Enterprise Package Inquiry",
+        `
+        ENTERPRISE PACKAGE INQUIRY
+
+        Contact Information:
+        Name: ${formData.name}
+        Email: ${formData.email}
+        Business Name: ${formData.businessName}
+
+        Project Details:
+        Industry: ${formData.industry}
+        Website Goal: ${formData.websiteGoal}
+        Main Priority: ${formData.mainPriority}
+
+        Technical Requirements:
+        Current Infrastructure: ${formData.currentInfrastructure}
+        Security Requirements: ${formData.securityRequirements}
+        Compliance Needs: ${formData.complianceNeeds}
+        Integration Requirements: ${formData.integrationRequirements}
+        Expected Monthly Traffic: ${formData.expectedTraffic}
+        Global Locations: ${formData.globalLocations}
+
+        Enterprise Features Requested:
+        - AI Integration: ${formData.aiIntegration ? 'Yes' : 'No'}
+        - Data Analytics: ${formData.dataAnalytics ? 'Yes' : 'No'}
+        - Custom Dashboard: ${formData.customDashboard ? 'Yes' : 'No'}
+        - Priority Support: ${formData.prioritySupport ? 'Yes' : 'No'}
+        - Deployment Strategy: ${formData.deploymentStrategy ? 'Yes' : 'No'}
+        `
+      );
+
+      setNotification({
+        message: "Thanks for your interest! We'll reach out within 24 hours to discuss your project.",
+        type: 'success',
+        isVisible: true
+      });
+
+      setTimeout(() => {
+        navigate('/thank-you');
+      }, 2000);
+
+    } catch (error) {
+      console.error(error);
+      setNotification({
+        message: "There was an error submitting your form. Please try again.",
+        type: 'error',
+        isVisible: true
+      });
+    }
   };
 
   // Additional fields specific to Enterprise tier

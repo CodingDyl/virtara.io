@@ -208,7 +208,7 @@ const Blog = () => {
                             ))}
                           </div>
                         )}
-                        <Link to={`/blog/${post.slug}`}>
+                        <Link to={`/web-development-blog/${post.slug}`}>
                           <motion.button
                             whileHover={{ x: 5 }}
                             className="flex items-center gap-2 text-[#00f2fe] font-medium"

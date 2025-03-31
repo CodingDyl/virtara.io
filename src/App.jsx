@@ -21,6 +21,7 @@ import Starter from './pages/TailoredRoutes/WebDevelopment/Starter/Starter'
 import Professional from './pages/TailoredRoutes/WebDevelopment/Professional/Professional'
 import Enterprise from './pages/TailoredRoutes/WebDevelopment/Enterprise/Enterprise'
 import Unsubscribe from './pages/Unsubscribe'
+import ComeBack from './pages/ComeBack'
 
 function App() {
   useEffect(() => {
@@ -56,6 +57,7 @@ function App() {
           <Route path="/web-development/enterprise" element={<Enterprise />} />
 
           <Route path="/unsubscribe" element={<Unsubscribe />} />
+          <Route path="/comeback" element={<ComeBack />} />
         </Routes>
       </Router>
     </MantineProvider>

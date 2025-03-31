@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { healthCheckPreview } from '../../../assets';
 import { useNavigate } from 'react-router-dom';
+import { subscribeToNewsletter } from '../../../config/firebase';
 
 const Checklist = () => {
   const [formData, setFormData] = useState({
@@ -21,7 +22,14 @@ const Checklist = () => {
     setIsSubmitting(true);
 
     try {
-      // Call the subscribe API endpoint
+      // First, update Firestore through the subscribeToNewsletter function
+      const subscriptionResult = await subscribeToNewsletter(formData.email, formData.name, false);
+      
+      if (!subscriptionResult.success) {
+        throw new Error(subscriptionResult.message);
+      }
+
+      // Then call the existing subscribe API endpoint
       const response = await fetch('https://virtara-backend.vercel.app/api/subscribe', {
         method: 'POST',
         headers: {
@@ -37,8 +45,10 @@ const Checklist = () => {
         const error = await response.json();
         throw new Error(error.message);
       }
+      
       const data = await response.json();
       console.log(data);
+      
       // Show success state
       setIsSuccess(true);
 

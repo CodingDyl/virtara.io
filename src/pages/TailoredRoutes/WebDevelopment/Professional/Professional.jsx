@@ -3,8 +3,11 @@ import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
 import Notification from '../../../../components/Notifications/notification';
 import WebDevForm from '../components/WebDevForm';
+import sendEmail from "../../../../server/workflow";
+import { useNavigate } from 'react-router-dom';
 
 const Professional = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -50,11 +53,51 @@ const Professional = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setNotification({
-      message: "Thank you for choosing our Professional package! We'll contact you within 24 hours to discuss your project in detail.",
-      type: 'success',
-      isVisible: true
-    });
+    
+    try {
+      await sendEmail(
+        "New Professional Package Inquiry",
+        `
+        PROFESSIONAL PACKAGE INQUIRY
+
+        Contact Information:
+        Name: ${formData.name}
+        Email: ${formData.email}
+        Business Name: ${formData.businessName}
+
+        Project Details:
+        Industry: ${formData.industry}
+        Website Goal: ${formData.websiteGoal}
+        Main Priority: ${formData.mainPriority}
+        Brand Colors: ${formData.brandColors}
+        Target Audience: ${formData.targetAudience}
+
+        Additional Services Requested:
+        - SEO Strategy: ${formData.seoStrategy ? 'Yes' : 'No'}
+        - Content Strategy: ${formData.contentStrategy ? 'Yes' : 'No'}
+        - Analytics Setup: ${formData.analyticsSetup ? 'Yes' : 'No'}
+        - Maintenance Plan: ${formData.maintenancePlan ? 'Yes' : 'No'}
+        `
+      );
+
+      setNotification({
+        message: "Thanks for your interest! We'll reach out within 24 hours to discuss your project.",
+        type: 'success',
+        isVisible: true
+      });
+
+      setTimeout(() => {
+        navigate('/thank-you');
+      }, 2000);
+
+    } catch (error) {
+      console.error(error);
+      setNotification({
+        message: "There was an error submitting your form. Please try again.",
+        type: 'error',
+        isVisible: true
+      });
+    }
   };
 
   // Additional fields specific to Professional tier

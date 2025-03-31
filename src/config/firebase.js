@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { getFirestore, collection, addDoc, query, where, getDocs, serverTimestamp } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC8lb1mKwszvYjjgIU5NXaTjRfS4Nq0Jjs",
@@ -13,27 +13,60 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export const subscribeToNewsletter = async (email) => {
+export const subscribeToNewsletter = async (email, name, unsubscribed = false) => {
   try {
-    // Check if email already exists
-    const q = query(collection(db, "subscribers"), where("email", "==", email));
+    // Check if the email already exists
+    const subscribersRef = collection(db, 'subscribers');
+    const q = query(subscribersRef, where('email', '==', email));
     const querySnapshot = await getDocs(q);
-    
+
     if (!querySnapshot.empty) {
-      return { success: false, message: "This email is already subscribed!" };
+      return {
+        success: false,
+        message: 'This email is already subscribed'
+      };
     }
 
-    // Add new subscriber
-    await addDoc(collection(db, "subscribers"), {
+    // Add new subscriber with email, name, and unsubscribed status
+    await addDoc(subscribersRef, {
       email,
-      dateSubscribed: new Date(),
-      unsubscribed: false
+      name,
+      unsubscribed: false, // Set to false by default
+      dateSubscribed: serverTimestamp()
     });
 
-    return { success: true, message: "Successfully subscribed to newsletter!" };
+    return {
+      success: true,
+      message: 'Successfully subscribed to newsletter!'
+    };
   } catch (error) {
-    console.error("Error subscribing:", error);
-    return { success: false, message: "Failed to subscribe. Please try again." };
+    console.error('Error subscribing to newsletter:', error);
+    return {
+      success: false,
+      message: 'Failed to subscribe. Please try again.'
+    };
+  }
+};
+
+export const unsubscribeFromNewsletter = async (email) => {
+  try {
+    // Check if email exists
+    const q = query(collection(db, "subscribers"), where("email", "==", email));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      return { success: false, message: "This email is not subscribed to the newsletter." };
+    }
+
+    // Update unsubscribed status
+    await updateDoc(querySnapshot.docs[0].ref, {
+      unsubscribed: true
+    });
+
+    return { success: true, message: "Successfully unsubscribed from newsletter!" };
+  } catch (error) {
+    console.error("Error unsubscribing:", error);
+    return { success: false, message: "Failed to unsubscribe. Please try again." };
   }
 };
 

@@ -5,12 +5,13 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Helmet } from 'react-helmet-async';
 import { toast, Toaster } from 'react-hot-toast';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Unsubscribe = () => {
   const [isUnsubscribed, setIsUnsubscribed] = useState(false);
   const [email, setEmail] = useState('');
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Get email from URL parameters if present
@@ -30,11 +31,16 @@ const Unsubscribe = () => {
     }
 
     try {
-      // Here you would add your unsubscribe logic
-      // For example: await unsubscribeFromNewsletter(email);
       
-      setIsUnsubscribed(true);
-      toast.success('Successfully unsubscribed');
+      const result = await unsubscribeFromNewsletter(email);
+      
+      if (result.success) {
+        setIsUnsubscribed(true);
+        toast.success(result.message);
+        navigate('/comeback');
+      } else {
+        toast.error(result.message);
+      }
     } catch (error) {
       toast.error('Failed to unsubscribe. Please try again.');
     }
@@ -49,7 +55,6 @@ const Unsubscribe = () => {
       </Helmet>
       <Toaster position="top-right" />
       <div className="bg-[#0F0F0F] min-h-screen">
-        <Navbar />
 
         <section className="min-h-screen flex items-center justify-center">
           <div className="container mx-auto px-4 sm:px-6 py-12">
@@ -62,10 +67,7 @@ const Unsubscribe = () => {
               {!isUnsubscribed ? (
                 <>
                   <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
-                    We're Sad to See You
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                      {" "}Go
-                    </span>
+                    We're Sad to See You Go
                   </h1>
                   <p className="text-lg text-white/70 mb-8">
                     Before you unsubscribe, know that we've valued having you as part of our community. You'll be missed!
