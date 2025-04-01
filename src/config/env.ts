@@ -1,6 +1,6 @@
 export const config = {
     resend: {
-        apiKey: import.meta.env.VITE_RESEND_API_KEY || "",
+        apiKey: process.env.VITE_RESEND_API_KEY || "",
     },
     email: {
         from: "Contact Form <info@virtara.co.za>",
