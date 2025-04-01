@@ -1,6 +1,4 @@
-const BACKEND_URL = import.meta.env.PROD 
-  ? 'https://virtara-backend.vercel.app' 
-  : 'http://localhost:3000';
+const BACKEND_URL = 'https://virtara-backend.vercel.app' 
 
 const sendEmail = async (subject: string, message: string) => {
     try {

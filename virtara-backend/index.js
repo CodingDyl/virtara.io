@@ -50,6 +50,9 @@ app.post('/api/subscribe', async (req, res) => {
 app.post('/api/send-email', async (req, res) => {
   const { subject, message } = req.body;
   
+  // Add this debug log
+  console.log('API Key present:', !!process.env.RESEND_API_KEY);
+  
   try {
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
