@@ -1,21 +1,25 @@
-import { Resend } from 'resend';
-import { config } from "../config/env";
-
-const resend = new Resend(config.resend.apiKey);
+const BACKEND_URL = import.meta.env.PROD 
+  ? 'https://virtara-backend.vercel.app' 
+  : 'http://localhost:3000';
 
 const sendEmail = async (subject: string, message: string) => {
     try {
-        const { data, error } = await resend.emails.send({
-            from: config.email.from,
-            to: config.email.to,
-            subject: subject,
-            html: message,
+        const response = await fetch(`${BACKEND_URL}/api/send-email`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                subject,
+                message
+            }),
         });
 
-        if (error) {
-            throw error;
+        if (!response.ok) {
+            throw new Error('Failed to send email');
         }
 
+        const data = await response.json();
         return data;
     } catch (error) {
         throw error;
