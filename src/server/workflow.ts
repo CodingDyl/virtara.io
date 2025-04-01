@@ -1,21 +1,25 @@
-import {Client, resend} from "@upstash/qstash";
-import {config} from "../config/env";
+import { Resend } from 'resend';
+import { config } from "../config/env";
 
-const client = new Client({token: config.qstash.token});
+const resend = new Resend(config.resend.apiKey);
 
 const sendEmail = async (subject: string, message: string) => {
-    await client.publishJSON({
-        api: {
-            name: "email",
-            provider: resend({token: config.resend.apiKey})
-        },
-        body: {
+    try {
+        const { data, error } = await resend.emails.send({
             from: config.email.from,
             to: config.email.to,
-            subject,
+            subject: subject,
             html: message,
-        },
-    });
+        });
+
+        if (error) {
+            throw error;
+        }
+
+        return data;
+    } catch (error) {
+        throw error;
+    }
 };
 
 export default sendEmail;

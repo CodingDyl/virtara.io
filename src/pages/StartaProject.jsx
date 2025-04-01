@@ -65,8 +65,6 @@ function StartaProject() {
         Message: ${formData.message}
       `
       );
-
-      console.log(response);
       resetForm();
       setNotification({
         message: "Email sent successfully!",
@@ -178,18 +176,27 @@ function StartaProject() {
                 <div className="space-y-4">
                   <input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
                     placeholder="Your Name"
                     className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#00f2fe]"
                     required
                   />
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     placeholder="Email Address"
                     className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#00f2fe]"
                     required
                   />
                   <input
                     type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
                     placeholder="Phone Number"
                     className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#00f2fe]"
                   />
@@ -199,15 +206,24 @@ function StartaProject() {
                 <div className="space-y-4">
                   <input
                     type="text"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleInputChange}
                     placeholder="Company Name"
                     className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#00f2fe]"
                   />
                   <input
                     type="url"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleInputChange}
                     placeholder="Website (if existing)"
                     className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#00f2fe]"
                   />
                   <select
+                    name="budget"
+                    value={formData.budget}
+                    onChange={handleInputChange}
                     className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:outline-none focus:border-[#00f2fe] appearance-none"
                     required
                   >
@@ -224,6 +240,9 @@ function StartaProject() {
               {/* Service Selection */}
               <div className="space-y-4">
                 <select
+                  name="service"
+                  value={formData.service}
+                  onChange={handleInputChange}
                   className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:outline-none focus:border-[#00f2fe] appearance-none"
                   required
                 >
@@ -240,6 +259,9 @@ function StartaProject() {
                 </select>
 
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   placeholder="Tell us about your project goals and requirements..."
                   rows="6"
                   className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#00f2fe]"
