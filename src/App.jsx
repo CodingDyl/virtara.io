@@ -22,7 +22,8 @@ import Professional from './pages/TailoredRoutes/WebDevelopment/Professional/Pro
 import Enterprise from './pages/TailoredRoutes/WebDevelopment/Enterprise/Enterprise'
 import Unsubscribe from './pages/Unsubscribe'
 import ComeBack from './pages/ComeBack'
-
+import AuditPage from './pages/Resources/Audit/AuditPage'
+import AuditThankYou from './pages/Resources/Audit/AuditThankYou'
 function App() {
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
@@ -47,7 +48,8 @@ function App() {
 
           <Route path="/resources/health-check" element={<HealthCheck />} />
           <Route path="/thank-you" element={<HealthThankYou />} />
-
+          <Route path="/resources/audit" element={<AuditPage />} />
+          <Route path="/resources/audit/thank-you" element={<AuditThankYou />} />
           <Route path="/legal/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/legal/terms-of-service" element={<TermsOfService />} />
           <Route path="/legal/cookie-policy" element={<CookiePolicy />} />  

@@ -70,4 +70,30 @@ export const unsubscribeFromNewsletter = async (email) => {
   }
 };
 
+export const submitAuditBooking = async (bookingData) => {
+  try {
+    const bookedAuditsRef = collection(db, 'bookedAudits');
+    
+    // Add the booking with a server timestamp
+    const docRef = await addDoc(bookedAuditsRef, {
+      ...bookingData,
+      dateTime: `${bookingData.preferredDate} ${bookingData.preferredTime}`,
+      submittedAt: serverTimestamp(),
+      status: 'pending' // You can use this to track the booking status
+    });
+
+    return {
+      success: true,
+      message: 'Audit booking submitted successfully!',
+      bookingId: docRef.id
+    };
+  } catch (error) {
+    console.error('Error submitting audit booking:', error);
+    return {
+      success: false,
+      message: 'Failed to submit booking. Please try again.'
+    };
+  }
+};
+
 export { app, db };
