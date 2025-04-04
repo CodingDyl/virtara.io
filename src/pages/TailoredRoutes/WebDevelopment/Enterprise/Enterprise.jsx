@@ -62,26 +62,36 @@ const Enterprise = () => {
         "New Enterprise Package Inquiry",
         `
         ENTERPRISE PACKAGE INQUIRY
+        <br />
+        <br />
 
         Contact Information: <br />
+        <br />
         Name: ${formData.name} <br />
         Email: ${formData.email} <br />
         Business Name: ${formData.businessName} <br />
+        <br />
 
         Project Details: <br />
+        <br />
         Industry: ${formData.industry} <br />
         Website Goal: ${formData.websiteGoal} <br />
         Main Priority: ${formData.mainPriority} <br />
+        Existing Website: ${formData.existingWebsite} <br />
+        <br />
 
         Technical Requirements: <br />
+        <br />
         Current Infrastructure: ${formData.currentInfrastructure} <br />
         Security Requirements: ${formData.securityRequirements} <br />
         Compliance Needs: ${formData.complianceNeeds} <br />
         Integration Requirements: ${formData.integrationRequirements} <br />
         Expected Monthly Traffic: ${formData.expectedTraffic} <br />
         Global Locations: ${formData.globalLocations} <br />
+        <br />
 
         Enterprise Features Requested: <br />
+        <br />
         - AI Integration: ${formData.aiIntegration ? 'Yes' : 'No'} <br />
         - Data Analytics: ${formData.dataAnalytics ? 'Yes' : 'No'} <br />
         - Custom Dashboard: ${formData.customDashboard ? 'Yes' : 'No'} <br />

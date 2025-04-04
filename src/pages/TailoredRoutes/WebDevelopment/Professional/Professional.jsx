@@ -59,20 +59,27 @@ const Professional = () => {
         "New Professional Package Inquiry",
         `
         PROFESSIONAL PACKAGE INQUIRY
+        <br />
+        <br />
 
         Contact Information: <br />
+        <br />
         Name: ${formData.name} <br />
         Email: ${formData.email} <br />
         Business Name: ${formData.businessName} <br />
+        <br />
 
         Project Details: <br />
+        <br />
         Industry: ${formData.industry} <br />
         Website Goal: ${formData.websiteGoal} <br />
         Main Priority: ${formData.mainPriority} <br />
         Brand Colors: ${formData.brandColors} <br />
         Target Audience: ${formData.targetAudience} <br />
+        <br />
 
         Additional Services Requested: <br />
+        <br />
         - SEO Strategy: ${formData.seoStrategy ? 'Yes' : 'No'} <br />
         - Content Strategy: ${formData.contentStrategy ? 'Yes' : 'No'} <br />
         - Analytics Setup: ${formData.analyticsSetup ? 'Yes' : 'No'} <br />

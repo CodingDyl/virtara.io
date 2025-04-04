@@ -84,19 +84,26 @@ const Starter = () => {
         "New Starter Package Inquiry",
         `
         STARTER PACKAGE INQUIRY
+        <br />
+        <br />
 
         Contact Information: <br />
+        <br />
         Name: ${formData.name} <br />
         Email: ${formData.email} <br />
         Business Name: ${formData.businessName} <br />
+        <br />
 
         Project Details: <br />
+        <br />
         Industry: ${formData.industry} <br />
         Website Goal: ${formData.websiteGoal} <br />
         Main Priority: ${formData.mainPriority} <br />
         Existing Website: ${formData.existingWebsite} <br />
+        <br />
 
         Additional Services Requested: <br />
+        <br />
         - SEO Optimization: ${formData.seoOptimization ? 'Yes' : 'No'} <br />
         - Content Writing: ${formData.contentWriting ? 'Yes' : 'No'} <br />
         - Maintenance: ${formData.maintenance ? 'Yes' : 'No'} <br />
@@ -219,7 +226,7 @@ const Starter = () => {
                     name="industry"
                     value={formData.industry}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
+                    className="w-full px-4 py-3 rounded-lg bg-[#0F0F0F] border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
                     required
                   >
                     <option value="">Select Industry</option>
@@ -238,7 +245,7 @@ const Starter = () => {
                     name="websiteGoal"
                     value={formData.websiteGoal}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
+                    className="w-full px-4 py-3 rounded-lg bg-[#0F0F0F] border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
                     required
                   >
                     <option value="">Select Goal</option>
@@ -253,7 +260,7 @@ const Starter = () => {
                     name="mainPriority"
                     value={formData.mainPriority}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
+                    className="w-full px-4 py-3 rounded-lg bg-[#0F0F0F] border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
                     required
                   >
                     <option value="">Select Priority</option>
