@@ -4,8 +4,10 @@ import { FaArrowRight } from 'react-icons/fa';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 
 const HealthThankYou = () => {
+    const navigate = useNavigate();
   return (
     <>
       <Helmet>
@@ -55,10 +57,10 @@ const HealthThankYou = () => {
                   We'll analyze your site and show you exactly what needs to change to boost conversions.
                 </p>
                 <motion.a
-                  href="https://virtara.co.za/audit" // Replace with your actual payment link
+                  onClick={() => navigate('/resources/audit')}// Replace with your actual payment link
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="inline-block px-8 py-4 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+                  className="inline-block px-8 py-4 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium flex items-center justify-center gap-2 hover:opacity-90 hover:cursor-pointer transition-opacity"
                 >
                   Claim My Audit Now
                   <FaArrowRight />

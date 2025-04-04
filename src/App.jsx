@@ -23,6 +23,8 @@ import Unsubscribe from './pages/Unsubscribe'
 import ComeBack from './pages/ComeBack'
 import AuditPage from './pages/Resources/Audit/AuditPage'
 import AuditThankYou from './pages/Resources/Audit/AuditThankYou'
+import ThankYou from './pages/Resources/StartaProject/ThankYou'
+
 function App() {
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
@@ -45,8 +47,10 @@ function App() {
           <Route path="/maintenance-support" element={<MaintenanceSupport />} />
           <Route path="/start-your-project" element={<StartaProject />} />
 
+          <Route path="/resources/start-a-project/thank-you" element={<ThankYou />} />
+
           <Route path="/resources/health-check" element={<HealthCheck />} />
-          <Route path="/thank-you" element={<HealthThankYou />} />
+          <Route path="/resources/health-check/thank-you" element={<HealthThankYou />} />
           <Route path="/resources/audit" element={<AuditPage />} />
           <Route path="/resources/audit/thank-you" element={<AuditThankYou />} />
           <Route path="/legal/privacy-policy" element={<PrivacyPolicy />} />

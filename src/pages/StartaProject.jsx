@@ -6,6 +6,7 @@ import { useState } from "react";
 import Notification from '../components/Notifications/notification';
 import sendEmail from "../server/workflow";
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 
 
 function StartaProject() {
@@ -25,6 +26,8 @@ function StartaProject() {
     type: '',
     isVisible: false
   });
+
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -52,16 +55,16 @@ function StartaProject() {
     e.preventDefault();
     try {
       const response = await sendEmail(
-        "New Project Inquiry",
+        `Start a Project Request: ${formData.service}`,
         `
-        Name: ${formData.name}
-        Email: ${formData.email}
-        Phone: ${formData.phone}
+        Name: ${formData.name}, <br />
+        Email: ${formData.email}, <br />
+        Phone: ${formData.phone}, <br />
 
-        Company: ${formData.company}
-        Website: ${formData.website}
-        Budget: ${formData.budget}
-        Service: ${formData.service}
+        Company: ${formData.company}, <br />  
+        Website: ${formData.website}, <br />
+        Budget: ${formData.budget}, <br />
+        Service: ${formData.service}, <br />
         Message: ${formData.message}
       `
       );
@@ -71,6 +74,7 @@ function StartaProject() {
         type: "success",
         isVisible: true
       });
+      navigate('/resources/start-a-project/thank-you');
     } catch (error) {
       console.error(error);
       setNotification({
