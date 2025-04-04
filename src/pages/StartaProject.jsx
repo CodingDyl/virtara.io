@@ -68,12 +68,13 @@ function StartaProject() {
         Message: ${formData.message}
       `
       );
+      console.log(response);
       resetForm();
-      setNotification({
-        message: "Email sent successfully!",
-        type: "success",
-        isVisible: true
-      });
+      // setNotification({
+      //   message: "Email sent successfully!",
+      //   type: "success",
+      //   isVisible: true
+      // });
       navigate('/resources/start-a-project/thank-you');
     } catch (error) {
       console.error(error);
