@@ -60,23 +60,23 @@ const Professional = () => {
         `
         PROFESSIONAL PACKAGE INQUIRY
 
-        Contact Information:
-        Name: ${formData.name}
-        Email: ${formData.email}
-        Business Name: ${formData.businessName}
+        Contact Information: <br />
+        Name: ${formData.name} <br />
+        Email: ${formData.email} <br />
+        Business Name: ${formData.businessName} <br />
 
-        Project Details:
-        Industry: ${formData.industry}
-        Website Goal: ${formData.websiteGoal}
-        Main Priority: ${formData.mainPriority}
-        Brand Colors: ${formData.brandColors}
-        Target Audience: ${formData.targetAudience}
+        Project Details: <br />
+        Industry: ${formData.industry} <br />
+        Website Goal: ${formData.websiteGoal} <br />
+        Main Priority: ${formData.mainPriority} <br />
+        Brand Colors: ${formData.brandColors} <br />
+        Target Audience: ${formData.targetAudience} <br />
 
-        Additional Services Requested:
-        - SEO Strategy: ${formData.seoStrategy ? 'Yes' : 'No'}
-        - Content Strategy: ${formData.contentStrategy ? 'Yes' : 'No'}
-        - Analytics Setup: ${formData.analyticsSetup ? 'Yes' : 'No'}
-        - Maintenance Plan: ${formData.maintenancePlan ? 'Yes' : 'No'}
+        Additional Services Requested: <br />
+        - SEO Strategy: ${formData.seoStrategy ? 'Yes' : 'No'} <br />
+        - Content Strategy: ${formData.contentStrategy ? 'Yes' : 'No'} <br />
+        - Analytics Setup: ${formData.analyticsSetup ? 'Yes' : 'No'} <br />
+        - Maintenance Plan: ${formData.maintenancePlan ? 'Yes' : 'No'} <br />
         `
       );
 
@@ -87,7 +87,7 @@ const Professional = () => {
       });
 
       setTimeout(() => {
-        navigate('/thank-you');
+        navigate('/professional/thank-you');
       }, 2000);
 
     } catch (error) {

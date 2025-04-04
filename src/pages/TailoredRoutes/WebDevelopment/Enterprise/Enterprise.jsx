@@ -63,30 +63,30 @@ const Enterprise = () => {
         `
         ENTERPRISE PACKAGE INQUIRY
 
-        Contact Information:
-        Name: ${formData.name}
-        Email: ${formData.email}
-        Business Name: ${formData.businessName}
+        Contact Information: <br />
+        Name: ${formData.name} <br />
+        Email: ${formData.email} <br />
+        Business Name: ${formData.businessName} <br />
 
-        Project Details:
-        Industry: ${formData.industry}
-        Website Goal: ${formData.websiteGoal}
-        Main Priority: ${formData.mainPriority}
+        Project Details: <br />
+        Industry: ${formData.industry} <br />
+        Website Goal: ${formData.websiteGoal} <br />
+        Main Priority: ${formData.mainPriority} <br />
 
-        Technical Requirements:
-        Current Infrastructure: ${formData.currentInfrastructure}
-        Security Requirements: ${formData.securityRequirements}
-        Compliance Needs: ${formData.complianceNeeds}
-        Integration Requirements: ${formData.integrationRequirements}
-        Expected Monthly Traffic: ${formData.expectedTraffic}
-        Global Locations: ${formData.globalLocations}
+        Technical Requirements: <br />
+        Current Infrastructure: ${formData.currentInfrastructure} <br />
+        Security Requirements: ${formData.securityRequirements} <br />
+        Compliance Needs: ${formData.complianceNeeds} <br />
+        Integration Requirements: ${formData.integrationRequirements} <br />
+        Expected Monthly Traffic: ${formData.expectedTraffic} <br />
+        Global Locations: ${formData.globalLocations} <br />
 
-        Enterprise Features Requested:
-        - AI Integration: ${formData.aiIntegration ? 'Yes' : 'No'}
-        - Data Analytics: ${formData.dataAnalytics ? 'Yes' : 'No'}
-        - Custom Dashboard: ${formData.customDashboard ? 'Yes' : 'No'}
-        - Priority Support: ${formData.prioritySupport ? 'Yes' : 'No'}
-        - Deployment Strategy: ${formData.deploymentStrategy ? 'Yes' : 'No'}
+        Enterprise Features Requested: <br />
+        - AI Integration: ${formData.aiIntegration ? 'Yes' : 'No'} <br />
+        - Data Analytics: ${formData.dataAnalytics ? 'Yes' : 'No'} <br />
+        - Custom Dashboard: ${formData.customDashboard ? 'Yes' : 'No'} <br />
+        - Priority Support: ${formData.prioritySupport ? 'Yes' : 'No'} <br />
+        - Deployment Strategy: ${formData.deploymentStrategy ? 'Yes' : 'No'} <br />
         `
       );
 
@@ -97,7 +97,7 @@ const Enterprise = () => {
       });
 
       setTimeout(() => {
-        navigate('/thank-you');
+        navigate('/enterprise/thank-you');
       }, 2000);
 
     } catch (error) {

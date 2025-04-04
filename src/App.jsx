@@ -24,6 +24,9 @@ import ComeBack from './pages/ComeBack'
 import AuditPage from './pages/Resources/Audit/AuditPage'
 import AuditThankYou from './pages/Resources/Audit/AuditThankYou'
 import ThankYou from './pages/Resources/StartaProject/ThankYou'
+import StarterThankYou from './pages/TailoredRoutes/WebDevelopment/Starter/StarterThankYou'
+import ProfThankYou from './pages/TailoredRoutes/WebDevelopment/Professional/ProfThankYou'
+import EntThankYou from './pages/TailoredRoutes/WebDevelopment/Enterprise/EntThankYou'
 
 function App() {
   useEffect(() => {
@@ -58,8 +61,11 @@ function App() {
           <Route path="/legal/cookie-policy" element={<CookiePolicy />} />  
 
           <Route path="/web-development/starter" element={<Starter />} />
+          <Route path="/starter/thank-you" element={<StarterThankYou />} />
           <Route path="/web-development/professional" element={<Professional />} />
+          <Route path="/professional/thank-you" element={<ProfThankYou />} />
           <Route path="/web-development/enterprise" element={<Enterprise />} />
+          <Route path="/enterprise/thank-you" element={<EntThankYou />} />
 
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/comeback" element={<ComeBack />} />

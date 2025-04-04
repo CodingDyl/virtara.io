@@ -85,21 +85,21 @@ const Starter = () => {
         `
         STARTER PACKAGE INQUIRY
 
-        Contact Information:
-        Name: ${formData.name}
-        Email: ${formData.email}
-        Business Name: ${formData.businessName}
+        Contact Information: <br />
+        Name: ${formData.name} <br />
+        Email: ${formData.email} <br />
+        Business Name: ${formData.businessName} <br />
 
-        Project Details:
-        Industry: ${formData.industry}
-        Website Goal: ${formData.websiteGoal}
-        Main Priority: ${formData.mainPriority}
-        Existing Website: ${formData.existingWebsite}
+        Project Details: <br />
+        Industry: ${formData.industry} <br />
+        Website Goal: ${formData.websiteGoal} <br />
+        Main Priority: ${formData.mainPriority} <br />
+        Existing Website: ${formData.existingWebsite} <br />
 
-        Additional Services Requested:
-        - SEO Optimization: ${formData.seoOptimization ? 'Yes' : 'No'}
-        - Content Writing: ${formData.contentWriting ? 'Yes' : 'No'}
-        - Maintenance: ${formData.maintenance ? 'Yes' : 'No'}
+        Additional Services Requested: <br />
+        - SEO Optimization: ${formData.seoOptimization ? 'Yes' : 'No'} <br />
+        - Content Writing: ${formData.contentWriting ? 'Yes' : 'No'} <br />
+        - Maintenance: ${formData.maintenance ? 'Yes' : 'No'} <br />
         `
       );
 
@@ -111,7 +111,7 @@ const Starter = () => {
 
       // Redirect to thank you page after a short delay
       setTimeout(() => {
-        navigate('/thank-you');
+        navigate('/starter/thank-you');
       }, 2000);
 
     } catch (error) {
