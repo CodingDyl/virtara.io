@@ -29,6 +29,7 @@ import ProfThankYou from './pages/TailoredRoutes/WebDevelopment/Professional/Pro
 import EntThankYou from './pages/TailoredRoutes/WebDevelopment/Enterprise/EntThankYou'
 import Seo from './pages/TailoredRoutes/Seo/Seo'
 import SeoThankYou from './pages/TailoredRoutes/Seo/SeoThankYou'
+import CookieConsent from './components/CookieConsent'
 
 function App() {
   useEffect(() => {
@@ -75,6 +76,7 @@ function App() {
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/comeback" element={<ComeBack />} />
         </Routes>
+        <CookieConsent />
       </Router>
     </MantineProvider>
     </HelmetProvider>
