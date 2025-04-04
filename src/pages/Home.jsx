@@ -223,7 +223,7 @@ function Home() {
           </div>
 
           <div className="flex justify-center">
-            <Link to="/portfolio">
+            <Link to="/our-work">
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}

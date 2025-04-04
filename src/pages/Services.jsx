@@ -385,7 +385,8 @@ const Work = () => {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             className="w-full px-6 py-3 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium hover:opacity-90 transition-opacity"
-                          >
+                            onClick={() => navigate('/seo')}
+                            >
                             Get Started
                           </motion.button>
                         </motion.div>
@@ -405,6 +406,7 @@ const Work = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       className="px-8 py-4 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium hover:opacity-90 transition-opacity"
+                      onClick={() => navigate('/seo')}
                     >
                       Ready to Grow your Business?
                     </motion.button>

@@ -27,6 +27,8 @@ import ThankYou from './pages/Resources/StartaProject/ThankYou'
 import StarterThankYou from './pages/TailoredRoutes/WebDevelopment/Starter/StarterThankYou'
 import ProfThankYou from './pages/TailoredRoutes/WebDevelopment/Professional/ProfThankYou'
 import EntThankYou from './pages/TailoredRoutes/WebDevelopment/Enterprise/EntThankYou'
+import Seo from './pages/TailoredRoutes/Seo/Seo'
+import SeoThankYou from './pages/TailoredRoutes/Seo/SeoThankYou'
 
 function App() {
   useEffect(() => {
@@ -66,6 +68,9 @@ function App() {
           <Route path="/professional/thank-you" element={<ProfThankYou />} />
           <Route path="/web-development/enterprise" element={<Enterprise />} />
           <Route path="/enterprise/thank-you" element={<EntThankYou />} />
+
+          <Route path="/seo" element={<Seo />} />
+          <Route path="/seo/thank-you" element={<SeoThankYou />} />
 
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/comeback" element={<ComeBack />} />
