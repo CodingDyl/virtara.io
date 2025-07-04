@@ -9,6 +9,7 @@ import { PinContainer } from "../components/ui/3d-pin";
 import { Link } from 'react-router-dom';
 import { testimonials, projectImages, items } from '../constants';
 import { Helmet } from 'react-helmet-async';
+import Silk from '../components/Silk';
 
 function Home() {
 
@@ -50,16 +51,12 @@ function Home() {
         <div 
           className="absolute inset-0 z-0 bg-[#0F0F0F]"
         >
-          <img
-            src={bg_hero}
-            alt="Background"
-            fetchPriority="high"
-            loading="eager"
-            className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500"
-            onLoad={(e) => e.target.classList.remove('opacity-0')}
-            style={{
-              willChange: 'opacity',
-            }}
+          <Silk
+            speed={5}
+            scale={1}
+            color="#7B7481"
+            noiseIntensity={1.5}
+            rotation={0}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0F0F0F]/90 via-[#0F0F0F]/80 to-[#0F0F0F]" />
         </div>
