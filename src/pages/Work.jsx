@@ -20,7 +20,7 @@ const Work = () => {
         conversion: "+40% Conversion",
         engagement: "+60% Engagement"
       },
-      link: "https://virtecmarketing.com"
+      link: "https://virtec.vercel.app"
     },
     {
       title: "Vaja",
