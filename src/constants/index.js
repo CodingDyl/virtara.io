@@ -118,7 +118,7 @@ import seo_op from "../assets/seo_op.png";
 const projectImages = [
   { 
     image: virtec, 
-    link: "https://virtecmarketing.com",
+    link: "https://virtec.vercel.app",
     title: "Virtec Marketing",
     description: "Strategic digital marketing solutions for modern businesses"
   },
