@@ -85,24 +85,24 @@ const Work = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="max-w-4xl mx-auto text-center mb-8 md:mb-16"
+              className="max-w-4xl mx-auto text-center mb-8 md:mb-16 px-4"
             >
-              <Badge variant="primary" size="lg" className="mb-6">
+              <Badge variant="primary" size="lg" className="mb-4 sm:mb-6">
                 Our Portfolio
               </Badge>
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-4 md:mb-8">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white leading-tight tracking-tight mb-3 sm:mb-4 md:mb-6 lg:mb-8">
                 Our Creative
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
                   {" "}Portfolio
                 </span>
               </h1>
-              <p className="text-base md:text-lg text-white/70 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-3xl mx-auto leading-relaxed px-2">
                 Explore our latest projects and see how we've helped businesses transform their digital presence.
               </p>
             </motion.div>
 
             {/* Projects Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-12 md:mb-20">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12 md:mb-16 lg:mb-20 px-2">
               <AnimatePresence mode='wait'>
                 {projects.map((project, index) => (
                   <motion.div
@@ -117,26 +117,26 @@ const Work = () => {
                         <img 
                           src={project.image} 
                           alt={project.title}
-                          className="w-full h-[200px] sm:h-[250px] lg:h-[300px] object-cover transition-all duration-500 group-hover:scale-110"
+                          className="w-full h-[180px] sm:h-[200px] md:h-[250px] lg:h-[300px] object-cover transition-all duration-500 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
-                          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                            <div className="flex items-center justify-between mb-3">
-                              <Badge variant="outline" size="sm">
+                          <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                            <div className="flex items-center justify-between mb-2 sm:mb-3">
+                              <Badge variant="outline" size="sm" className="text-xs sm:text-sm">
                                 {project.category}
                               </Badge>
-                              <FaExternalLinkAlt className="text-white/70 text-sm" />
+                              <FaExternalLinkAlt className="text-white/70 text-xs sm:text-sm" />
                             </div>
-                            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">{project.title}</h3>
-                            <p className="text-sm sm:text-base text-white/70 mb-3 sm:mb-4">{project.description}</p>
-                            <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
+                            <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1 sm:mb-2">{project.title}</h3>
+                            <p className="text-xs sm:text-sm md:text-base text-white/70 mb-2 sm:mb-3 md:mb-4">{project.description}</p>
+                            <div className="flex flex-wrap gap-1 sm:gap-2 mb-2 sm:mb-3 md:mb-4">
                               {project.technologies.map((tech, i) => (
-                                <span key={i} className="px-2 sm:px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-white/70">
+                                <span key={i} className="px-1 sm:px-2 md:px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">
                                   {tech}
                                 </span>
                               ))}
                             </div>
-                            <div className="grid grid-cols-3 gap-2 mb-4">
+                            <div className="grid grid-cols-3 gap-1 sm:gap-2 mb-3 sm:mb-4">
                               {Object.entries(project.results).map(([key, value]) => (
                                 <div key={key} className="text-center">
                                   <div className="text-[#00f2fe] text-xs font-semibold">{value}</div>
@@ -163,17 +163,17 @@ const Work = () => {
             </div>
 
             {/* Technologies Section */}
-            <div className="mb-12 md:mb-20">
+            <div className="mb-8 sm:mb-12 md:mb-16 lg:mb-20 px-2">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="text-center mb-8 sm:mb-12"
+                className="text-center mb-6 sm:mb-8 md:mb-12"
               >
-                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">Technologies We Use</h2>
-                <p className="text-white/70">Cutting-edge tools and frameworks for modern development</p>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-4">Technologies We Use</h2>
+                <p className="text-sm sm:text-base text-white/70">Cutting-edge tools and frameworks for modern development</p>
               </motion.div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
                 {technologies.map((tech, index) => (
                   <motion.div
                     key={index}
@@ -184,10 +184,10 @@ const Work = () => {
                     <Card variant="glass" className="h-full text-center group" hover={true}>
                       <Card.Content>
                         <tech.Icon 
-                          className="w-8 sm:w-12 h-8 sm:h-12 mb-3 sm:mb-4 mx-auto transition-all duration-300 group-hover:scale-110" 
+                          className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 mb-2 sm:mb-3 md:mb-4 mx-auto transition-all duration-300 group-hover:scale-110" 
                           style={{ color: tech.color }}
                         />
-                        <span className="text-sm sm:text-base text-white/70 group-hover:text-white transition-colors duration-300">
+                        <span className="text-xs sm:text-sm md:text-base text-white/70 group-hover:text-white transition-colors duration-300">
                           {tech.name}
                         </span>
                       </Card.Content>
@@ -202,25 +202,25 @@ const Work = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="mb-12 md:mb-20"
+              className="mb-8 sm:mb-12 md:mb-16 lg:mb-20 px-2"
             >
-              <Card variant="elevated" className="p-8">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+              <Card variant="elevated" className="p-4 sm:p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center">
                   <div>
-                    <div className="text-3xl md:text-4xl font-bold text-[#00f2fe] mb-2">50+</div>
-                    <div className="text-white/70">Projects Completed</div>
+                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#00f2fe] mb-1 sm:mb-2">50+</div>
+                    <div className="text-xs sm:text-sm md:text-base text-white/70">Projects Completed</div>
                   </div>
                   <div>
-                    <div className="text-3xl md:text-4xl font-bold text-[#ff00e5] mb-2">95%</div>
-                    <div className="text-white/70">Client Satisfaction</div>
+                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ff00e5] mb-1 sm:mb-2">95%</div>
+                    <div className="text-xs sm:text-sm md:text-base text-white/70">Client Satisfaction</div>
                   </div>
                   <div>
-                    <div className="text-3xl md:text-4xl font-bold text-[#00f2fe] mb-2">200%</div>
-                    <div className="text-white/70">Average Traffic Increase</div>
+                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#00f2fe] mb-1 sm:mb-2">200%</div>
+                    <div className="text-xs sm:text-sm md:text-base text-white/70">Average Traffic Increase</div>
                   </div>
                   <div>
-                    <div className="text-3xl md:text-4xl font-bold text-[#ff00e5] mb-2">24/7</div>
-                    <div className="text-white/70">Support Available</div>
+                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ff00e5] mb-1 sm:mb-2">24/7</div>
+                    <div className="text-xs sm:text-sm md:text-base text-white/70">Support Available</div>
                   </div>
                 </div>
               </Card>
@@ -231,11 +231,11 @@ const Work = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center"
+              className="text-center px-2"
             >
-              <Card variant="glass" className="p-8">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">Ready to Start Your Project?</h2>
-                <p className="text-white/70 mb-8 max-w-2xl mx-auto">
+              <Card variant="glass" className="p-4 sm:p-6 md:p-8">
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4 md:mb-6">Ready to Start Your Project?</h2>
+                <p className="text-sm sm:text-base text-white/70 mb-6 sm:mb-8 max-w-2xl mx-auto">
                   Let's create something amazing together. Your vision, our expertise.
                 </p>
                 <Link to="/start-your-project">

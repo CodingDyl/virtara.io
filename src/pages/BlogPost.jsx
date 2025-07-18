@@ -111,7 +111,7 @@ const BlogPost = () => {
                 transition={{ duration: 0.8 }}
               >
                 {/* Main Image */}
-                <Card className="relative h-[400px] md:h-[500px] overflow-hidden mb-8">
+                <Card className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden mb-6 sm:mb-8">
                   <img 
                     src={post.mainImage} 
                     alt={post.title}
@@ -120,20 +120,20 @@ const BlogPost = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent" />
                   
                   {/* Action Buttons */}
-                  <div className="absolute top-4 right-4 flex gap-2">
+                  <div className="absolute top-3 sm:top-4 right-3 sm:right-4 flex gap-2">
                     <Button variant="secondary" size="sm" className="bg-white/10 backdrop-blur-sm">
-                      <FaShare className="w-4 h-4" />
+                      <FaShare className="w-3 h-3 sm:w-4 sm:h-4" />
                     </Button>
                     <Button variant="secondary" size="sm" className="bg-white/10 backdrop-blur-sm">
-                      <FaBookmark className="w-4 h-4" />
+                      <FaBookmark className="w-3 h-3 sm:w-4 sm:h-4" />
                     </Button>
                   </div>
                 </Card>
 
                 {/* Meta Information */}
-                <div className="flex flex-wrap items-center gap-4 text-sm text-white/60 mb-6">
-                  <Badge variant="outline" className="flex items-center gap-2">
-                    <FaCalendar className="w-3 h-3" />
+                <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-white/60 mb-4 sm:mb-6">
+                  <Badge variant="outline" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                    <FaCalendar className="w-2 h-2 sm:w-3 sm:h-3" />
                     {new Date(post.publishedAt).toLocaleDateString('en-US', {
                       year: 'numeric',
                       month: 'long',
@@ -141,32 +141,32 @@ const BlogPost = () => {
                     })}
                   </Badge>
                   {post.readTime && (
-                    <Badge variant="outline" className="flex items-center gap-2">
-                      <FaClock className="w-3 h-3" />
+                    <Badge variant="outline" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                      <FaClock className="w-2 h-2 sm:w-3 sm:h-3" />
                       {post.readTime} min read
                     </Badge>
                   )}
                   {post.author && (
-                    <Badge variant="outline">
+                    <Badge variant="outline" className="text-xs sm:text-sm">
                       By {post.author}
                     </Badge>
                   )}
                 </div>
 
                 {/* Title */}
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-4 sm:mb-6">
                   {post.title}
                 </h1>
 
                 {/* Categories */}
                 {post.categories && (
-                  <div className="flex flex-wrap items-center gap-3 mb-8">
-                    <FaTags className="w-4 h-4 text-[#00f2fe]" />
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+                    <FaTags className="w-3 h-3 sm:w-4 sm:h-4 text-[#00f2fe]" />
                     {post.categories.map((category, index) => (
                       <Badge 
                         key={index}
                         variant="secondary"
-                        className="text-sm"
+                        className="text-xs sm:text-sm"
                       >
                         {category}
                       </Badge>
@@ -180,10 +180,10 @@ const BlogPost = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="prose prose-invert prose-lg max-w-none"
+                className="max-w-none"
               >
-                <Card className="p-8 md:p-12 bg-white/5 backdrop-blur-sm">
-                  <div className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-white/80 prose-a:text-[#00f2fe] prose-a:no-underline hover:prose-a:underline prose-strong:text-white prose-code:text-[#00f2fe] prose-code:bg-white/10 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-blockquote:border-l-[#00f2fe] prose-blockquote:bg-white/5 prose-blockquote:p-4 prose-blockquote:rounded-r">
+                <Card className="p-4 sm:p-6 md:p-8 lg:p-12 bg-white/10 backdrop-blur-sm border border-white/20">
+                  <div className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-white prose-a:text-[#00f2fe] prose-strong:text-white prose-code:text-[#00f2fe] prose-code:bg-white/10 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-blockquote:border-l-[#00f2fe] prose-blockquote:bg-white/5 prose-blockquote:p-4 prose-blockquote:rounded-r prose-ul:text-white prose-ol:text-white prose-li:text-white">
                     <PortableText value={post.body} />
                   </div>
                 </Card>
@@ -194,22 +194,22 @@ const BlogPost = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="mt-12"
+                className="mt-8 sm:mt-12"
               >
-                <Card className="p-6 bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm">
+                <Card className="p-4 sm:p-6 bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm">
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Share this article</h3>
-                      <p className="text-sm text-white/70">Help others discover this valuable content</p>
+                    <div className="text-center sm:text-left">
+                      <h3 className="text-base sm:text-lg font-semibold text-white mb-1 sm:mb-2">Share this article</h3>
+                      <p className="text-xs sm:text-sm text-white/70">Help others discover this valuable content</p>
                     </div>
-                    <div className="flex gap-3">
+                    <div className="flex gap-2 sm:gap-3">
                       <Button variant="outline" size="sm">
-                        <FaShare className="w-4 h-4 mr-2" />
-                        Share
+                        <FaShare className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                        <span className="hidden sm:inline">Share</span>
                       </Button>
                       <Button variant="outline" size="sm">
-                        <FaBookmark className="w-4 h-4 mr-2" />
-                        Bookmark
+                        <FaBookmark className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                        <span className="hidden sm:inline">Bookmark</span>
                       </Button>
                     </div>
                   </div>

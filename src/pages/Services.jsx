@@ -148,25 +148,25 @@ const Work = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center mb-16"
+              className="text-center mb-8 sm:mb-12 md:mb-16 px-4"
             >
-              <Badge variant="primary" size="lg" className="mb-6">
+              <Badge variant="primary" size="lg" className="mb-4 sm:mb-6">
                 Our Services
               </Badge>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white leading-tight tracking-tight mb-4 sm:mb-6 md:mb-8">
                 Digital Solutions for
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
                   {" "}Modern Businesses
                 </span>
               </h1>
-              <p className="text-lg text-white/70 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-3xl mx-auto leading-relaxed px-2">
                 Comprehensive digital services designed to elevate your brand and drive real results
               </p>
             </motion.div>
 
             {/* Tab Navigation */}
             <motion.div 
-              className="flex justify-center mb-16"
+              className="flex justify-center mb-8 sm:mb-12 md:mb-16 px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -180,7 +180,7 @@ const Work = () => {
                     window.scrollTo(0, 0);
                     window.location.hash = 'development';
                   }}
-                  className={`px-8 py-3 rounded-full transition-all duration-300 ${
+                  className={`px-4 sm:px-6 md:px-8 py-2 sm:py-3 text-sm sm:text-base rounded-full transition-all duration-300 ${
                     activeTab === 'development' 
                       ? 'bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white shadow-lg shadow-[#00f2fe]/25' 
                       : 'text-white/70 hover:text-white hover:bg-white/10'
@@ -191,7 +191,7 @@ const Work = () => {
                 <a
                   href="#seo"
                   onClick={() => setActiveTab('seo')}
-                  className={`px-8 py-3 rounded-full transition-all duration-300 ${
+                  className={`px-4 sm:px-6 md:px-8 py-2 sm:py-3 text-sm sm:text-base rounded-full transition-all duration-300 ${
                     activeTab === 'seo' 
                       ? 'bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white shadow-lg shadow-[#00f2fe]/25' 
                       : 'text-white/70 hover:text-white hover:bg-white/10'
@@ -230,7 +230,7 @@ const Work = () => {
                   </motion.div>
 
                   {/* Services Section */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16 md:mb-20 px-2">
                     {services.map((service, index) => (
                       <motion.div
                         key={index}
@@ -240,11 +240,11 @@ const Work = () => {
                       >
                         <Card variant="glass" className="h-full text-center group" hover={true}>
                           <Card.Content>
-                            <div className="text-[#00f2fe] group-hover:text-[#ff00e5] transition-colors duration-300 mb-4">
+                            <div className="text-[#00f2fe] group-hover:text-[#ff00e5] transition-colors duration-300 mb-3 sm:mb-4">
                               {service.icon}
                             </div>
-                            <h3 className="text-white text-xl font-semibold mb-2">{service.title}</h3>
-                            <p className="text-white/70">{service.description}</p>
+                            <h3 className="text-white text-lg sm:text-xl font-semibold mb-2">{service.title}</h3>
+                            <p className="text-sm sm:text-base text-white/70">{service.description}</p>
                           </Card.Content>
                         </Card>
                       </motion.div>
@@ -400,11 +400,11 @@ const Work = () => {
                       >
                         <Card variant="glass" className="h-full text-center group" hover={true}>
                           <Card.Content>
-                            <div className="text-[#00f2fe] group-hover:text-[#ff00e5] transition-colors duration-300 mb-4">
+                            <div className="text-[#00f2fe] group-hover:text-[#ff00e5] transition-colors duration-300 mb-3 sm:mb-4">
                               {service.icon}
                             </div>
-                            <h3 className="text-white text-xl font-semibold mb-2">{service.title}</h3>
-                            <p className="text-white/70">{service.description}</p>
+                            <h3 className="text-white text-lg sm:text-xl font-semibold mb-2">{service.title}</h3>
+                            <p className="text-sm sm:text-base text-white/70">{service.description}</p>
                           </Card.Content>
                         </Card>
                       </motion.div>
