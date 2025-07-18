@@ -32,10 +32,12 @@ export const AnimatedTestimonials = ({
   const randomRotateY = () => {
     return Math.floor(Math.random() * 21) - 10;
   };
+
   return (
     <div className="max-w-sm md:max-w-4xl mx-auto antialiased font-sans px-4 md:px-8 lg:px-12 py-20">
-      <div className="relative grid grid-cols-1 md:grid-cols-2  gap-20">
-        <div>
+      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-20">
+        {/* Image Section */}
+        <div className="relative">
           <div className="relative h-80 w-full">
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
@@ -69,20 +71,52 @@ export const AnimatedTestimonials = ({
                   }}
                   className="absolute inset-0 origin-bottom"
                 >
-                  <Image
-                    src={testimonial.src}
-                    alt={testimonial.name}
-                    loading="lazy"
-                    width={500}
-                    height={500}
-                    draggable={false}
-                    className="h-full w-full rounded-3xl object-cover object-center"
-                  />
+                  <div className="relative h-full w-full rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+                    <Image
+                      src={testimonial.src}
+                      alt={testimonial.name}
+                      loading="lazy"
+                      width={500}
+                      height={500}
+                      draggable={false}
+                      className="h-full w-full object-cover object-center"
+                    />
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                    
+                    {/* Active indicator */}
+                    {isActive(index) && (
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="absolute top-4 right-4 w-3 h-3 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] rounded-full"
+                      />
+                    )}
+                  </div>
                 </motion.div>
               ))}
             </AnimatePresence>
           </div>
+          
+          {/* Progress indicator */}
+          <div className="flex justify-center mt-6 space-x-2">
+            {testimonials.map((_, index) => (
+              <motion.button
+                key={index}
+                onClick={() => setActive(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  isActive(index) 
+                    ? 'bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] w-8' 
+                    : 'bg-white/30 hover:bg-white/50'
+                }`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+              />
+            ))}
+          </div>
         </div>
+
+        {/* Content Section */}
         <div className="flex justify-between flex-col py-4">
           <motion.div
             key={active}
@@ -99,17 +133,23 @@ export const AnimatedTestimonials = ({
               opacity: 0,
             }}
             transition={{
-              duration: 0.2,
+              duration: 0.3,
               ease: "easeInOut",
             }}
+            className="space-y-6"
           >
-            <h3 className="text-2xl font-bold dark:text-white text-black">
-              {testimonials[active].name}
-            </h3>
-            <p className="text-sm text-gray-500 dark:text-neutral-500">
-              {testimonials[active].designation}
-            </p>
-            <motion.p className="text-lg text-gray-500 mt-8 dark:text-neutral-300">
+            {/* Quote icon */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+              className="text-4xl text-[#00f2fe]/30"
+            >
+              "
+            </motion.div>
+
+            {/* Quote text */}
+            <motion.p className="text-lg text-gray-300 leading-relaxed">
               {testimonials[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}
@@ -134,20 +174,41 @@ export const AnimatedTestimonials = ({
                 </motion.span>
               ))}
             </motion.p>
+
+            {/* Author info */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+              className="space-y-2"
+            >
+              <h3 className="text-xl font-bold text-white">
+                {testimonials[active].name}
+              </h3>
+              <p className="text-sm text-[#00f2fe] font-medium">
+                {testimonials[active].designation}
+              </p>
+            </motion.div>
           </motion.div>
-          <div className="flex gap-4 pt-12 md:pt-0">
-            <button
+
+          {/* Navigation buttons */}
+          <div className="flex gap-4 pt-12 md:pt-8">
+            <motion.button
               onClick={handlePrev}
-              className="h-7 w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
+              whileHover={{ scale: 1.1, backgroundColor: "rgba(0, 242, 254, 0.2)" }}
+              whileTap={{ scale: 0.9 }}
+              className="h-12 w-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group/button transition-all duration-300"
             >
-              <IconArrowLeft className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:rotate-12 transition-transform duration-300" />
-            </button>
-            <button
+              <IconArrowLeft className="h-5 w-5 text-white group-hover/button:text-[#00f2fe] transition-colors duration-300" />
+            </motion.button>
+            <motion.button
               onClick={handleNext}
-              className="h-7 w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
+              whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 0, 229, 0.2)" }}
+              whileTap={{ scale: 0.9 }}
+              className="h-12 w-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group/button transition-all duration-300"
             >
-              <IconArrowRight className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:-rotate-12 transition-transform duration-300" />
-            </button>
+              <IconArrowRight className="h-5 w-5 text-white group-hover/button:text-[#ff00e5] transition-colors duration-300" />
+            </motion.button>
           </div>
         </div>
       </div>

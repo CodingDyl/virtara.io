@@ -42,7 +42,6 @@ function App() {
     <HelmetProvider>
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <Router>
-        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact-us" element={<Contact />} />
@@ -76,6 +75,7 @@ function App() {
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/comeback" element={<ComeBack />} />
         </Routes>
+        <ScrollToTop />
         <CookieConsent />
       </Router>
     </MantineProvider>

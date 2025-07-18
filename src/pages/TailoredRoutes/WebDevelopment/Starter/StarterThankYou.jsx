@@ -1,134 +1,150 @@
-import React, { useState } from 'react';
-import { motion } from "framer-motion";
-import { FaArrowRight } from 'react-icons/fa';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FaCheckCircle, FaArrowRight, FaCalendarAlt, FaFileAlt, FaChartLine, FaHome } from 'react-icons/fa';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Badge from '../../../../components/ui/Badge';
+import Card from '../../../../components/ui/Card';
+import Button from '../../../../components/ui/Button';
 import { Helmet } from 'react-helmet-async';
-import { subscribeToNewsletter } from '../../../../config/firebase';
 
 const StarterThankYou = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    name: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const navigate = useNavigate();
-
-  const handleSubscribe = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      await subscribeToNewsletter(formData.email, formData.name, false);
-      setIsSuccess(true);
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
-      setIsSubmitting(false);
+  const nextSteps = [
+    {
+      icon: <FaCalendarAlt className="w-6 h-6" />,
+      title: "Schedule Your Consultation",
+      description: "We'll be reaching out within 24 hours to schedule your free project consultation."
+    },
+    {
+      icon: <FaFileAlt className="w-6 h-6" />,
+      title: "Project Planning",
+      description: "Our team will analyze your requirements and create a detailed project roadmap."
+    },
+    {
+      icon: <FaChartLine className="w-6 h-6" />,
+      title: "Design & Development",
+      description: "We'll start building your website with regular updates and feedback sessions."
     }
-  };
+  ];
 
   return (
-    <div className="bg-[#0F0F0F] min-h-screen">
+    <>
       <Helmet>
-        <title>Thank You - Starter Package | Virtara</title>
-        <meta name="description" content="Thank you for choosing our Starter Package. While you wait, get our free guide to launching your first website." />
+        <title>Thank You | Starter Package | Virtara</title>
+        <meta name="description" content="Thank you for choosing our Starter Website Package. We'll be in touch within 24 hours to discuss your project." />
+        <link rel="canonical" href="https://virtara.co.za/web-development/starter/thank-you" />
       </Helmet>
+      <div className="bg-[#0F0F0F] min-h-screen">
+        <Navbar />
 
-      <Navbar />
-
-      <section className="min-h-screen pt-32 md:pt-40 pb-12">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
+        <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">
+          <div className="container mx-auto px-4 sm:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center mb-12"
+              className="max-w-4xl mx-auto text-center"
             >
-              <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white leading-tight tracking-tight mb-6">
-                Welcome to Your
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]"> Website Journey</span>
-              </h1>
-              <p className="text-xl text-white/70 mb-8">
-                Thanks for choosing our Starter Package. We'll contact you within 24 hours to begin your project.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="bg-white/5 p-8 rounded-2xl border border-white/10 mb-12"
-            >
-              <h2 className="text-2xl font-bold text-white mb-4">
-                Get Started With Our Free Guide
-              </h2>
-              <p className="text-white/70 mb-6">
-                Download our "First-Time Website Launch Checklist" to prepare for your upcoming website project.
-              </p>
-
-              {!isSuccess ? (
-                <form onSubmit={handleSubscribe} className="space-y-4">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <input
-                      type="text"
-                      placeholder="Your Name"
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-[#00f2fe]"
-                      value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    />
-                    <input
-                      type="email"
-                      placeholder="Your Email"
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-[#00f2fe]"
-                      value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    />
-                  </div>
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
-                  >
-                    {isSubmitting ? 'Sending...' : (
-                      <>
-                        Get Free Guide
-                        <FaArrowRight />
-                      </>
-                    )}
-                  </motion.button>
-                </form>
-              ) : (
-                <div className="text-white text-center p-4">
-                  Check your email for your free guide!
+              {/* Success Message */}
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="mb-8"
+              >
+                <div className="w-24 h-24 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] rounded-full flex items-center justify-center mx-auto mb-6">
+                  <FaCheckCircle className="w-12 h-12 text-white" />
                 </div>
-              )}
-            </motion.div>
+                <Badge variant="outline" className="mb-4">
+                  Submission Successful
+                </Badge>
+              </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-center"
-            >
-              <p className="text-white/70">
-                Have questions? Email us at{' '}
-                <a href="mailto:info@virtara.co.za" className="text-[#00f2fe] hover:underline">
-                  info@virtara.co.za
-                </a>
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-4 md:mb-8">
+                Thank You for
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+                  {" "}Choosing Us!
+                </span>
+              </h1>
+              
+              <p className="text-lg text-white/70 max-w-2xl mx-auto mb-12">
+                We're excited to help you bring your vision to life with our Starter Website Package.
               </p>
+
+              {/* Next Steps */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
+              >
+                {nextSteps.map((step, index) => (
+                  <Card key={index} className="text-center p-6 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm">
+                    <div className="flex justify-center mb-4">
+                      <div className="w-12 h-12 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] rounded-full flex items-center justify-center text-white">
+                        {step.icon}
+                      </div>
+                    </div>
+                    <h3 className="text-lg font-semibold text-white mb-2">
+                      {step.title}
+                    </h3>
+                    <p className="text-sm text-white/70">
+                      {step.description}
+                    </p>
+                  </Card>
+                ))}
+              </motion.div>
+
+              {/* Additional Resources */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="mb-12"
+              >
+                <Card className="p-8 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm">
+                  <h2 className="text-2xl font-bold text-white mb-4">
+                    While You Wait
+                  </h2>
+                  <p className="text-white/70 mb-6 max-w-2xl mx-auto">
+                    Check out these resources to learn more about our web development process:
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Button variant="outline" size="lg">
+                      Our Process
+                      <FaArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                    <Button variant="outline" size="lg">
+                      Portfolio
+                      <FaArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </div>
+                </Card>
+              </motion.div>
+
+              {/* Return to Home */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                <Button 
+                  variant="ghost" 
+                  onClick={() => window.location.href = '/'}
+                  className="group"
+                >
+                  <FaHome className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
+                  Return to Homepage
+                </Button>
+              </motion.div>
             </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 

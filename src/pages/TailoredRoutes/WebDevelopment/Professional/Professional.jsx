@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
+import { Link, useNavigate } from 'react-router-dom';
 import Notification from '../../../../components/Notifications/notification';
-import WebDevForm from '../components/WebDevForm';
 import sendEmail from "../../../../server/workflow";
-import { useNavigate } from 'react-router-dom';
+import WebDevForm from '../components/WebDevForm';
+import { Helmet } from 'react-helmet-async';
 
 const Professional = () => {
   const navigate = useNavigate();
@@ -17,15 +20,9 @@ const Professional = () => {
     existingWebsite: '',
     websiteGoal: '',
     mainPriority: '',
-    brandColors: '',
-    targetAudience: '',
-    competitors: '',
-    desiredFeatures: [],
-    customIntegrations: [],
-    seoStrategy: false,
-    contentStrategy: false,
-    analyticsSetup: false,
-    maintenancePlan: false
+    seoOptimization: false,
+    contentWriting: false,
+    maintenance: false
   });
 
   const [notification, setNotification] = useState({
@@ -34,18 +31,13 @@ const Professional = () => {
     isVisible: false
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     
     if (type === 'checkbox') {
-      if (name === 'desiredFeatures' || name === 'customIntegrations') {
-        const updatedArray = checked
-          ? [...formData[name], value]
-          : formData[name].filter(item => item !== value);
-        setFormData(prev => ({ ...prev, [name]: updatedArray }));
-      } else {
-        setFormData(prev => ({ ...prev, [name]: checked }));
-      }
+      setFormData(prev => ({ ...prev, [name]: checked }));
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
@@ -53,6 +45,7 @@ const Professional = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
     try {
       await sendEmail(
@@ -74,16 +67,14 @@ const Professional = () => {
         Industry: ${formData.industry} <br />
         Website Goal: ${formData.websiteGoal} <br />
         Main Priority: ${formData.mainPriority} <br />
-        Brand Colors: ${formData.brandColors} <br />
-        Target Audience: ${formData.targetAudience} <br />
+        Existing Website: ${formData.existingWebsite} <br />
         <br />
 
         Additional Services Requested: <br />
         <br />
-        - SEO Strategy: ${formData.seoStrategy ? 'Yes' : 'No'} <br />
-        - Content Strategy: ${formData.contentStrategy ? 'Yes' : 'No'} <br />
-        - Analytics Setup: ${formData.analyticsSetup ? 'Yes' : 'No'} <br />
-        - Maintenance Plan: ${formData.maintenancePlan ? 'Yes' : 'No'} <br />
+        - SEO Optimization: ${formData.seoOptimization ? 'Yes' : 'No'} <br />
+        - Content Writing: ${formData.contentWriting ? 'Yes' : 'No'} <br />
+        - Maintenance: ${formData.maintenance ? 'Yes' : 'No'} <br />
         `
       );
 
@@ -93,6 +84,7 @@ const Professional = () => {
         isVisible: true
       });
 
+      // Redirect to thank you page after a short delay
       setTimeout(() => {
         navigate('/professional/thank-you');
       }, 2000);
@@ -104,61 +96,43 @@ const Professional = () => {
         type: 'error',
         isVisible: true
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  // Additional fields specific to Professional tier
-  const additionalFields = (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      <div>
-        <label className="block text-white/70 mb-2">Brand Colors</label>
-        <input
-          type="text"
-          name="brandColors"
-          value={formData.brandColors}
-          onChange={handleInputChange}
-          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
-          placeholder="e.g., #FF0000, #00FF00"
-        />
-      </div>
-      <div>
-        <label className="block text-white/70 mb-2">Target Audience</label>
-        <input
-          type="text"
-          name="targetAudience"
-          value={formData.targetAudience}
-          onChange={handleInputChange}
-          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
-          placeholder="Describe your ideal customer"
-        />
-      </div>
-    </div>
-  );
-
   return (
-    <div className="bg-[#0F0F0F] min-h-screen">
-      <Navbar />
-      <Notification
-        message={notification.message}
-        type={notification.type}
-        isVisible={notification.isVisible}
-        onClose={() => setNotification(prev => ({ ...prev, isVisible: false }))}
-      />
+    <>
+      <Helmet>
+        <title>Professional Website Package | Web Development | Virtara</title>
+        <meta name="description" content="Get our Professional Website Package. Perfect for businesses requiring advanced functionality and custom features." />
+        <meta name="keywords" content="professional website package, web development, business website, custom features" />
+        <link rel="canonical" href="https://virtara.co.za/web-development/professional" />
+      </Helmet>
+      <div className="bg-[#0F0F0F] min-h-screen">
+        <Navbar />
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          isVisible={notification.isVisible}
+          onClose={() => setNotification(prev => ({ ...prev, isVisible: false }))}
+        />
 
-      <section className="min-h-screen pt-32 md:pt-24 lg:pt-32 pb-12 md:pb-16 lg:pb-20">
-        <div className="container mx-auto px-4 sm:px-6">
-          <WebDevForm
-            tier="Professional"
-            formData={formData}
-            handleInputChange={handleInputChange}
-            handleSubmit={handleSubmit}
-            additionalFields={additionalFields}
-          />
-        </div>
-      </section>
+        <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">
+          <div className="container mx-auto px-4 sm:px-6">
+            <WebDevForm
+              tier="Professional"
+              formData={formData}
+              handleInputChange={handleInputChange}
+              handleSubmit={handleSubmit}
+              isSubmitting={isSubmitting}
+            />
+          </div>
+        </section>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 

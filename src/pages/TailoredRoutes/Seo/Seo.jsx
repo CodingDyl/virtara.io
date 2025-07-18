@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaArrowLeft, FaArrowRight, FaSearch, FaChartLine } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight, FaSearch, FaChartLine, FaGlobe, FaBuilding, FaEnvelope, FaPhone, FaBullseye, FaUsers, FaCheck } from 'react-icons/fa';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { Link, useNavigate } from 'react-router-dom';
 import Notification from '../../../components/Notifications/notification';
 import sendEmail from "../../../server/workflow";
+import Badge from '../../../components/ui/Badge';
+import Card from '../../../components/ui/Card';
+import Button from '../../../components/ui/Button';
+import LoadingSpinner from '../../../components/ui/LoadingSpinner';
+import { Helmet } from 'react-helmet-async';
 
 const Seo = () => {
   const navigate = useNavigate();
@@ -33,6 +38,8 @@ const Seo = () => {
     isVisible: false
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const industries = [
     'Retail',
     'Services',
@@ -53,6 +60,29 @@ const Seo = () => {
     'Other'
   ];
 
+  const seoBenefits = [
+    {
+      icon: <FaChartLine className="w-6 h-6" />,
+      title: "Increase Organic Traffic",
+      description: "Drive more qualified visitors to your website without paid advertising"
+    },
+    {
+      icon: <FaSearch className="w-6 h-6" />,
+      title: "Better Search Visibility",
+      description: "Appear in front of customers actively searching for your services"
+    },
+    {
+      icon: <FaBullseye className="w-6 h-6" />,
+      title: "Targeted Audience",
+      description: "Reach the right people at the right time with strategic keyword targeting"
+    },
+    {
+      icon: <FaUsers className="w-6 h-6" />,
+      title: "Build Authority",
+      description: "Establish your brand as a trusted leader in your industry"
+    }
+  ];
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -63,6 +93,7 @@ const Seo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
     try {
       await sendEmail(
@@ -116,243 +147,321 @@ const Seo = () => {
         type: 'error',
         isVisible: true
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="bg-[#0F0F0F] min-h-screen">
-      <Navbar />
-      <Notification
-        message={notification.message}
-        type={notification.type}
-        isVisible={notification.isVisible}
-        onClose={() => setNotification(prev => ({ ...prev, isVisible: false }))}
-      />
+    <>
+      <Helmet>
+        <title>SEO Services | Boost Your Search Rankings | Virtara</title>
+        <meta name="description" content="Get found by more customers with our proven SEO strategies. Boost your search rankings and drive organic traffic to your website." />
+        <meta name="keywords" content="SEO services, search engine optimization, organic traffic, keyword ranking, local SEO" />
+        <link rel="canonical" href="https://virtara.co.za/seo" />
+      </Helmet>
+      <div className="bg-[#0F0F0F] min-h-screen">
+        <Navbar />
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          isVisible={notification.isVisible}
+          onClose={() => setNotification(prev => ({ ...prev, isVisible: false }))}
+        />
 
-      <section className="min-h-screen pt-32 md:pt-24 lg:pt-32 pb-12 md:pb-16 lg:pb-20">
-        <div className="container mx-auto px-4 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto"
-          >
-            {/* Header */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight tracking-tight mb-4">
-              Boost Your
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                {" "}Search Rankings
-              </span>
-            </h1>
-            <p className="text-lg text-white/70 mb-8">
-              Get found by more customers with our proven SEO strategies
-            </p>
+        <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">
+          <div className="container mx-auto px-4 sm:px-6">
+            {/* Hero Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="max-w-4xl mx-auto text-center mb-16"
+            >
+              <div className="flex justify-center mb-6">
+                <Badge variant="outline" className="text-sm">
+                  <FaSearch className="w-4 h-4 mr-2" />
+                  SEO Services
+                </Badge>
+              </div>
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-4 md:mb-8">
+                Boost Your
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+                  {" "}Search Rankings
+                </span>
+              </h1>
+              <p className="text-lg text-white/70 max-w-2xl mx-auto">
+                Get found by more customers with our proven SEO strategies
+              </p>
+            </motion.div>
 
             {/* SEO Benefits Section */}
-            <div className="bg-white/5 p-6 rounded-xl mb-8">
-              <h2 className="text-xl text-white font-semibold mb-4">
-                Why SEO Matters for Your Business
-              </h2>
-              <ul className="space-y-3 text-white/70">
-                <li className="flex items-center gap-2">
-                  <FaChartLine className="text-[#00f2fe]" />
-                  Increase organic traffic and reduce paid advertising costs
-                </li>
-                <li className="flex items-center gap-2">
-                  <FaSearch className="text-[#00f2fe]" />
-                  Appear in front of customers actively searching for your services
-                </li>
-                <li className="flex items-center gap-2">
-                  <FaChartLine className="text-[#00f2fe]" />
-                  Build long-term sustainable growth and brand authority
-                </li>
-              </ul>
-            </div>
-
-            {/* Form */}
-            <motion.form
-              onSubmit={handleSubmit}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="space-y-6"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
             >
-              {/* Contact Information */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-white/70 mb-2">Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-white/70 mb-2">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
-                    required
-                  />
-                </div>
-              </div>
+              {seoBenefits.map((benefit, index) => (
+                <Card key={index} className="text-center p-6 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm">
+                  <div className="flex justify-center mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] rounded-full flex items-center justify-center text-white">
+                      {benefit.icon}
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-2">{benefit.title}</h3>
+                  <p className="text-sm text-white/70">{benefit.description}</p>
+                </Card>
+              ))}
+            </motion.div>
 
-              {/* Business Information */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-white/70 mb-2">Business Name</label>
-                  <input
-                    type="text"
-                    name="businessName"
-                    value={formData.businessName}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
-                    required
-                  />
+            {/* Form Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="max-w-4xl mx-auto"
+            >
+              <Card className="p-8 md:p-12 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm">
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Get Your Free SEO Analysis</h2>
+                  <p className="text-white/70">Tell us about your business and we'll create a customized SEO strategy</p>
                 </div>
-                <div>
-                  <label className="block text-white/70 mb-2">Industry</label>
-                  <select
-                    name="industry"
-                    value={formData.industry}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg bg-[#0F0F0F] border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
-                    required
-                  >
-                    <option value="">Select Industry</option>
-                    {industries.map(industry => (
-                      <option key={industry} value={industry}>{industry}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
 
-              {/* Website & Location */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-white/70 mb-2">Current Website URL</label>
-                  <input
-                    type="url"
-                    name="currentWebsite"
-                    value={formData.currentWebsite}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
-                    placeholder="https://"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-white/70 mb-2">Target Location</label>
-                  <input
-                    type="text"
-                    name="targetLocation"
-                    value={formData.targetLocation}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
-                    placeholder="City, Country or Global"
-                    required
-                  />
-                </div>
-              </div>
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  {/* Contact Information */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-white/80 mb-2">Full Name *</label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          placeholder="Your Name"
+                          className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-white/80 mb-2">Email Address *</label>
+                      <div className="relative">
+                        <FaEnvelope className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-4 h-4" />
+                        <input
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          placeholder="your@email.com"
+                          className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-              {/* SEO Specifics */}
-              <div className="grid grid-cols-1 gap-6">
-                <div>
-                  <label className="block text-white/70 mb-2">Main Competitors (Optional)</label>
-                  <textarea
-                    name="mainCompetitors"
-                    value={formData.mainCompetitors}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
-                    rows="2"
-                    placeholder="List your main competitors' websites"
-                  />
-                </div>
-                <div>
-                  <label className="block text-white/70 mb-2">Target Keywords (Optional)</label>
-                  <textarea
-                    name="targetKeywords"
-                    value={formData.targetKeywords}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
-                    rows="2"
-                    placeholder="What keywords would you like to rank for?"
-                  />
-                </div>
-              </div>
+                  {/* Business Information */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-white/80 mb-2">Phone Number</label>
+                      <div className="relative">
+                        <FaPhone className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-4 h-4" />
+                        <input
+                          type="tel"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          placeholder="+27 (0) 12 345 6789"
+                          className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-white/80 mb-2">Business Name *</label>
+                      <div className="relative">
+                        <FaBuilding className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-4 h-4" />
+                        <input
+                          type="text"
+                          name="businessName"
+                          value={formData.businessName}
+                          onChange={handleInputChange}
+                          placeholder="Your Business Name"
+                          className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-              {/* Additional Services */}
-              <div className="bg-white/5 p-6 rounded-xl">
-                <h3 className="text-white font-semibold mb-4">Additional Services</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <label className="flex items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      name="contentCreation"
-                      checked={formData.contentCreation}
-                      onChange={handleInputChange}
-                      className="form-checkbox text-[#00f2fe]"
-                    />
-                    <span className="text-white/70">Content Creation</span>
-                  </label>
-                  <label className="flex items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      name="localSEO"
-                      checked={formData.localSEO}
-                      onChange={handleInputChange}
-                      className="form-checkbox text-[#00f2fe]"
-                    />
-                    <span className="text-white/70">Local SEO</span>
-                  </label>
-                  <label className="flex items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      name="technicalSEO"
-                      checked={formData.technicalSEO}
-                      onChange={handleInputChange}
-                      className="form-checkbox text-[#00f2fe]"
-                    />
-                    <span className="text-white/70">Technical SEO</span>
-                  </label>
-                  <label className="flex items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      name="linkBuilding"
-                      checked={formData.linkBuilding}
-                      onChange={handleInputChange}
-                      className="form-checkbox text-[#00f2fe]"
-                    />
-                    <span className="text-white/70">Link Building</span>
-                  </label>
-                </div>
-              </div>
+                  {/* Industry & Website */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-white/80 mb-2">Industry *</label>
+                      <select
+                        name="industry"
+                        value={formData.industry}
+                        onChange={handleInputChange}
+                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 appearance-none"
+                        required
+                      >
+                        <option value="">Select Industry</option>
+                        {industries.map(industry => (
+                          <option key={industry} value={industry} className="bg-[#0F0F0F]">{industry}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-white/80 mb-2">Current Website URL *</label>
+                      <div className="relative">
+                        <FaGlobe className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-4 h-4" />
+                        <input
+                          type="url"
+                          name="currentWebsite"
+                          value={formData.currentWebsite}
+                          onChange={handleInputChange}
+                          placeholder="https://yourwebsite.com"
+                          className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-              {/* Submit Button */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  type="submit"
-                  className="px-8 py-4 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
-                >
-                  Get Your Free SEO Analysis
-                  <FaArrowRight />
-                </motion.button>
-              </div>
-            </motion.form>
-          </motion.div>
-        </div>
-      </section>
+                  {/* Location & Goals */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-white/80 mb-2">Target Location *</label>
+                      <input
+                        type="text"
+                        name="targetLocation"
+                        value={formData.targetLocation}
+                        onChange={handleInputChange}
+                        placeholder="City, Country or Global"
+                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-white/80 mb-2">Business Goals</label>
+                      <select
+                        name="businessGoals"
+                        value={formData.businessGoals}
+                        onChange={handleInputChange}
+                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 appearance-none"
+                      >
+                        <option value="">Select Primary Goal</option>
+                        {businessGoals.map(goal => (
+                          <option key={goal} value={goal} className="bg-[#0F0F0F]">{goal}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
 
-      <Footer />
-    </div>
+                  {/* SEO Specifics */}
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-white/80 mb-2">Main Competitors (Optional)</label>
+                      <textarea
+                        name="mainCompetitors"
+                        value={formData.mainCompetitors}
+                        onChange={handleInputChange}
+                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 resize-none"
+                        rows="3"
+                        placeholder="List your main competitors' websites"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-white/80 mb-2">Target Keywords (Optional)</label>
+                      <textarea
+                        name="targetKeywords"
+                        value={formData.targetKeywords}
+                        onChange={handleInputChange}
+                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 resize-none"
+                        rows="3"
+                        placeholder="What keywords would you like to rank for?"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Additional Services */}
+                  <Card className="p-6 bg-white/5">
+                    <h3 className="text-lg font-semibold text-white mb-4">Additional Services</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <label className="flex items-center space-x-3 cursor-pointer group">
+                        <input
+                          type="checkbox"
+                          name="contentCreation"
+                          checked={formData.contentCreation}
+                          onChange={handleInputChange}
+                          className="w-4 h-4 text-[#00f2fe] bg-white/5 border-white/10 rounded focus:ring-[#00f2fe] focus:ring-2"
+                        />
+                        <span className="text-white/70 group-hover:text-white transition-colors">Content Creation</span>
+                      </label>
+                      <label className="flex items-center space-x-3 cursor-pointer group">
+                        <input
+                          type="checkbox"
+                          name="localSEO"
+                          checked={formData.localSEO}
+                          onChange={handleInputChange}
+                          className="w-4 h-4 text-[#00f2fe] bg-white/5 border-white/10 rounded focus:ring-[#00f2fe] focus:ring-2"
+                        />
+                        <span className="text-white/70 group-hover:text-white transition-colors">Local SEO</span>
+                      </label>
+                      <label className="flex items-center space-x-3 cursor-pointer group">
+                        <input
+                          type="checkbox"
+                          name="technicalSEO"
+                          checked={formData.technicalSEO}
+                          onChange={handleInputChange}
+                          className="w-4 h-4 text-[#00f2fe] bg-white/5 border-white/10 rounded focus:ring-[#00f2fe] focus:ring-2"
+                        />
+                        <span className="text-white/70 group-hover:text-white transition-colors">Technical SEO</span>
+                      </label>
+                      <label className="flex items-center space-x-3 cursor-pointer group">
+                        <input
+                          type="checkbox"
+                          name="linkBuilding"
+                          checked={formData.linkBuilding}
+                          onChange={handleInputChange}
+                          className="w-4 h-4 text-[#00f2fe] bg-white/5 border-white/10 rounded focus:ring-[#00f2fe] focus:ring-2"
+                        />
+                        <span className="text-white/70 group-hover:text-white transition-colors">Link Building</span>
+                      </label>
+                    </div>
+                  </Card>
+
+                  {/* Submit Button */}
+                  <div className="flex justify-center">
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      size="lg"
+                      className="px-12 py-4 group"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <LoadingSpinner size="sm" className="mr-2" />
+                          Submitting...
+                        </>
+                      ) : (
+                        <>
+                          Get Your Free SEO Analysis
+                          <FaArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </form>
+              </Card>
+            </motion.div>
+          </div>
+        </section>
+
+        <Footer />
+      </div>
+    </>
   );
 };
 

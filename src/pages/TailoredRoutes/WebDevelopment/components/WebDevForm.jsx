@@ -1,17 +1,48 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight, FaEnvelope, FaBuilding, FaGlobe, FaCog, FaCheck } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { formIndustries, formWebsiteGoals, formPriorities } from '../../../../constants';
+import Badge from '../../../../components/ui/Badge';
+import Card from '../../../../components/ui/Card';
+import Button from '../../../../components/ui/Button';
+import LoadingSpinner from '../../../../components/ui/LoadingSpinner';
 
 const WebDevForm = ({ 
   tier, 
   formData, 
   handleInputChange, 
   handleSubmit,
-  additionalFields = []
+  additionalFields = [],
+  isSubmitting = false
 }) => {
   const getTierData = (dataObject) => dataObject[tier.toLowerCase()] || dataObject.starter;
+
+  const packageFeatures = {
+    starter: [
+      "Custom Design",
+      "Mobile Responsive",
+      "4 Pages",
+      "Contact Form",
+      "Basic SEO"
+    ],
+    professional: [
+      "Everything in Starter",
+      "E-Commerce Integration",
+      "10 Pages",
+      "CMS Integration",
+      "Advanced SEO",
+      "Social Media Integration"
+    ],
+    enterprise: [
+      "Everything in Professional",
+      "Custom Functionality",
+      "Unlimited Pages",
+      "AI Integration",
+      "Priority Support",
+      "Analytics Dashboard"
+    ]
+  };
 
   return (
     <motion.div
@@ -20,191 +51,231 @@ const WebDevForm = ({
       transition={{ duration: 0.8 }}
       className="max-w-4xl mx-auto"
     >
-      {/* Header */}
-      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight tracking-tight mb-4">
-        Let's Build Something
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-          {" "}Exceptional
-        </span>
-      </h1>
-      <p className="text-lg text-white/70 mb-8">
-        Tell us about your vision, and we'll create a powerful digital solution.
-      </p>
-
-      {/* Package Confirmation */}
-      <div className="bg-white/5 p-6 rounded-xl mb-8">
-        <h2 className="text-xl text-white font-semibold mb-2">
-          {tier} Website Package Selected
-        </h2>
-        <p className="text-white/70 mb-4">
-          {tier === 'Professional' 
-            ? 'Perfect for businesses requiring advanced functionality and custom features.'
-            : 'Ideal for small businesses and startups looking to establish a professional online presence.'}
+      {/* Hero Section */}
+      <div className="text-center mb-16">
+        <div className="flex justify-center mb-6">
+          <Badge variant="outline" className="text-sm">
+            <FaCog className="w-4 h-4 mr-2" />
+            {tier} Package
+          </Badge>
+        </div>
+        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-4 md:mb-8">
+          Let's Build Something
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+            {" "}Exceptional
+          </span>
+        </h1>
+        <p className="text-lg text-white/70 max-w-2xl mx-auto">
+          Tell us about your vision, and we'll create a powerful digital solution.
         </p>
-        <Link to="/services" className="text-[#00f2fe] hover:text-[#ff00e5] transition-colors">
-          ← Choose a Different Package
-        </Link>
       </div>
 
-      {/* Form */}
-      <motion.form
-        onSubmit={handleSubmit}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="space-y-6"
-      >
-        {/* Personal Details */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {/* Package Confirmation */}
+      <Card className="p-6 mb-8 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <label className="block text-white/70 mb-2">Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-white/70 mb-2">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
-              required
-            />
-          </div>
-        </div>
-
-        {/* Business Information */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-white/70 mb-2">Business Name</label>
-            <input
-              type="text"
-              name="businessName"
-              value={formData.businessName}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-white/70 mb-2">Industry</label>
-            <select
-              name="industry"
-              value={formData.industry}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none [&>option]:bg-[#0F0F0F]"
-              required
-            >
-              <option value="" className="bg-[#0F0F0F]">Select Industry</option>
-              {getTierData(formIndustries).map(industry => (
-                <option key={industry} value={industry} className="bg-[#0F0F0F]">{industry}</option>
+            <h2 className="text-xl text-white font-semibold mb-2">
+              {tier} Website Package Selected
+            </h2>
+            <p className="text-white/70 mb-4">
+              {tier === 'Professional' 
+                ? 'Perfect for businesses requiring advanced functionality and custom features.'
+                : tier === 'Enterprise'
+                ? 'Ideal for large-scale projects with complex requirements and custom solutions.'
+                : 'Ideal for small businesses and startups looking to establish a professional online presence.'}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {packageFeatures[tier.toLowerCase()]?.slice(0, 3).map((feature, index) => (
+                <Badge key={index} variant="secondary" className="text-xs">
+                  {feature}
+                </Badge>
               ))}
-            </select>
+            </div>
           </div>
+          <Link to="/services" className="text-[#00f2fe] hover:text-[#ff00e5] transition-colors text-sm">
+            ← Choose a Different Package
+          </Link>
+        </div>
+      </Card>
+
+      {/* Form Section */}
+      <Card className="p-8 md:p-12 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Project Details</h2>
+          <p className="text-white/70">Tell us about your project and we'll get back to you within 24 hours</p>
         </div>
 
-        {/* Project Details */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-white/70 mb-2">Website Goal</label>
-            <select
-              name="websiteGoal"
-              value={formData.websiteGoal}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none [&>option]:bg-[#0F0F0F]"
-              required
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* Personal Details */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-white/80 mb-2">Full Name *</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                placeholder="Your Name"
+                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-white/80 mb-2">Email Address *</label>
+              <div className="relative">
+                <FaEnvelope className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-4 h-4" />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="your@email.com"
+                  className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Business Information */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-white/80 mb-2">Business Name *</label>
+              <div className="relative">
+                <FaBuilding className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-4 h-4" />
+                <input
+                  type="text"
+                  name="businessName"
+                  value={formData.businessName}
+                  onChange={handleInputChange}
+                  placeholder="Your Business Name"
+                  className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-white/80 mb-2">Industry *</label>
+              <select
+                name="industry"
+                value={formData.industry}
+                onChange={handleInputChange}
+                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 appearance-none"
+                required
+              >
+                <option value="">Select Industry</option>
+                {getTierData(formIndustries).map(industry => (
+                  <option key={industry} value={industry} className="bg-[#0F0F0F]">{industry}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Project Details */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-white/80 mb-2">Website Goal *</label>
+              <select
+                name="websiteGoal"
+                value={formData.websiteGoal}
+                onChange={handleInputChange}
+                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 appearance-none"
+                required
+              >
+                <option value="">Select Goal</option>
+                {getTierData(formWebsiteGoals).map(goal => (
+                  <option key={goal} value={goal} className="bg-[#0F0F0F]">{goal}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-white/80 mb-2">Main Priority *</label>
+              <select
+                name="mainPriority"
+                value={formData.mainPriority}
+                onChange={handleInputChange}
+                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 appearance-none"
+                required
+              >
+                <option value="">Select Priority</option>
+                {getTierData(formPriorities).map(priority => (
+                  <option key={priority} value={priority} className="bg-[#0F0F0F]">{priority}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Additional Fields */}
+          {additionalFields}
+
+          {/* Additional Options */}
+          <Card className="p-6 bg-white/5">
+            <h3 className="text-lg font-semibold text-white mb-4">Additional Services</h3>
+            <div className="space-y-3">
+              <label className="flex items-center space-x-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  name="seoOptimization"
+                  checked={formData.seoOptimization}
+                  onChange={handleInputChange}
+                  className="w-4 h-4 text-[#00f2fe] bg-white/5 border-white/10 rounded focus:ring-[#00f2fe] focus:ring-2"
+                />
+                <span className="text-white/70 group-hover:text-white transition-colors">SEO Optimization</span>
+              </label>
+              <label className="flex items-center space-x-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  name="contentWriting"
+                  checked={formData.contentWriting}
+                  onChange={handleInputChange}
+                  className="w-4 h-4 text-[#00f2fe] bg-white/5 border-white/10 rounded focus:ring-[#00f2fe] focus:ring-2"
+                />
+                <span className="text-white/70 group-hover:text-white transition-colors">Content Writing Services</span>
+              </label>
+              <label className="flex items-center space-x-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  name="maintenance"
+                  checked={formData.maintenance}
+                  onChange={handleInputChange}
+                  className="w-4 h-4 text-[#00f2fe] bg-white/5 border-white/10 rounded focus:ring-[#00f2fe] focus:ring-2"
+                />
+                <span className="text-white/70 group-hover:text-white transition-colors">Ongoing Maintenance</span>
+              </label>
+            </div>
+          </Card>
+
+          {/* Submit Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              size="lg"
+              className="px-12 py-4 group"
             >
-              <option value="" className="bg-[#0F0F0F]">Select Goal</option>
-              {getTierData(formWebsiteGoals).map(goal => (
-                <option key={goal} value={goal} className="bg-[#0F0F0F]">{goal}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="block text-white/70 mb-2">Main Priority</label>
-            <select
-              name="mainPriority"
-              value={formData.mainPriority}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#4ECDC4] focus:outline-none [&>option]:bg-[#0F0F0F]"
-              required
+              {isSubmitting ? (
+                <>
+                  <LoadingSpinner size="sm" className="mr-2" />
+                  Submitting...
+                </>
+              ) : (
+                <>
+                  Submit & Book a Call
+                  <FaArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                </>
+              )}
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => window.history.back()}
+              className="px-12 py-4"
             >
-              <option value="" className="bg-[#0F0F0F]">Select Priority</option>
-              {getTierData(formPriorities).map(priority => (
-                <option key={priority} value={priority} className="bg-[#0F0F0F]">{priority}</option>
-              ))}
-            </select>
+              Go Back
+            </Button>
           </div>
-        </div>
-
-        {/* Additional Fields */}
-        {additionalFields}
-
-        {/* Additional Options */}
-        <div className="bg-white/5 p-6 rounded-xl">
-          <h3 className="text-white font-semibold mb-4">Additional Services</h3>
-          <div className="space-y-3">
-            <label className="flex items-center space-x-3">
-              <input
-                type="checkbox"
-                name="seoOptimization"
-                checked={formData.seoOptimization}
-                onChange={handleInputChange}
-                className="form-checkbox text-[#00f2fe]"
-              />
-              <span className="text-white/70">SEO Optimization</span>
-            </label>
-            <label className="flex items-center space-x-3">
-              <input
-                type="checkbox"
-                name="contentWriting"
-                checked={formData.contentWriting}
-                onChange={handleInputChange}
-                className="form-checkbox text-[#00f2fe]"
-              />
-              <span className="text-white/70">Content Writing Services</span>
-            </label>
-            <label className="flex items-center space-x-3">
-              <input
-                type="checkbox"
-                name="maintenance"
-                checked={formData.maintenance}
-                onChange={handleInputChange}
-                className="form-checkbox text-[#00f2fe]"
-              />
-              <span className="text-white/70">Ongoing Maintenance</span>
-            </label>
-          </div>
-        </div>
-
-        {/* Submit Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            type="submit"
-            className="px-8 py-4 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
-          >
-            Submit & Book a Call
-            <FaArrowRight />
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            type="button"
-            className="px-8 py-4 bg-white/10 text-white rounded-full font-medium hover:bg-white/20 transition-colors"
-          >
-            Get a Quote
-          </motion.button>
-        </div>
-      </motion.form>
+        </form>
+      </Card>
     </motion.div>
   );
 };

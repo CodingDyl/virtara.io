@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaArrowLeft, FaCalendar, FaClock, FaTags } from 'react-icons/fa';
+import { FaArrowLeft, FaCalendar, FaClock, FaTags, FaShare, FaBookmark } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { client } from '../lib/sanity';
 import { PortableText } from '@portabletext/react';
 import { Helmet } from 'react-helmet-async';
+import Badge from '../components/ui/Badge';
+import Card from '../components/ui/Card';
+import Button from '../components/ui/Button';
+import LoadingSpinner from '../components/ui/LoadingSpinner';
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -43,8 +47,8 @@ const BlogPost = () => {
     return (
       <div className="bg-[#0F0F0F] min-h-screen">
         <Navbar />
-        <div className="container mx-auto px-4 pt-32 text-white text-center">
-          Loading...
+        <div className="flex justify-center items-center pt-32">
+          <LoadingSpinner size="lg" />
         </div>
       </div>
     );
@@ -54,8 +58,16 @@ const BlogPost = () => {
     return (
       <div className="bg-[#0F0F0F] min-h-screen">
         <Navbar />
-        <div className="container mx-auto px-4 pt-32 text-white text-center">
-          Post not found
+        <div className="container mx-auto px-4 pt-32">
+          <Card className="text-center py-20">
+            <div className="text-white/70">
+              <p className="text-lg mb-2">Post not found</p>
+              <p className="text-sm mb-6">The blog post you're looking for doesn't exist.</p>
+              <Button onClick={() => navigate('/web-development-blog')}>
+                Back to Blog
+              </Button>
+            </div>
+          </Card>
         </div>
       </div>
     );
@@ -75,14 +87,21 @@ const BlogPost = () => {
         <article className="pt-32 pb-20">
           <div className="container mx-auto px-4 sm:px-6">
             {/* Back Button */}
-            <motion.button
-              onClick={() => navigate('/web-development-blog')}
-              whileHover={{ x: -5 }}
-              className="flex items-center gap-2 text-white/70 hover:text-white mb-8"
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mb-8"
             >
-              <FaArrowLeft className="w-4 h-4" />
-              Back to Blog
-            </motion.button>
+              <Button 
+                variant="ghost" 
+                onClick={() => navigate('/web-development-blog')}
+                className="group"
+              >
+                <FaArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
+                Back to Blog
+              </Button>
+            </motion.div>
 
             {/* Hero Section */}
             <div className="max-w-4xl mx-auto">
@@ -92,33 +111,45 @@ const BlogPost = () => {
                 transition={{ duration: 0.8 }}
               >
                 {/* Main Image */}
-                <div className="relative h-[400px] rounded-2xl overflow-hidden mb-8">
+                <Card className="relative h-[400px] md:h-[500px] overflow-hidden mb-8">
                   <img 
                     src={post.mainImage} 
                     alt={post.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] to-transparent" />
-                </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent" />
+                  
+                  {/* Action Buttons */}
+                  <div className="absolute top-4 right-4 flex gap-2">
+                    <Button variant="secondary" size="sm" className="bg-white/10 backdrop-blur-sm">
+                      <FaShare className="w-4 h-4" />
+                    </Button>
+                    <Button variant="secondary" size="sm" className="bg-white/10 backdrop-blur-sm">
+                      <FaBookmark className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </Card>
 
                 {/* Meta Information */}
-                <div className="flex flex-wrap items-center gap-4 text-sm text-white/60 mb-4">
-                  <span className="flex items-center gap-2">
-                    <FaCalendar className="w-4 h-4" />
+                <div className="flex flex-wrap items-center gap-4 text-sm text-white/60 mb-6">
+                  <Badge variant="outline" className="flex items-center gap-2">
+                    <FaCalendar className="w-3 h-3" />
                     {new Date(post.publishedAt).toLocaleDateString('en-US', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric'
                     })}
-                  </span>
+                  </Badge>
                   {post.readTime && (
-                    <span className="flex items-center gap-2">
-                      <FaClock className="w-4 h-4" />
+                    <Badge variant="outline" className="flex items-center gap-2">
+                      <FaClock className="w-3 h-3" />
                       {post.readTime} min read
-                    </span>
+                    </Badge>
                   )}
                   {post.author && (
-                    <span>By {post.author}</span>
+                    <Badge variant="outline">
+                      By {post.author}
+                    </Badge>
                   )}
                 </div>
 
@@ -129,15 +160,16 @@ const BlogPost = () => {
 
                 {/* Categories */}
                 {post.categories && (
-                  <div className="flex flex-wrap items-center gap-2 mb-8">
+                  <div className="flex flex-wrap items-center gap-3 mb-8">
                     <FaTags className="w-4 h-4 text-[#00f2fe]" />
                     {post.categories.map((category, index) => (
-                      <span 
+                      <Badge 
                         key={index}
-                        className="text-sm text-white/60 bg-white/5 px-3 py-1 rounded-full"
+                        variant="secondary"
+                        className="text-sm"
                       >
                         {category}
-                      </span>
+                      </Badge>
                     ))}
                   </div>
                 )}
@@ -150,7 +182,38 @@ const BlogPost = () => {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="prose prose-invert prose-lg max-w-none"
               >
-                <PortableText value={post.body} />
+                <Card className="p-8 md:p-12 bg-white/5 backdrop-blur-sm">
+                  <div className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-white/80 prose-a:text-[#00f2fe] prose-a:no-underline hover:prose-a:underline prose-strong:text-white prose-code:text-[#00f2fe] prose-code:bg-white/10 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-blockquote:border-l-[#00f2fe] prose-blockquote:bg-white/5 prose-blockquote:p-4 prose-blockquote:rounded-r">
+                    <PortableText value={post.body} />
+                  </div>
+                </Card>
+              </motion.div>
+
+              {/* Share Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="mt-12"
+              >
+                <Card className="p-6 bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm">
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                      <h3 className="text-lg font-semibold text-white mb-2">Share this article</h3>
+                      <p className="text-sm text-white/70">Help others discover this valuable content</p>
+                    </div>
+                    <div className="flex gap-3">
+                      <Button variant="outline" size="sm">
+                        <FaShare className="w-4 h-4 mr-2" />
+                        Share
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <FaBookmark className="w-4 h-4 mr-2" />
+                        Bookmark
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
               </motion.div>
             </div>
           </div>

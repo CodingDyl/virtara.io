@@ -46,7 +46,7 @@ import seo_op from "../assets/seo_op.png";
   const pricingTiers = [
     {
       name: "Starter",
-      price: "From R13,000",
+      price: "From R3,000",
       features: [
         "Custom Design",
         "Mobile Responsive",
@@ -57,7 +57,7 @@ import seo_op from "../assets/seo_op.png";
     },
     {
       name: "Professional",
-      price: "From R25,000",
+      price: "From R12,000",
       features: [
         "Everything in Starter",
         "E-Commerce Integration",

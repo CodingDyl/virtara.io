@@ -1,26 +1,37 @@
 import { motion } from "framer-motion";
-import { FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
+import { FaTwitter, FaLinkedinIn, FaInstagram, FaArrowUp } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
+import { AnimatePresence } from "framer-motion";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       const footer = document.querySelector('footer');
-      const rect = footer.getBoundingClientRect();
-      setMousePosition({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
+      if (footer) {
+        const rect = footer.getBoundingClientRect();
+        setMousePosition({
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top,
+        });
+      }
     };
 
-    document.querySelector('footer').addEventListener('mousemove', handleMouseMove);
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+    };
+
+    document.querySelector('footer')?.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('scroll', handleScroll);
+    
     return () => {
       document.querySelector('footer')?.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -31,114 +42,236 @@ const Footer = () => {
     document.body.scrollTo(0, 0);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <footer className="bg-gradient-to-b from-[#161616] to-[#0F0F0F] text-white relative overflow-hidden">
+      {/* Animated background */}
       <div
-        className="pointer-events-none absolute blur-[100px] rounded-full bg-gradient-to-r from-purple-600/30 to-blue-600/30"
+        className="pointer-events-none absolute blur-[120px] rounded-full bg-gradient-to-r from-[#00f2fe]/20 to-[#ff00e5]/20"
         style={{
-          width: '40%',
-          height: '40%',
+          width: '50%',
+          height: '50%',
           left: `${mousePosition.x}px`,
           top: `${mousePosition.y}px`,
           transform: 'translate(-50%, -50%)',
-          transition: 'left 0.2s, top 0.2s',
+          transition: 'left 0.3s ease-out, top 0.3s ease-out',
         }}
       />
       
-      <div className="absolute inset-0 bg-gradient-to-b from-[#161616]/80 to-[#0F0F0F]/80" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#161616]/90 to-[#0F0F0F]/90" />
 
       <div className="relative">
         <div className="container mx-auto px-6 py-20">
           {/* Top Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             {/* Brand Column */}
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold">Virtara</h3>
-              <p className="text-white/70">
+            <motion.div 
+              className="space-y-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <motion.h3 
+                className="text-2xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent"
+                whileHover={{ scale: 1.05 }}
+              >
+                Virtara
+              </motion.h3>
+              <p className="text-white/70 leading-relaxed">
                 Creating digital experiences that transform businesses and inspire growth.
               </p>
               <div className="flex space-x-4">
                 <motion.a
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.9 }}
                   href="https://x.com/Virtara_SA"
                   target="_blank"
-                  className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
+                  rel="noopener noreferrer"
+                  className="bg-white/10 p-3 rounded-full hover:bg-gradient-to-r hover:from-[#00f2fe]/20 hover:to-[#ff00e5]/20 transition-all duration-300 border border-white/10 hover:border-[#00f2fe]/30"
                 >
-                  <FaTwitter />
+                  <FaTwitter className="text-white hover:text-[#00f2fe] transition-colors duration-300" />
                 </motion.a>
                 <motion.a
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.9 }}
                   href="https://www.linkedin.com/company/virtara"
                   target="_blank"
-                  className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
+                  rel="noopener noreferrer"
+                  className="bg-white/10 p-3 rounded-full hover:bg-gradient-to-r hover:from-[#00f2fe]/20 hover:to-[#ff00e5]/20 transition-all duration-300 border border-white/10 hover:border-[#00f2fe]/30"
                 >
-                  <FaLinkedinIn />
+                  <FaLinkedinIn className="text-white hover:text-[#00f2fe] transition-colors duration-300" />
                 </motion.a>
                 <motion.a
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.9 }}
                   href="https://www.instagram.com/virtara.io/"
                   target="_blank"
-                  className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
+                  rel="noopener noreferrer"
+                  className="bg-white/10 p-3 rounded-full hover:bg-gradient-to-r hover:from-[#00f2fe]/20 hover:to-[#ff00e5]/20 transition-all duration-300 border border-white/10 hover:border-[#00f2fe]/30"
                 >
-                  <FaInstagram />
+                  <FaInstagram className="text-white hover:text-[#00f2fe] transition-colors duration-300" />
                 </motion.a>
               </div>
-            </div>
+            </motion.div>
 
             {/* Services Column */}
-            <div>
-              <h4 className="text-lg font-semibold mb-6">Services</h4>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <h4 className="text-lg font-semibold mb-6 text-white">Services</h4>
               <ul className="space-y-4">
-                <li><Link to="/services#development" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/services#development')}>Web Design</Link></li>
-                <li><Link to="/maintenance-support" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/maintenance-support')}>Maintenance & Support</Link></li>
-                <li><Link to="/services#seo" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/services#seo')}>SEO Optimization</Link></li>
-
+                {[
+                  { text: 'Web Design', path: '/services#development' },
+                  { text: 'Maintenance & Support', path: '/maintenance-support' },
+                  { text: 'SEO Optimization', path: '/services#seo' }
+                ].map((item, index) => (
+                  <motion.li 
+                    key={index}
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Link 
+                      to={item.path} 
+                      className="text-white/70 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                      onClick={() => handleLinkClick(item.path)}
+                    >
+                      <span className="w-1 h-1 bg-[#00f2fe] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      {item.text}
+                    </Link>
+                  </motion.li>
+                ))}
               </ul>
-            </div>
+            </motion.div>
 
             {/* Company Column */}
-            <div>
-              <h4 className="text-lg font-semibold mb-6">Company</h4>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <h4 className="text-lg font-semibold mb-6 text-white">Company</h4>
               <ul className="space-y-4">
-                <li><Link to="/web-development-blog" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/web-development-blog')}>Blog</Link></li>
-                <li><Link to="/our-work" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/our-work')}>Portfolio</Link></li>
-
-                <li><Link to="/contact-us" className="text-white/70 hover:text-white transition-colors" onClick={() => handleLinkClick('/contact-us')}>Contact</Link></li>
+                {[
+                  { text: 'Blog', path: '/web-development-blog' },
+                  { text: 'Portfolio', path: '/our-work' },
+                  { text: 'Contact', path: '/contact-us' }
+                ].map((item, index) => (
+                  <motion.li 
+                    key={index}
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Link 
+                      to={item.path} 
+                      className="text-white/70 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                      onClick={() => handleLinkClick(item.path)}
+                    >
+                      <span className="w-1 h-1 bg-[#ff00e5] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      {item.text}
+                    </Link>
+                  </motion.li>
+                ))}
               </ul>
-            </div>
-
+            </motion.div>
 
             {/* Contact Column */}
-            <div>
-              <h4 className="text-lg font-semibold mb-6">Contact</h4>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <h4 className="text-lg font-semibold mb-6 text-white">Contact</h4>
               <ul className="space-y-4">
-                <li className="text-white/70">16 Hume Road</li>
-                <li className="text-white/70">South Africa, Johannesburg, 2092</li>
-                <li><a href="mailto:info@virtara.co.za" className="text-white/70 hover:text-white transition-colors">info@virtara.co.za</a></li>
-                <li><a href="tel:+27723271040" className="text-white/70 hover:text-white transition-colors">+27 (072) 327 1040</a></li>
+                <li className="text-white/70 flex items-center gap-2">
+                  <span className="w-1 h-1 bg-[#00f2fe] rounded-full" />
+                  16 Hume Road
+                </li>
+                <li className="text-white/70 flex items-center gap-2">
+                  <span className="w-1 h-1 bg-[#00f2fe] rounded-full" />
+                  South Africa, Johannesburg, 2092
+                </li>
+                <li>
+                  <a 
+                    href="mailto:info@virtara.co.za" 
+                    className="text-white/70 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <span className="w-1 h-1 bg-[#00f2fe] rounded-full" />
+                    info@virtara.co.za
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="tel:+27723271040" 
+                    className="text-white/70 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <span className="w-1 h-1 bg-[#00f2fe] rounded-full" />
+                    +27 (072) 327 1040
+                  </a>
+                </li>
               </ul>
-            </div>
+            </motion.div>
           </div>
 
           {/* Bottom Section */}
-          <div className="pt-8 border-t border-white/10">
+          <motion.div 
+            className="pt-8 border-t border-white/10"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <p className="text-white/70 text-sm">
                 © {currentYear} Virtara. All rights reserved.
               </p>
               <div className="flex space-x-6 text-sm">
-                <Link to="/legal/privacy-policy" className="text-white/70 hover:text-white transition-colors">Privacy Policy</Link>
-                <Link to="/legal/terms-of-service" className="text-white/70 hover:text-white transition-colors">Terms of Service</Link>
-                <Link to="/legal/cookie-policy" className="text-white/70 hover:text-white transition-colors">Cookie Policy</Link>
-
+                {[
+                  { text: 'Privacy Policy', path: '/legal/privacy-policy' },
+                  { text: 'Terms of Service', path: '/legal/terms-of-service' },
+                  { text: 'Cookie Policy', path: '/legal/cookie-policy' }
+                ].map((item, index) => (
+                  <Link 
+                    key={index}
+                    to={item.path} 
+                    className="text-white/70 hover:text-white transition-colors duration-300"
+                  >
+                    {item.text}
+                  </Link>
+                ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
+
+      {/* Scroll to top button */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            onClick={scrollToTop}
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.9 }}
+            className="fixed bottom-8 right-8 z-50 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            <FaArrowUp className="text-white text-lg" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </footer>
   );
 };
