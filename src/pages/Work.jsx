@@ -4,7 +4,7 @@ import { FaArrowRight, FaReact, FaNodeJs, FaJava, FaApple, FaAndroid, FaExternal
 import { SiTailwindcss, SiSanity, SiFirebase, SiThreedotjs, SiFlutter, SiAndroidstudio } from 'react-icons/si';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { virtec, vaja, mpower } from '../assets';
+import { virtec, vaja, mpower, clarity, aureya } from '../assets';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Badge from '../components/ui/Badge';
@@ -51,6 +51,32 @@ const Work = () => {
       },
       link: "https://www.mpowerratings.co.za",
       category: "Finance"
+    },
+    {
+      title: "Aureya Marketing",
+      image: aureya,
+      description: "Modern marketing agency website with lead generation",
+      technologies: ["React", "TailwindCSS", "Sanity"],
+      results: {
+        traffic: "+180% Traffic",
+        conversion: "+45% Conversion",
+        engagement: "+65% Engagement"
+      },
+             link: "https://www.aureya.co.za",
+      category: "Marketing"
+    },
+    {
+      title: "Clarity Engineering",
+      image: clarity,
+      description: "Professional consulting engineering firm website",
+      technologies: ["React", "TailwindCSS", "Three.js"],
+      results: {
+        traffic: "+140% Traffic",
+        conversion: "+38% Conversion",
+        engagement: "+55% Engagement"
+      },
+             link: "https://www.clarityce.co.za",
+      category: "Engineering"
     }
   ];
 
@@ -119,7 +145,7 @@ const Work = () => {
                           alt={project.title}
                           className="w-full h-[180px] sm:h-[200px] md:h-[250px] lg:h-[300px] object-cover transition-all duration-500 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/80 to-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500">
                           <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
                             <div className="flex items-center justify-between mb-2 sm:mb-3">
                               <Badge variant="outline" size="sm" className="text-xs sm:text-sm">

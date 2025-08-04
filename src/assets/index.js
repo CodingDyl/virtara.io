@@ -1,6 +1,8 @@
 import virtec from "./projects/vm_img.png"
 import vaja from "./projects/vaja_img.png"
 import mpower from "./projects/mpower_img.png"
+import clarity from "./projects/clarity.png"
+import aureya from "./projects/aureya.png"
 
 import bg_hero from "./bg_hero.png"
 
@@ -16,4 +18,4 @@ import marketing_2 from "./marketing_2.png"
 
 import healthCheckPreview from "./health_check_preview.png"
 
-export { virtec, vaja, mpower, bg_hero, web_design_bento, brand_strat, seo_op, digi_marketing, smallLogo, marketing_1, marketing_2, healthCheckPreview }
+export { virtec, vaja, mpower, clarity, aureya, bg_hero, web_design_bento, brand_strat, seo_op, digi_marketing, smallLogo, marketing_1, marketing_2, healthCheckPreview }
