@@ -45,7 +45,7 @@ const ThankYou = () => {
   };
 
   return (
-    <div className="bg-[#0F0F0F] min-h-screen">
+    <div className="bg-[#050910] min-h-screen">
       <Helmet>
         <title>Thank You | Virtara</title>
         <meta name="description" content="Thank you for reaching out. While you wait, discover how to optimize your website's conversion rate with our free checklist." />
@@ -64,7 +64,7 @@ const ThankYou = () => {
             >
               <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white leading-tight tracking-tight mb-6">
                 Thank You for
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]"> Choosing Us</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]"> Choosing Us</span>
               </h1>
               <p className="text-xl text-white/70 mb-8">
                 We'll be in touch within 24 hours to discuss your project.
@@ -90,14 +90,14 @@ const ThankYou = () => {
                     <input
                       type="text"
                       placeholder="Your Name"
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-[#00f2fe]"
+                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-[#8df6ff]"
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
                     />
                     <input
                       type="email"
                       placeholder="Your Email"
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-[#00f2fe]"
+                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-[#8df6ff]"
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
                     />
@@ -107,7 +107,7 @@ const ThankYou = () => {
                     whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+                    className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-white rounded-full font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
                   >
                     {isSubmitting ? 'Sending...' : (
                       <>
@@ -132,7 +132,7 @@ const ThankYou = () => {
             >
               <p className="text-white/70">
                 Have questions? Email us at{' '}
-                <a href="mailto:info@virtara.co.za" className="text-[#00f2fe] hover:underline">
+                <a href="mailto:info@virtara.co.za" className="text-[#8df6ff] hover:underline">
                   info@virtara.co.za
                 </a>
               </p>

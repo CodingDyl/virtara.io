@@ -109,7 +109,7 @@ const Professional = () => {
         <meta name="keywords" content="professional website package, web development, business website, custom features" />
         <link rel="canonical" href="https://virtara.co.za/web-development/professional" />
       </Helmet>
-      <div className="bg-[#0F0F0F] min-h-screen">
+      <div className="bg-[#050910] min-h-screen">
         <Navbar />
         <Notification
           message={notification.message}

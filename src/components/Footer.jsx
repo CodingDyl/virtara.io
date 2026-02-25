@@ -53,7 +53,7 @@ const Footer = () => {
     <footer className="bg-gradient-to-b from-[#161616] to-[#0F0F0F] text-white relative overflow-hidden">
       {/* Animated background */}
       <div
-        className="pointer-events-none absolute blur-[120px] rounded-full bg-gradient-to-r from-[#00f2fe]/20 to-[#ff00e5]/20"
+        className="pointer-events-none absolute blur-[120px] rounded-full bg-gradient-to-r from-[#8df6ff]/20 to-[#4ea4ff]/20"
         style={{
           width: '50%',
           height: '50%',
@@ -94,9 +94,9 @@ const Footer = () => {
                   href="https://x.com/Virtara_SA"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-white/10 p-3 rounded-full hover:bg-gradient-to-r hover:from-[#00f2fe]/20 hover:to-[#ff00e5]/20 transition-all duration-300 border border-white/10 hover:border-[#00f2fe]/30"
+                  className="bg-white/10 p-3 rounded-full hover:bg-gradient-to-r hover:from-[#8df6ff]/20 hover:to-[#4ea4ff]/20 transition-all duration-300 border border-white/10 hover:border-[#8df6ff]/30"
                 >
-                  <FaTwitter className="text-white hover:text-[#00f2fe] transition-colors duration-300" />
+                  <FaTwitter className="text-white hover:text-[#8df6ff] transition-colors duration-300" />
                 </motion.a>
                 <motion.a
                   whileHover={{ scale: 1.1, y: -2 }}
@@ -104,9 +104,9 @@ const Footer = () => {
                   href="https://www.linkedin.com/company/virtara"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-white/10 p-3 rounded-full hover:bg-gradient-to-r hover:from-[#00f2fe]/20 hover:to-[#ff00e5]/20 transition-all duration-300 border border-white/10 hover:border-[#00f2fe]/30"
+                  className="bg-white/10 p-3 rounded-full hover:bg-gradient-to-r hover:from-[#8df6ff]/20 hover:to-[#4ea4ff]/20 transition-all duration-300 border border-white/10 hover:border-[#8df6ff]/30"
                 >
-                  <FaLinkedinIn className="text-white hover:text-[#00f2fe] transition-colors duration-300" />
+                  <FaLinkedinIn className="text-white hover:text-[#8df6ff] transition-colors duration-300" />
                 </motion.a>
                 <motion.a
                   whileHover={{ scale: 1.1, y: -2 }}
@@ -114,9 +114,9 @@ const Footer = () => {
                   href="https://www.instagram.com/virtara.io/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-white/10 p-3 rounded-full hover:bg-gradient-to-r hover:from-[#00f2fe]/20 hover:to-[#ff00e5]/20 transition-all duration-300 border border-white/10 hover:border-[#00f2fe]/30"
+                  className="bg-white/10 p-3 rounded-full hover:bg-gradient-to-r hover:from-[#8df6ff]/20 hover:to-[#4ea4ff]/20 transition-all duration-300 border border-white/10 hover:border-[#8df6ff]/30"
                 >
-                  <FaInstagram className="text-white hover:text-[#00f2fe] transition-colors duration-300" />
+                  <FaInstagram className="text-white hover:text-[#8df6ff] transition-colors duration-300" />
                 </motion.a>
               </div>
             </motion.div>
@@ -145,7 +145,7 @@ const Footer = () => {
                       className="text-white/70 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
                       onClick={() => handleLinkClick(item.path)}
                     >
-                      <span className="w-1 h-1 bg-[#00f2fe] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <span className="w-1 h-1 bg-[#8df6ff] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       {item.text}
                     </Link>
                   </motion.li>
@@ -177,7 +177,7 @@ const Footer = () => {
                       className="text-white/70 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
                       onClick={() => handleLinkClick(item.path)}
                     >
-                      <span className="w-1 h-1 bg-[#ff00e5] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <span className="w-1 h-1 bg-[#4ea4ff] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       {item.text}
                     </Link>
                   </motion.li>
@@ -195,11 +195,11 @@ const Footer = () => {
               <h4 className="text-lg font-semibold mb-6 text-white">Contact</h4>
               <ul className="space-y-4">
                 <li className="text-white/70 flex items-center gap-2">
-                  <span className="w-1 h-1 bg-[#00f2fe] rounded-full" />
+                  <span className="w-1 h-1 bg-[#8df6ff] rounded-full" />
                   16 Hume Road
                 </li>
                 <li className="text-white/70 flex items-center gap-2">
-                  <span className="w-1 h-1 bg-[#00f2fe] rounded-full" />
+                  <span className="w-1 h-1 bg-[#8df6ff] rounded-full" />
                   South Africa, Johannesburg, 2092
                 </li>
                 <li>
@@ -207,7 +207,7 @@ const Footer = () => {
                     href="mailto:info@virtara.co.za" 
                     className="text-white/70 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
                   >
-                    <span className="w-1 h-1 bg-[#00f2fe] rounded-full" />
+                    <span className="w-1 h-1 bg-[#8df6ff] rounded-full" />
                     info@virtara.co.za
                   </a>
                 </li>
@@ -216,7 +216,7 @@ const Footer = () => {
                     href="tel:+27723271040" 
                     className="text-white/70 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
                   >
-                    <span className="w-1 h-1 bg-[#00f2fe] rounded-full" />
+                    <span className="w-1 h-1 bg-[#8df6ff] rounded-full" />
                     +27 (072) 327 1040
                   </a>
                 </li>
@@ -266,7 +266,7 @@ const Footer = () => {
             onClick={scrollToTop}
             whileHover={{ scale: 1.1, y: -2 }}
             whileTap={{ scale: 0.9 }}
-            className="fixed bottom-8 right-8 z-50 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+            className="fixed bottom-8 right-8 z-50 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
           >
             <FaArrowUp className="text-white text-lg" />
           </motion.button>

@@ -5,7 +5,7 @@ import Footer from '../../components/Footer';
 
 const PrivacyPolicy = () => {
   return (
-    <div className="bg-[#0F0F0F] min-h-screen">
+    <div className="bg-[#050910] min-h-screen">
       <Navbar />
 
       <section className="pt-32 md:pt-40 pb-12 md:pb-20">
@@ -18,7 +18,7 @@ const PrivacyPolicy = () => {
           >
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-8">
               Privacy
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
                 {" "}Policy
               </span>
             </h1>
@@ -150,7 +150,7 @@ const PrivacyPolicy = () => {
                 <div className="text-white/70">
                   <p className="mb-2">Virtara (PTY) LTD</p>
                   <p className="mb-2">South Africa, Johannesburg, 2092</p>
-                  <p className="mb-2">Email: <a href="mailto:info@virtara.co.za" className="text-[#00f2fe] hover:text-[#ff00e5] transition-colors">info@virtara.co.za</a></p>
+                  <p className="mb-2">Email: <a href="mailto:info@virtara.co.za" className="text-[#8df6ff] hover:text-[#4ea4ff] transition-colors">info@virtara.co.za</a></p>
                   <p>Phone: +27 (072) 327 1040</p>
                 </div>
               </motion.div>

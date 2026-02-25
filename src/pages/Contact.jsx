@@ -97,7 +97,7 @@ const Contact = () => {
   ];
 
   return (
-    <div className="bg-[#0F0F0F] min-h-screen">
+    <div className="bg-[#050910] min-h-screen">
       <Navbar />
       <Notification
         message={notification.message}
@@ -126,7 +126,7 @@ const Contact = () => {
               </Badge>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight tracking-tight mb-4 md:mb-8">
                 Let's Create Something
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
                   {" "}Amazing
                 </span>
               </h1>
@@ -152,7 +152,7 @@ const Contact = () => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <div className="text-[#00f2fe] group-hover:text-[#ff00e5] transition-colors duration-300 mb-4">
+                        <div className="text-[#8df6ff] group-hover:text-[#4ea4ff] transition-colors duration-300 mb-4">
                           {info.icon}
                         </div>
                         <h3 className="text-white text-xl font-semibold mb-2">{info.title}</h3>
@@ -189,7 +189,7 @@ const Contact = () => {
                           name="name"
                           value={formData.name}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#00f2fe] focus:outline-none transition-all duration-300 focus:bg-white/10"
+                          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#8df6ff] focus:outline-none transition-all duration-300 focus:bg-white/10"
                           required
                           placeholder="Your full name"
                         />
@@ -201,7 +201,7 @@ const Contact = () => {
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#00f2fe] focus:outline-none transition-all duration-300 focus:bg-white/10"
+                          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#8df6ff] focus:outline-none transition-all duration-300 focus:bg-white/10"
                           required
                           placeholder="your@email.com"
                         />
@@ -214,7 +214,7 @@ const Contact = () => {
                         name="subject"
                         value={formData.subject}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#00f2fe] focus:outline-none transition-all duration-300 focus:bg-white/10"
+                        className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#8df6ff] focus:outline-none transition-all duration-300 focus:bg-white/10"
                         required
                         placeholder="What's this about?"
                       />
@@ -226,7 +226,7 @@ const Contact = () => {
                         name="message"
                         value={formData.message}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#00f2fe] focus:outline-none transition-all duration-300 focus:bg-white/10 resize-none"
+                        className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:border-[#8df6ff] focus:outline-none transition-all duration-300 focus:bg-white/10 resize-none"
                         required
                         placeholder="Tell us about your project..."
                       ></textarea>

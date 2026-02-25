@@ -56,14 +56,14 @@ export const PinPerspective = ({
           <a
             href={href}
             target={"_blank"}
-            className="relative flex space-x-2 items-center z-10 rounded-full bg-[#0F0F0F] py-0.5 px-4 ring-1 ring-white/20 ">
+            className="relative flex space-x-2 items-center z-10 rounded-full bg-[#050910] py-0.5 px-4 ring-1 ring-white/20 ">
             <span
               className="relative z-20 text-white text-xs font-bold inline-block py-0.5">
               {title}
             </span>
 
             <span
-              className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-[#00f2fe]/0 via-[#00f2fe]/90 to-[#ff00e5]/0 transition-opacity duration-500 group-hover/btn:opacity-40"></span>
+              className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-[#8df6ff]/0 via-[#8df6ff]/90 to-[#4ea4ff]/0 transition-opacity duration-500 group-hover/btn:opacity-40"></span>
           </a>
         </div>
 
@@ -92,7 +92,7 @@ export const PinPerspective = ({
                 repeat: Infinity,
                 delay: 0,
               }}
-              className="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-[#00f2fe]/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"></motion.div>
+              className="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-[#8df6ff]/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"></motion.div>
             <motion.div
               initial={{
                 opacity: 0,
@@ -111,7 +111,7 @@ export const PinPerspective = ({
                 repeat: Infinity,
                 delay: 2,
               }}
-              className="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-[#00f2fe]/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"></motion.div>
+              className="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-[#8df6ff]/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"></motion.div>
             <motion.div
               initial={{
                 opacity: 0,
@@ -130,15 +130,15 @@ export const PinPerspective = ({
                 repeat: Infinity,
                 delay: 4,
               }}
-              className="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-[#00f2fe]/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"></motion.div>
+              className="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-[#8df6ff]/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"></motion.div>
           </>
         </div>
 
         <>
           <motion.div
-            className="absolute right-1/2 bottom-1/2 bg-gradient-to-b from-transparent to-[#00f2fe] translate-y-[14px] w-px h-20 group-hover/pin:h-40 blur-[2px]" />
+            className="absolute right-1/2 bottom-1/2 bg-gradient-to-b from-transparent to-[#8df6ff] translate-y-[14px] w-px h-20 group-hover/pin:h-40 blur-[2px]" />
           <motion.div
-            className="absolute right-1/2 bottom-1/2 bg-gradient-to-b from-transparent to-[#00f2fe] translate-y-[14px] w-px h-20 group-hover/pin:h-40  " />
+            className="absolute right-1/2 bottom-1/2 bg-gradient-to-b from-transparent to-[#8df6ff] translate-y-[14px] w-px h-20 group-hover/pin:h-40  " />
           <motion.div
             className="absolute right-1/2 translate-x-[1.5px] bottom-1/2 bg-cyan-300 translate-y-[14px] w-[4px] h-[4px] rounded-full z-40 blur-[3px]" />
           <motion.div

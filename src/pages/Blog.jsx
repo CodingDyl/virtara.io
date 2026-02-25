@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaCalendar, FaClock, FaTags, FaArrowRight, FaRss } from 'react-icons/fa';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import { client } from '../lib/sanity';
+import { FaCalendar, FaRss, FaTags } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { toast, Toaster } from 'react-hot-toast';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import { client } from '../lib/sanity';
 import { subscribeToNewsletter } from '../config/firebase';
 import Badge from '../components/ui/Badge';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 
-const Blog = () => {
-  const categories = ['all', 'Trends', 'Digital Marketing', 'Technology', 'AI'];
+const categories = ['all', 'Trends', 'Digital Marketing', 'Technology', 'AI'];
+
+function Blog() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,7 +25,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const query = `*[_type == "post"] {
+        const query = `*[_type == "post"] | order(publishedAt desc) {
           _id,
           title,
           publishedAt,
@@ -35,9 +36,8 @@ const Blog = () => {
           "author": author->name,
           "categories": categories[]->title
         }`;
-        
+
         const posts = await client.fetch(query);
-        console.log('Fetched posts with categories:', posts);
         setBlogPosts(posts);
       } catch (error) {
         console.error('Error fetching posts:', error);
@@ -49,26 +49,25 @@ const Blog = () => {
     fetchPosts();
   }, []);
 
-  const filteredPosts = activeCategory === 'all'
-    ? blogPosts
-    : blogPosts.filter(post => 
-        post.categories && post.categories.some(category => 
-          category === activeCategory
-        )
-      );
+  const filteredPosts = useMemo(() => {
+    if (activeCategory === 'all') return blogPosts;
 
-  console.log('Active category:', activeCategory);
-  console.log('Filtered posts:', filteredPosts);
+    return blogPosts.filter((post) =>
+      post.categories?.some((category) => category === activeCategory)
+    );
+  }, [activeCategory, blogPosts]);
 
-  const isValidEmail = (email) => {
-    // Regular expression for email validation
+  const featuredPost = filteredPosts[0];
+  const remainingPosts = filteredPosts.slice(1);
+
+  const isValidEmail = (value) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return emailRegex.test(value);
   };
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
-    
+
     if (!email) {
       toast.error('Please enter an email address');
       return;
@@ -80,17 +79,16 @@ const Blog = () => {
     }
 
     setIsSubmitting(true);
-    
+
     try {
       const result = await subscribeToNewsletter(email);
-      
       if (result.success) {
         toast.success(result.message);
-        setEmail(''); // Clear the input
+        setEmail('');
       } else {
         toast.error(result.message);
       }
-    } catch (error) {
+    } catch {
       toast.error('An unexpected error occurred');
     } finally {
       setIsSubmitting(false);
@@ -100,185 +98,234 @@ const Blog = () => {
   return (
     <>
       <Helmet>
-        <title>Digital Insights Blog | Web Development & Marketing Tips</title>
-        <meta name="description" content="Stay updated with the latest insights in web development, digital marketing, and design trends. Expert tips and industry knowledge to grow your business." />
-        <meta name="keywords" content="digital marketing blog, web development tips, design trends, SEO insights, business growth" />
-        <link rel="canonical" href="https://virtara.co.za/blog" />
+        <title>Blog | Digital Strategy, SEO & Growth Insights</title>
+        <meta
+          name="description"
+          content="Read the latest Virtara insights on SEO, digital strategy, web performance, and growth systems for modern businesses."
+        />
+        <meta
+          name="keywords"
+          content="digital marketing blog, SEO insights, web development strategy, growth marketing"
+        />
+        <link rel="canonical" href="https://virtara.co.za/web-development-blog" />
       </Helmet>
+
       <Toaster position="top-right" />
-      <div className="bg-[#0F0F0F] min-h-screen">
+
+      <main className="bg-[#050910] min-h-screen text-white virtara-body">
         <Navbar />
 
-        <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">
-          <div className="container mx-auto px-4 sm:px-6">
-            {/* Hero Section */}
+        <section className="pt-32 md:pt-36 pb-14 md:pb-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(20,99,255,0.28),transparent_38%),radial-gradient(circle_at_78%_5%,rgba(96,219,255,0.2),transparent_34%)]" />
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-4xl mx-auto text-center mb-8 md:mb-16"
+              transition={{ duration: 0.65 }}
+              className="max-w-5xl mx-auto text-center"
             >
-              <div className="flex justify-center mb-6">
-                <Badge variant="outline" className="text-sm">
-                  <FaRss className="w-4 h-4 mr-2" />
-                  Latest Insights
-                </Badge>
-              </div>
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-4 md:mb-8">
-                Insights & 
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                  {" "}Perspectives
-                </span>
+              <Badge variant="primary" size="lg" className="mb-5">
+                <FaRss className="w-3.5 h-3.5 mr-2" />
+                Insights Feed
+              </Badge>
+              <h1 className="virtara-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.96] tracking-tight mb-6">
+                Clarity for Teams Building
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]"> Digital Growth</span>
               </h1>
-              <p className="text-base md:text-lg text-white/70 px-4 max-w-2xl mx-auto">
-                Explore our latest thoughts on technology, design, and digital innovation
+              <p className="text-lg md:text-xl text-[#c2d4ff] max-w-3xl mx-auto leading-relaxed">
+                Tactical insights on web strategy, SEO systems, conversion architecture and demand generation.
               </p>
             </motion.div>
+          </div>
+        </section>
 
-            {/* Category Filter */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+        <section className="pb-8">
+          <div className="container mx-auto px-4 sm:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex justify-center mb-8 md:mb-16 px-2"
+              transition={{ duration: 0.45 }}
+              className="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-2 sm:gap-3"
             >
-              <div className="inline-flex flex-wrap gap-2 justify-center bg-white/5 backdrop-blur-sm rounded-full p-2">
-                {categories.map((category, index) => (
-                  <motion.button
-                    key={index}
-                    onClick={() => setActiveCategory(category)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`px-4 sm:px-6 py-2 text-sm sm:text-base rounded-full capitalize transition-all duration-300 ${
-                      activeCategory === category 
-                        ? 'bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white shadow-lg shadow-[#00f2fe]/25' 
-                        : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
-                    }`}
-                  >
-                    {category}
-                  </motion.button>
-                ))}
-              </div>
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setActiveCategory(category)}
+                  className={`rounded-full px-4 py-2 text-sm sm:text-base capitalize transition-all duration-300 border ${
+                    activeCategory === category
+                      ? 'bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-[#04142d] border-transparent font-semibold'
+                      : 'bg-white/[0.03] text-[#bfd2fb] border-white/15 hover:bg-white/[0.08]'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
             </motion.div>
+          </div>
+        </section>
 
-            {/* Blog Posts Grid */}
+        <section className="pb-16 md:pb-20">
+          <div className="container mx-auto px-4 sm:px-6">
             {loading ? (
               <div className="flex justify-center items-center py-20">
                 <LoadingSpinner size="lg" />
               </div>
             ) : filteredPosts.length === 0 ? (
-              <Card className="text-center py-20">
-                <div className="text-white/70">
-                  <p className="text-lg mb-2">No posts found in this category.</p>
-                  <p className="text-sm">Try selecting a different category or check back later.</p>
-                </div>
+              <Card className="max-w-4xl mx-auto text-center border border-white/10 bg-white/[0.03] py-16">
+                <Card.Content>
+                  <p className="text-lg text-[#d5e2ff] mb-2">No posts found in this category.</p>
+                  <p className="text-sm text-[#9cb7eb]">Try another category or check back soon.</p>
+                </Card.Content>
               </Card>
             ) : (
-              <AnimatePresence mode='wait'>
-                <motion.div
-                  layout
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-                >
-                  {filteredPosts.map((post, index) => (
+              <AnimatePresence mode="wait">
+                <div className="max-w-6xl mx-auto space-y-6">
+                  {featuredPost ? (
                     <motion.article
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
+                      key={`featured-${featuredPost._id}`}
+                      initial={{ opacity: 0, y: 18 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      whileHover={{ y: -5 }}
+                      exit={{ opacity: 0, y: -18 }}
+                      transition={{ duration: 0.45 }}
                       className="group"
                     >
-                      <Card className="h-full overflow-hidden hover:bg-white/10 transition-all duration-300">
-                        <div className="relative h-48 sm:h-56 overflow-hidden rounded-t-xl">
-                          <img 
-                            src={post.mainImage} 
-                            alt={post.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        </div>
-                        <div className="p-6">
-                          <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-white/60 mb-4">
-                            <span className="flex items-center gap-2 bg-white/5 px-3 py-1 rounded-full">
-                              <FaCalendar className="w-3 h-3" />
-                              {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                              })}
-                            </span>
-                            {post.author && (
-                              <span className="flex items-center gap-2 bg-white/5 px-3 py-1 rounded-full">
-                                By {post.author}
-                              </span>
-                            )}
+                      <Card className="overflow-hidden border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))]" hover>
+                        <div className="grid lg:grid-cols-2">
+                          <div className="relative h-64 lg:h-full min-h-[270px] overflow-hidden">
+                            <img
+                              src={featuredPost.mainImage}
+                              alt={featuredPost.title}
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
                           </div>
-                          <h2 className="text-xl sm:text-2xl font-bold text-white mb-3 line-clamp-2 group-hover:text-[#00f2fe] transition-colors duration-300">
-                            {post.title}
-                          </h2>
-                          {post.categories && (
-                            <div className="flex flex-wrap items-center gap-2 mb-4">
-                              <FaTags className="w-4 h-4 text-[#00f2fe]" />
-                              {post.categories.map((category, categoryIndex) => (
-                                <Badge 
-                                  key={categoryIndex}
-                                  variant="secondary"
-                                  className="text-xs"
-                                >
-                                  {category}
-                                </Badge>
-                              ))}
+                          <Card.Content className="md:p-8">
+                            <Badge variant="outline" className="mb-4">Featured Insight</Badge>
+                            <h2 className="text-2xl md:text-3xl font-semibold text-white mb-3">{featuredPost.title}</h2>
+                            {featuredPost.excerpt ? (
+                              <p className="text-base text-[#c6d7ff] mb-5 leading-relaxed">{featuredPost.excerpt}</p>
+                            ) : null}
+                            <div className="flex flex-wrap items-center gap-2 text-xs text-[#d6e4ff] mb-4">
+                              <span className="inline-flex items-center gap-1 rounded-full bg-black/30 border border-white/20 px-2.5 py-1">
+                                <FaCalendar className="w-3 h-3" />
+                                {new Date(featuredPost.publishedAt).toLocaleDateString('en-ZA', {
+                                  year: 'numeric',
+                                  month: 'short',
+                                  day: 'numeric'
+                                })}
+                              </span>
+                              {featuredPost.author ? (
+                                <span className="rounded-full bg-black/30 border border-white/20 px-2.5 py-1">
+                                  {featuredPost.author}
+                                </span>
+                              ) : null}
                             </div>
-                          )}
-                          <Link to={`/web-development-blog/${post.slug}`}>
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              className="w-full group-hover:bg-[#00f2fe]/10 group-hover:text-[#00f2fe] transition-all duration-300"
-                            >
-                              Read More
-                              <FaArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                            </Button>
-                          </Link>
+                            <Link to={`/web-development-blog/${featuredPost.slug}`}>
+                              <Button variant="gradient" size="sm" showArrow>
+                                Read Featured Article
+                              </Button>
+                            </Link>
+                          </Card.Content>
                         </div>
                       </Card>
                     </motion.article>
-                  ))}
-                </motion.div>
+                  ) : null}
+
+                  <motion.div
+                    layout
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                  >
+                    {remainingPosts.map((post, index) => (
+                      <motion.article
+                        key={post._id}
+                        initial={{ opacity: 0, y: 18 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -18 }}
+                        transition={{ duration: 0.45, delay: index * 0.05 }}
+                        className="group"
+                      >
+                        <Card className="h-full overflow-hidden border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))]" hover>
+                          <div className="relative h-52 overflow-hidden">
+                            <img
+                              src={post.mainImage}
+                              alt={post.title}
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                            <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-[#d6e4ff]">
+                              <span className="inline-flex items-center gap-1 rounded-full bg-black/40 border border-white/20 px-2.5 py-1">
+                                <FaCalendar className="w-3 h-3" />
+                                {new Date(post.publishedAt).toLocaleDateString('en-ZA', {
+                                  year: 'numeric',
+                                  month: 'short',
+                                  day: 'numeric'
+                                })}
+                              </span>
+                              {post.author ? (
+                                <span className="rounded-full bg-black/40 border border-white/20 px-2.5 py-1">
+                                  {post.author}
+                                </span>
+                              ) : null}
+                            </div>
+                          </div>
+
+                          <Card.Content>
+                            <h2 className="text-xl font-semibold text-white mb-2 line-clamp-2">{post.title}</h2>
+                            {post.excerpt ? (
+                              <p className="text-sm text-[#c6d7ff] mb-4 line-clamp-3">{post.excerpt}</p>
+                            ) : null}
+
+                            {post.categories?.length ? (
+                              <div className="flex items-start gap-2 mb-4">
+                                <FaTags className="w-3.5 h-3.5 text-[#8de4ff] mt-1" />
+                                <div className="flex flex-wrap gap-1.5">
+                                  {post.categories.slice(0, 3).map((category) => (
+                                    <span
+                                      key={`${post._id}-${category}`}
+                                      className="text-xs px-2 py-1 rounded-full border border-white/15 text-[#d2dfff] bg-white/[0.03]"
+                                    >
+                                      {category}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : null}
+
+                            <Link to={`/web-development-blog/${post.slug}`}>
+                              <Button variant="outline" size="sm" className="w-full" showArrow>
+                                Read Article
+                              </Button>
+                            </Link>
+                          </Card.Content>
+                        </Card>
+                      </motion.article>
+                    ))}
+                  </motion.div>
+                </div>
               </AnimatePresence>
             )}
+          </div>
+        </section>
 
-            {/* Newsletter Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="max-w-2xl mx-auto mt-16 md:mt-24"
-            >
-              <Card className="text-center p-8 md:p-12 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm">
-                <Badge variant="outline" className="mb-4">
-                  Stay Updated
-                </Badge>
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 md:mb-4">
-                  Never Miss an Insight
-                </h2>
-                <p className="text-sm md:text-base text-white/70 mb-6 md:mb-8">
-                  Subscribe to our newsletter for the latest insights and articles
+        <section className="pb-20">
+          <div className="container mx-auto px-4 sm:px-6">
+            <Card className="max-w-4xl mx-auto border border-[#74a7ff]/35 bg-[linear-gradient(130deg,rgba(7,17,35,0.9),rgba(8,16,33,0.55))] text-center">
+              <Card.Content>
+                <h3 className="virtara-display text-3xl md:text-4xl mb-4">Get Tactical Insights in Your Inbox</h3>
+                <p className="text-[#c7d9ff] max-w-2xl mx-auto mb-8 text-base md:text-lg">
+                  Monthly practical advice on SEO, web performance and conversion systems for South African businesses.
                 </p>
-                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-2xl mx-auto">
                   <input
                     type="email"
                     placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="flex-1 px-4 sm:px-6 py-3 sm:py-4 rounded-full bg-white/5 border border-white/10 text-white text-sm md:text-base focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                    className="flex-1 px-5 py-3.5 rounded-full bg-white/[0.04] border border-white/15 text-white text-sm md:text-base focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                   />
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="px-6 sm:px-8 py-3 sm:py-4 rounded-full"
-                  >
+                  <Button type="submit" disabled={isSubmitting} className="px-7 py-3.5 rounded-full" showArrow>
                     {isSubmitting ? (
                       <>
                         <LoadingSpinner size="sm" className="mr-2" />
@@ -289,15 +336,15 @@ const Blog = () => {
                     )}
                   </Button>
                 </form>
-              </Card>
-            </motion.div>
+              </Card.Content>
+            </Card>
           </div>
         </section>
 
         <Footer />
-      </div>
+      </main>
     </>
   );
-};
+}
 
 export default Blog;

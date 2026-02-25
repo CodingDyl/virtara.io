@@ -45,7 +45,7 @@ const BlogPost = () => {
 
   if (loading) {
     return (
-      <div className="bg-[#0F0F0F] min-h-screen">
+      <div className="bg-[#050910] min-h-screen">
         <Navbar />
         <div className="flex justify-center items-center pt-32">
           <LoadingSpinner size="lg" />
@@ -56,7 +56,7 @@ const BlogPost = () => {
 
   if (!post) {
     return (
-      <div className="bg-[#0F0F0F] min-h-screen">
+      <div className="bg-[#050910] min-h-screen">
         <Navbar />
         <div className="container mx-auto px-4 pt-32">
           <Card className="text-center py-20">
@@ -81,7 +81,7 @@ const BlogPost = () => {
         <meta name="keywords" content={post.keywords || 'digital marketing, web development, design trends'} />
         <link rel="canonical" href={`https://virtara.co.za/web-development-blog/${slug}`} />
       </Helmet>
-      <div className="bg-[#0F0F0F] min-h-screen">
+      <div className="bg-[#050910] min-h-screen">
         <Navbar />
 
         <article className="pt-32 pb-20">
@@ -161,7 +161,7 @@ const BlogPost = () => {
                 {/* Categories */}
                 {post.categories && (
                   <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
-                    <FaTags className="w-3 h-3 sm:w-4 sm:h-4 text-[#00f2fe]" />
+                    <FaTags className="w-3 h-3 sm:w-4 sm:h-4 text-[#8df6ff]" />
                     {post.categories.map((category, index) => (
                       <Badge 
                         key={index}
@@ -183,7 +183,7 @@ const BlogPost = () => {
                 className="max-w-none"
               >
                 <Card className="p-4 sm:p-6 md:p-8 lg:p-12 bg-white/10 backdrop-blur-sm border border-white/20">
-                  <div className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-white prose-a:text-[#00f2fe] prose-strong:text-white prose-code:text-[#00f2fe] prose-code:bg-white/10 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-blockquote:border-l-[#00f2fe] prose-blockquote:bg-white/5 prose-blockquote:p-4 prose-blockquote:rounded-r prose-ul:text-white prose-ol:text-white prose-li:text-white">
+                  <div className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-white prose-a:text-[#8df6ff] prose-strong:text-white prose-code:text-[#8df6ff] prose-code:bg-white/10 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-blockquote:border-l-[#8df6ff] prose-blockquote:bg-white/5 prose-blockquote:p-4 prose-blockquote:rounded-r prose-ul:text-white prose-ol:text-white prose-li:text-white">
                     <PortableText value={post.body} />
                   </div>
                 </Card>

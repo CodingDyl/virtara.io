@@ -37,7 +37,7 @@ export const BentoGridItem = ({
     >
       {/* Gradient overlay on hover */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-[#00f2fe]/10 via-transparent to-[#ff00e5]/10 opacity-0 group-hover/bento:opacity-100 transition-opacity duration-500"
+        className="absolute inset-0 bg-gradient-to-br from-[#8df6ff]/10 via-transparent to-[#4ea4ff]/10 opacity-0 group-hover/bento:opacity-100 transition-opacity duration-500"
         initial={false}
       />
       
@@ -85,7 +85,7 @@ export const BentoGridItem = ({
           
           {/* Hover indicator */}
           <motion.div
-            className="mt-4 flex items-center gap-2 text-[#00f2fe] opacity-0 group-hover/bento:opacity-100 transition-all duration-500"
+            className="mt-4 flex items-center gap-2 text-[#8df6ff] opacity-0 group-hover/bento:opacity-100 transition-all duration-500"
             initial={false}
           >
             <span className="text-sm font-medium">Learn more</span>

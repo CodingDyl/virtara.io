@@ -9,18 +9,19 @@ const Card = ({
   hover = true,
   ...props 
 }) => {
-  const baseClasses = "relative overflow-hidden transition-all duration-500";
+  const baseClasses = "relative overflow-hidden rounded-[30px] transition-all duration-500";
   
   const variants = {
-    default: "bg-black/40 border border-white/10 backdrop-blur-sm",
-    elevated: "bg-black/60 border border-white/20 backdrop-blur-md shadow-2xl",
-    gradient: "bg-gradient-to-br from-white/5 to-white/10 border border-white/10 backdrop-blur-sm",
-    glass: "bg-white/5 border border-white/20 backdrop-blur-xl",
-    dark: "bg-[#1C1C1C]/80 border border-white/5 backdrop-blur-sm"
+    default: "bg-[linear-gradient(155deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] border border-white/10 backdrop-blur-sm",
+    elevated: "bg-[linear-gradient(155deg,rgba(255,255,255,0.12),rgba(255,255,255,0.03))] border border-white/20 backdrop-blur-md shadow-[0_18px_55px_rgba(2,22,55,0.5)]",
+    gradient: "bg-[linear-gradient(145deg,rgba(255,255,255,0.1),rgba(255,255,255,0.02))] border border-white/10 backdrop-blur-sm",
+    glass: "bg-[linear-gradient(155deg,rgba(255,255,255,0.09),rgba(255,255,255,0.02))] border border-white/20 backdrop-blur-xl",
+    dark: "bg-[#0c1628]/80 border border-white/5 backdrop-blur-sm"
   };
 
   const hoverEffects = hover ? {
-    scale: 1.02,
+    y: -6,
+    scale: 1.01,
     transition: { duration: 0.3, ease: "easeOut" }
   } : {};
 
@@ -40,7 +41,7 @@ const Card = ({
       {/* Gradient overlay on hover */}
       {hover && (
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-[#00f2fe]/10 via-transparent to-[#ff00e5]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          className="absolute inset-0 bg-gradient-to-br from-[#8df6ff]/10 via-transparent to-[#4ea4ff]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           initial={false}
         />
       )}
@@ -49,6 +50,7 @@ const Card = ({
       <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
       </div>
+      <div className="pointer-events-none absolute -right-10 -top-16 h-44 w-44 rounded-full bg-[#4ea4ff]/10 blur-3xl" />
 
       <div className="relative z-10">
         {children}

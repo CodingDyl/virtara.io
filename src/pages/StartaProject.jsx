@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FaArrowRight, FaCalendar, FaPhone, FaEnvelope, FaBuilding, FaGlobe, FaDollarSign, FaCog, FaComments } from 'react-icons/fa';
+import { FaArrowRight, FaCalendar, FaPhone, FaEnvelope, FaBuilding, FaGlobe, FaCoins, FaCog, FaComments } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useState } from "react";
@@ -163,7 +163,7 @@ function StartaProject() {
         <meta name="keywords" content="start project, web development project, digital marketing services, custom solutions" />
         <link rel="canonical" href="https://virtara.co.za/starta-project" />
       </Helmet>
-      <div className="bg-[#0F0F0F] min-h-screen">
+      <div className="bg-[#050910] min-h-screen">
         <Navbar />
         <Notification
           message={notification.message}
@@ -189,7 +189,7 @@ function StartaProject() {
               </div>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
                 Schedule Your Free
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
                   {" "}Strategy Session
                 </span>
               </h1>
@@ -208,7 +208,7 @@ function StartaProject() {
               {benefits.map((benefit, index) => (
                 <Card key={index} className="text-center p-6 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm">
                   <div className="flex justify-center mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] rounded-full flex items-center justify-center text-white">
+                    <div className="w-12 h-12 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] rounded-full flex items-center justify-center text-white">
                       {benefit.icon}
                     </div>
                   </div>
@@ -244,7 +244,7 @@ function StartaProject() {
                             value={formData.name}
                             onChange={handleInputChange}
                             placeholder="Your Name"
-                            className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#00f2fe] focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                            className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#8df6ff] focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                             required
                           />
                         </div>
@@ -259,7 +259,7 @@ function StartaProject() {
                             value={formData.email}
                             onChange={handleInputChange}
                             placeholder="your@email.com"
-                            className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#00f2fe] focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                            className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#8df6ff] focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                             required
                           />
                         </div>
@@ -274,7 +274,7 @@ function StartaProject() {
                             value={formData.phone}
                             onChange={handleInputChange}
                             placeholder="+27 (0) 12 345 6789"
-                            className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#00f2fe] focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                            className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#8df6ff] focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                           />
                         </div>
                       </div>
@@ -292,7 +292,7 @@ function StartaProject() {
                             value={formData.company}
                             onChange={handleInputChange}
                             placeholder="Your Company"
-                            className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#00f2fe] focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                            className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#8df6ff] focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                           />
                         </div>
                       </div>
@@ -306,24 +306,24 @@ function StartaProject() {
                             value={formData.website}
                             onChange={handleInputChange}
                             placeholder="https://yourwebsite.com"
-                            className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#00f2fe] focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                            className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#8df6ff] focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                           />
                         </div>
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-white/80 mb-2">Project Budget Range *</label>
                         <div className="relative">
-                          <FaDollarSign className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-4 h-4" />
+                          <FaCoins className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 w-4 h-4" />
                           <select
                             name="budget"
                             value={formData.budget}
                             onChange={handleInputChange}
-                            className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:outline-none focus:border-[#00f2fe] focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 appearance-none"
+                            className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:outline-none focus:border-[#8df6ff] focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300 appearance-none"
                             required
                           >
                             <option value="">Select Budget Range</option>
                             {projectSizes.map((size, index) => (
-                              <option key={index} value={size} className="bg-[#0F0F0F]">
+                              <option key={index} value={size} className="bg-[#050910]">
                                 {size}
                               </option>
                             ))}
@@ -341,14 +341,14 @@ function StartaProject() {
                         name="service"
                         value={formData.service}
                         onChange={handleInputChange}
-                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:outline-none focus:border-[#00f2fe] focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 appearance-none"
+                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:outline-none focus:border-[#8df6ff] focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300 appearance-none"
                         required
                       >
                         <option value="">Select Primary Service</option>
                         {services.map((service) => (
-                          <optgroup key={service.category} label={service.category} className="bg-[#0F0F0F]">
+                          <optgroup key={service.category} label={service.category} className="bg-[#050910]">
                             {service.options.map((option, index) => (
-                              <option key={index} value={option} className="bg-[#0F0F0F]">
+                              <option key={index} value={option} className="bg-[#050910]">
                                 {option}
                               </option>
                             ))}
@@ -365,7 +365,7 @@ function StartaProject() {
                         onChange={handleInputChange}
                         placeholder="Tell us about your project goals, requirements, timeline, and any specific features you need..."
                         rows="6"
-                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#00f2fe] focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 resize-none"
+                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#8df6ff] focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300 resize-none"
                         required
                       />
                     </div>

@@ -89,7 +89,7 @@ export const AnimatedTestimonials = ({
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        className="absolute top-4 right-4 w-3 h-3 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] rounded-full"
+                        className="absolute top-4 right-4 w-3 h-3 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] rounded-full"
                       />
                     )}
                   </div>
@@ -106,7 +106,7 @@ export const AnimatedTestimonials = ({
                 onClick={() => setActive(index)}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   isActive(index) 
-                    ? 'bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] w-8' 
+                    ? 'bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] w-8' 
                     : 'bg-white/30 hover:bg-white/50'
                 }`}
                 whileHover={{ scale: 1.2 }}
@@ -143,7 +143,7 @@ export const AnimatedTestimonials = ({
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-4xl text-[#00f2fe]/30"
+              className="text-4xl text-[#8df6ff]/30"
             >
               "
             </motion.div>
@@ -185,7 +185,7 @@ export const AnimatedTestimonials = ({
               <h3 className="text-xl font-bold text-white">
                 {testimonials[active].name}
               </h3>
-              <p className="text-sm text-[#00f2fe] font-medium">
+              <p className="text-sm text-[#8df6ff] font-medium">
                 {testimonials[active].designation}
               </p>
             </motion.div>
@@ -199,7 +199,7 @@ export const AnimatedTestimonials = ({
               whileTap={{ scale: 0.9 }}
               className="h-12 w-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group/button transition-all duration-300"
             >
-              <IconArrowLeft className="h-5 w-5 text-white group-hover/button:text-[#00f2fe] transition-colors duration-300" />
+              <IconArrowLeft className="h-5 w-5 text-white group-hover/button:text-[#8df6ff] transition-colors duration-300" />
             </motion.button>
             <motion.button
               onClick={handleNext}
@@ -207,7 +207,7 @@ export const AnimatedTestimonials = ({
               whileTap={{ scale: 0.9 }}
               className="h-12 w-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group/button transition-all duration-300"
             >
-              <IconArrowRight className="h-5 w-5 text-white group-hover/button:text-[#ff00e5] transition-colors duration-300" />
+              <IconArrowRight className="h-5 w-5 text-white group-hover/button:text-[#4ea4ff] transition-colors duration-300" />
             </motion.button>
           </div>
         </div>

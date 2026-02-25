@@ -8,7 +8,7 @@ import { FaArrowRight } from 'react-icons/fa';
 
 const AuditThankYou = () => {
   return (
-    <div className="bg-[#0F0F0F] min-h-screen">
+    <div className="bg-[#050910] min-h-screen">
       <Helmet>
         <title>Thank You | Website Audit Booking | Virtara</title>
         <meta name="description" content="Thank you for booking your website audit session with Virtara. We'll be in touch shortly to confirm your appointment." />
@@ -27,7 +27,7 @@ const AuditThankYou = () => {
             >
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
                 Thank You for
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
                   {" "}Booking
                 </span>
               </h1>

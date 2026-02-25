@@ -12,7 +12,7 @@ const ComeBack = () => {
         <meta name="description" content="Thank you for being part of Virtara's newsletter community" />
         <link rel="canonical" href="https://virtara.co.za/comeback" />
       </Helmet>
-      <div className="bg-[#0F0F0F] min-h-screen">
+      <div className="bg-[#050910] min-h-screen">
         <section className="min-h-screen flex items-center justify-center">
           <div className="container mx-auto px-4 sm:px-6 py-12">
             <motion.div
@@ -38,7 +38,7 @@ const ComeBack = () => {
                       repeatType: "reverse"
                     }}
                   >
-                    <FaHeart className="text-[#ff00e5] w-16 h-16" />
+                    <FaHeart className="text-[#4ea4ff] w-16 h-16" />
                   </motion.div>
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
@@ -53,7 +53,7 @@ const ComeBack = () => {
                   href="/"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="inline-block px-8 py-3 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium hover:opacity-90 transition-opacity"
+                  className="inline-block px-8 py-3 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-white rounded-full font-medium hover:opacity-90 transition-opacity"
                 >
                   Return to Homepage
                 </motion.a>

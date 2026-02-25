@@ -1,46 +1,155 @@
-import { motion }from "framer-motion";
-import { FaArrowRight } from 'react-icons/fa';
-import Navbar from '../components/Navbar';
-import { bg_hero,} from '../assets';
-import { BentoGrid, BentoGridItem } from "../components/ui/bento-grid";
-import { AnimatedTestimonials } from "../components/ui/animated-testimonials";
-import Footer from '../components/Footer';
-import { PinContainer } from "../components/ui/3d-pin";
-import { Link } from 'react-router-dom';
-import { testimonials, projectImages, items } from '../constants';
-import { Helmet } from 'react-helmet-async';
-import Silk from '../components/Silk';
-import Badge from '../components/ui/Badge';
+import { useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
+import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import Silk from "../components/Silk";
+import Badge from "../components/ui/Badge";
+import { bg_hero, mpower, vaja, virtec } from "../assets";
+
+const trustClients = ["Vaja", "MPower Ratings", "Virtec Marketing", "Aureya", "Clarity"];
+
+const proofCards = [
+  {
+    id: "vaja",
+    title: "Vaja",
+    kpi: "30% Conversion Rate Lift",
+    before: "Outdated UX and unclear service pages.",
+    after: "Focused information architecture and conversion-first CTAs.",
+    image: vaja,
+    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    link: "https://vaja.co.za",
+    size: "md:col-span-2"
+  },
+  {
+    id: "mpower",
+    title: "MPower Ratings",
+    kpi: "2.1x More Qualified Inquiries",
+    before: "Low-intent leads from broad landing pages.",
+    after: "High-intent journey mapped around BEE verification use-cases.",
+    image: mpower,
+    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    link: "https://mpowerratings.co.za",
+    size: "md:col-span-1"
+  },
+  {
+    id: "virtec",
+    title: "Virtec Marketing",
+    kpi: "41% Increase in Demo Requests",
+    before: "No visual hierarchy for key decision points.",
+    after: "Bento storytelling with clear offer framing and proof blocks.",
+    image: virtec,
+    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    link: "https://virtec.vercel.app",
+    size: "md:col-span-1"
+  }
+];
+
+const tickerResults = [
+  "Vaja: +30% conversions in 90 days",
+  "MPower Ratings: +2.1x qualified leads",
+  "Virtec: +41% demo bookings",
+  "Average lighthouse performance: 97+",
+  "Latest SEO sprint: +18 ranking keywords this week"
+];
+
+const discoverySteps = [
+  {
+    key: "revenueGoal",
+    question: "What is your target monthly revenue from digital in the next 6 months?",
+    options: ["R350k-R900k", "R900k-R1.8M", "R1.8M-R4.5M", "R4.5M+"]
+  },
+  {
+    key: "leadVolume",
+    question: "How many qualified leads do you need per month to hit that target?",
+    options: ["10-25", "25-50", "50-100", "100+"]
+  },
+  {
+    key: "primaryConstraint",
+    question: "What is the main blocker in your current funnel?",
+    options: ["Low-quality traffic", "Poor site conversion", "Weak sales follow-through", "No clear analytics"]
+  }
+];
 
 function Home() {
+  const [stepIndex, setStepIndex] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [selectedCardId, setSelectedCardId] = useState(null);
+  const videoRefs = useRef({});
+
+  const currentStep = discoverySteps[stepIndex];
+  const isQuizComplete = stepIndex >= discoverySteps.length;
+
+  const suggestedAuditFocus = useMemo(() => {
+    if (!isQuizComplete) return "";
+
+    const blocker = answers.primaryConstraint;
+    if (blocker === "Poor site conversion") return "Conversion architecture and CRO";
+    if (blocker === "Low-quality traffic") return "Acquisition and SEO alignment";
+    if (blocker === "Weak sales follow-through") return "Lead qualification and handoff system";
+    return "Attribution and full-funnel optimization";
+  }, [answers, isQuizComplete]);
+
+  useEffect(() => {
+    if (!selectedCardId) {
+      Object.values(videoRefs.current).forEach((videoEl) => {
+        if (videoEl) {
+          videoEl.pause();
+          videoEl.currentTime = 0;
+        }
+      });
+      return;
+    }
+
+    const selectedVideo = videoRefs.current[selectedCardId];
+    if (!selectedVideo) return;
+
+    selectedVideo.currentTime = 0;
+    selectedVideo.play().catch(() => {});
+
+    const timer = window.setTimeout(() => {
+      selectedVideo.pause();
+      selectedVideo.currentTime = 0;
+    }, 3000);
+
+    return () => window.clearTimeout(timer);
+  }, [selectedCardId]);
+
+  const handleAnswer = (value) => {
+    setAnswers((prev) => ({ ...prev, [currentStep.key]: value }));
+    setStepIndex((prev) => prev + 1);
+  };
 
   return (
-    <main className="bg-[#0F0F0F] min-h-screen">
+    <main className="bg-[#060A11] text-white min-h-screen virtara-body">
       <Helmet>
-        <title>Virtara | Web Design, Development | Digital Agency & Marketing Services</title>
-        <meta name="description" content="Transform your digital presence with our innovative web design, development, and digital marketing solutions. Creating digital experiences that matter for modern businesses." />
-        <meta name="keywords" content="digital agency, web design, web development, digital marketing, brand strategy, SEO" />
+        <title>Virtara | Digital Assets That Outperform Your Competition</title>
+        <meta
+          name="description"
+          content="Virtara builds high-performance digital assets for growth-focused brands. See measurable outcomes, live client proof, and book a strategy audit."
+        />
+        <meta
+          name="keywords"
+          content="digital agency, web design, web development, conversion optimization, SEO, lead generation"
+        />
         <link rel="canonical" href="https://virtara.co.za" />
-        
 
-        {/* Schema Markup */}
         <script type="application/ld+json">
           {`
             {
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
               "name": "Virtara",
-              "description": "We craft innovative digital solutions that help brands stand out and connect with their audience.",
+              "description": "We build digital assets that outperform the competition.",
               "image": "${bg_hero}",
               "url": "https://www.virtara.co.za",
               "address": {
                 "@type": "PostalAddress",
                 "addressCountry": "South Africa"
               },
-
-              "priceRange": "R4000 - R500000",
-
-              "serviceType": ["Web Design", "Web Development", "Software Development", "Digital Marketing", "Brand Strategy"]
+              "serviceType": ["Web Design", "Web Development", "SEO", "Growth Strategy"]
             }
           `}
         </script>
@@ -48,310 +157,243 @@ function Home() {
 
       <Navbar />
 
-      <section className="min-h-screen relative flex items-center justify-center pt-32 md:pt-40">
-        <div 
-          className="absolute inset-0 z-0 bg-[#0F0F0F]"
-        >
-          <Silk
-            speed={5}
-            scale={1}
-            color="#7B7481"
-            noiseIntensity={1.5}
-            rotation={0}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0F0F0F]/90 via-[#0F0F0F]/80 to-[#0F0F0F]" />
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-36 pb-20">
+        <div className="absolute inset-0 z-0">
+          <Silk speed={4} scale={0.95} color="#0059ff" noiseIntensity={1.05} rotation={0} />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(3,104,255,0.25),transparent_45%),radial-gradient(circle_at_85%_20%,rgba(0,232,255,0.2),transparent_45%),linear-gradient(180deg,rgba(4,7,12,0.75)_0%,rgba(6,10,17,0.96)_70%)]" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto flex flex-col lg:flex-row items-center lg:items-start justify-center text-center lg:text-left gap-12"
+            transition={{ duration: 0.75, ease: "easeOut" }}
+            className="max-w-6xl mx-auto"
           >
-            <div className="flex-1">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="mb-4"
-              >
-                <Badge variant="primary" size="lg">
-                  Digital Agency
-                </Badge>
-              </motion.div>
-
-              <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight mb-8"
-              >
-                Impactful Websites. Effortless 
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                  {" "}Growth.
-                </span>
-              </motion.h1>
-              
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="space-y-6 mb-8 flex flex-col gap-2 items-center md:items-start"
-              >
-                <p className="text-lg text-white/70 leading-relaxed">
-                  We craft innovative digital solutions that help your business stand out, attract customers, and drive real growth.
-                </p>
-                <Link to="/start-your-project">
-                  <motion.button
-                    whileHover={{ 
-                      scale: 1.02,
-                      boxShadow: "0 0 30px rgba(255, 255, 255, 0.3)"
-                    }}
-                    whileTap={{ scale: 0.98 }}
-                    className="px-8 py-4 bg-gradient-to-r from-white to-white/90 text-black rounded-full font-medium flex items-center gap-3 hover:shadow-xl transition-all duration-300 group"
-                  >
-                    <span>Schedule a Free Strategy Session</span>
-                    <motion.div
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      <FaArrowRight className="group-hover:translate-x-1 transition-transform duration-300" />
-                    </motion.div>
-                  </motion.button>
-                </Link>
-              </motion.div>
-
-            </div>
-
-            <motion.div 
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="space-y-4 flex flex-col items-center lg:items-start my-auto gap-10 lg:gap-20"
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="mb-5"
             >
-              {[
-                { number: "01", title: "Web Design & Development", path: "/services#development" },
-                { number: "02", title: "Maintenance & Support", path: "/maintenance-support" },
-                { number: "03", title: "SEO Optimisation", path: "/services#seo" }
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                >
-                  <Link to={item.path}>
-                    <motion.div 
-                      className="flex items-center gap-4 group cursor-pointer"
-                      whileHover={{ x: 10 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <motion.span 
-                        className="text-white/40 text-lg font-mono group-hover:text-[#00f2fe] transition-colors duration-300"
-                        whileHover={{ scale: 1.2 }}
-                      >
-                        {item.number}
-                      </motion.span>
-                      <span className="text-white text-xl no-underline hover:underline group-hover:text-[#00f2fe] transition-colors duration-300">
-                        {item.title}
-                      </span>
-                    </motion.div>
-                  </Link>
-                </motion.div>
-              ))}
+              <Badge variant="primary" size="lg">Outcome-First Digital Agency</Badge>
             </motion.div>
-          </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: 1,
-              y: [0, 10, 0]
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1
-            }}
-            className="flex justify-center mt-16"
-          >
-            <motion.div 
-              className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center cursor-pointer"
-              whileHover={{ scale: 1.1 }}
-              onClick={() => {
-                document.querySelector('#services-section')?.scrollIntoView({ 
-                  behavior: 'smooth' 
-                });
-              }}
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25, duration: 0.75 }}
+              className="virtara-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight max-w-5xl"
             >
-              <motion.div
-                animate={{
-                  y: [0, 12, 0]
+              <span className="inline-block">We Build Digital Assets</span>{" "}
+              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#35d7ff] via-[#66a4ff] to-[#9ff0ff]">that Outperform</span>{" "}
+              <span className="inline-block">Your Competition.</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.7 }}
+              className="max-w-2xl text-lg sm:text-xl text-[#d0dcff] mt-8 leading-relaxed"
+            >
+              Premium web strategy, engineering, and SEO execution for brands that care about measurable outcomes.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.65 }}
+              className="mt-10 flex flex-wrap gap-4"
+            >
+              <button
+                onClick={() => {
+                  document.querySelector("#lead-qualifier")?.scrollIntoView({ behavior: "smooth" });
                 }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="w-1.5 h-3 bg-gradient-to-b from-[#00f2fe] to-[#ff00e5] rounded-full mt-2"
-              />
+                className="px-8 py-4 rounded-full font-semibold text-[#03152f] bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] hover:brightness-110 transition-all duration-300 shadow-[0_8px_45px_rgba(25,139,255,0.35)] flex items-center gap-3"
+              >
+                <span>Book a Strategy Audit</span>
+                <FaArrowRight />
+              </button>
+
+              <Link to="/our-work">
+                <button className="px-8 py-4 rounded-full border border-white/20 backdrop-blur-xl bg-white/[0.04] hover:bg-white/[0.09] transition-colors duration-300">
+                  Explore Client Wins
+                </button>
+              </Link>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      <section id="services-section" className="min-h-screen py-12 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-6 md:mb-8">
-              Obtaining Customers Made
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                {" "}Easy
-              </span>
-            </h2>
-            <p className="text-lg text-white/70 mb-12 max-w-3xl mx-auto leading-relaxed">
-              We understand that every business is unique, and we tailor our strategies to meet your specific needs. Whether you're looking to increase brand awareness, drive sales, or enhance customer engagement, our team is here to help.
-            </p>
-          </motion.div>
-
-          <BentoGrid className="max-w-7xl mx-auto">
-            {items.map((item, i) => (
-              <BentoGridItem
-                key={i}
-                title={item.title}
-                description={item.description}
-                className={item.className}
-                image={item.image}
-              />
-            ))}
-          </BentoGrid>
-        </div>
-      </section>
-
-      <section className="min-h-screen py-12 md:py-20 bg-gradient-to-b from-[#0F0F0F] to-[#161616]">
-        <div className="container mx-auto px-4 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-6 md:mb-8">
-              Our Featured
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                {" "}Work
-              </span>
-            </h2>
-            <p className="text-lg text-white/70 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Explore our portfolio of successful projects and see how we've helped businesses transform their digital presence.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-12">
-            {projectImages.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <PinContainer 
-                  title={project.link}
-                  href={project.link}
-                  containerClassName="h-[30rem] w-full flex items-center justify-center"
-                >
-                  <div className="flex basis-full flex-col p-4 sm:p-6 tracking-tight text-slate-100/50 w-[85vw] sm:w-[28rem] md:w-[22rem] lg:w-[24rem] h-[24rem] border border-white/10 rounded-lg bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm">
-                    <h3 className="max-w-xs !pb-2 !m-0 font-bold text-xl text-slate-100">
-                      {project.title}
-                    </h3>
-                    <div className="text-base !m-0 !p-0 font-normal">
-                      <span className="text-slate-500">
-                        {project.description || "Innovative digital solutions for modern businesses"}
-                      </span>
-                    </div>
-                    <div 
-                      className="flex flex-1 w-full rounded-lg mt-4 overflow-hidden border border-white/10"
-                      role="img" 
-                      aria-label={project.title}
-                    >
-                      <img 
-                        src={project.image} 
-                        alt={`${project.title} - Project showcase`}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
-                </PinContainer>
-              </motion.div>
+      <section className="border-y border-white/10 bg-[#070d17]">
+        <div className="container mx-auto px-4 sm:px-6 py-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm sm:text-base text-[#b3c7ff]">
+            <span className="uppercase tracking-[0.22em] text-[#7b90bf]">Trusted by</span>
+            {trustClients.map((client) => (
+              <span key={client} className="font-semibold tracking-wide">{client}</span>
             ))}
           </div>
-
-          <motion.div 
-            className="flex justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <Link to="/our-work">
-            <motion.button
-              whileHover={{ 
-                scale: 1.02,
-                boxShadow: "0 0 30px rgba(255, 255, 255, 0.2)"
-              }}
-              whileTap={{ scale: 0.98 }}
-              className="px-8 py-4 bg-transparent text-white border-2 border-white/20 rounded-full font-medium flex items-center gap-2 hover:bg-white/10 hover:border-white/30 transition-all duration-300 group"
-            >
-              <span>View Full Portfolio</span>
-              <motion.div
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                <FaArrowRight className="group-hover:translate-x-1 transition-transform duration-300" />
-              </motion.div>
-              </motion.button>
-            </Link>
-          </motion.div>
         </div>
       </section>
 
-      <section className="py-12 md:py-20 bg-gradient-to-b from-[#0F0F0F] to-[#161616]">
+      <section className="py-20 md:py-24 bg-[#050910]">
         <div className="container mx-auto px-4 sm:px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            transition={{ duration: 0.65 }}
+            className="mb-12"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-6 md:mb-8">
-              What Our Clients
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                {" "}Say
-              </span>
-            </h2>
-            <p className="text-lg text-white/70 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Don't just take our word for it. Here's what our clients have to say about their experience working with us.
+            <h2 className="virtara-display text-4xl sm:text-5xl md:text-6xl">Proof of Work</h2>
+            <p className="mt-4 text-[#b3c7ff] max-w-3xl text-lg">
+              Bento-style project modules with before vs. after clarity and hover-activated video peeks.
             </p>
           </motion.div>
-          <AnimatedTestimonials testimonials={testimonials} />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {proofCards.map((card, index) => (
+              <motion.a
+                key={card.id}
+                href={card.link}
+                target="_blank"
+                rel="noreferrer"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: index * 0.08 }}
+                viewport={{ once: true }}
+                onMouseEnter={() => setSelectedCardId(card.id)}
+                onMouseLeave={() => setSelectedCardId(null)}
+                className={`${card.size} group rounded-[26px] p-[1px] bg-gradient-to-br from-[#2d4cff] via-[#57d8ff] to-[#192436]`}
+              >
+                <div className="h-full rounded-[25px] bg-[#071122]/85 border border-white/10 p-5 sm:p-6 backdrop-blur-xl flex flex-col">
+                  <div className="flex items-start justify-between gap-3 mb-4">
+                    <h3 className="text-2xl font-semibold text-white">{card.title}</h3>
+                    <span className="text-xs uppercase tracking-[0.18em] text-[#7ea4ff]">Case Study</span>
+                  </div>
+
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden border border-white/10 bg-[#0f1728]">
+                    <img
+                      src={card.image}
+                      alt={`${card.title} project preview`}
+                      loading="lazy"
+                      width="1280"
+                      height="800"
+                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-15"
+                    />
+                    <video
+                      ref={(el) => {
+                        videoRefs.current[card.id] = el;
+                      }}
+                      src={card.video}
+                      muted
+                      playsInline
+                      preload="metadata"
+                      poster={card.image}
+                      className="absolute inset-0 h-full w-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    />
+                    <div className="absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-semibold bg-black/55 border border-white/20">
+                      3s Live Peek
+                    </div>
+                  </div>
+
+                  <p className="mt-4 text-[#86f8ff] font-semibold">{card.kpi}</p>
+
+                  <div className="mt-4 space-y-3 text-sm text-[#c6d7ff] leading-relaxed">
+                    <p>
+                      <span className="text-[#ff9ca5] font-medium">Before:</span> {card.before}
+                    </p>
+                    <p>
+                      <span className="text-[#94ffc0] font-medium">After:</span> {card.after}
+                    </p>
+                  </div>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-8 border-y border-white/10 bg-[#070d17] overflow-hidden">
+        <div className="ticker-wrap">
+          <div className="ticker-track">
+            {[...tickerResults, ...tickerResults].map((result, index) => (
+              <div key={`${result}-${index}`} className="ticker-item">
+                <FaCheckCircle className="text-[#7af5ff]" />
+                <span>{result}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="lead-qualifier" className="py-20 md:py-24 bg-[#050910]">
+        <div className="container mx-auto px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.65 }}
+            className="max-w-4xl mx-auto rounded-[32px] border border-white/15 bg-[linear-gradient(145deg,rgba(255,255,255,0.09),rgba(255,255,255,0.02))] backdrop-blur-2xl p-6 sm:p-10"
+          >
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+              <h2 className="virtara-display text-3xl sm:text-4xl md:text-5xl">Interactive Lead Qualifier</h2>
+              <span className="text-sm uppercase tracking-[0.18em] text-[#99b8ff]">
+                Step {Math.min(stepIndex + 1, discoverySteps.length)} of {discoverySteps.length}
+              </span>
+            </div>
+
+            {!isQuizComplete ? (
+              <div>
+                <h3 className="text-xl sm:text-2xl text-[#e7f0ff] mb-6 leading-relaxed">{currentStep.question}</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {currentStep.options.map((option) => (
+                    <button
+                      key={option}
+                      onClick={() => handleAnswer(option)}
+                      className="text-left px-5 py-4 rounded-2xl border border-white/15 bg-white/[0.04] hover:bg-white/[0.1] hover:border-[#70d0ff]/70 transition-all duration-200"
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                <p className="text-lg text-[#dbebff]">
+                  Great, your growth target is clear. Based on your inputs, your likely highest-leverage focus is <span className="font-semibold text-[#8fe8ff]">{suggestedAuditFocus}</span>.
+                </p>
+                <div className="rounded-2xl border border-[#5ca3ff]/45 bg-[#0a1527] p-5 text-sm text-[#b7ceff] space-y-2">
+                  <p>Revenue Goal: {answers.revenueGoal}</p>
+                  <p>Lead Requirement: {answers.leadVolume}</p>
+                  <p>Primary Constraint: {answers.primaryConstraint}</p>
+                </div>
+                <div className="flex flex-wrap gap-4">
+                  <Link to="/start-your-project">
+                    <button className="px-8 py-4 rounded-full font-semibold text-[#03152f] bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] hover:brightness-110 transition-all duration-300 shadow-[0_8px_45px_rgba(25,139,255,0.35)] flex items-center gap-3">
+                      <span>Book a Strategy Audit</span>
+                      <FaArrowRight />
+                    </button>
+                  </Link>
+                  <button
+                    onClick={() => {
+                      setStepIndex(0);
+                      setAnswers({});
+                    }}
+                    className="px-6 py-4 rounded-full border border-white/20 hover:bg-white/[0.08] transition-colors"
+                  >
+                    Restart Quiz
+                  </button>
+                </div>
+              </div>
+            )}
+          </motion.div>
         </div>
       </section>
 
       <Footer />
     </main>
-  )
+  );
 }
 
-export default Home
+export default Home;

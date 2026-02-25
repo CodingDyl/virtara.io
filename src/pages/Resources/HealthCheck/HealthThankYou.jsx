@@ -16,7 +16,7 @@ const HealthThankYou = () => {
         <meta name="robots" content="noindex" /> {/* Don't index thank you pages */}
       </Helmet>
 
-      <div className="bg-[#0F0F0F] min-h-screen">
+      <div className="bg-[#050910] min-h-screen">
         <Navbar />
         
         <section className="min-h-screen pt-32 md:pt-40 pb-12">
@@ -30,7 +30,7 @@ const HealthThankYou = () => {
               >
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
                   Thanks! Your Checklist Is on Its
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
                     {" "}Way!
                   </span>
                 </h1>
@@ -49,7 +49,7 @@ const HealthThankYou = () => {
                   Want Us to Do the Heavy Lifting?
                 </h2>
                 <div className="mb-6">
-                  <span className="text-3xl font-bold text-[#00f2fe] line-through mr-3">R499</span>
+                  <span className="text-3xl font-bold text-[#8df6ff] line-through mr-3">R499</span>
                   <span className="text-4xl font-bold text-white">R299</span>
                 </div>
                 <p className="text-white/70 mb-8">
@@ -60,7 +60,7 @@ const HealthThankYou = () => {
                   onClick={() => navigate('/resources/audit')}// Replace with your actual payment link
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="inline-block px-8 py-4 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium flex items-center justify-center gap-2 hover:opacity-90 hover:cursor-pointer transition-opacity"
+                  className="inline-block px-8 py-4 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-white rounded-full font-medium flex items-center justify-center gap-2 hover:opacity-90 hover:cursor-pointer transition-opacity"
                 >
                   Claim My Audit Now
                   <FaArrowRight />

@@ -40,7 +40,7 @@ const TermsOfService = () => {
   ];
 
   return (
-    <div className="bg-[#0F0F0F] min-h-screen">
+    <div className="bg-[#050910] min-h-screen">
       <Navbar />
 
       <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">
@@ -53,7 +53,7 @@ const TermsOfService = () => {
           >
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
               Terms of
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
                 {" "}Service
               </span>
             </h1>

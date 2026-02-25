@@ -39,7 +39,7 @@ const ScrollToTop = () => {
             boxShadow: "0 0 30px rgba(0, 242, 254, 0.4)"
           }}
           whileTap={{ scale: 0.9 }}
-          className="fixed bottom-8 right-8 z-50 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] p-4 rounded-full shadow-2xl hover:shadow-glow transition-all duration-300 group"
+          className="fixed bottom-8 right-8 z-50 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] p-4 rounded-full shadow-2xl hover:shadow-glow transition-all duration-300 group"
           aria-label="Scroll to top"
         >
           <motion.div

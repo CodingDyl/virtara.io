@@ -35,7 +35,7 @@ const ProfThankYou = () => {
         <meta name="description" content="Thank you for choosing our Professional Website Package. We'll be in touch within 24 hours to discuss your project." />
         <link rel="canonical" href="https://virtara.co.za/web-development/professional/thank-you" />
       </Helmet>
-      <div className="bg-[#0F0F0F] min-h-screen">
+      <div className="bg-[#050910] min-h-screen">
         <Navbar />
 
         <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">
@@ -53,7 +53,7 @@ const ProfThankYou = () => {
                 transition={{ duration: 0.5 }}
                 className="mb-8"
               >
-                <div className="w-24 h-24 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-24 h-24 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] rounded-full flex items-center justify-center mx-auto mb-6">
                   <FaCheckCircle className="w-12 h-12 text-white" />
                 </div>
                 <Badge variant="outline" className="mb-4">
@@ -63,7 +63,7 @@ const ProfThankYou = () => {
 
               <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-4 md:mb-8">
                 Thank You for
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
                   {" "}Choosing Us!
                 </span>
               </h1>
@@ -82,7 +82,7 @@ const ProfThankYou = () => {
                 {nextSteps.map((step, index) => (
                   <Card key={index} className="text-center p-6 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm">
                     <div className="flex justify-center mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] rounded-full flex items-center justify-center text-white">
+                      <div className="w-12 h-12 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] rounded-full flex items-center justify-center text-white">
                         {step.icon}
                       </div>
                     </div>

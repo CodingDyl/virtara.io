@@ -109,7 +109,7 @@ const Enterprise = () => {
         <meta name="keywords" content="enterprise website package, web development, large-scale projects, custom solutions" />
         <link rel="canonical" href="https://virtara.co.za/web-development/enterprise" />
       </Helmet>
-      <div className="bg-[#0F0F0F] min-h-screen">
+      <div className="bg-[#050910] min-h-screen">
         <Navbar />
         <Notification
           message={notification.message}

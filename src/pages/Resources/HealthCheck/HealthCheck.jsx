@@ -77,7 +77,7 @@ const Checklist = () => {
         <link rel="canonical" href="https://virtara.co.za/checklist" />
       </Helmet>
 
-      <div className="bg-[#0F0F0F] min-h-screen">
+      <div className="bg-[#050910] min-h-screen">
         <Navbar />
 
         <section className="min-h-screen pt-32 md:pt-40 pb-12">
@@ -91,7 +91,7 @@ const Checklist = () => {
               >
                 <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-6">
                   Discover Why Your Website Isn't
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
                     {" "}Converting
                   </span>
                 </h1>
@@ -116,7 +116,7 @@ const Checklist = () => {
                           type="text"
                           id="name"
                           required
-                          className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-[#00f2fe]"
+                          className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-[#8df6ff]"
                           placeholder="Enter your name"
                           value={formData.name}
                           onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -128,7 +128,7 @@ const Checklist = () => {
                           type="email"
                           id="email"
                           required
-                          className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-[#00f2fe]"
+                          className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-[#8df6ff]"
                           placeholder="Enter your email"
                           value={formData.email}
                           onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -139,7 +139,7 @@ const Checklist = () => {
                         whileTap={{ scale: 0.98 }}
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full px-6 py-4 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50"
+                        className="w-full px-6 py-4 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-white rounded-full font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50"
                       >
                         {isSubmitting ? (
                           <div className="flex items-center gap-2">
@@ -172,7 +172,7 @@ const Checklist = () => {
                   className="relative"
                 >
                   {/* Replace with your actual checklist mockup image */}
-                  <div className="aspect-[3/4] bg-gradient-to-br from-[#00f2fe]/20 to-[#ff00e5]/20 rounded-2xl border border-white/10 p-8 flex items-center justify-center">
+                  <div className="aspect-[3/4] bg-gradient-to-br from-[#8df6ff]/20 to-[#4ea4ff]/20 rounded-2xl border border-white/10 p-8 flex items-center justify-center">
                     <img src={healthCheckPreview} alt="Checklist Preview" className="w-full h-full object-cover rounded-2xl" />
                   </div>
                 </motion.div>

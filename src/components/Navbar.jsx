@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from "framer-motion";
-import { HiMenu, HiX } from 'react-icons/hi';
 import { smallLogo } from '../assets';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -70,7 +69,7 @@ const Navbar = () => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="max-w-[720px] w-full bg-[#141414]/95 rounded-full border border-white/10 backdrop-blur-xl shadow-2xl"
+        className="max-w-[780px] w-full rounded-full border border-[#74a7ff]/30 bg-[linear-gradient(120deg,rgba(6,12,24,0.92),rgba(8,16,33,0.9))] backdrop-blur-xl shadow-[0_14px_60px_rgba(3,35,84,0.45)]"
       >
         <div className="px-6 py-3">
           <div className="flex items-center justify-between">
@@ -86,7 +85,7 @@ const Navbar = () => {
                 alt="Virtara Logo" 
                 className="w-6 md:w-10 h-6 md:h-10 transition-transform duration-300 group-hover:rotate-12" 
               />
-              <span className="bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+              <span className="virtara-display bg-gradient-to-r from-[#eaf2ff] via-[#d6ebff] to-[#85d7ff] bg-clip-text text-transparent">
                 Virtara
               </span>
             </motion.div>
@@ -129,7 +128,7 @@ const Navbar = () => {
             </motion.button>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center bg-[#1C1C1C]/80 rounded-full p-1 backdrop-blur-sm border border-white/5">
+            <div className="hidden md:flex items-center rounded-full p-1 backdrop-blur-sm border border-[#77b5ff]/20 bg-[#0c1628]/80">
               {[
                 { title: 'Services', path: 'services' },
                 { title: 'Our Work', path: 'our-work' },
@@ -141,12 +140,12 @@ const Navbar = () => {
                   onClick={() => handleLinkClick(`/${path}`)}
                 >
                   <motion.div
-                    className="text-sm text-white/70 hover:text-white px-4 py-2 rounded-full hover:bg-white/10 transition-all duration-300 relative overflow-hidden group"
+                    className="text-sm text-[#b7ccf6] hover:text-white px-4 py-2 rounded-full transition-all duration-300 relative overflow-hidden group"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-[#00f2fe]/20 to-[#ff00e5]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      className="absolute inset-0 bg-gradient-to-r from-[#2f7bff]/35 to-[#71ddff]/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                       initial={false}
                     />
                     <span className="relative z-10">{title}</span>
@@ -157,12 +156,12 @@ const Navbar = () => {
                 <motion.button 
                   whileHover={{ 
                     scale: 1.05, 
-                    boxShadow: "0 0 20px rgba(255, 255, 255, 0.3)"
+                    boxShadow: "0 0 28px rgba(78, 164, 255, 0.45)"
                   }}
                   whileTap={{ scale: 0.95 }}
-                  className="ml-1 px-6 py-2 bg-gradient-to-r from-white to-white/90 text-black text-sm font-medium rounded-full transition-all duration-300 hover:shadow-lg"
+                  className="ml-1 px-6 py-2 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-[#03152f] text-sm font-semibold rounded-full transition-all duration-300 hover:brightness-110"
                 >
-                  Contact
+                  Book Audit
                 </motion.button>
               </Link>
             </div>
@@ -176,7 +175,7 @@ const Navbar = () => {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                className="md:hidden absolute left-0 right-0 top-full mt-4 bg-[#1C1C1C]/95 rounded-2xl p-6 space-y-2 border border-white/10 backdrop-blur-xl shadow-2xl"
+                className="md:hidden absolute left-0 right-0 top-full mt-4 rounded-2xl p-6 space-y-2 border border-[#74a7ff]/30 bg-[linear-gradient(140deg,rgba(6,12,24,0.96),rgba(8,16,33,0.92))] backdrop-blur-xl shadow-[0_14px_60px_rgba(3,35,84,0.45)]"
               >
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -202,11 +201,11 @@ const Navbar = () => {
                         onClick={() => handleLinkClick(`/${path}`)}
                       >
                         <motion.div
-                          className="block text-lg text-white/70 hover:text-white px-4 py-3 rounded-xl hover:bg-white/10 transition-all duration-300 group"
+                          className="block text-lg text-[#b7ccf6] hover:text-white px-4 py-3 rounded-xl hover:bg-[#1a2f52]/60 transition-all duration-300 group"
                           whileHover={{ x: 10 }}
                         >
                           <span className="flex items-center gap-3">
-                            <span className="text-white/40 text-sm font-mono">0{index + 1}</span>
+                            <span className="text-[#8cb3f8] text-sm font-mono">0{index + 1}</span>
                             {title}
                           </span>
                         </motion.div>
@@ -224,9 +223,9 @@ const Navbar = () => {
                       <motion.button 
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full px-6 py-3 bg-gradient-to-r from-white to-white/90 text-black text-lg font-medium rounded-xl hover:shadow-lg transition-all duration-300"
+                        className="w-full px-6 py-3 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-[#03152f] text-lg font-semibold rounded-xl hover:brightness-110 transition-all duration-300"
                       >
-                        Get Started
+                        Book Strategy Audit
                       </motion.button>
                     </Link>
                   </motion.div>

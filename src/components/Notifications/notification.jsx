@@ -4,7 +4,7 @@ import { FaCheckCircle, FaTimesCircle, FaTimes } from 'react-icons/fa';
 
 const Notification = ({ message, type, isVisible, onClose }) => {
   const bgColor = type === 'success' 
-    ? 'bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]' 
+    ? 'bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]' 
     : 'bg-gradient-to-r from-red-500 to-red-600';
 
   return (

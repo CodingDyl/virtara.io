@@ -13,9 +13,9 @@ const Badge = ({
   
   const variants = {
     default: "bg-white/10 text-white border border-white/20",
-    primary: "bg-gradient-to-r from-[#00f2fe]/20 to-[#00f2fe]/10 text-[#00f2fe] border border-[#00f2fe]/30",
-    secondary: "bg-gradient-to-r from-[#ff00e5]/20 to-[#ff00e5]/10 text-[#ff00e5] border border-[#ff00e5]/30",
-    gradient: "bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white",
+    primary: "bg-gradient-to-r from-[#8df6ff]/20 to-[#8df6ff]/10 text-[#8df6ff] border border-[#8df6ff]/30",
+    secondary: "bg-gradient-to-r from-[#4ea4ff]/20 to-[#4ea4ff]/10 text-[#4ea4ff] border border-[#4ea4ff]/30",
+    gradient: "bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-white",
     success: "bg-green-500/20 text-green-400 border border-green-500/30",
     warning: "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30",
     error: "bg-red-500/20 text-red-400 border border-red-500/30",

@@ -37,7 +37,7 @@ const CookieConsent = () => {
           <div className="flex-1">
             <p className="text-white/70 text-sm md:text-base">
               We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
-              <Link to="/legal/cookie-policy" className="text-[#00f2fe] hover:text-[#ff00e5] ml-1 transition-colors">
+              <Link to="/legal/cookie-policy" className="text-[#8df6ff] hover:text-[#4ea4ff] ml-1 transition-colors">
                 Learn more
               </Link>
             </p>
@@ -55,7 +55,7 @@ const CookieConsent = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={acceptCookies}
-              className="px-4 py-2 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+              className="px-4 py-2 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-white rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
             >
               Accept
             </motion.button>

@@ -61,7 +61,7 @@ const WebDevForm = ({
         </div>
         <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-4 md:mb-8">
           Let's Build Something
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
             {" "}Exceptional
           </span>
         </h1>
@@ -92,7 +92,7 @@ const WebDevForm = ({
               ))}
             </div>
           </div>
-          <Link to="/services" className="text-[#00f2fe] hover:text-[#ff00e5] transition-colors text-sm">
+          <Link to="/services" className="text-[#8df6ff] hover:text-[#4ea4ff] transition-colors text-sm">
             ← Choose a Different Package
           </Link>
         </div>
@@ -116,7 +116,7 @@ const WebDevForm = ({
                 value={formData.name}
                 onChange={handleInputChange}
                 placeholder="Your Name"
-                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                 required
               />
             </div>
@@ -130,7 +130,7 @@ const WebDevForm = ({
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="your@email.com"
-                  className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                  className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                   required
                 />
               </div>
@@ -149,7 +149,7 @@ const WebDevForm = ({
                   value={formData.businessName}
                   onChange={handleInputChange}
                   placeholder="Your Business Name"
-                  className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                  className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                   required
                 />
               </div>
@@ -160,12 +160,12 @@ const WebDevForm = ({
                 name="industry"
                 value={formData.industry}
                 onChange={handleInputChange}
-                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 appearance-none"
+                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300 appearance-none"
                 required
               >
                 <option value="">Select Industry</option>
                 {getTierData(formIndustries).map(industry => (
-                  <option key={industry} value={industry} className="bg-[#0F0F0F]">{industry}</option>
+                  <option key={industry} value={industry} className="bg-[#050910]">{industry}</option>
                 ))}
               </select>
             </div>
@@ -179,12 +179,12 @@ const WebDevForm = ({
                 name="websiteGoal"
                 value={formData.websiteGoal}
                 onChange={handleInputChange}
-                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 appearance-none"
+                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300 appearance-none"
                 required
               >
                 <option value="">Select Goal</option>
                 {getTierData(formWebsiteGoals).map(goal => (
-                  <option key={goal} value={goal} className="bg-[#0F0F0F]">{goal}</option>
+                  <option key={goal} value={goal} className="bg-[#050910]">{goal}</option>
                 ))}
               </select>
             </div>
@@ -194,12 +194,12 @@ const WebDevForm = ({
                 name="mainPriority"
                 value={formData.mainPriority}
                 onChange={handleInputChange}
-                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 appearance-none"
+                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300 appearance-none"
                 required
               >
                 <option value="">Select Priority</option>
                 {getTierData(formPriorities).map(priority => (
-                  <option key={priority} value={priority} className="bg-[#0F0F0F]">{priority}</option>
+                  <option key={priority} value={priority} className="bg-[#050910]">{priority}</option>
                 ))}
               </select>
             </div>
@@ -218,7 +218,7 @@ const WebDevForm = ({
                   name="seoOptimization"
                   checked={formData.seoOptimization}
                   onChange={handleInputChange}
-                  className="w-4 h-4 text-[#00f2fe] bg-white/5 border-white/10 rounded focus:ring-[#00f2fe] focus:ring-2"
+                  className="w-4 h-4 text-[#8df6ff] bg-white/5 border-white/10 rounded focus:ring-[#8df6ff] focus:ring-2"
                 />
                 <span className="text-white/70 group-hover:text-white transition-colors">SEO Optimization</span>
               </label>
@@ -228,7 +228,7 @@ const WebDevForm = ({
                   name="contentWriting"
                   checked={formData.contentWriting}
                   onChange={handleInputChange}
-                  className="w-4 h-4 text-[#00f2fe] bg-white/5 border-white/10 rounded focus:ring-[#00f2fe] focus:ring-2"
+                  className="w-4 h-4 text-[#8df6ff] bg-white/5 border-white/10 rounded focus:ring-[#8df6ff] focus:ring-2"
                 />
                 <span className="text-white/70 group-hover:text-white transition-colors">Content Writing Services</span>
               </label>
@@ -238,7 +238,7 @@ const WebDevForm = ({
                   name="maintenance"
                   checked={formData.maintenance}
                   onChange={handleInputChange}
-                  className="w-4 h-4 text-[#00f2fe] bg-white/5 border-white/10 rounded focus:ring-[#00f2fe] focus:ring-2"
+                  className="w-4 h-4 text-[#8df6ff] bg-white/5 border-white/10 rounded focus:ring-[#8df6ff] focus:ring-2"
                 />
                 <span className="text-white/70 group-hover:text-white transition-colors">Ongoing Maintenance</span>
               </label>

@@ -118,7 +118,7 @@ const Starter = () => {
         <meta name="keywords" content="starter website package, web development, small business website, startup website" />
         <link rel="canonical" href="https://virtara.co.za/web-development/starter" />
       </Helmet>
-      <div className="bg-[#0F0F0F] min-h-screen">
+      <div className="bg-[#050910] min-h-screen">
         <Navbar />
         <Notification
           message={notification.message}

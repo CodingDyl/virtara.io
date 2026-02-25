@@ -1,287 +1,271 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowRight, FaReact, FaNodeJs, FaJava, FaApple, FaAndroid, FaExternalLinkAlt } from 'react-icons/fa';
-import { SiTailwindcss, SiSanity, SiFirebase, SiThreedotjs, SiFlutter, SiAndroidstudio } from 'react-icons/si';
+import { motion } from 'framer-motion';
+import { FaExternalLinkAlt } from 'react-icons/fa';
+import { SiFirebase, SiSanity, SiTailwindcss, SiThreedotjs } from 'react-icons/si';
+import { FaNodeJs, FaReact } from 'react-icons/fa';
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { virtec, vaja, mpower, clarity, aureya } from '../assets';
-import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
 import Badge from '../components/ui/Badge';
-import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
+import Button from '../components/ui/Button';
 
-const Work = () => {
-  const projects = [
-    {
-      title: "Virtec Marketing",
-      image: virtec,
-      description: "Complete website redesign and digital transformation",
-      technologies: ["React", "TailwindCSS", "Node.js"],
-      results: {
-        traffic: "+150% Traffic",
-        conversion: "+40% Conversion",
-        engagement: "+60% Engagement"
-      },
-      link: "https://virtec.vercel.app",
-      category: "Marketing"
-    },
-    {
-      title: "Vaja",
-      image: vaja,
-      description: "Modern web presence for construction excellence",
-      technologies: ["React", "TailwindCSS", "Three.js"],
-      results: {
-        traffic: "+120% Traffic",
-        conversion: "+35% Conversion",
-        engagement: "+45% Engagement"
-      },
-      link: "https://vaja-web.vercel.app",
-      category: "Construction"
-    },
-    {
-      title: "MPower Ratings",
-      image: mpower,
-      description: "Digital marketing campaign and brand refresh",
-      technologies: ["React", "Firebase", "Node.js"],
-      results: {
-        traffic: "+200% Traffic",
-        conversion: "+50% Conversion",
-        engagement: "+75% Engagement"
-      },
-      link: "https://www.mpowerratings.co.za",
-      category: "Finance"
-    },
-    {
-      title: "Aureya Marketing",
-      image: aureya,
-      description: "Modern marketing agency website with lead generation",
-      technologies: ["React", "TailwindCSS", "Sanity"],
-      results: {
-        traffic: "+180% Traffic",
-        conversion: "+45% Conversion",
-        engagement: "+65% Engagement"
-      },
-             link: "https://www.aureya.co.za",
-      category: "Marketing"
-    },
-    {
-      title: "Clarity Engineering",
-      image: clarity,
-      description: "Professional consulting engineering firm website",
-      technologies: ["React", "TailwindCSS", "Three.js"],
-      results: {
-        traffic: "+140% Traffic",
-        conversion: "+38% Conversion",
-        engagement: "+55% Engagement"
-      },
-             link: "https://www.clarityce.co.za",
-      category: "Engineering"
-    }
-  ];
+const projectShowcase = [
+  {
+    title: 'Virtec Marketing',
+    image: virtec,
+    category: 'Marketing',
+    summary: 'Complete website redesign and conversion-focused lead acquisition system.',
+    kpi: '+40% conversion lift',
+    before: 'Low-intent traffic and unclear funnel architecture.',
+    after: 'Offer-focused pages and cleaner action paths for qualified leads.',
+    stack: ['React', 'TailwindCSS', 'Node.js'],
+    link: 'https://virtec.vercel.app',
+    layoutClass: 'md:col-span-6 lg:col-span-4'
+  },
+  {
+    title: 'Vaja',
+    image: vaja,
+    category: 'Construction',
+    summary: 'High-trust digital presence for premium sauna and steam services.',
+    kpi: '+35% inquiry increase',
+    before: 'Outdated visual language and fragmented service messaging.',
+    after: 'Premium brand narrative with clear service hierarchy.',
+    stack: ['React', 'TailwindCSS', 'Three.js'],
+    link: 'https://vaja-web.vercel.app',
+    layoutClass: 'md:col-span-3 lg:col-span-2'
+  },
+  {
+    title: 'MPower Ratings',
+    image: mpower,
+    category: 'Finance',
+    summary: 'Authority-first website and demand generation support for BEE services.',
+    kpi: '+50% lead conversion',
+    before: 'Generic pages with low differentiation in a competitive niche.',
+    after: 'Proof-backed pages and stronger lead intent qualification.',
+    stack: ['React', 'Firebase', 'Node.js'],
+    link: 'https://www.mpowerratings.co.za',
+    layoutClass: 'md:col-span-3 lg:col-span-2'
+  },
+  {
+    title: 'Aureya Marketing',
+    image: aureya,
+    category: 'Agency',
+    summary: 'Modern agency platform designed around service clarity and growth goals.',
+    kpi: '+45% consult requests',
+    before: 'Inconsistent positioning and low trust signals.',
+    after: 'Sharper positioning with conversion-focused service blocks.',
+    stack: ['React', 'TailwindCSS', 'Sanity'],
+    link: 'https://www.aureya.co.za',
+    layoutClass: 'md:col-span-3 lg:col-span-2'
+  },
+  {
+    title: 'Clarity Engineering',
+    image: clarity,
+    category: 'Engineering',
+    summary: 'Professional web experience for a consulting engineering practice.',
+    kpi: '+38% conversion increase',
+    before: 'Poor UX and unclear value communication for technical services.',
+    after: 'Clear project credibility and intent-driven CTAs.',
+    stack: ['React', 'TailwindCSS', 'Three.js'],
+    link: 'https://www.clarityce.co.za',
+    layoutClass: 'md:col-span-6 lg:col-span-4'
+  }
+];
 
-  const technologies = [
-    { name: "React", Icon: FaReact, color: "#61DAFB" },
-    { name: "Node.js", Icon: FaNodeJs, color: "#339933" },
-    { name: "TailwindCSS", Icon: SiTailwindcss, color: "#06B6D4" },
-    { name: "Sanity", Icon: SiSanity, color: "#F03A2B" },
-    { name: "Java", Icon: FaJava, color: "#ED8B00" },
-    { name: "Three.js", Icon: SiThreedotjs, color: "#000000" },
-    { name: "Firebase", Icon: SiFirebase, color: "#FFCA28" },
-    { name: "Flutter", Icon: SiFlutter, color: "#02569B" },
-    { name: "Android Studio", Icon: SiAndroidstudio, color: "#3DDC84" },
-    { name: "iOS Development", Icon: FaApple, color: "#000000" },
-  ];
+const techStack = [
+  { name: 'React', icon: FaReact, color: '#61DAFB' },
+  { name: 'Node.js', icon: FaNodeJs, color: '#6FD96F' },
+  { name: 'TailwindCSS', icon: SiTailwindcss, color: '#3FC6E8' },
+  { name: 'Sanity', icon: SiSanity, color: '#FF7065' },
+  { name: 'Three.js', icon: SiThreedotjs, color: '#C8D7FF' },
+  { name: 'Firebase', icon: SiFirebase, color: '#FFCC52' }
+];
 
+function Work() {
   return (
     <>
       <Helmet>
-        <title>Our Portfolio | Digital Projects & Success Stories</title>
-        <meta name="description" content="Explore our portfolio of successful digital projects. See how we've helped businesses transform their online presence through web design, development, and marketing." />
-        <meta name="keywords" content="digital portfolio, web design portfolio, development projects, digital marketing case studies" />
-        <link rel="canonical" href="https://virtara.co.za/portfolio" />
+        <title>Our Work | Conversion-Focused Digital Projects</title>
+        <meta
+          name="description"
+          content="Explore Virtara case studies and project outcomes across web development, design, and growth systems."
+        />
+        <meta
+          name="keywords"
+          content="digital agency portfolio, case studies, web development projects, conversion optimization"
+        />
+        <link rel="canonical" href="https://virtara.co.za/our-work" />
       </Helmet>
-      <div className="bg-[#0F0F0F] min-h-screen">
+
+      <main className="bg-[#050910] min-h-screen text-white virtara-body">
         <Navbar />
 
-        <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">
-          <div className="container mx-auto px-4 sm:px-6">
-            {/* Header Section */}
+        <section className="pt-32 md:pt-36 pb-14 md:pb-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(20,99,255,0.28),transparent_38%),radial-gradient(circle_at_78%_5%,rgba(96,219,255,0.2),transparent_34%)]" />
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-4xl mx-auto text-center mb-8 md:mb-16 px-4"
+              transition={{ duration: 0.65 }}
+              className="max-w-5xl mx-auto text-center"
             >
-              <Badge variant="primary" size="lg" className="mb-4 sm:mb-6">
-                Our Portfolio
-              </Badge>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white leading-tight tracking-tight mb-3 sm:mb-4 md:mb-6 lg:mb-8">
-                Our Creative
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                  {" "}Portfolio
-                </span>
+              <Badge variant="primary" size="lg" className="mb-5">Proof of Work</Badge>
+              <h1 className="virtara-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.96] tracking-tight mb-6">
+                Digital Projects Built to
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]"> Outperform</span>
               </h1>
-              <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-3xl mx-auto leading-relaxed px-2">
-                Explore our latest projects and see how we've helped businesses transform their digital presence.
+              <p className="text-lg md:text-xl text-[#c2d4ff] max-w-3xl mx-auto leading-relaxed">
+                Real before-vs-after outcomes across strategy, design and engineering.
               </p>
-            </motion.div>
-
-            {/* Projects Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12 md:mb-16 lg:mb-20 px-2">
-              <AnimatePresence mode='wait'>
-                {projects.map((project, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <Card variant="default" className="group cursor-pointer overflow-hidden" hover={true}>
-                      <div className="relative overflow-hidden">
-                        <img 
-                          src={project.image} 
-                          alt={project.title}
-                          className="w-full h-[180px] sm:h-[200px] md:h-[250px] lg:h-[300px] object-cover transition-all duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/80 to-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                          <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                            <div className="flex items-center justify-between mb-2 sm:mb-3">
-                              <Badge variant="outline" size="sm" className="text-xs sm:text-sm">
-                                {project.category}
-                              </Badge>
-                              <FaExternalLinkAlt className="text-white/70 text-xs sm:text-sm" />
-                            </div>
-                            <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1 sm:mb-2">{project.title}</h3>
-                            <p className="text-xs sm:text-sm md:text-base text-white/70 mb-2 sm:mb-3 md:mb-4">{project.description}</p>
-                            <div className="flex flex-wrap gap-1 sm:gap-2 mb-2 sm:mb-3 md:mb-4">
-                              {project.technologies.map((tech, i) => (
-                                <span key={i} className="px-1 sm:px-2 md:px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
-                            <div className="grid grid-cols-3 gap-1 sm:gap-2 mb-3 sm:mb-4">
-                              {Object.entries(project.results).map(([key, value]) => (
-                                <div key={key} className="text-center">
-                                  <div className="text-[#00f2fe] text-xs font-semibold">{value}</div>
-                                  <div className="text-white/50 text-xs capitalize">{key}</div>
-                                </div>
-                              ))}
-                            </div>
-                            <Button
-                              variant="gradient"
-                              size="sm"
-                              className="w-full"
-                              onClick={() => window.open(project.link, '_blank')}
-                              showArrow={true}
-                            >
-                              View Project
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </div>
-
-            {/* Technologies Section */}
-            <div className="mb-8 sm:mb-12 md:mb-16 lg:mb-20 px-2">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="text-center mb-6 sm:mb-8 md:mb-12"
-              >
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-4">Technologies We Use</h2>
-                <p className="text-sm sm:text-base text-white/70">Cutting-edge tools and frameworks for modern development</p>
-              </motion.div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
-                {technologies.map((tech, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.05 }}
-                  >
-                    <Card variant="glass" className="h-full text-center group" hover={true}>
-                      <Card.Content>
-                        <tech.Icon 
-                          className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 mb-2 sm:mb-3 md:mb-4 mx-auto transition-all duration-300 group-hover:scale-110" 
-                          style={{ color: tech.color }}
-                        />
-                        <span className="text-xs sm:text-sm md:text-base text-white/70 group-hover:text-white transition-colors duration-300">
-                          {tech.name}
-                        </span>
-                      </Card.Content>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Stats Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="mb-8 sm:mb-12 md:mb-16 lg:mb-20 px-2"
-            >
-              <Card variant="elevated" className="p-4 sm:p-6 md:p-8">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center">
-                  <div>
-                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#00f2fe] mb-1 sm:mb-2">50+</div>
-                    <div className="text-xs sm:text-sm md:text-base text-white/70">Projects Completed</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ff00e5] mb-1 sm:mb-2">95%</div>
-                    <div className="text-xs sm:text-sm md:text-base text-white/70">Client Satisfaction</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#00f2fe] mb-1 sm:mb-2">200%</div>
-                    <div className="text-xs sm:text-sm md:text-base text-white/70">Average Traffic Increase</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ff00e5] mb-1 sm:mb-2">24/7</div>
-                    <div className="text-xs sm:text-sm md:text-base text-white/70">Support Available</div>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-
-            {/* CTA Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center px-2"
-            >
-              <Card variant="glass" className="p-4 sm:p-6 md:p-8">
-                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4 md:mb-6">Ready to Start Your Project?</h2>
-                <p className="text-sm sm:text-base text-white/70 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                  Let's create something amazing together. Your vision, our expertise.
-                </p>
-                <Link to="/start-your-project">
-                  <Button
-                    variant="gradient"
-                    size="lg"
-                    showArrow={true}
-                  >
-                    Let's Work Together
-                  </Button>
-                </Link>
-              </Card>
             </motion.div>
           </div>
         </section>
 
+        <section className="pb-20 md:pb-24">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
+              {projectShowcase.map((project, index) => (
+                <motion.a
+                  key={project.title}
+                  href={project.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.06 }}
+                  className={`group ${project.layoutClass}`}
+                >
+                  <Card className="h-full border border-white/10 overflow-hidden bg-[linear-gradient(160deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))]" hover>
+                    <div className="relative overflow-hidden h-56 md:h-64">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                      <div className="absolute top-4 left-4">
+                        <Badge variant="outline" size="sm">{project.category}</Badge>
+                      </div>
+                      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                        <p className="text-[#8df6ff] font-semibold text-sm">{project.kpi}</p>
+                        <FaExternalLinkAlt className="text-white/70 text-sm" />
+                      </div>
+                    </div>
+
+                    <Card.Content className="md:p-7">
+                      <h2 className="text-xl md:text-2xl font-semibold text-white mb-2">{project.title}</h2>
+                      <p className="text-sm md:text-base text-[#c8d8ff] mb-4 leading-relaxed">{project.summary}</p>
+                      <div className="space-y-2 text-sm md:text-[15px] mb-5">
+                        <p className="text-[#ffabb1]">
+                          <span className="font-semibold">Before:</span> {project.before}
+                        </p>
+                        <p className="text-[#9dfec5]">
+                          <span className="font-semibold">After:</span> {project.after}
+                        </p>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {project.stack.map((item) => (
+                          <span
+                            key={item}
+                            className="px-3 py-1.5 text-xs rounded-full border border-white/15 text-[#d5e3ff] bg-white/[0.03]"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </Card.Content>
+                  </Card>
+                </motion.a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="pb-16 md:pb-20">
+          <div className="container mx-auto px-4 sm:px-6">
+            <Card className="max-w-5xl mx-auto border border-[#74a7ff]/35 bg-[linear-gradient(130deg,rgba(7,17,35,0.9),rgba(8,16,33,0.55))]">
+              <Card.Content>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                  <div>
+                    <div className="text-3xl md:text-4xl font-bold text-[#8df6ff] mb-1">50+</div>
+                    <div className="text-sm text-[#c7d9ff]">Projects Delivered</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl md:text-4xl font-bold text-[#8df6ff] mb-1">95%</div>
+                    <div className="text-sm text-[#c7d9ff]">Client Retention</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl md:text-4xl font-bold text-[#8df6ff] mb-1">200%+</div>
+                    <div className="text-sm text-[#c7d9ff]">Avg Traffic Growth</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl md:text-4xl font-bold text-[#8df6ff] mb-1">24/7</div>
+                    <div className="text-sm text-[#c7d9ff]">Support Access</div>
+                  </div>
+                </div>
+              </Card.Content>
+            </Card>
+          </div>
+        </section>
+
+        <section className="pb-16 md:pb-20">
+          <div className="container mx-auto px-4 sm:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="max-w-5xl mx-auto"
+            >
+              <h3 className="virtara-display text-3xl md:text-4xl text-center mb-8">Core Technology Stack</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+                {techStack.map((tech) => (
+                  <div
+                    key={tech.name}
+                    className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-5 text-center"
+                  >
+                    <tech.icon className="w-8 h-8 mx-auto mb-3" style={{ color: tech.color }} />
+                    <p className="text-sm text-[#d8e5ff]">{tech.name}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        <section className="pb-20">
+          <div className="container mx-auto px-4 sm:px-6">
+            <Card className="max-w-5xl mx-auto border border-[#74a7ff]/35 bg-[linear-gradient(130deg,rgba(7,17,35,0.9),rgba(8,16,33,0.55))] text-center">
+              <Card.Content>
+                <h3 className="virtara-display text-3xl md:text-5xl mb-5">Want Results Like These?</h3>
+                <p className="text-[#c7d9ff] max-w-3xl mx-auto mb-8 text-lg leading-relaxed">
+                  We can map your current funnel, identify conversion bottlenecks, and build a practical growth roadmap.
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-4">
+                  <Link to="/start-your-project">
+                    <Button variant="gradient" size="lg" showArrow>
+                      Book a Strategy Audit
+                    </Button>
+                  </Link>
+                  <a href="/services">
+                    <Button variant="outline" size="lg">
+                      View Services
+                    </Button>
+                  </a>
+                </div>
+              </Card.Content>
+            </Card>
+          </div>
+        </section>
+
         <Footer />
-      </div>
+      </main>
     </>
   );
-};
+}
 
 export default Work;

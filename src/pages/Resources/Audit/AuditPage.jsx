@@ -76,7 +76,7 @@ const AuditPage = () => {
         <meta name="description" content="Book your personalized website audit session with our experts and get detailed insights to improve your website's performance." />
       </Helmet>
 
-      <div className="bg-[#0F0F0F] min-h-screen">
+      <div className="bg-[#050910] min-h-screen">
         <Navbar />
         
         <section className="min-h-screen pt-32 md:pt-40 pb-12">
@@ -90,7 +90,7 @@ const AuditPage = () => {
               >
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
                   Book Your Website
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
                     {" "}Audit Session
                   </span>
                 </h1>
@@ -115,7 +115,7 @@ const AuditPage = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#00f2fe]"
+                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#8df6ff]"
                         required
                       />
                     </div>
@@ -127,7 +127,7 @@ const AuditPage = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#00f2fe]"
+                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#8df6ff]"
                         required
                       />
                     </div>
@@ -142,7 +142,7 @@ const AuditPage = () => {
                       placeholder="https://example.com"
                       value={formData.website}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#00f2fe]"
+                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#8df6ff]"
                       required
                     />
                   </div>
@@ -156,7 +156,7 @@ const AuditPage = () => {
                       placeholder="Add any additional URLs, separated by commas"
                       value={formData.additionalWebsites}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#00f2fe]"
+                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#8df6ff]"
                     />
                     <p className="text-white/50 text-sm mt-1">E.g., competitor websites or other sites you'd like us to reference</p>
                   </div>
@@ -170,7 +170,7 @@ const AuditPage = () => {
                         name="preferredDate"
                         value={formData.preferredDate}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#00f2fe] [color-scheme:dark]"
+                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#8df6ff] [color-scheme:dark]"
                         required
                       />
                     </div>
@@ -182,7 +182,7 @@ const AuditPage = () => {
                         name="preferredTime"
                         value={formData.preferredTime}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#00f2fe] [color-scheme:dark]"
+                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#8df6ff] [color-scheme:dark]"
                         required
                       />
                     </div>
@@ -195,7 +195,7 @@ const AuditPage = () => {
                       name="meetingPlatform"
                       value={formData.meetingPlatform}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#00f2fe] [&>option]:bg-[#0F0F0F]"
+                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#8df6ff] [&>option]:bg-[#050910]"
                     >
                       <option value="teams">Microsoft Teams</option>
                       <option value="zoom">Zoom</option>
@@ -210,7 +210,7 @@ const AuditPage = () => {
                       value={formData.additionalNotes}
                       onChange={handleChange}
                       rows="4"
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#00f2fe]"
+                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-[#8df6ff]"
                     ></textarea>
                   </div>
 
@@ -229,7 +229,7 @@ const AuditPage = () => {
                     disabled={submitStatus.loading}
                     whileHover={{ scale: submitStatus.loading ? 1 : 1.02 }}
                     whileTap={{ scale: submitStatus.loading ? 1 : 0.98 }}
-                    className={`w-full px-8 py-4 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium 
+                    className={`w-full px-8 py-4 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-white rounded-full font-medium 
                       ${submitStatus.loading ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90 transition-opacity'}`}
                   >
                     {submitStatus.loading ? 'Submitting...' : 'Book My Audit Session'}

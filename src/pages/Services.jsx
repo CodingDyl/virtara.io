@@ -1,544 +1,451 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowRight, FaCode, FaShoppingCart, FaRobot, FaTools, FaSearch, FaHashtag, FaAd, FaEnvelope, FaCheck } from 'react-icons/fa';
+import { useEffect, useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
+import {
+  FaBullseye,
+  FaChartLine,
+  FaCheck,
+  FaCode,
+  FaEnvelopeOpenText,
+  FaLayerGroup,
+  FaPaintBrush,
+  FaSearch,
+  FaShieldAlt,
+  FaShoppingCart,
+  FaUsers
+} from 'react-icons/fa';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { pricingTiers, process } from '../constants';
-import { useLocation } from 'react-router-dom';
-import { marketing_1, marketing_2 } from '../assets';
-import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
 import Badge from '../components/ui/Badge';
-import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
+import Button from '../components/ui/Button';
 
-const Work = () => {
+const serviceCatalog = [
+  { icon: <FaBullseye className="w-5 h-5" />, title: 'Strategy & Positioning' },
+  { icon: <FaPaintBrush className="w-5 h-5" />, title: 'Brand Identity & Messaging' },
+  { icon: <FaCode className="w-5 h-5" />, title: 'Web Design & Development' },
+  { icon: <FaShoppingCart className="w-5 h-5" />, title: 'E-commerce Builds' },
+  { icon: <FaSearch className="w-5 h-5" />, title: 'Technical + Content SEO' },
+  { icon: <FaChartLine className="w-5 h-5" />, title: 'Google Ads / Performance Media' },
+  { icon: <FaUsers className="w-5 h-5" />, title: 'Social Media Content Systems' },
+  { icon: <FaEnvelopeOpenText className="w-5 h-5" />, title: 'Email & CRM Automation' },
+  { icon: <FaLayerGroup className="w-5 h-5" />, title: 'Conversion Rate Optimization' },
+  { icon: <FaShieldAlt className="w-5 h-5" />, title: 'Maintenance, Security & Hosting Ops' }
+];
+
+const tabs = [
+  { id: 'development', label: 'Web & Commerce' },
+  { id: 'seo', label: 'SEO & Content' },
+  { id: 'growth', label: 'Paid Media & Growth' },
+  { id: 'retainer', label: 'Brand & Retainer' }
+];
+
+const pricingByTab = {
+  development: {
+    title: 'Web & Commerce Builds',
+    subtitle: 'Once-off implementation with clear scope and timeline.',
+    packages: [
+      {
+        name: 'Launch Site',
+        price: 'R12,500 once-off',
+        support: 'Optional care plan: from R1,200/mo',
+        idealFor: 'Startups and service businesses that need a conversion-ready web presence.',
+        features: [
+          'Up to 5 pages, mobile-first design',
+          'CMS setup + lead capture forms',
+          'Core technical SEO + analytics setup',
+          '2 rounds of revisions',
+          'Launch training + handover docs'
+        ]
+      },
+      {
+        name: 'Growth Site',
+        price: 'R28,000 once-off',
+        support: 'Optional care plan: from R2,500/mo',
+        idealFor: 'SMEs that need multi-service funnels and stronger conversion architecture.',
+        features: [
+          '8-15 pages + conversion-focused information architecture',
+          'Advanced CMS, blog and gated resources',
+          'Speed/performance optimization + event tracking',
+          'Booking/calendar or CRM form integrations',
+          'Copy framework and CRO recommendations'
+        ],
+        highlighted: true
+      },
+      {
+        name: 'Commerce / Custom Platform',
+        price: 'From R55,000 once-off',
+        support: 'Optional care plan: from R4,500/mo',
+        idealFor: 'Brands needing e-commerce, portals, memberships or custom workflows.',
+        features: [
+          'Shopify/WooCommerce or custom build',
+          'Payments, shipping, product and offer architecture',
+          'Automation hooks (email, CRM, remarketing)',
+          'Staging + QA + launch checklist',
+          'Technical documentation and team onboarding'
+        ]
+      }
+    ]
+  },
+  seo: {
+    title: 'SEO & Content Systems',
+    subtitle: 'Month-to-month retainers. No lock-in contracts.',
+    packages: [
+      {
+        name: 'Local SEO Foundation',
+        price: 'R4,500/mo',
+        support: 'Setup fee: R3,500 once-off',
+        idealFor: 'Local service businesses targeting a city/region.',
+        features: [
+          'Technical baseline + indexing fixes',
+          'Google Business Profile optimization',
+          'Keyword map for 10 priority terms',
+          '2 optimized pages per month',
+          'Monthly ranking + lead report'
+        ]
+      },
+      {
+        name: 'SEO Growth Engine',
+        price: 'R8,500/mo',
+        support: 'Setup fee: R5,500 once-off',
+        idealFor: 'SMEs that need consistent lead growth from organic search.',
+        features: [
+          'Everything in Foundation',
+          'Technical sprint + schema optimization',
+          '4 pages/posts optimized per month',
+          'Internal linking + content refresh system',
+          'Quarterly competitor gap analysis'
+        ],
+        highlighted: true
+      },
+      {
+        name: 'Competitive SEO',
+        price: 'R14,500/mo',
+        support: 'Setup fee: R8,500 once-off',
+        idealFor: 'High-competition niches or multi-location businesses.',
+        features: [
+          'Advanced technical + crawl budget management',
+          'Content roadmap and editorial planning',
+          'Authority/link outreach execution',
+          'Programmatic landing page support',
+          'Executive growth reporting + strategy calls'
+        ]
+      }
+    ]
+  },
+  growth: {
+    title: 'Paid Media & Funnel Growth',
+    subtitle: 'Management fee shown below. Ad spend billed directly to ad platforms.',
+    packages: [
+      {
+        name: 'Ads Starter',
+        price: 'R6,500/mo management',
+        support: 'Recommended ad spend: R7,500 - R20,000/mo',
+        idealFor: 'Testing paid acquisition with controlled budgets.',
+        features: [
+          'Single-channel setup (Google or Meta)',
+          'Conversion tracking + dashboard setup',
+          'Weekly optimization and budget pacing',
+          '2 campaign structures with ad variants',
+          'Monthly strategy report'
+        ]
+      },
+      {
+        name: 'Performance Sprint',
+        price: 'R9,800/mo management',
+        support: 'Recommended ad spend: R20,000 - R60,000/mo',
+        idealFor: 'Businesses scaling lead volume with clear CAC targets.',
+        features: [
+          'Multi-campaign funnel (cold, warm, remarketing)',
+          'Landing page CRO feedback each month',
+          'Creative testing framework',
+          'Lead quality scoring loop',
+          'Bi-weekly growth calls'
+        ],
+        highlighted: true
+      },
+      {
+        name: 'Full Funnel Performance',
+        price: 'R15,500/mo management',
+        support: 'Recommended ad spend: R60,000+/mo',
+        idealFor: 'High-ticket offers or established sales teams.',
+        features: [
+          'Google + Meta + remarketing orchestration',
+          'Advanced attribution and funnel reporting',
+          'Offer and creative iteration sprints',
+          'Email nurture journey alignment',
+          'Weekly executive updates'
+        ]
+      }
+    ]
+  },
+  retainer: {
+    title: 'Brand, Content & Revenue Retainers',
+    subtitle: 'Ongoing growth support across design, content and conversion systems.',
+    packages: [
+      {
+        name: 'Brand Foundation Sprint',
+        price: 'R9,500 once-off',
+        support: 'Timeline: 2-3 weeks',
+        idealFor: 'New brands needing clear identity, offer framing and messaging.',
+        features: [
+          'Brand positioning workshop',
+          'Visual direction and key brand assets',
+          'Offer and messaging framework',
+          'Landing page wireframe + CTA strategy',
+          'Brand usage guide'
+        ]
+      },
+      {
+        name: 'Content + Social Engine',
+        price: 'R5,500/mo',
+        support: 'Includes 1-2 social platforms',
+        idealFor: 'Businesses that need consistent publishing and authority content.',
+        features: [
+          'Monthly content calendar',
+          '8-12 branded content pieces',
+          'Copywriting + design production',
+          'Community and DM response support',
+          'Performance summary and next-step plan'
+        ]
+      },
+      {
+        name: 'Fractional Growth Team',
+        price: 'From R18,000/mo',
+        support: 'Custom scope by revenue goals',
+        idealFor: 'Companies wanting one team across web, SEO, ads and conversion.',
+        features: [
+          'Monthly growth roadmap and priority sprints',
+          'Cross-channel campaign orchestration',
+          'Conversion and analytics ownership',
+          'Design/dev implementation bandwidth',
+          'Dedicated strategist and execution pod'
+        ],
+        highlighted: true
+      }
+    ]
+  }
+};
+
+function Services() {
   const [activeTab, setActiveTab] = useState('development');
-  const [activeFilter, setActiveFilter] = useState('all');
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (location.hash === '#seo') {
       setActiveTab('seo');
-    } else if (location.hash === '#development') {
+      return;
+    }
+    if (location.hash === '#development') {
       setActiveTab('development');
+      return;
     }
-  }, [location]);
+    if (location.hash === '#growth') {
+      setActiveTab('growth');
+      return;
+    }
+    if (location.hash === '#retainer') {
+      setActiveTab('retainer');
+    }
+  }, [location.hash]);
 
-  const services = [
-    {
-      icon: <FaCode className="w-8 h-8" />,
-      title: "Custom Website Design",
-      description: "Bespoke websites tailored to your brand's unique needs and goals."
-    },
-    {
-      icon: <FaShoppingCart className="w-8 h-8" />,
-      title: "E-Commerce Solutions",
-      description: "Powerful online stores with seamless checkout experiences."
-    },
-    {
-      icon: <FaRobot className="w-8 h-8" />,
-      title: "AI-Powered Features",
-      description: "Intelligent chatbots and personalization for enhanced user experience."
-    },
-    {
-      icon: <FaTools className="w-8 h-8" />,
-      title: "Maintenance Plans",
-      description: "Regular updates and support to keep your site running smoothly."
-    }
-  ];
-
-  const marketingServices = [
-    {
-      icon: <FaSearch className="w-8 h-8" />,
-      title: "Technical SEO",
-      description: "Optimize your site's structure, speed, and mobile responsiveness."
-    },
-    {
-      icon: <FaHashtag className="w-8 h-8" />,
-      title: "Keyword Strategy",
-      description: "Research and target high-value search terms for your industry."
-    },
-    {
-      icon: <FaAd className="w-8 h-8" />,
-      title: "Content Optimization",
-      description: "Create and optimize content that ranks and converts."
-    },
-    {
-      icon: <FaEnvelope className="w-8 h-8" />,
-      title: "Link Building",
-      description: "Build authority with quality backlinks from relevant sites."
-    }
-  ];
-
-  const marketingCaseStudies = [
-    {
-      title: "Local Business Growth",
-      stats: "400% Organic Traffic Increase",
-      description: "Helped a local restaurant rank #1 for key local search terms",
-      image: marketing_1
-    },
-    {
-      title: "E-commerce Success",
-      stats: "200% More Search Visibility",
-      description: "Doubled organic product page rankings and sales",
-      image: marketing_2
-    }
-  ];
-
-  const marketingPricing = [
-    {
-      name: "Basic SEO",
-      price: "R3,500 once-off",
-      subPrice: "or R1,500/month",
-      features: [
-        "Keyword Research (5-10 keywords)",
-        "On-Page Optimization (5 pages)",
-        "Technical SEO Fixes",
-        "Google Search Console Setup",
-        "Performance Reports",
-        "Perfect for Small Businesses"
-      ]
-    },
-    {
-      name: "Advanced SEO",
-      price: "R10,000 once-off",
-      subPrice: "or R4,000/month",
-      features: [
-        "20-30 Targeted Keywords",
-        "Content Optimization (10 pages)",
-        "Local SEO & Citations",
-        "3-5 Quality Backlinks",
-        "Monthly Analytics Reports",
-        "Ideal for Growing Businesses"
-      ],
-      highlighted: true
-    },
-    {
-      name: "Enterprise SEO",
-      price: "R25,000+ once-off",
-      subPrice: "or R8,000/month",
-      features: [
-        "50-Page Technical Audit",
-        "5 SEO-Optimized Blog Posts",
-        "10+ Authority Backlinks",
-        "Competitor Analysis",
-        "Custom ROI Dashboard",
-        "For National/Global Brands"
-      ]
-    }
-  ];
+  const activeData = useMemo(() => pricingByTab[activeTab], [activeTab]);
 
   return (
     <>
       <Helmet>
-        <title>Digital Services | Web Development, Marketing & Design Solutions</title>
-        <meta name="description" content="Comprehensive digital services including web development, design, digital marketing, and brand strategy. Transform your business with our expert solutions." />
-        <meta name="keywords" content="digital services, web development, digital marketing, web design, brand strategy, SEO services" />
+        <title>Digital Agency Services & Pricing (South Africa) | Virtara</title>
+        <meta
+          name="description"
+          content="Transparent South African digital agency pricing for web development, SEO, paid media, branding, content and growth retainers."
+        />
+        <meta
+          name="keywords"
+          content="digital agency pricing South Africa, web design pricing, SEO pricing, Google ads management South Africa"
+        />
         <link rel="canonical" href="https://virtara.co.za/services" />
       </Helmet>
-      <div className="bg-[#0F0F0F] min-h-screen">
+
+      <main className="bg-[#050910] min-h-screen text-white virtara-body">
         <Navbar />
 
-        <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">
-          <div className="container mx-auto px-6">
-            {/* Header Section */}
+        <section className="pt-32 md:pt-36 pb-14 md:pb-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(20,99,255,0.28),transparent_38%),radial-gradient(circle_at_78%_5%,rgba(96,219,255,0.2),transparent_34%)]" />
+          <div className="container mx-auto px-6 relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center mb-8 sm:mb-12 md:mb-16 px-4"
+              transition={{ duration: 0.65 }}
+              className="max-w-5xl mx-auto text-center"
             >
-              <Badge variant="primary" size="lg" className="mb-4 sm:mb-6">
-                Our Services
-              </Badge>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white leading-tight tracking-tight mb-4 sm:mb-6 md:mb-8">
-                Digital Solutions for
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                  {" "}Modern Businesses
-                </span>
+              <Badge variant="primary" size="lg" className="mb-5">Services + Transparent SA Pricing</Badge>
+              <h1 className="virtara-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.96] tracking-tight mb-6">
+                Full-Stack Digital Growth Services
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]"> Built for the South African Market</span>
               </h1>
-              <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-3xl mx-auto leading-relaxed px-2">
-                Comprehensive digital services designed to elevate your brand and drive real results
+              <p className="text-lg md:text-xl text-[#c2d4ff] max-w-3xl mx-auto leading-relaxed">
+                No hidden fees. Clear scope. Real deliverables. Choose once-off builds or monthly growth retainers aligned to your stage.
               </p>
             </motion.div>
+          </div>
+        </section>
 
-            {/* Tab Navigation */}
-            <motion.div 
-              className="flex justify-center mb-8 sm:mb-12 md:mb-16 px-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+        <section className="pb-8">
+          <div className="container mx-auto px-6">
+            <Card className="max-w-6xl mx-auto border border-[#74a7ff]/30 bg-[linear-gradient(120deg,rgba(8,16,33,0.85),rgba(8,16,33,0.5))]">
+              <Card.Content>
+                <div className="grid md:grid-cols-3 gap-6 text-sm md:text-base text-[#c5d8ff]">
+                  <div>
+                    <p className="font-semibold text-white mb-2">Pricing includes</p>
+                    <p>Planning, implementation, QA and reporting for the chosen scope.</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white mb-2">Pricing excludes</p>
+                    <p>Media spend, premium plugins/licenses, and third-party platform fees.</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white mb-2">Commitment model</p>
+                    <p>Builds are once-off. Retainers are month-to-month unless otherwise specified.</p>
+                  </div>
+                </div>
+              </Card.Content>
+            </Card>
+          </div>
+        </section>
+
+        <section className="pb-16 md:pb-20">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55 }}
+              className="max-w-6xl mx-auto"
             >
-              <div className="inline-flex rounded-full bg-white/5 p-1 backdrop-blur-sm">
-                <a
-                  href="#development"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setActiveTab('development');
-                    window.scrollTo(0, 0);
-                    window.location.hash = 'development';
-                  }}
-                  className={`px-4 sm:px-6 md:px-8 py-2 sm:py-3 text-sm sm:text-base rounded-full transition-all duration-300 ${
-                    activeTab === 'development' 
-                      ? 'bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white shadow-lg shadow-[#00f2fe]/25' 
-                      : 'text-white/70 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  Web Development
-                </a>
-                <a
-                  href="#seo"
-                  onClick={() => setActiveTab('seo')}
-                  className={`px-4 sm:px-6 md:px-8 py-2 sm:py-3 text-sm sm:text-base rounded-full transition-all duration-300 ${
-                    activeTab === 'seo' 
-                      ? 'bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white shadow-lg shadow-[#00f2fe]/25' 
-                      : 'text-white/70 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  SEO Optimisation
-                </a>
+              <h2 className="virtara-display text-3xl md:text-4xl mb-6">Everything You Need Under One Team</h2>
+              <div className="flex flex-wrap gap-3">
+                {serviceCatalog.map((service) => (
+                  <div
+                    key={service.title}
+                    className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-3 flex items-center gap-3"
+                  >
+                    <span className="text-[#84dcff]">{service.icon}</span>
+                    <span className="text-[#d7e5ff] text-sm md:text-base">{service.title}</span>
+                  </div>
+                ))}
               </div>
             </motion.div>
+          </div>
+        </section>
 
-            <AnimatePresence mode='wait'>
-              {activeTab === 'development' ? (
-                <motion.div
-                  id="development"
-                  key="development"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="max-w-4xl mx-auto text-center mb-16"
+        <section className="pb-20 md:pb-24" id={activeTab}>
+          <div className="container mx-auto px-6">
+            <div className="max-w-6xl mx-auto">
+              <div className="flex flex-wrap gap-3 mb-10">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => {
+                      setActiveTab(tab.id);
+                      window.history.replaceState({}, '', `#${tab.id}`);
+                    }}
+                    className={`rounded-full px-5 py-3 text-sm md:text-base transition-all duration-300 border ${
+                      activeTab === tab.id
+                        ? 'bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-[#04142d] border-transparent font-semibold'
+                        : 'bg-white/[0.03] text-[#bfd2fb] border-white/15 hover:bg-white/[0.08]'
+                    }`}
                   >
-                    <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
-                      Modern Web Design
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                        {" "}Tailored to Your Needs
-                      </span>
-                    </h2>
-                    <p className="text-lg text-white/70 mb-12">
-                      Elevate your digital presence with our cutting-edge web solutions
-                    </p>
-                  </motion.div>
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
 
-                  {/* Services Section */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16 md:mb-20 px-2">
-                    {services.map((service, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                      >
-                        <Card variant="glass" className="h-full text-center group" hover={true}>
-                          <Card.Content>
-                            <div className="text-[#00f2fe] group-hover:text-[#ff00e5] transition-colors duration-300 mb-3 sm:mb-4">
-                              {service.icon}
-                            </div>
-                            <h3 className="text-white text-lg sm:text-xl font-semibold mb-2">{service.title}</h3>
-                            <p className="text-sm sm:text-base text-white/70">{service.description}</p>
-                          </Card.Content>
-                        </Card>
-                      </motion.div>
-                    ))}
-                  </div>
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35 }}
+              >
+                <div className="mb-10">
+                  <h3 className="virtara-display text-3xl md:text-5xl mb-3">{activeData.title}</h3>
+                  <p className="text-[#b7cbfa] text-lg">{activeData.subtitle}</p>
+                </div>
 
-                  {/* Process Section */}
-                  <div className="mb-20">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8 }}
-                      className="text-center mb-12"
+                <div className="space-y-5">
+                  {activeData.packages.map((pkg) => (
+                    <Card
+                      key={pkg.name}
+                      className={`border ${pkg.highlighted ? 'border-[#79deff]/70' : 'border-white/10'} bg-[linear-gradient(160deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))]`}
+                      hover
                     >
-                      <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Process</h2>
-                      <p className="text-white/70">How we bring your vision to life</p>
-                    </motion.div>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                      {process.map((step, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                          className="text-center"
-                        >
-                          <Card variant="default" className="h-full" hover={true}>
-                            <Card.Content>
-                              <div className="text-[#ff00e5] text-4xl font-bold mb-4">{step.step}</div>
-                              <h3 className="text-white text-xl font-semibold mb-2">{step.title}</h3>
-                              <p className="text-white/70">{step.description}</p>
-                            </Card.Content>
-                          </Card>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
+                      <Card.Content className="md:p-7">
+                        <div className="grid md:grid-cols-[1.15fr_1fr] gap-6 md:gap-8 items-start">
+                          <div>
+                            {pkg.highlighted && (
+                              <Badge variant="gradient" className="mb-4">Most Selected</Badge>
+                            )}
+                            <h4 className="text-2xl font-semibold text-white mb-2">{pkg.name}</h4>
+                            <p className="text-3xl font-bold text-[#8df6ff] mb-2">{pkg.price}</p>
+                            <p className="text-sm text-[#9dc0ff] mb-4">{pkg.support}</p>
+                            <p className="text-sm text-[#d0dcff] leading-relaxed">{pkg.idealFor}</p>
+                          </div>
 
-                  {/* Pricing Section */}
-                  <div className="mb-20">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8 }}
-                      className="text-center mb-12"
-                    >
-                      <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Transparent Pricing</h2>
-                      <p className="text-white/70">Choose the plan that fits your needs</p>
-                    </motion.div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                      {pricingTiers.map((tier, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                        >
-                          <Card 
-                            variant={tier.highlighted ? "elevated" : "default"} 
-                            className={`h-full ${tier.highlighted ? 'border-[#ff00e5]/30' : ''}`}
-                            hover={true}
-                          >
-                            <Card.Content>
-                              {tier.highlighted && (
-                                <Badge variant="gradient" className="mb-4">
-                                  Most Popular
-                                </Badge>
-                              )}
-                              <h3 className="text-white text-2xl font-bold mb-4">{tier.name}</h3>
-                              <div className="text-3xl font-bold text-[#00f2fe] mb-2">{tier.price}</div>
-                              <div className="text-lg text-[#00f2fe]/70 mb-6">{tier.subPrice}</div>
-                              <ul className="space-y-4 mb-8">
-                                {tier.features.map((feature, fIndex) => (
-                                  <li key={fIndex} className="text-white/70 flex items-center">
-                                    <FaCheck className="w-4 h-4 mr-3 text-[#ff00e5] flex-shrink-0" />
-                                    <span>{feature}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                              <Button
-                                variant="gradient"
-                                size="lg"
-                                className="w-full"
-                                onClick={() => navigate(`/web-development/${tier.name.toLowerCase()}`)}
-                                showArrow={true}
-                              >
-                                Get Started
-                              </Button>
-                            </Card.Content>
-                          </Card>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* CTA Section */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="text-center"
-                  >
-                    <Card variant="glass" className="p-8">
-                      <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Start Your Project?</h2>
-                      <p className="text-white/70 mb-8 max-w-2xl mx-auto">
-                        Let's discuss your vision and create something amazing together
-                      </p>
-                      <Button
-                        variant="gradient"
-                        size="lg"
-                        onClick={() => navigate('/contact-us')}
-                        showArrow={true}
-                      >
-                        Let's Talk
-                      </Button>
+                          <div>
+                            <ul className="space-y-3 mb-7">
+                              {pkg.features.map((feature) => (
+                                <li key={feature} className="text-sm text-[#cfddff] flex items-start gap-2">
+                                  <FaCheck className="mt-1 w-3.5 h-3.5 text-[#7de2ff] flex-shrink-0" />
+                                  <span>{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+                            <Button
+                              variant="gradient"
+                              size="md"
+                              className="w-full md:w-auto"
+                              onClick={() => navigate('/start-your-project')}
+                              showArrow
+                            >
+                              Book a Strategy Audit
+                            </Button>
+                          </div>
+                        </div>
+                      </Card.Content>
                     </Card>
-                  </motion.div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  id="seo"
-                  key="seo"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="text-center mb-16"
-                  >
-                    <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
-                      Rank Higher with
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
-                        {" "}Strategic SEO
-                      </span>
-                    </h2>
-                    <p className="text-lg text-white/70 max-w-3xl mx-auto leading-relaxed">
-                      Boost your online visibility and drive organic traffic to your website
-                    </p>
-                  </motion.div>
-                  
-                  {/* Marketing Services */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-                    {marketingServices.map((service, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                      >
-                        <Card variant="glass" className="h-full text-center group" hover={true}>
-                          <Card.Content>
-                            <div className="text-[#00f2fe] group-hover:text-[#ff00e5] transition-colors duration-300 mb-3 sm:mb-4">
-                              {service.icon}
-                            </div>
-                            <h3 className="text-white text-lg sm:text-xl font-semibold mb-2">{service.title}</h3>
-                            <p className="text-sm sm:text-base text-white/70">{service.description}</p>
-                          </Card.Content>
-                        </Card>
-                      </motion.div>
-                    ))}
-                  </div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
 
-                  {/* Case Studies */}
-                  <div className="mb-20">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8 }}
-                      className="text-center mb-12"
-                    >
-                      <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Success Stories</h2>
-                      <p className="text-white/70">Real results from real clients</p>
-                    </motion.div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      {marketingCaseStudies.map((study, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                        >
-                          <Card variant="default" className="overflow-hidden group" hover={true}>
-                            <div className="relative overflow-hidden">
-                              <img 
-                                src={study.image} 
-                                alt={study.title}
-                                className="w-full h-[300px] object-cover transition-transform duration-500 group-hover:scale-110"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                            </div>
-                            <Card.Content>
-                              <h3 className="text-white text-2xl font-bold mb-2">{study.title}</h3>
-                              <div className="text-[#00f2fe] text-xl font-semibold mb-2">{study.stats}</div>
-                              <p className="text-white/70">{study.description}</p>
-                            </Card.Content>
-                          </Card>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Marketing Pricing */}
-                  <div className="mb-20">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8 }}
-                      className="text-center mb-12"
-                    >
-                      <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Marketing Packages</h2>
-                      <p className="text-white/70">Choose the SEO strategy that fits your goals</p>
-                    </motion.div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                      {marketingPricing.map((tier, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                        >
-                          <Card 
-                            variant={tier.highlighted ? "elevated" : "default"} 
-                            className={`h-full ${tier.highlighted ? 'border-[#ff00e5]/30' : ''}`}
-                            hover={true}
-                          >
-                            <Card.Content>
-                              {tier.highlighted && (
-                                <Badge variant="gradient" className="mb-4">
-                                  Most Popular
-                                </Badge>
-                              )}
-                              <h3 className="text-white text-2xl font-bold mb-4">{tier.name}</h3>
-                              <div className="text-3xl font-bold text-[#00f2fe] mb-2">{tier.price}</div>
-                              <div className="text-lg text-[#00f2fe]/70 mb-6">{tier.subPrice}</div>
-                              <ul className="space-y-4 mb-8">
-                                {tier.features.map((feature, fIndex) => (
-                                  <li key={fIndex} className="text-white/70 flex items-center">
-                                    <FaCheck className="w-4 h-4 mr-3 text-[#ff00e5] flex-shrink-0" />
-                                    <span>{feature}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                              <Button
-                                variant="gradient"
-                                size="lg"
-                                className="w-full"
-                                onClick={() => navigate('/seo')}
-                                showArrow={true}
-                              >
-                                Get Started
-                              </Button>
-                            </Card.Content>
-                          </Card>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Marketing CTA */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="text-center"
-                  >
-                    <Card variant="glass" className="p-8">
-                      <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Improve Your Rankings?</h2>
-                      <p className="text-white/70 mb-8 max-w-2xl mx-auto">
-                        Let's boost your online visibility and drive more organic traffic
-                      </p>
-                      <Button
-                        variant="gradient"
-                        size="lg"
-                        onClick={() => navigate('/seo')}
-                        showArrow={true}
-                      >
-                        Ready to Grow your Business?
-                      </Button>
-                    </Card>
-                  </motion.div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+        <section className="pb-20">
+          <div className="container mx-auto px-6">
+            <Card className="max-w-5xl mx-auto border border-[#74a7ff]/35 bg-[linear-gradient(130deg,rgba(7,17,35,0.9),rgba(8,16,33,0.55))] text-center">
+              <Card.Content>
+                <h3 className="virtara-display text-3xl md:text-5xl mb-5">Need a Custom Scope?</h3>
+                <p className="text-[#c7d9ff] max-w-3xl mx-auto mb-8 text-lg leading-relaxed">
+                  If your goals need a blended stack across SEO, paid media, automation and website optimization, we can build a custom monthly roadmap with fixed deliverables.
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-4">
+                  <Button variant="gradient" size="lg" onClick={() => navigate('/start-your-project')}>
+                    Book a Strategy Audit
+                  </Button>
+                  <Button variant="outline" size="lg" onClick={() => navigate('/contact-us')}>
+                    Talk to the Team
+                  </Button>
+                </div>
+              </Card.Content>
+            </Card>
           </div>
         </section>
 
         <Footer />
-      </div>
+      </main>
     </>
   );
-};
+}
 
-export default Work;
+export default Services;

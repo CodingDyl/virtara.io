@@ -160,7 +160,7 @@ const Seo = () => {
         <meta name="keywords" content="SEO services, search engine optimization, organic traffic, keyword ranking, local SEO" />
         <link rel="canonical" href="https://virtara.co.za/seo" />
       </Helmet>
-      <div className="bg-[#0F0F0F] min-h-screen">
+      <div className="bg-[#050910] min-h-screen">
         <Navbar />
         <Notification
           message={notification.message}
@@ -186,7 +186,7 @@ const Seo = () => {
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-4 md:mb-8">
                 Boost Your
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
                   {" "}Search Rankings
                 </span>
               </h1>
@@ -205,7 +205,7 @@ const Seo = () => {
               {seoBenefits.map((benefit, index) => (
                 <Card key={index} className="text-center p-6 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm">
                   <div className="flex justify-center mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] rounded-full flex items-center justify-center text-white">
+                    <div className="w-12 h-12 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] rounded-full flex items-center justify-center text-white">
                       {benefit.icon}
                     </div>
                   </div>
@@ -240,7 +240,7 @@ const Seo = () => {
                           value={formData.name}
                           onChange={handleInputChange}
                           placeholder="Your Name"
-                          className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                          className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                           required
                         />
                       </div>
@@ -255,7 +255,7 @@ const Seo = () => {
                           value={formData.email}
                           onChange={handleInputChange}
                           placeholder="your@email.com"
-                          className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                          className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                           required
                         />
                       </div>
@@ -274,7 +274,7 @@ const Seo = () => {
                           value={formData.phone}
                           onChange={handleInputChange}
                           placeholder="+27 (0) 12 345 6789"
-                          className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                          className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                         />
                       </div>
                     </div>
@@ -288,7 +288,7 @@ const Seo = () => {
                           value={formData.businessName}
                           onChange={handleInputChange}
                           placeholder="Your Business Name"
-                          className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                          className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                           required
                         />
                       </div>
@@ -303,12 +303,12 @@ const Seo = () => {
                         name="industry"
                         value={formData.industry}
                         onChange={handleInputChange}
-                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 appearance-none"
+                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300 appearance-none"
                         required
                       >
                         <option value="">Select Industry</option>
                         {industries.map(industry => (
-                          <option key={industry} value={industry} className="bg-[#0F0F0F]">{industry}</option>
+                          <option key={industry} value={industry} className="bg-[#050910]">{industry}</option>
                         ))}
                       </select>
                     </div>
@@ -322,7 +322,7 @@ const Seo = () => {
                           value={formData.currentWebsite}
                           onChange={handleInputChange}
                           placeholder="https://yourwebsite.com"
-                          className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                          className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                           required
                         />
                       </div>
@@ -339,7 +339,7 @@ const Seo = () => {
                         value={formData.targetLocation}
                         onChange={handleInputChange}
                         placeholder="City, Country or Global"
-                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300"
+                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300"
                         required
                       />
                     </div>
@@ -349,11 +349,11 @@ const Seo = () => {
                         name="businessGoals"
                         value={formData.businessGoals}
                         onChange={handleInputChange}
-                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 appearance-none"
+                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white/70 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300 appearance-none"
                       >
                         <option value="">Select Primary Goal</option>
                         {businessGoals.map(goal => (
-                          <option key={goal} value={goal} className="bg-[#0F0F0F]">{goal}</option>
+                          <option key={goal} value={goal} className="bg-[#050910]">{goal}</option>
                         ))}
                       </select>
                     </div>
@@ -367,7 +367,7 @@ const Seo = () => {
                         name="mainCompetitors"
                         value={formData.mainCompetitors}
                         onChange={handleInputChange}
-                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 resize-none"
+                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300 resize-none"
                         rows="3"
                         placeholder="List your main competitors' websites"
                       />
@@ -378,7 +378,7 @@ const Seo = () => {
                         name="targetKeywords"
                         value={formData.targetKeywords}
                         onChange={handleInputChange}
-                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#00f2fe] focus:outline-none focus:ring-2 focus:ring-[#00f2fe]/20 transition-all duration-300 resize-none"
+                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:border-[#8df6ff] focus:outline-none focus:ring-2 focus:ring-[#8df6ff]/20 transition-all duration-300 resize-none"
                         rows="3"
                         placeholder="What keywords would you like to rank for?"
                       />
@@ -395,7 +395,7 @@ const Seo = () => {
                           name="contentCreation"
                           checked={formData.contentCreation}
                           onChange={handleInputChange}
-                          className="w-4 h-4 text-[#00f2fe] bg-white/5 border-white/10 rounded focus:ring-[#00f2fe] focus:ring-2"
+                          className="w-4 h-4 text-[#8df6ff] bg-white/5 border-white/10 rounded focus:ring-[#8df6ff] focus:ring-2"
                         />
                         <span className="text-white/70 group-hover:text-white transition-colors">Content Creation</span>
                       </label>
@@ -405,7 +405,7 @@ const Seo = () => {
                           name="localSEO"
                           checked={formData.localSEO}
                           onChange={handleInputChange}
-                          className="w-4 h-4 text-[#00f2fe] bg-white/5 border-white/10 rounded focus:ring-[#00f2fe] focus:ring-2"
+                          className="w-4 h-4 text-[#8df6ff] bg-white/5 border-white/10 rounded focus:ring-[#8df6ff] focus:ring-2"
                         />
                         <span className="text-white/70 group-hover:text-white transition-colors">Local SEO</span>
                       </label>
@@ -415,7 +415,7 @@ const Seo = () => {
                           name="technicalSEO"
                           checked={formData.technicalSEO}
                           onChange={handleInputChange}
-                          className="w-4 h-4 text-[#00f2fe] bg-white/5 border-white/10 rounded focus:ring-[#00f2fe] focus:ring-2"
+                          className="w-4 h-4 text-[#8df6ff] bg-white/5 border-white/10 rounded focus:ring-[#8df6ff] focus:ring-2"
                         />
                         <span className="text-white/70 group-hover:text-white transition-colors">Technical SEO</span>
                       </label>
@@ -425,7 +425,7 @@ const Seo = () => {
                           name="linkBuilding"
                           checked={formData.linkBuilding}
                           onChange={handleInputChange}
-                          className="w-4 h-4 text-[#00f2fe] bg-white/5 border-white/10 rounded focus:ring-[#00f2fe] focus:ring-2"
+                          className="w-4 h-4 text-[#8df6ff] bg-white/5 border-white/10 rounded focus:ring-[#8df6ff] focus:ring-2"
                         />
                         <span className="text-white/70 group-hover:text-white transition-colors">Link Building</span>
                       </label>

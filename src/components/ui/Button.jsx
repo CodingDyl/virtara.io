@@ -17,7 +17,7 @@ const Button = ({
   const variants = {
     primary: "bg-gradient-to-r from-white to-white/90 text-black hover:shadow-xl hover:shadow-white/20 focus:ring-white/50",
     secondary: "bg-transparent text-white border-2 border-white/20 hover:bg-white/10 hover:border-white/30 focus:ring-white/50",
-    gradient: "bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white hover:shadow-xl hover:shadow-[#00f2fe]/20 focus:ring-[#00f2fe]/50",
+    gradient: "bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-white hover:shadow-xl hover:shadow-[#8df6ff]/20 focus:ring-[#8df6ff]/50",
     outline: "bg-transparent text-white border-2 border-white/10 hover:bg-white/5 hover:border-white/20 focus:ring-white/50",
     ghost: "bg-white/10 text-white hover:bg-white/20 focus:ring-white/50"
   };

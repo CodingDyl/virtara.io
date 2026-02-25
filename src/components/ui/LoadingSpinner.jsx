@@ -14,7 +14,7 @@ const LoadingSpinner = ({
 
   const variants = {
     default: "border-white/20 border-t-white",
-    brand: "border-white/20 border-t-[#00f2fe]",
+    brand: "border-white/20 border-t-[#8df6ff]",
     gradient: "border-white/20 border-t-transparent"
   };
 
@@ -31,7 +31,7 @@ const LoadingSpinner = ({
       />
       {variant === "gradient" && (
         <motion.div
-          className={`${sizes[size]} absolute border-2 border-transparent border-t-[#ff00e5] rounded-full`}
+          className={`${sizes[size]} absolute border-2 border-transparent border-t-[#4ea4ff] rounded-full`}
           animate={{ rotate: -360 }}
           transition={{
             duration: 1.5,

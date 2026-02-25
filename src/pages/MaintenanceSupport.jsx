@@ -76,7 +76,7 @@ const MaintenanceSupport = () => {
         <meta name="keywords" content="website maintenance, website support, security updates, performance optimization, technical support" />
         <link rel="canonical" href="https://virtara.co.za/maintenance-support" />
       </Helmet>
-      <div className="bg-[#0F0F0F] min-h-screen">
+      <div className="bg-[#050910] min-h-screen">
         <Navbar />
 
         <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">
@@ -89,7 +89,7 @@ const MaintenanceSupport = () => {
             >
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
                 Website
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2fe] to-[#ff00e5]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
                   {" "}Maintenance
                 </span>
               </h1>
@@ -108,7 +108,7 @@ const MaintenanceSupport = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors"
                 >
-                  <div className="text-[#00f2fe] mb-4">{service.icon}</div>
+                  <div className="text-[#8df6ff] mb-4">{service.icon}</div>
                   <h3 className="text-white text-xl font-semibold mb-2">{service.title}</h3>
                   <p className="text-white/70">{service.description}</p>
                 </motion.div>
@@ -127,16 +127,16 @@ const MaintenanceSupport = () => {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className={`p-8 rounded-2xl ${
                       plan.highlighted 
-                        ? 'bg-gradient-to-b from-[#00f2fe]/20 to-[#ff00e5]/20 border border-[#ff00e5]/30' 
+                        ? 'bg-gradient-to-b from-[#8df6ff]/20 to-[#4ea4ff]/20 border border-[#4ea4ff]/30' 
                         : 'bg-white/5'
                     }`}
                   >
                     <h3 className="text-white text-2xl font-bold mb-4">{plan.title}</h3>
-                    <div className="text-3xl font-bold text-[#00f2fe] mb-6">{plan.price}<span className="text-lg">/month</span></div>
+                    <div className="text-3xl font-bold text-[#8df6ff] mb-6">{plan.price}<span className="text-lg">/month</span></div>
                     <ul className="space-y-4 mb-8">
                       {plan.features.map((feature, fIndex) => (
                         <li key={fIndex} className="text-white/70 flex items-center">
-                          <FaCheck className="w-4 h-4 mr-2 text-[#ff00e5]" />
+                          <FaCheck className="w-4 h-4 mr-2 text-[#4ea4ff]" />
                           {feature}
                         </li>
                       ))}
@@ -157,7 +157,7 @@ const MaintenanceSupport = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="px-8 py-4 bg-gradient-to-r from-[#00f2fe] to-[#ff00e5] text-white rounded-full font-medium hover:opacity-90 transition-opacity"
+                className="px-8 py-4 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-white rounded-full font-medium hover:opacity-90 transition-opacity"
               >
                 Get Started Now
               </motion.button>
