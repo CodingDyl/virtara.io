@@ -199,6 +199,11 @@ function Blog() {
                               loading="lazy"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
+                            <div className="absolute top-3 left-3 right-3">
+                              <p className="inline-block max-w-[95%] text-[11px] sm:text-xs font-semibold tracking-[0.08em] uppercase text-white bg-black/55 backdrop-blur-md border border-white/20 rounded-xl px-3 py-1.5 line-clamp-2">
+                                {featuredPost.title}
+                              </p>
+                            </div>
                           </div>
                           <Card.Content className="md:p-8">
                             <Badge variant="outline" className="mb-4">Featured Insight</Badge>
@@ -254,6 +259,11 @@ function Blog() {
                               loading="lazy"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                            <div className="absolute top-3 left-3 right-3">
+                              <p className="inline-block max-w-[95%] text-[10px] sm:text-[11px] font-semibold tracking-[0.08em] uppercase text-white bg-black/55 backdrop-blur-md border border-white/20 rounded-xl px-2.5 py-1.5 line-clamp-2">
+                                {post.title}
+                              </p>
+                            </div>
                             <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-[#d6e4ff]">
                               <span className="inline-flex items-center gap-1 rounded-full bg-black/40 border border-white/20 px-2.5 py-1">
                                 <FaCalendar className="w-3 h-3" />
