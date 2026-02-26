@@ -9,6 +9,7 @@ import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
+import { Helmet } from 'react-helmet-async';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -98,6 +99,11 @@ const Contact = () => {
 
   return (
     <div className="bg-[#050910] min-h-screen">
+      <Helmet>
+        <title>Contact Us | Virtara</title>
+        <meta name="description" content="Contact Virtara to discuss your website, SEO, or growth project. We respond quickly and can help scope your next digital initiative." />
+        <link rel="canonical" href="https://www.virtara.co.za/contact-us" />
+      </Helmet>
       <Navbar />
       <Notification
         message={notification.message}

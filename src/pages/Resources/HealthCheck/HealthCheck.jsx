@@ -74,7 +74,7 @@ const Checklist = () => {
         <title>Free Website Conversion Checklist | Virtara</title>
         <meta name="description" content="Download our free website conversion checklist to discover why your website isn't converting and how to fix it. Quick 5-minute assessment to boost your conversion rates." />
         <meta name="keywords" content="website conversion, conversion checklist, conversion optimization, website optimization" />
-        <link rel="canonical" href="https://virtara.co.za/checklist" />
+        <link rel="canonical" href="https://www.virtara.co.za/resources/health-check" />
       </Helmet>
 
       <div className="bg-[#050910] min-h-screen">

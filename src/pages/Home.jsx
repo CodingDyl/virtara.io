@@ -134,7 +134,7 @@ function Home() {
           name="keywords"
           content="digital agency, web design, web development, conversion optimization, SEO, lead generation"
         />
-        <link rel="canonical" href="https://virtara.co.za" />
+        <link rel="canonical" href="https://www.virtara.co.za" />
 
         <script type="application/ld+json">
           {`

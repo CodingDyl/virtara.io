@@ -13,7 +13,8 @@ const HealthThankYou = () => {
       <Helmet>
         <title>Thank You - Website Health Check | Virtara</title>
         <meta name="description" content="Thank you for downloading our website health check. Upgrade to a personalized website audit for expert insights." />
-        <meta name="robots" content="noindex" /> {/* Don't index thank you pages */}
+        <meta name="robots" content="noindex, follow" />
+        <link rel="canonical" href="https://www.virtara.co.za/resources/health-check/thank-you" />
       </Helmet>
 
       <div className="bg-[#050910] min-h-screen">

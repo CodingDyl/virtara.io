@@ -12,6 +12,8 @@ const AuditThankYou = () => {
       <Helmet>
         <title>Thank You | Website Audit Booking | Virtara</title>
         <meta name="description" content="Thank you for booking your website audit session with Virtara. We'll be in touch shortly to confirm your appointment." />
+        <meta name="robots" content="noindex, follow" />
+        <link rel="canonical" href="https://www.virtara.co.za/resources/audit/thank-you" />
       </Helmet>
 
       <Navbar />

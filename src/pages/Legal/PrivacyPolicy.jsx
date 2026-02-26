@@ -2,10 +2,16 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { Helmet } from 'react-helmet-async';
 
 const PrivacyPolicy = () => {
   return (
     <div className="bg-[#050910] min-h-screen">
+      <Helmet>
+        <title>Privacy Policy | Virtara</title>
+        <meta name="description" content="Read Virtara's privacy policy to understand how we collect, use, and protect your personal information." />
+        <link rel="canonical" href="https://www.virtara.co.za/legal/privacy-policy" />
+      </Helmet>
       <Navbar />
 
       <section className="pt-32 md:pt-40 pb-12 md:pb-20">

@@ -33,7 +33,8 @@ const SeoThankYou = () => {
       <Helmet>
         <title>Thank You | SEO Services | Virtara</title>
         <meta name="description" content="Thank you for choosing our SEO services. We'll be in touch within 24 hours to discuss your strategy." />
-        <link rel="canonical" href="https://virtara.co.za/seo/thank-you" />
+        <meta name="robots" content="noindex, follow" />
+        <link rel="canonical" href="https://www.virtara.co.za/seo/thank-you" />
       </Helmet>
       <div className="bg-[#050910] min-h-screen">
         <Navbar />

@@ -107,7 +107,7 @@ function Blog() {
           name="keywords"
           content="digital marketing blog, SEO insights, web development strategy, growth marketing"
         />
-        <link rel="canonical" href="https://virtara.co.za/web-development-blog" />
+        <link rel="canonical" href="https://www.virtara.co.za/web-development-blog" />
       </Helmet>
 
       <Toaster position="top-right" />

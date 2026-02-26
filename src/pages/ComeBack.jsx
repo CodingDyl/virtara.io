@@ -10,7 +10,8 @@ const ComeBack = () => {
       <Helmet>
         <title>See You Soon | Virtara Newsletter</title>
         <meta name="description" content="Thank you for being part of Virtara's newsletter community" />
-        <link rel="canonical" href="https://virtara.co.za/comeback" />
+        <meta name="robots" content="noindex, follow" />
+        <link rel="canonical" href="https://www.virtara.co.za/comeback" />
       </Helmet>
       <div className="bg-[#050910] min-h-screen">
         <section className="min-h-screen flex items-center justify-center">

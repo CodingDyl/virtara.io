@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { Helmet } from 'react-helmet-async';
 
 const CookiePolicy = () => {
   const sections = [
@@ -46,6 +47,11 @@ const CookiePolicy = () => {
 
   return (
     <div className="bg-[#050910] min-h-screen">
+      <Helmet>
+        <title>Cookie Policy | Virtara</title>
+        <meta name="description" content="Learn how Virtara uses cookies and similar technologies, including analytics and preference settings." />
+        <link rel="canonical" href="https://www.virtara.co.za/legal/cookie-policy" />
+      </Helmet>
       <Navbar />
 
       <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">

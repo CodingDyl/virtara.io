@@ -56,7 +56,7 @@ const AuditPage = () => {
           meetingPlatform: 'teams',
           additionalNotes: ''
         });
-        navigate('resources/audit/thank-you');
+        navigate('/resources/audit/thank-you');
       } else {
         throw new Error(result.message);
       }
@@ -74,6 +74,7 @@ const AuditPage = () => {
       <Helmet>
         <title>Website Audit Booking | Virtara</title>
         <meta name="description" content="Book your personalized website audit session with our experts and get detailed insights to improve your website's performance." />
+        <link rel="canonical" href="https://www.virtara.co.za/resources/audit" />
       </Helmet>
 
       <div className="bg-[#050910] min-h-screen">

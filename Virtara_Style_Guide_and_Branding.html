@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Virtara Style Guide & Branding</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; line-height: 1.45; color: #111; margin: 36px; }
+    h1, h2, h3 { margin: 0.9em 0 0.35em; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 20px; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
+    h3 { font-size: 16px; }
+    p, li { font-size: 12px; }
+    table { border-collapse: collapse; width: 100%; margin: 8px 0 14px; }
+    th, td { border: 1px solid #ddd; padding: 8px; font-size: 11px; text-align: left; }
+    th { background: #f6f6f6; }
+    .muted { color: #555; }
+    .swatch { display: inline-block; width: 12px; height: 12px; border-radius: 2px; border: 1px solid #888; margin-right: 6px; vertical-align: -1px; }
+    .small { font-size: 10px; color: #666; }
+    .code { font-family: Menlo, Consolas, monospace; background: #f6f6f6; padding: 1px 4px; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <h1>Virtara Style Guide & Branding</h1>
+  <p class="muted">Version 1.0 | Generated from current implementation | Date: 2026-02-26</p>
+
+  <h2>1. Brand Core</h2>
+  <p><strong>Brand personality:</strong> Confident, technical, modern, outcome-focused.</p>
+  <p><strong>Visual direction:</strong> Dark premium interface with electric cyan/blue accents, soft glass effects, and high-contrast typography.</p>
+  <p><strong>Positioning cue:</strong> “Digital assets that outperform” (performance + measurable growth).</p>
+
+  <h2>2. Logo & Identity</h2>
+  <ul>
+    <li>Use the existing brand logo assets from <span class="code">/public/web_logo_bg.svg</span> and derived image assets.</li>
+    <li>Maintain clear space around logo (minimum 1x logo mark height on all sides).</li>
+    <li>Preferred placement: top-left in navigation and neutral/dark backgrounds.</li>
+    <li>Avoid recoloring outside approved palette or placing logo on noisy backgrounds without contrast treatment.</li>
+  </ul>
+
+  <h2>3. Color System</h2>
+  <h3>Primary UI Colors</h3>
+  <table>
+    <tr><th>Role</th><th>Hex</th><th>Usage</th></tr>
+    <tr><td>Base Background</td><td><span class="swatch" style="background:#050910"></span>#050910</td><td>Default page background, dark theme base</td></tr>
+    <tr><td>Deep Surface</td><td><span class="swatch" style="background:#060A11"></span>#060A11</td><td>Hero/main section background variation</td></tr>
+    <tr><td>Primary Text</td><td><span class="swatch" style="background:#EDF4FF"></span>#EDF4FF</td><td>Default readable text on dark backgrounds</td></tr>
+    <tr><td>Accent Cyan</td><td><span class="swatch" style="background:#8DF6FF"></span>#8DF6FF</td><td>Highlights, key numbers, active states</td></tr>
+    <tr><td>Accent Blue</td><td><span class="swatch" style="background:#4EA4FF"></span>#4EA4FF</td><td>Gradient pair, links, icon emphasis</td></tr>
+    <tr><td>Supporting Sky</td><td><span class="swatch" style="background:#6FC2FF"></span>#6FC2FF</td><td>Gradient mid-tone support</td></tr>
+    <tr><td>Supporting Bright</td><td><span class="swatch" style="background:#35D7FF"></span>#35D7FF</td><td>Hero gradient emphasis</td></tr>
+  </table>
+
+  <h3>Extended Brand Colors (Tailwind tokens)</h3>
+  <table>
+    <tr><th>Token</th><th>Hex</th><th>Use Case</th></tr>
+    <tr><td>brand.cyan</td><td><span class="swatch" style="background:#00F2FE"></span>#00F2FE</td><td>Neon/high-energy accents, chatbot gradients</td></tr>
+    <tr><td>brand.pink</td><td><span class="swatch" style="background:#FF00E5"></span>#FF00E5</td><td>Secondary neon accent (use sparingly)</td></tr>
+    <tr><td>brand.dark</td><td><span class="swatch" style="background:#0F0F0F"></span>#0F0F0F</td><td>Dark overlay/surface</td></tr>
+  </table>
+
+  <h3>Gradient Standard</h3>
+  <p>Primary CTA gradient: <span class="code">linear-gradient(90deg, #8DF6FF, #4EA4FF)</span>.</p>
+  <p>Alternative energetic gradient: <span class="code">linear-gradient(135deg, #00F2FE, #FF00E5)</span>.</p>
+
+  <h2>4. Typography</h2>
+  <table>
+    <tr><th>Role</th><th>Font</th><th>Weight</th><th>Notes</th></tr>
+    <tr><td>Display / Headlines</td><td>Chakra Petch</td><td>700</td><td>Applied via <span class="code">.virtara-display</span>, tight tracking</td></tr>
+    <tr><td>Body / UI</td><td>Sora</td><td>400-800</td><td>Applied via <span class="code">.virtara-body</span></td></tr>
+    <tr><td>Fallback</td><td>sans-serif stack</td><td>n/a</td><td>For system fallback reliability</td></tr>
+  </table>
+  <ul>
+    <li>Headline style: large scale, bold, high contrast, often with gradient-highlighted spans.</li>
+    <li>Body style: clean, compact, performance-oriented copy with strong scannability.</li>
+  </ul>
+
+  <h2>5. Layout, Spacing & Shape</h2>
+  <ul>
+    <li>Default layout: dark full-viewport sections with centered content containers.</li>
+    <li>Radii language: rounded cards and pills (<span class="code">rounded-full</span>, <span class="code">rounded-[26px]</span>, <span class="code">rounded-[32px]</span>).</li>
+    <li>Section rhythm: generous vertical spacing (<span class="code">py-20</span> to <span class="code">py-24</span> patterns).</li>
+    <li>Glass surfaces: translucent whites with subtle borders and backdrop blur.</li>
+  </ul>
+
+  <h2>6. Component Styling Patterns</h2>
+  <h3>Buttons</h3>
+  <ul>
+    <li>Primary CTA: pill shape, cyan-blue gradient, strong shadow, slight hover brightening.</li>
+    <li>Secondary: outlined, low-opacity backgrounds, preserved high contrast.</li>
+  </ul>
+
+  <h3>Cards</h3>
+  <ul>
+    <li>Use translucent backgrounds (<span class="code">white/5</span> to <span class="code">white/10</span>) with soft borders.</li>
+    <li>Use gradient border treatment for emphasis cards and pricing highlights.</li>
+  </ul>
+
+  <h3>Forms</h3>
+  <ul>
+    <li>Inputs on dark surfaces with subtle borders and cyan focus rings.</li>
+    <li>Error/success feedback should remain explicit and near the field or action.</li>
+  </ul>
+
+  <h2>7. Motion & Interaction</h2>
+  <ul>
+    <li>Primary motion library: Framer Motion.</li>
+    <li>Typical transitions: fade + slight translate (0.5s to 0.8s) for staged reveals.</li>
+    <li>Hover/tap micro-interactions on buttons/cards (scale and opacity changes).</li>
+    <li>Respect reduced-motion preferences where possible.</li>
+  </ul>
+
+  <h2>8. Imagery & Visual Effects</h2>
+  <ul>
+    <li>Backgrounds use radial/linear gradients for depth (not flat fills).</li>
+    <li>Use blur glows and layered gradients to create a premium technical atmosphere.</li>
+    <li>Project imagery should be high-contrast and framed in dark overlays for legibility.</li>
+  </ul>
+
+  <h2>9. Voice & Messaging Guidelines</h2>
+  <ul>
+    <li>Tone: direct, strategic, results-first.</li>
+    <li>Copy style: concise, benefit-led, commercial clarity over buzzwords.</li>
+    <li>CTA language: action-oriented (“Start Your Project”, “Book Audit”, “Claim Now”).</li>
+  </ul>
+
+  <h2>10. Accessibility & Quality Baselines</h2>
+  <ul>
+    <li>Maintain sufficient color contrast for all body text against dark backgrounds.</li>
+    <li>Ensure keyboard focus states are visible on buttons/links/inputs.</li>
+    <li>Use descriptive alt text and semantic heading hierarchy (single H1 per page).</li>
+    <li>Preserve responsive behavior across desktop, tablet, and mobile.</li>
+  </ul>
+
+  <h2>11. Do / Don’t</h2>
+  <table>
+    <tr><th>Do</th><th>Don’t</th></tr>
+    <tr><td>Use cyan-blue gradients as the primary interaction color.</td><td>Introduce unrelated brand colors without system-level approval.</td></tr>
+    <tr><td>Keep dark, premium surfaces with clear typographic hierarchy.</td><td>Use flat, low-contrast sections that dilute brand intensity.</td></tr>
+    <tr><td>Reuse existing card/button patterns for consistency.</td><td>Mix multiple unrelated UI styles on the same page.</td></tr>
+    <tr><td>Prioritize measurable business outcomes in messaging.</td><td>Use generic or vague copy that lacks value propositions.</td></tr>
+  </table>
+
+  <h2>12. Implementation References</h2>
+  <ul>
+    <li>Core global styles: <span class="code">/src/index.css</span></li>
+    <li>Tailwind tokens: <span class="code">/tailwind.config.js</span></li>
+    <li>Representative page patterns: <span class="code">/src/pages/Home.jsx</span>, <span class="code">/src/pages/Services.jsx</span>, <span class="code">/src/pages/Work.jsx</span>, <span class="code">/src/pages/StartaProject.jsx</span></li>
+  </ul>
+
+  <p class="small">Note: This guide reflects the implemented system in code as of 2026-02-26 and can be treated as the baseline for future Virtara projects.</p>
+</body>
+</html>

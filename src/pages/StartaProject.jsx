@@ -152,7 +152,7 @@ function StartaProject() {
           name="keywords"
           content="start project, web development project, digital marketing services, custom solutions"
         />
-        <link rel="canonical" href="https://virtara.co.za/starta-project" />
+        <link rel="canonical" href="https://www.virtara.co.za/start-your-project" />
       </Helmet>
 
       <main className="bg-[#050910] min-h-screen text-white virtara-body">

@@ -30,6 +30,7 @@ import EntThankYou from './pages/TailoredRoutes/WebDevelopment/Enterprise/EntTha
 import Seo from './pages/TailoredRoutes/Seo/Seo'
 import SeoThankYou from './pages/TailoredRoutes/Seo/SeoThankYou'
 import CookieConsent from './components/CookieConsent'
+import AnalyticsTracker from './components/AnalyticsTracker'
 
 function App() {
   useEffect(() => {
@@ -44,17 +45,22 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/services" element={<Services />} />
           <Route path="/our-work" element={<Work />} />
           <Route path="/web-development-blog" element={<Blog />} />
           <Route path="/web-development-blog/:slug" element={<BlogPost />} />
           <Route path="/maintenance-support" element={<MaintenanceSupport />} />
+          <Route path="/starta-project" element={<StartaProject />} />
           <Route path="/start-your-project" element={<StartaProject />} />
 
           <Route path="/resources/start-a-project/thank-you" element={<ThankYou />} />
 
+          <Route path="/checklist" element={<HealthCheck />} />
           <Route path="/resources/health-check" element={<HealthCheck />} />
+          <Route path="/thank-you" element={<HealthThankYou />} />
+          <Route path="/checklist/thank-you" element={<HealthThankYou />} />
           <Route path="/resources/health-check/thank-you" element={<HealthThankYou />} />
           <Route path="/resources/audit" element={<AuditPage />} />
           <Route path="/resources/audit/thank-you" element={<AuditThankYou />} />
@@ -63,10 +69,13 @@ function App() {
           <Route path="/legal/cookie-policy" element={<CookiePolicy />} />  
 
           <Route path="/web-development/starter" element={<Starter />} />
+          <Route path="/web-development/starter/thank-you" element={<StarterThankYou />} />
           <Route path="/starter/thank-you" element={<StarterThankYou />} />
           <Route path="/web-development/professional" element={<Professional />} />
+          <Route path="/web-development/professional/thank-you" element={<ProfThankYou />} />
           <Route path="/professional/thank-you" element={<ProfThankYou />} />
           <Route path="/web-development/enterprise" element={<Enterprise />} />
+          <Route path="/web-development/enterprise/thank-you" element={<EntThankYou />} />
           <Route path="/enterprise/thank-you" element={<EntThankYou />} />
 
           <Route path="/seo" element={<Seo />} />
@@ -75,6 +84,7 @@ function App() {
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/comeback" element={<ComeBack />} />
         </Routes>
+        <AnalyticsTracker />
         <ScrollToTop />
         <CookieConsent />
       </Router>

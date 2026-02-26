@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { Helmet } from 'react-helmet-async';
 
 const TermsOfService = () => {
   const sections = [
@@ -41,6 +42,11 @@ const TermsOfService = () => {
 
   return (
     <div className="bg-[#050910] min-h-screen">
+      <Helmet>
+        <title>Terms of Service | Virtara</title>
+        <meta name="description" content="Review the terms of service for using Virtara's web development, SEO, and digital marketing services." />
+        <link rel="canonical" href="https://www.virtara.co.za/legal/terms-of-service" />
+      </Helmet>
       <Navbar />
 
       <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">

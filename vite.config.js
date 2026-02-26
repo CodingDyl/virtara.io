@@ -7,18 +7,23 @@ export default defineConfig({
   plugins: [
     react(),
     VitePluginSitemap({
-      hostname: 'https://www.virtara.co.za', // Replace with your actual domain
-      routes: [
-        '/',
-        '/contact',
+      hostname: 'https://www.virtara.co.za',
+      dynamicRoutes: [
+        '/contact-us',
         '/services',
-        '/portfolio',
-        '/blog',
-        '/brand-strategy',
-        '/starta-project',
-        '/privacy-policy',
-        '/terms-of-service',
-        '/cookie-policy'
+        '/our-work',
+        '/web-development-blog',
+        '/maintenance-support',
+        '/start-your-project',
+        '/seo',
+        '/web-development/starter',
+        '/web-development/professional',
+        '/web-development/enterprise',
+        '/resources/health-check',
+        '/resources/audit',
+        '/legal/privacy-policy',
+        '/legal/terms-of-service',
+        '/legal/cookie-policy'
       ],
     })
   ],

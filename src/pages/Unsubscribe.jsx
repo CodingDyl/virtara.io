@@ -51,7 +51,8 @@ const Unsubscribe = () => {
       <Helmet>
         <title>Unsubscribe | Virtara Newsletter</title>
         <meta name="description" content="Unsubscribe from Virtara's newsletter" />
-        <link rel="canonical" href="https://virtara.co.za/unsubscribe" />
+        <meta name="robots" content="noindex, follow" />
+        <link rel="canonical" href="https://www.virtara.co.za/unsubscribe" />
       </Helmet>
       <Toaster position="top-right" />
       <div className="bg-[#050910] min-h-screen">

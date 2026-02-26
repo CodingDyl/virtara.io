@@ -74,7 +74,7 @@ const MaintenanceSupport = () => {
         <title>Website Maintenance & Support Services | Professional Site Care</title>
         <meta name="description" content="Keep your website secure, fast, and up-to-date with our professional maintenance and support services. Choose from three comprehensive care plans." />
         <meta name="keywords" content="website maintenance, website support, security updates, performance optimization, technical support" />
-        <link rel="canonical" href="https://virtara.co.za/maintenance-support" />
+        <link rel="canonical" href="https://www.virtara.co.za/maintenance-support" />
       </Helmet>
       <div className="bg-[#050910] min-h-screen">
         <Navbar />
