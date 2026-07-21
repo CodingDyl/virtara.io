@@ -82,4 +82,10 @@ body {
     animation-duration: 0.01ms;
     animation-iteration-count: 1;
   }
+
+  /* The route-change spinner. A loading indicator still needs to read as
+     "busy", so it slows to a crawl rather than stopping outright. */
+  .animate-spin {
+    animation-duration: 3s;
+  }
 }

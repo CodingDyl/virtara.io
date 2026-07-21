@@ -12,14 +12,26 @@
     />
     <link rel="canonical" href="https://virtara.co.za/" />
 
-    <!-- Fonts are pulled from Google. Preconnecting saves the DNS + TLS
-         round-trips that would otherwise sit on the critical path. -->
+    <!-- Fonts are pulled from Google. Preconnect saves the DNS + TLS
+         round-trips; loading the stylesheet with media="print" and flipping
+         it to "all" on load keeps it off the critical path entirely. The
+         fonts use display=swap, so text paints immediately in the fallback
+         and reflows once Sora/Chakra Petch arrive. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+      media="print"
+      onload="this.media='all'"
+      fetchpriority="high"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+      />
+    </noscript>
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Virtara" />

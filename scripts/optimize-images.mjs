@@ -9,9 +9,23 @@ import { readdirSync, statSync } from "fs";
 import path from "path";
 
 const dir = "src/assets";
-const MAX_WIDTH = 1920;
 const QUALITY = 80;
 const BUDGET_KB = 300;
+
+// Widest a given image is ever displayed, doubled for 2x screens. Project
+// screenshots sit in cards a few hundred pixels wide, so shipping them at
+// 1920 was ~150 KB of pixels no one sees.
+const DEFAULT_WIDTH = 1920;
+const WIDTH_BY_PREFIX = [
+  ["projects/", 1200],
+  ["marketing_", 1200],
+  ["health_check_preview", 900],
+  ["web_logo", 500],
+  ["logo", 500]
+];
+
+const widthFor = (file) =>
+  WIDTH_BY_PREFIX.find(([prefix]) => file.startsWith(prefix))?.[1] ?? DEFAULT_WIDTH;
 
 const kb = (file) => statSync(file).size / 1024;
 
@@ -24,10 +38,10 @@ const files = readdirSync(dir, { recursive: true }).filter((file) =>
  * photographic sources like the hero background do), step the quality down
  * until it fits rather than hand-tuning per file.
  */
-async function encode(input, output) {
+async function encode(input, output, width) {
   for (const quality of [QUALITY, 70, 60, 50, 40]) {
     await sharp(input)
-      .resize({ width: MAX_WIDTH, withoutEnlargement: true })
+      .resize({ width, withoutEnlargement: true })
       .webp({ quality })
       .toFile(output);
     if (kb(output) <= BUDGET_KB) return quality;
@@ -43,7 +57,7 @@ for (const file of files) {
   const input = path.join(dir, file);
   const output = input.replace(/\.png$/, ".webp");
 
-  await encode(input, output);
+  await encode(input, output, widthFor(file));
 
   const inKb = kb(input);
   const outKb = kb(output);

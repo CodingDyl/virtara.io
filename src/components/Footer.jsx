@@ -92,16 +92,18 @@ const Footer = () => {
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.9 }}
                   href="https://x.com/Virtara_SA"
+                  aria-label="Virtara on X"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-white/10 p-3 rounded-full hover:bg-gradient-to-r hover:from-[#8df6ff]/20 hover:to-[#4ea4ff]/20 transition-all duration-300 border border-white/10 hover:border-[#8df6ff]/30"
                 >
-                  <FaTwitter className="text-white hover:text-[#8df6ff] transition-colors duration-300" />
+                  <FaTwitter className="text-white hover:text-[#8df6ff] transition-colors duration-300" aria-hidden="true" />
                 </motion.a>
                 <motion.a
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.9 }}
                   href="https://www.linkedin.com/company/virtara"
+                  aria-label="Virtara on LinkedIn"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-white/10 p-3 rounded-full hover:bg-gradient-to-r hover:from-[#8df6ff]/20 hover:to-[#4ea4ff]/20 transition-all duration-300 border border-white/10 hover:border-[#8df6ff]/30"
@@ -112,11 +114,12 @@ const Footer = () => {
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.9 }}
                   href="https://www.instagram.com/virtara.io/"
+                  aria-label="Virtara on Instagram"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-white/10 p-3 rounded-full hover:bg-gradient-to-r hover:from-[#8df6ff]/20 hover:to-[#4ea4ff]/20 transition-all duration-300 border border-white/10 hover:border-[#8df6ff]/30"
                 >
-                  <FaInstagram className="text-white hover:text-[#8df6ff] transition-colors duration-300" />
+                  <FaInstagram className="text-white hover:text-[#8df6ff] transition-colors duration-300" aria-hidden="true" />
                 </motion.a>
               </div>
             </motion.div>

@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { MantineProvider } from '@mantine/core'
 import { lazy, Suspense, useEffect } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
-import ScrollToTop from './components/ScrollToTop'
-import CookieConsent from './components/CookieConsent'
 import AnalyticsTracker from './components/AnalyticsTracker'
 import LoadingSpinner from './components/ui/LoadingSpinner'
+
+// Below-the-fold chrome. Both use framer-motion; deferring them keeps the
+// animation library off the entry chunk.
+const ScrollToTop = lazy(() => import('./components/ScrollToTop'))
+const CookieConsent = lazy(() => import('./components/CookieConsent'))
 
 // Every page is code-split so a visitor only downloads the route they land on.
 const Home = lazy(() => import('./pages/Home'))
@@ -57,7 +59,6 @@ function App() {
 
   return (
     <HelmetProvider>
-    <MantineProvider withGlobalStyles withNormalizeCSS>
       <Router>
         <Suspense fallback={<RouteFallback />}>
           <Routes>
@@ -103,10 +104,11 @@ function App() {
           </Routes>
         </Suspense>
         <AnalyticsTracker />
-        <ScrollToTop />
-        <CookieConsent />
+        <Suspense fallback={null}>
+          <ScrollToTop />
+          <CookieConsent />
+        </Suspense>
       </Router>
-    </MantineProvider>
     </HelmetProvider>
   )
 }
