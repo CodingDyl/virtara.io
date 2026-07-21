@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 .env
 .vercel
+
+# Playwright MCP scratch output
+.playwright-mcp
