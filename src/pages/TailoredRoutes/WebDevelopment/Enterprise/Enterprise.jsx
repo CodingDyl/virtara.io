@@ -105,7 +105,7 @@ const Enterprise = () => {
         <title>Enterprise Website Package | Web Development | Virtara</title>
         <meta name="description" content="Get our Enterprise Website Package. Ideal for large-scale projects with complex requirements and custom solutions." />
         <meta name="keywords" content="enterprise website package, web development, large-scale projects, custom solutions" />
-        <link rel="canonical" href="https://www.virtara.co.za/web-development/enterprise" />
+        <link rel="canonical" href="https://virtara.co.za/web-development/enterprise" />
       </Helmet>
       <div className="bg-[#050910] min-h-screen">
         <Navbar />

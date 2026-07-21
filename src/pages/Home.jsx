@@ -106,7 +106,7 @@ function Home() {
           name="keywords"
           content="digital agency, web design, web development, conversion optimization, SEO, lead generation"
         />
-        <link rel="canonical" href="https://www.virtara.co.za" />
+        <link rel="canonical" href="https://virtara.co.za/" />
 
         <script type="application/ld+json">
           {`
@@ -116,7 +116,7 @@ function Home() {
               "name": "Virtara",
               "description": "We build digital assets that outperform the competition.",
               "image": "${bg_hero}",
-              "url": "https://www.virtara.co.za",
+              "url": "https://virtara.co.za/",
               "address": {
                 "@type": "PostalAddress",
                 "addressCountry": "South Africa"

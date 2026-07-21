@@ -105,7 +105,7 @@ const Professional = () => {
         <title>Professional Website Package | Web Development | Virtara</title>
         <meta name="description" content="Get our Professional Website Package. Perfect for businesses requiring advanced functionality and custom features." />
         <meta name="keywords" content="professional website package, web development, business website, custom features" />
-        <link rel="canonical" href="https://www.virtara.co.za/web-development/professional" />
+        <link rel="canonical" href="https://virtara.co.za/web-development/professional" />
       </Helmet>
       <div className="bg-[#050910] min-h-screen">
         <Navbar />

@@ -158,7 +158,7 @@ const Seo = () => {
         <title>SEO Services | Boost Your Search Rankings | Virtara</title>
         <meta name="description" content="Get found by more customers with our proven SEO strategies. Boost your search rankings and drive organic traffic to your website." />
         <meta name="keywords" content="SEO services, search engine optimization, organic traffic, keyword ranking, local SEO" />
-        <link rel="canonical" href="https://www.virtara.co.za/seo" />
+        <link rel="canonical" href="https://virtara.co.za/seo" />
       </Helmet>
       <div className="bg-[#050910] min-h-screen">
         <Navbar />

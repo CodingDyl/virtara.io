@@ -48,7 +48,7 @@ const ThankYou = () => {
         <title>Thank You | Virtara</title>
         <meta name="description" content="Thank you for reaching out. While you wait, discover how to optimize your website's conversion rate with our free checklist." />
         <meta name="robots" content="noindex, follow" />
-        <link rel="canonical" href="https://www.virtara.co.za/resources/start-a-project/thank-you" />
+        <link rel="canonical" href="https://virtara.co.za/resources/start-a-project/thank-you" />
       </Helmet>
 
       <Navbar />

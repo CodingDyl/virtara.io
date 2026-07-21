@@ -96,7 +96,7 @@ function Work() {
           name="keywords"
           content="digital agency portfolio, case studies, web development projects, conversion optimization"
         />
-        <link rel="canonical" href="https://www.virtara.co.za/our-work" />
+        <link rel="canonical" href="https://virtara.co.za/our-work" />
       </Helmet>
 
       <main className="bg-[#050910] min-h-screen text-white virtara-body">

@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
       <Helmet>
         <title>Privacy Policy | Virtara</title>
         <meta name="description" content="Read Virtara's privacy policy to understand how we collect, use, and protect your personal information." />
-        <link rel="canonical" href="https://www.virtara.co.za/legal/privacy-policy" />
+        <link rel="canonical" href="https://virtara.co.za/legal/privacy-policy" />
       </Helmet>
       <Navbar />
 

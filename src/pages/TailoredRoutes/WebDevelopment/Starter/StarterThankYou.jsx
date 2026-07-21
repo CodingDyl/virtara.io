@@ -32,7 +32,7 @@ const StarterThankYou = () => {
         <title>Thank You | Starter Package | Virtara</title>
         <meta name="description" content="Thank you for choosing our Starter Website Package. We'll be in touch within 24 hours to discuss your project." />
         <meta name="robots" content="noindex, follow" />
-        <link rel="canonical" href="https://www.virtara.co.za/web-development/starter/thank-you" />
+        <link rel="canonical" href="https://virtara.co.za/web-development/starter/thank-you" />
       </Helmet>
       <div className="bg-[#050910] min-h-screen">
         <Navbar />

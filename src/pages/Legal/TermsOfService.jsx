@@ -44,7 +44,7 @@ const TermsOfService = () => {
       <Helmet>
         <title>Terms of Service | Virtara</title>
         <meta name="description" content="Review the terms of service for using Virtara's web development, SEO, and digital marketing services." />
-        <link rel="canonical" href="https://www.virtara.co.za/legal/terms-of-service" />
+        <link rel="canonical" href="https://virtara.co.za/legal/terms-of-service" />
       </Helmet>
       <Navbar />
 

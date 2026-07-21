@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePluginSitemap({
-      hostname: 'https://www.virtara.co.za',
+      hostname: 'https://virtara.co.za',
       dynamicRoutes: [
         '/contact-us',
         '/services',

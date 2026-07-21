@@ -79,7 +79,7 @@ const BlogPost = () => {
         <title>{`${post.title} | Virtara Blog`}</title>
         <meta name="description" content={post.excerpt || post.description} />
         <meta name="keywords" content={post.keywords || 'digital marketing, web development, design trends'} />
-        <link rel="canonical" href={`https://www.virtara.co.za/web-development-blog/${slug}`} />
+        <link rel="canonical" href={`https://virtara.co.za/web-development-blog/${slug}`} />
       </Helmet>
       <div className="bg-[#050910] min-h-screen">
         <Navbar />
