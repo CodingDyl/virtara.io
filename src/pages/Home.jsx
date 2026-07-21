@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
@@ -21,7 +21,6 @@ const proofCards = [
     before: "Outdated UX and unclear service pages.",
     after: "Focused information architecture and conversion-first CTAs.",
     image: vaja,
-    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
     link: "https://vaja.co.za",
     size: "md:col-span-2"
   },
@@ -32,7 +31,6 @@ const proofCards = [
     before: "Low-intent leads from broad landing pages.",
     after: "High-intent journey mapped around BEE verification use-cases.",
     image: mpower,
-    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
     link: "https://mpowerratings.co.za",
     size: "md:col-span-1"
   },
@@ -43,7 +41,6 @@ const proofCards = [
     before: "No visual hierarchy for key decision points.",
     after: "Bento storytelling with clear offer framing and proof blocks.",
     image: virtec,
-    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     link: "https://virtec.vercel.app",
     size: "md:col-span-1"
   }
@@ -78,8 +75,6 @@ const discoverySteps = [
 function Home() {
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState({});
-  const [selectedCardId, setSelectedCardId] = useState(null);
-  const videoRefs = useRef({});
 
   const currentStep = discoverySteps[stepIndex];
   const isQuizComplete = stepIndex >= discoverySteps.length;
@@ -93,31 +88,6 @@ function Home() {
     if (blocker === "Weak sales follow-through") return "Lead qualification and handoff system";
     return "Attribution and full-funnel optimization";
   }, [answers, isQuizComplete]);
-
-  useEffect(() => {
-    if (!selectedCardId) {
-      Object.values(videoRefs.current).forEach((videoEl) => {
-        if (videoEl) {
-          videoEl.pause();
-          videoEl.currentTime = 0;
-        }
-      });
-      return;
-    }
-
-    const selectedVideo = videoRefs.current[selectedCardId];
-    if (!selectedVideo) return;
-
-    selectedVideo.currentTime = 0;
-    selectedVideo.play().catch(() => {});
-
-    const timer = window.setTimeout(() => {
-      selectedVideo.pause();
-      selectedVideo.currentTime = 0;
-    }, 3000);
-
-    return () => window.clearTimeout(timer);
-  }, [selectedCardId]);
 
   const handleAnswer = (value) => {
     setAnswers((prev) => ({ ...prev, [currentStep.key]: value }));
@@ -251,7 +221,7 @@ function Home() {
           >
             <h2 className="virtara-display text-4xl sm:text-5xl md:text-6xl">Proof of Work</h2>
             <p className="mt-4 text-[#b3c7ff] max-w-3xl text-lg">
-              Bento-style project modules with before vs. after clarity and hover-activated video peeks.
+              Bento-style project modules with before vs. after clarity. Every card links straight to the live site.
             </p>
           </motion.div>
 
@@ -266,8 +236,6 @@ function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, delay: index * 0.08 }}
                 viewport={{ once: true }}
-                onMouseEnter={() => setSelectedCardId(card.id)}
-                onMouseLeave={() => setSelectedCardId(null)}
                 className={`${card.size} group rounded-[26px] p-[1px] bg-gradient-to-br from-[#2d4cff] via-[#57d8ff] to-[#192436]`}
               >
                 <div className="h-full rounded-[25px] bg-[#071122]/85 border border-white/10 p-5 sm:p-6 backdrop-blur-xl flex flex-col">
@@ -279,25 +247,15 @@ function Home() {
                   <div className="relative aspect-[16/10] rounded-xl overflow-hidden border border-white/10 bg-[#0f1728]">
                     <img
                       src={card.image}
-                      alt={`${card.title} project preview`}
+                      alt={`${card.title} website, redesigned by Virtara`}
                       loading="lazy"
                       width="1280"
                       height="800"
-                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-15"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out motion-safe:group-hover:scale-[1.04]"
                     />
-                    <video
-                      ref={(el) => {
-                        videoRefs.current[card.id] = el;
-                      }}
-                      src={card.video}
-                      muted
-                      playsInline
-                      preload="metadata"
-                      poster={card.image}
-                      className="absolute inset-0 h-full w-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    />
-                    <div className="absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-semibold bg-black/55 border border-white/20">
-                      3s Live Peek
+                    <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-gradient-to-t from-black/80 to-transparent px-4 pb-3 pt-8 text-xs font-semibold text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                      Visit the live site
+                      <FaArrowRight className="text-[#7af5ff]" aria-hidden="true" />
                     </div>
                   </div>
 
