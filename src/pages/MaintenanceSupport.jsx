@@ -1,6 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { FaChartLine, FaBullseye, FaUsers, FaPalette, FaArrowRight, FaShieldAlt, FaServer, FaTools, FaCheck } from 'react-icons/fa';
+import { FaChartLine, FaShieldAlt, FaServer, FaTools, FaCheck } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Helmet } from 'react-helmet-async';

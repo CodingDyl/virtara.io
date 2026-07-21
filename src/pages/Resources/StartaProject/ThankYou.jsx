@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from "framer-motion";
 import { FaArrowRight } from 'react-icons/fa';
 import Navbar from '../../../components/Navbar';
@@ -6,7 +5,6 @@ import Footer from '../../../components/Footer';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { healthCheckPreview } from '../../../assets';
 import { subscribeToNewsletter } from '../../../config/firebase';
 
 const ThankYou = () => {
@@ -23,7 +21,7 @@ const ThankYou = () => {
     setIsSubmitting(true);
 
     try {
-      await subscribeToNewsletter(formData.email, formData.name, false);
+      await subscribeToNewsletter(formData.email, formData.name);
       
       const response = await fetch('https://virtara-backend.vercel.app/api/subscribe', {
         method: 'POST',

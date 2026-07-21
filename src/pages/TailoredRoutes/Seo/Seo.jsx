@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaArrowLeft, FaArrowRight, FaSearch, FaChartLine, FaGlobe, FaBuilding, FaEnvelope, FaPhone, FaBullseye, FaUsers, FaCheck } from 'react-icons/fa';
+import { FaArrowRight, FaSearch, FaChartLine, FaGlobe, FaBuilding, FaEnvelope, FaPhone, FaBullseye, FaUsers} from 'react-icons/fa';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Notification from '../../../components/Notifications/notification';
 import sendEmail from "../../../server/workflow";
 import Badge from '../../../components/ui/Badge';

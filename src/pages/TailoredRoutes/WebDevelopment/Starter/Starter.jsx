@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { useState } from 'react';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Notification from '../../../../components/Notifications/notification';
 import sendEmail from "../../../../server/workflow";
 import WebDevForm from '../components/WebDevForm';

@@ -1,6 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { FaArrowRight, FaEnvelope, FaBuilding, FaGlobe, FaCog, FaCheck } from 'react-icons/fa';
+import { FaArrowRight, FaEnvelope, FaBuilding, FaCog} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { formIndustries, formWebsiteGoals, formPriorities } from '../../../../constants';
 import Badge from '../../../../components/ui/Badge';

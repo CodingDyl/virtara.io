@@ -1,9 +1,7 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaArrowRight, FaCalendarAlt, FaFileAlt, FaChartLine, FaHome } from 'react-icons/fa';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
-import { Link } from 'react-router-dom';
 import Badge from '../../../../components/ui/Badge';
 import Card from '../../../../components/ui/Card';
 import Button from '../../../../components/ui/Button';

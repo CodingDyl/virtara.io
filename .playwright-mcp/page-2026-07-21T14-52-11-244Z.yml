@@ -1,0 +1,10 @@
+- generic [ref=f1e2]:
+  - generic [ref=f1e3]: Loading page
+  - generic [ref=f1e9]:
+    - paragraph [ref=f1e11]:
+      - text: We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
+      - link "Learn more" [ref=f1e12] [cursor=pointer]:
+        - /url: /legal/cookie-policy
+    - generic [ref=f1e13]:
+      - button "Decline" [ref=f1e14] [cursor=pointer]
+      - button "Accept" [ref=f1e15] [cursor=pointer]

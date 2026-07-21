@@ -32,7 +32,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export const subscribeToNewsletter = async (email, name, unsubscribed = false) => {
+export const subscribeToNewsletter = async (email, name) => {
   try {
     // Check if the email already exists
     const subscribersRef = collection(db, 'subscribers');
