@@ -1,11 +1,13 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Silk from "../components/Silk";
+// three.js + react-three-fiber is ~600 kB. The hero reads correctly without
+// the WebGL layer, so it loads after paint instead of blocking it.
+const Silk = lazy(() => import("../components/Silk"));
 import Badge from "../components/ui/Badge";
 import { bg_hero, mpower, vaja, virtec } from "../assets";
 
@@ -159,7 +161,9 @@ function Home() {
 
       <section className="relative min-h-screen flex items-center overflow-hidden pt-36 pb-20">
         <div className="absolute inset-0 z-0">
-          <Silk speed={4} scale={0.95} color="#0059ff" noiseIntensity={1.05} rotation={0} />
+          <Suspense fallback={<div className="absolute inset-0 bg-[#04070c]" />}>
+            <Silk speed={4} scale={0.95} color="#0059ff" noiseIntensity={1.05} rotation={0} />
+          </Suspense>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(3,104,255,0.25),transparent_45%),radial-gradient(circle_at_85%_20%,rgba(0,232,255,0.2),transparent_45%),linear-gradient(180deg,rgba(4,7,12,0.75)_0%,rgba(6,10,17,0.96)_70%)]" />
         </div>
 
