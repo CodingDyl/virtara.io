@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, query, where, getDocs, serverTimestamp } from "firebase/firestore";
+import { getFirestore, collection, addDoc, query, where, getDocs, updateDoc, serverTimestamp } from "firebase/firestore";
 
 /**
  * Firebase web config keys are public by design — they identify the project,
