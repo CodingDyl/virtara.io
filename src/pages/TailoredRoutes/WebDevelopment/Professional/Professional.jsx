@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { useState } from 'react';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Notification from '../../../../components/Notifications/notification';
 import sendEmail from "../../../../server/workflow";
 import WebDevForm from '../components/WebDevForm';
@@ -107,7 +105,7 @@ const Professional = () => {
         <title>Professional Website Package | Web Development | Virtara</title>
         <meta name="description" content="Get our Professional Website Package. Perfect for businesses requiring advanced functionality and custom features." />
         <meta name="keywords" content="professional website package, web development, business website, custom features" />
-        <link rel="canonical" href="https://www.virtara.co.za/web-development/professional" />
+        <link rel="canonical" href="https://virtara.co.za/web-development/professional" />
       </Helmet>
       <div className="bg-[#050910] min-h-screen">
         <Navbar />

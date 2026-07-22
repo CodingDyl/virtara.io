@@ -23,7 +23,7 @@ const Checklist = () => {
 
     try {
       // First, update Firestore through the subscribeToNewsletter function
-      const subscriptionResult = await subscribeToNewsletter(formData.email, formData.name, false);
+      const subscriptionResult = await subscribeToNewsletter(formData.email, formData.name);
       
       if (!subscriptionResult.success) {
         throw new Error(subscriptionResult.message);
@@ -45,9 +45,6 @@ const Checklist = () => {
         const error = await response.json();
         throw new Error(error.message);
       }
-      
-      const data = await response.json();
-      console.log(data);
       
       // Show success state
       setIsSuccess(true);
@@ -74,7 +71,7 @@ const Checklist = () => {
         <title>Free Website Conversion Checklist | Virtara</title>
         <meta name="description" content="Download our free website conversion checklist to discover why your website isn't converting and how to fix it. Quick 5-minute assessment to boost your conversion rates." />
         <meta name="keywords" content="website conversion, conversion checklist, conversion optimization, website optimization" />
-        <link rel="canonical" href="https://www.virtara.co.za/resources/health-check" />
+        <link rel="canonical" href="https://virtara.co.za/resources/health-check" />
       </Helmet>
 
       <div className="bg-[#050910] min-h-screen">
@@ -173,7 +170,13 @@ const Checklist = () => {
                 >
                   {/* Replace with your actual checklist mockup image */}
                   <div className="aspect-[3/4] bg-gradient-to-br from-[#8df6ff]/20 to-[#4ea4ff]/20 rounded-2xl border border-white/10 p-8 flex items-center justify-center">
-                    <img src={healthCheckPreview} alt="Checklist Preview" className="w-full h-full object-cover rounded-2xl" />
+                    <img
+                      src={healthCheckPreview}
+                      alt="Preview of the Virtara website health check checklist"
+                      width="900"
+                      height="1200"
+                      className="w-full h-full object-cover rounded-2xl"
+                    />
                   </div>
                 </motion.div>
               </div>

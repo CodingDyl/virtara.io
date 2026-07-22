@@ -38,7 +38,7 @@ const CookieConsent = () => {
             <p className="text-white/70 text-sm md:text-base">
               We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
               <Link to="/legal/cookie-policy" className="text-[#8df6ff] hover:text-[#4ea4ff] ml-1 transition-colors">
-                Learn more
+                Read our cookie policy
               </Link>
             </p>
           </div>

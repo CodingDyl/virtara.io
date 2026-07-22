@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaHeart } from 'react-icons/fa';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Helmet } from 'react-helmet-async';
 import { toast, Toaster } from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { unsubscribeFromNewsletter } from '../config/firebase';
 
 const Unsubscribe = () => {
   const [isUnsubscribed, setIsUnsubscribed] = useState(false);
@@ -41,7 +41,7 @@ const Unsubscribe = () => {
       } else {
         toast.error(result.message);
       }
-    } catch (error) {
+    } catch {
       toast.error('Failed to unsubscribe. Please try again.');
     }
   };
@@ -52,7 +52,7 @@ const Unsubscribe = () => {
         <title>Unsubscribe | Virtara Newsletter</title>
         <meta name="description" content="Unsubscribe from Virtara's newsletter" />
         <meta name="robots" content="noindex, follow" />
-        <link rel="canonical" href="https://www.virtara.co.za/unsubscribe" />
+        <link rel="canonical" href="https://virtara.co.za/unsubscribe" />
       </Helmet>
       <Toaster position="top-right" />
       <div className="bg-[#050910] min-h-screen">

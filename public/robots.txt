@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.virtara.co.za/sitemap.xml
+Sitemap: https://virtara.co.za/sitemap.xml

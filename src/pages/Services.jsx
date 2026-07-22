@@ -265,7 +265,7 @@ function Services() {
           name="keywords"
           content="digital agency pricing South Africa, web design pricing, SEO pricing, Google ads management South Africa"
         />
-        <link rel="canonical" href="https://www.virtara.co.za/services" />
+        <link rel="canonical" href="https://virtara.co.za/services" />
       </Helmet>
 
       <main className="bg-[#050910] min-h-screen text-white virtara-body">

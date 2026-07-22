@@ -1,8 +1,8 @@
 import {virtec, vaja, mpower} from "../assets/index.js";
-import web_design_bento from "../assets/web_design_bento.png";
-import digi_marketing from "../assets/digi_marketing.png";
-import brand_strat from "../assets/brand_strat.png";
-import seo_op from "../assets/seo_op.png";
+import web_design_bento from "../assets/web_design_bento.webp";
+import digi_marketing from "../assets/digi_marketing.webp";
+import brand_strat from "../assets/brand_strat.webp";
+import seo_op from "../assets/seo_op.webp";
 
   const process = [
     {

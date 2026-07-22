@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from "framer-motion";
 import { FaArrowRight } from 'react-icons/fa';
 import Navbar from '../../../components/Navbar';
@@ -6,7 +5,6 @@ import Footer from '../../../components/Footer';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { healthCheckPreview } from '../../../assets';
 import { subscribeToNewsletter } from '../../../config/firebase';
 
 const ThankYou = () => {
@@ -23,7 +21,7 @@ const ThankYou = () => {
     setIsSubmitting(true);
 
     try {
-      await subscribeToNewsletter(formData.email, formData.name, false);
+      await subscribeToNewsletter(formData.email, formData.name);
       
       const response = await fetch('https://virtara-backend.vercel.app/api/subscribe', {
         method: 'POST',
@@ -50,7 +48,7 @@ const ThankYou = () => {
         <title>Thank You | Virtara</title>
         <meta name="description" content="Thank you for reaching out. While you wait, discover how to optimize your website's conversion rate with our free checklist." />
         <meta name="robots" content="noindex, follow" />
-        <link rel="canonical" href="https://www.virtara.co.za/resources/start-a-project/thank-you" />
+        <link rel="canonical" href="https://virtara.co.za/resources/start-a-project/thank-you" />
       </Helmet>
 
       <Navbar />

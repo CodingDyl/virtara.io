@@ -1,9 +1,7 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaArrowRight, FaCalendarAlt, FaFileAlt, FaChartLine, FaHome } from 'react-icons/fa';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
-import { Link } from 'react-router-dom';
 import Badge from '../../../../components/ui/Badge';
 import Card from '../../../../components/ui/Card';
 import Button from '../../../../components/ui/Button';
@@ -34,7 +32,7 @@ const ProfThankYou = () => {
         <title>Thank You | Professional Package | Virtara</title>
         <meta name="description" content="Thank you for choosing our Professional Website Package. We'll be in touch within 24 hours to discuss your project." />
         <meta name="robots" content="noindex, follow" />
-        <link rel="canonical" href="https://www.virtara.co.za/web-development/professional/thank-you" />
+        <link rel="canonical" href="https://virtara.co.za/web-development/professional/thank-you" />
       </Helmet>
       <div className="bg-[#050910] min-h-screen">
         <Navbar />

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaArrowLeft, FaArrowRight, FaSearch, FaChartLine, FaGlobe, FaBuilding, FaEnvelope, FaPhone, FaBullseye, FaUsers, FaCheck } from 'react-icons/fa';
+import { FaArrowRight, FaSearch, FaChartLine, FaGlobe, FaBuilding, FaEnvelope, FaPhone, FaBullseye, FaUsers} from 'react-icons/fa';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Notification from '../../../components/Notifications/notification';
 import sendEmail from "../../../server/workflow";
 import Badge from '../../../components/ui/Badge';
@@ -158,7 +158,7 @@ const Seo = () => {
         <title>SEO Services | Boost Your Search Rankings | Virtara</title>
         <meta name="description" content="Get found by more customers with our proven SEO strategies. Boost your search rankings and drive organic traffic to your website." />
         <meta name="keywords" content="SEO services, search engine optimization, organic traffic, keyword ranking, local SEO" />
-        <link rel="canonical" href="https://www.virtara.co.za/seo" />
+        <link rel="canonical" href="https://virtara.co.za/seo" />
       </Helmet>
       <div className="bg-[#050910] min-h-screen">
         <Navbar />

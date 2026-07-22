@@ -5,10 +5,9 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
-  { ignores: ['dist'], node: true },
+  { ignores: ['dist'] },
   {
     files: ['**/*.{js,jsx}'],
-    node: true,
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -18,7 +17,7 @@ export default [
         sourceType: 'module',
       },
     },
-    settings: { react: { version: '18.3' }, node: true },
+    settings: { react: { version: '18.3' } },
     plugins: {
       react,
       'react-hooks': reactHooks,
@@ -30,10 +29,36 @@ export default [
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
       'react/jsx-no-target-blank': 'off',
+      // This is a plain-JS React app with no PropTypes anywhere; the rule
+      // produces ~70 findings and zero signal. Types belong in a TS migration.
+      'react/prop-types': 'off',
+      // Apostrophes in JSX text render correctly. The rule's real targets
+      // (> and }) are caught by the parser.
+      'react/no-unescaped-entities': 'off',
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
     },
+  },
+  {
+    // ESM that runs in Node, not the browser.
+    files: ['scripts/**/*.mjs', '*.config.js', 'src/server/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: globals.node,
+    },
+    rules: js.configs.recommended.rules,
+  },
+  {
+    // The Express backend is CommonJS.
+    files: ['virtara-backend/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'commonjs',
+      globals: globals.node,
+    },
+    rules: js.configs.recommended.rules,
   },
 ]

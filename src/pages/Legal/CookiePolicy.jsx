@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -50,7 +49,7 @@ const CookiePolicy = () => {
       <Helmet>
         <title>Cookie Policy | Virtara</title>
         <meta name="description" content="Learn how Virtara uses cookies and similar technologies, including analytics and preference settings." />
-        <link rel="canonical" href="https://www.virtara.co.za/legal/cookie-policy" />
+        <link rel="canonical" href="https://virtara.co.za/legal/cookie-policy" />
       </Helmet>
       <Navbar />
 

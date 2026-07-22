@@ -1,13 +1,43 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Silk from "../components/Silk";
 import Badge from "../components/ui/Badge";
 import { bg_hero, mpower, vaja, virtec } from "../assets";
+
+// three.js + @react-three/fiber is ~830 kB. The hero is a gradient with the
+// WebGL layer on top, so it reads correctly without it.
+const Silk = lazy(() => import("../components/Silk"));
+
+/**
+ * Silk is decoration. Loading it eagerly put 830 kB in front of the hero
+ * headline on a mobile connection, so it waits for an idle callback after
+ * mount. It never loads at all for prefers-reduced-motion (a continuously
+ * animating background is exactly what that setting asks us not to ship) or
+ * when the browser reports Save-Data / a 2g-3g connection.
+ */
+function useDeferredHeroBackground() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const connection = navigator.connection;
+    if (connection?.saveData) return;
+    if (connection?.effectiveType && !connection.effectiveType.includes("4g")) return;
+
+    const schedule = window.requestIdleCallback ?? ((cb) => window.setTimeout(cb, 200));
+    const cancel = window.cancelIdleCallback ?? window.clearTimeout;
+    const handle = schedule(() => setReady(true), { timeout: 2000 });
+
+    return () => cancel(handle);
+  }, []);
+
+  return ready;
+}
 
 const trustClients = ["Vaja", "MPower Ratings", "Virtec Marketing", "Aureya", "Clarity"];
 
@@ -19,7 +49,6 @@ const proofCards = [
     before: "Outdated UX and unclear service pages.",
     after: "Focused information architecture and conversion-first CTAs.",
     image: vaja,
-    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
     link: "https://vaja.co.za",
     size: "md:col-span-2"
   },
@@ -30,7 +59,6 @@ const proofCards = [
     before: "Low-intent leads from broad landing pages.",
     after: "High-intent journey mapped around BEE verification use-cases.",
     image: mpower,
-    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
     link: "https://mpowerratings.co.za",
     size: "md:col-span-1"
   },
@@ -41,7 +69,6 @@ const proofCards = [
     before: "No visual hierarchy for key decision points.",
     after: "Bento storytelling with clear offer framing and proof blocks.",
     image: virtec,
-    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     link: "https://virtec.vercel.app",
     size: "md:col-span-1"
   }
@@ -76,8 +103,7 @@ const discoverySteps = [
 function Home() {
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState({});
-  const [selectedCardId, setSelectedCardId] = useState(null);
-  const videoRefs = useRef({});
+  const showHeroBackground = useDeferredHeroBackground();
 
   const currentStep = discoverySteps[stepIndex];
   const isQuizComplete = stepIndex >= discoverySteps.length;
@@ -91,31 +117,6 @@ function Home() {
     if (blocker === "Weak sales follow-through") return "Lead qualification and handoff system";
     return "Attribution and full-funnel optimization";
   }, [answers, isQuizComplete]);
-
-  useEffect(() => {
-    if (!selectedCardId) {
-      Object.values(videoRefs.current).forEach((videoEl) => {
-        if (videoEl) {
-          videoEl.pause();
-          videoEl.currentTime = 0;
-        }
-      });
-      return;
-    }
-
-    const selectedVideo = videoRefs.current[selectedCardId];
-    if (!selectedVideo) return;
-
-    selectedVideo.currentTime = 0;
-    selectedVideo.play().catch(() => {});
-
-    const timer = window.setTimeout(() => {
-      selectedVideo.pause();
-      selectedVideo.currentTime = 0;
-    }, 3000);
-
-    return () => window.clearTimeout(timer);
-  }, [selectedCardId]);
 
   const handleAnswer = (value) => {
     setAnswers((prev) => ({ ...prev, [currentStep.key]: value }));
@@ -134,7 +135,7 @@ function Home() {
           name="keywords"
           content="digital agency, web design, web development, conversion optimization, SEO, lead generation"
         />
-        <link rel="canonical" href="https://www.virtara.co.za" />
+        <link rel="canonical" href="https://virtara.co.za/" />
 
         <script type="application/ld+json">
           {`
@@ -144,7 +145,7 @@ function Home() {
               "name": "Virtara",
               "description": "We build digital assets that outperform the competition.",
               "image": "${bg_hero}",
-              "url": "https://www.virtara.co.za",
+              "url": "https://virtara.co.za/",
               "address": {
                 "@type": "PostalAddress",
                 "addressCountry": "South Africa"
@@ -159,30 +160,30 @@ function Home() {
 
       <section className="relative min-h-screen flex items-center overflow-hidden pt-36 pb-20">
         <div className="absolute inset-0 z-0">
-          <Silk speed={4} scale={0.95} color="#0059ff" noiseIntensity={1.05} rotation={0} />
+          <div className="absolute inset-0 bg-[#04070c]" />
+          {showHeroBackground && (
+            <Suspense fallback={null}>
+              <Silk speed={4} scale={0.95} color="#0059ff" noiseIntensity={1.05} rotation={0} />
+            </Suspense>
+          )}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(3,104,255,0.25),transparent_45%),radial-gradient(circle_at_85%_20%,rgba(0,232,255,0.2),transparent_45%),linear-gradient(180deg,rgba(4,7,12,0.75)_0%,rgba(6,10,17,0.96)_70%)]" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease: "easeOut" }}
-            className="max-w-6xl mx-auto"
-          >
+          <div className="max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
+              transition={{ duration: 0.4 }}
               className="mb-5"
             >
               <Badge variant="primary" size="lg">Outcome-First Digital Agency</Badge>
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.25, duration: 0.75 }}
+              initial={{ y: 16 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="virtara-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight max-w-5xl"
             >
               <span className="inline-block">We Build Digital Assets</span>{" "}
@@ -191,18 +192,18 @@ function Home() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.7 }}
+              transition={{ delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-2xl text-lg sm:text-xl text-[#d0dcff] mt-8 leading-relaxed"
             >
               Premium web strategy, engineering, and SEO execution for brands that care about measurable outcomes.
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.65 }}
+              transition={{ delay: 0.18, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="mt-10 flex flex-wrap gap-4"
             >
               <button
@@ -221,7 +222,7 @@ function Home() {
                 </button>
               </Link>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -247,7 +248,7 @@ function Home() {
           >
             <h2 className="virtara-display text-4xl sm:text-5xl md:text-6xl">Proof of Work</h2>
             <p className="mt-4 text-[#b3c7ff] max-w-3xl text-lg">
-              Bento-style project modules with before vs. after clarity and hover-activated video peeks.
+              Bento-style project modules with before vs. after clarity. Every card links straight to the live site.
             </p>
           </motion.div>
 
@@ -262,8 +263,6 @@ function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, delay: index * 0.08 }}
                 viewport={{ once: true }}
-                onMouseEnter={() => setSelectedCardId(card.id)}
-                onMouseLeave={() => setSelectedCardId(null)}
                 className={`${card.size} group rounded-[26px] p-[1px] bg-gradient-to-br from-[#2d4cff] via-[#57d8ff] to-[#192436]`}
               >
                 <div className="h-full rounded-[25px] bg-[#071122]/85 border border-white/10 p-5 sm:p-6 backdrop-blur-xl flex flex-col">
@@ -275,25 +274,15 @@ function Home() {
                   <div className="relative aspect-[16/10] rounded-xl overflow-hidden border border-white/10 bg-[#0f1728]">
                     <img
                       src={card.image}
-                      alt={`${card.title} project preview`}
+                      alt={`${card.title} website, redesigned by Virtara`}
                       loading="lazy"
                       width="1280"
                       height="800"
-                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-15"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out motion-safe:group-hover:scale-[1.04]"
                     />
-                    <video
-                      ref={(el) => {
-                        videoRefs.current[card.id] = el;
-                      }}
-                      src={card.video}
-                      muted
-                      playsInline
-                      preload="metadata"
-                      poster={card.image}
-                      className="absolute inset-0 h-full w-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    />
-                    <div className="absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-semibold bg-black/55 border border-white/20">
-                      3s Live Peek
+                    <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-gradient-to-t from-black/80 to-transparent px-4 pb-3 pt-8 text-xs font-semibold text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                      Visit the live site
+                      <FaArrowRight className="text-[#7af5ff]" aria-hidden="true" />
                     </div>
                   </div>
 

@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { useState } from 'react';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Notification from '../../../../components/Notifications/notification';
 import sendEmail from "../../../../server/workflow";
 import WebDevForm from '../components/WebDevForm';
@@ -107,7 +105,7 @@ const Enterprise = () => {
         <title>Enterprise Website Package | Web Development | Virtara</title>
         <meta name="description" content="Get our Enterprise Website Package. Ideal for large-scale projects with complex requirements and custom solutions." />
         <meta name="keywords" content="enterprise website package, web development, large-scale projects, custom solutions" />
-        <link rel="canonical" href="https://www.virtara.co.za/web-development/enterprise" />
+        <link rel="canonical" href="https://virtara.co.za/web-development/enterprise" />
       </Helmet>
       <div className="bg-[#050910] min-h-screen">
         <Navbar />

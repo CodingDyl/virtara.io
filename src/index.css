@@ -1,4 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap");
+/* Sora + Chakra Petch are loaded from index.html with a preconnect. An
+   @import here would sit behind the CSS request instead of starting in
+   parallel with it. */
 
 @tailwind base;
 @tailwind components;
@@ -79,5 +81,11 @@ body {
   .ticker-track {
     animation-duration: 0.01ms;
     animation-iteration-count: 1;
+  }
+
+  /* The route-change spinner. A loading indicator still needs to read as
+     "busy", so it slows to a crawl rather than stopping outright. */
+  .animate-spin {
+    animation-duration: 3s;
   }
 }

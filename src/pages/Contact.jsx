@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
@@ -102,7 +102,7 @@ const Contact = () => {
       <Helmet>
         <title>Contact Us | Virtara</title>
         <meta name="description" content="Contact Virtara to discuss your website, SEO, or growth project. We respond quickly and can help scope your next digital initiative." />
-        <link rel="canonical" href="https://www.virtara.co.za/contact-us" />
+        <link rel="canonical" href="https://virtara.co.za/contact-us" />
       </Helmet>
       <Navbar />
       <Notification

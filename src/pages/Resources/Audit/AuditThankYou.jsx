@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from "framer-motion";
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
@@ -13,7 +12,7 @@ const AuditThankYou = () => {
         <title>Thank You | Website Audit Booking | Virtara</title>
         <meta name="description" content="Thank you for booking your website audit session with Virtara. We'll be in touch shortly to confirm your appointment." />
         <meta name="robots" content="noindex, follow" />
-        <link rel="canonical" href="https://www.virtara.co.za/resources/audit/thank-you" />
+        <link rel="canonical" href="https://virtara.co.za/resources/audit/thank-you" />
       </Helmet>
 
       <Navbar />

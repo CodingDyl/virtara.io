@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaArrowLeft, FaCalendar, FaClock, FaTags, FaShare, FaBookmark } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
@@ -79,7 +79,7 @@ const BlogPost = () => {
         <title>{`${post.title} | Virtara Blog`}</title>
         <meta name="description" content={post.excerpt || post.description} />
         <meta name="keywords" content={post.keywords || 'digital marketing, web development, design trends'} />
-        <link rel="canonical" href={`https://www.virtara.co.za/web-development-blog/${slug}`} />
+        <link rel="canonical" href={`https://virtara.co.za/web-development-blog/${slug}`} />
       </Helmet>
       <div className="bg-[#050910] min-h-screen">
         <Navbar />
