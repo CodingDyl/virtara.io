@@ -5,7 +5,8 @@ import Footer from '../../../components/Footer';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { subscribeToNewsletter } from '../../../config/firebase';
+import submitLead from '../../../server/submitLead';
+import LeadHoneypot from '../../../components/ui/LeadHoneypot';
 
 const ThankYou = () => {
   const [formData, setFormData] = useState({
@@ -21,18 +22,13 @@ const ThankYou = () => {
     setIsSubmitting(true);
 
     try {
-      await subscribeToNewsletter(formData.email, formData.name);
-      
-      const response = await fetch('https://virtara-backend.vercel.app/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      await submitLead(
+        'health-check',
+        { name: formData.name, email: formData.email, hp: e.target.elements?.hp?.value },
+        {},
+        { subscribe: true, consent: true }
+      );
 
-      if (!response.ok) throw new Error('Subscription failed');
-      
       setIsSuccess(true);
       navigate('/thank-you');
     } catch (error) {
@@ -86,6 +82,7 @@ const ThankYou = () => {
 
               {!isSuccess ? (
                 <form onSubmit={handleHealthCheckSubmit} className="space-y-4">
+                  <LeadHoneypot />
                   <div className="grid md:grid-cols-2 gap-4">
                     <input
                       type="text"

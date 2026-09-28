@@ -5,7 +5,8 @@ import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { useNavigate } from 'react-router-dom';
 import Notification from '../../../components/Notifications/notification';
-import sendEmail from "../../../server/workflow";
+import submitLead from "../../../server/submitLead";
+import LeadHoneypot from "../../../components/ui/LeadHoneypot";
 import Badge from '../../../components/ui/Badge';
 import Card from '../../../components/ui/Card';
 import Button from '../../../components/ui/Button';
@@ -96,38 +97,20 @@ const Seo = () => {
     setIsSubmitting(true);
     
     try {
-      await sendEmail(
-        "New SEO Service Inquiry",
-        `
-        SEO SERVICE INQUIRY
-        <br /><br />
-
-        Contact Information:<br />
-        Name: ${formData.name}<br />
-        Email: ${formData.email}<br />
-        Phone: ${formData.phone}<br />
-        Business Name: ${formData.businessName}<br />
-        <br />
-
-        Business Details:<br />
-        Industry: ${formData.industry}<br />
-        Current Website: ${formData.currentWebsite}<br />
-        Target Location: ${formData.targetLocation}<br />
-        Main Competitors: ${formData.mainCompetitors}<br />
-        Business Goals: ${formData.businessGoals}<br />
-        <br />
-
-        SEO Requirements:<br />
-        Current Keywords: ${formData.currentKeywords}<br />
-        Target Keywords: ${formData.targetKeywords}<br />
-        <br />
-
-        Additional Services Requested:<br />
-        - Content Creation: ${formData.contentCreation ? 'Yes' : 'No'}<br />
-        - Local SEO: ${formData.localSEO ? 'Yes' : 'No'}<br />
-        - Technical SEO: ${formData.technicalSEO ? 'Yes' : 'No'}<br />
-        - Link Building: ${formData.linkBuilding ? 'Yes' : 'No'}<br />
-        `
+      await submitLead(
+        'seo',
+        { name: formData.name, email: formData.email, phone: formData.phone, company: formData.businessName, website: formData.currentWebsite, message: formData.businessGoals, hp: e.target.elements?.hp?.value },
+        {
+          industry: formData.industry,
+          targetLocation: formData.targetLocation,
+          mainCompetitors: formData.mainCompetitors,
+          currentKeywords: formData.currentKeywords,
+          targetKeywords: formData.targetKeywords,
+          contentCreation: formData.contentCreation,
+          localSEO: formData.localSEO,
+          technicalSEO: formData.technicalSEO,
+          linkBuilding: formData.linkBuilding,
+        }
       );
 
       setNotification({
@@ -229,6 +212,7 @@ const Seo = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-8">
+                  <LeadHoneypot />
                   {/* Contact Information */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>

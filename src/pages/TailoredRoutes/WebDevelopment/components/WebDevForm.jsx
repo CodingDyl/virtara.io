@@ -6,6 +6,7 @@ import Badge from '../../../../components/ui/Badge';
 import Card from '../../../../components/ui/Card';
 import Button from '../../../../components/ui/Button';
 import LoadingSpinner from '../../../../components/ui/LoadingSpinner';
+import LeadHoneypot from '../../../../components/ui/LeadHoneypot';
 
 const WebDevForm = ({ 
   tier, 
@@ -105,6 +106,7 @@ const WebDevForm = ({
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
+          <LeadHoneypot />
           {/* Personal Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>

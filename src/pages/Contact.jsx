@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import emailjs from '@emailjs/browser';
+import submitLead from '../server/submitLead';
+import LeadHoneypot from '../components/ui/LeadHoneypot';
 import Notification from '../components/Notifications/notification';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
@@ -38,16 +39,10 @@ const Contact = () => {
     setIsLoading(true);
     
     try {
-      await emailjs.send(
-        'service_xhhzm3k',
-        'template_bib6h27',
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        },
-        'tlvH-LCyKA7B18wvK'
+      await submitLead(
+        'contact',
+        { name: formData.name, email: formData.email, message: formData.message, hp: e.target.elements?.hp?.value },
+        { subject: formData.subject }
       );
       
       setNotification({
@@ -187,6 +182,7 @@ const Contact = () => {
                 
                 <Card.Content>
                   <form onSubmit={handleSubmit} className="space-y-6">
+                    <LeadHoneypot />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-white/70 mb-2 font-medium">Name</label>

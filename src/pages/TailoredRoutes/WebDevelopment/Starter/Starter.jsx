@@ -3,7 +3,7 @@ import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
 import { useNavigate } from 'react-router-dom';
 import Notification from '../../../../components/Notifications/notification';
-import sendEmail from "../../../../server/workflow";
+import submitLead from "../../../../server/submitLead";
 import WebDevForm from '../components/WebDevForm';
 import { Helmet } from 'react-helmet-async';
 
@@ -55,34 +55,19 @@ const Starter = () => {
     setIsSubmitting(true);
     
     try {
-      await sendEmail(
-        "New Starter Package Inquiry",
-        `
-        STARTER PACKAGE INQUIRY
-        <br />
-        <br />
-
-        Contact Information: <br />
-        <br />
-        Name: ${formData.name} <br />
-        Email: ${formData.email} <br />
-        Business Name: ${formData.businessName} <br />
-        <br />
-
-        Project Details: <br />
-        <br />
-        Industry: ${formData.industry} <br />
-        Website Goal: ${formData.websiteGoal} <br />
-        Main Priority: ${formData.mainPriority} <br />
-        Existing Website: ${formData.existingWebsite} <br />
-        <br />
-
-        Additional Services Requested: <br />
-        <br />
-        - SEO Optimization: ${formData.seoOptimization ? 'Yes' : 'No'} <br />
-        - Content Writing: ${formData.contentWriting ? 'Yes' : 'No'} <br />
-        - Maintenance: ${formData.maintenance ? 'Yes' : 'No'} <br />
-        `
+      await submitLead(
+        'starter',
+        { name: formData.name, email: formData.email, phone: formData.phone, company: formData.businessName, website: formData.existingWebsite, hp: e.target.elements?.hp?.value },
+        {
+          industry: formData.industry,
+          websiteGoal: formData.websiteGoal,
+          mainPriority: formData.mainPriority,
+          brandingMaterials: formData.brandingMaterials,
+          additionalFeatures: formData.additionalFeatures,
+          seoOptimization: formData.seoOptimization,
+          contentWriting: formData.contentWriting,
+          maintenance: formData.maintenance,
+        }
       );
 
       setNotification({

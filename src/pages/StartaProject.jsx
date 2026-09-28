@@ -16,7 +16,8 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Notification from "../components/Notifications/notification";
-import sendEmail from "../server/workflow";
+import submitLead from "../server/submitLead";
+import LeadHoneypot from "../components/ui/LeadHoneypot";
 import Badge from "../components/ui/Badge";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
@@ -66,18 +67,10 @@ function StartaProject() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await sendEmail(
-        `Start a Project Request: ${formData.service || "General Inquiry"}`,
-        `
-        Name: ${formData.name}, <br />
-        Email: ${formData.email}, <br />
-        Phone: ${formData.phone}, <br />
-        Company: ${formData.company}, <br />
-        Website: ${formData.website}, <br />
-        Budget: ${formData.budget}, <br />
-        Service: ${formData.service}, <br />
-        Message: ${formData.message}
-      `
+      await submitLead(
+        "start-a-project",
+        { name: formData.name, email: formData.email, phone: formData.phone, company: formData.company, website: formData.website, message: formData.message, hp: e.target.elements?.hp?.value },
+        { budget: formData.budget, service: formData.service }
       );
 
       resetForm();
@@ -275,6 +268,7 @@ function StartaProject() {
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-7">
+                      <LeadHoneypot />
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                           <label className="block text-sm font-medium text-white/85 mb-2">Full Name *</label>

@@ -6,7 +6,8 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { healthCheckPreview } from '../../../assets';
 import { useNavigate } from 'react-router-dom';
-import { subscribeToNewsletter } from '../../../config/firebase';
+import submitLead from '../../../server/submitLead';
+import LeadHoneypot from '../../../components/ui/LeadHoneypot';
 
 const Checklist = () => {
   const [formData, setFormData] = useState({
@@ -22,30 +23,14 @@ const Checklist = () => {
     setIsSubmitting(true);
 
     try {
-      // First, update Firestore through the subscribeToNewsletter function
-      const subscriptionResult = await subscribeToNewsletter(formData.email, formData.name);
-      
-      if (!subscriptionResult.success) {
-        throw new Error(subscriptionResult.message);
-      }
+      // Saves the lead in the CRM and adds them to the health check list.
+      await submitLead(
+        'health-check',
+        { name: formData.name, email: formData.email, hp: e.target.elements?.hp?.value },
+        {},
+        { subscribe: true, consent: true }
+      );
 
-      // Then call the existing subscribe API endpoint
-      const response = await fetch('https://virtara-backend.vercel.app/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          name: formData.name
-        }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message);
-      }
-      
       // Show success state
       setIsSuccess(true);
 
@@ -107,6 +92,7 @@ const Checklist = () => {
                 >
                   {!isSuccess ? (
                     <form onSubmit={handleSubmit} className="space-y-6">
+                      <LeadHoneypot />
                       <div>
                         <label htmlFor="name" className="block text-white mb-2">Name</label>
                         <input

@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { Helmet } from 'react-helmet-async';
-import { submitAuditBooking } from '../../../config/firebase';
+import submitLead from '../../../server/submitLead';
+import LeadHoneypot from '../../../components/ui/LeadHoneypot';
 import { useNavigate } from 'react-router-dom';
 
 const AuditPage = () => {
@@ -37,29 +38,33 @@ const AuditPage = () => {
     setSubmitStatus({ loading: true, message: '', isError: false });
 
     try {
-      const result = await submitAuditBooking(formData);
-      
-      if (result.success) {
-        setSubmitStatus({
-          loading: false,
-          message: 'Thank you! Your audit booking has been submitted successfully.',
-          isError: false
-        });
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          website: '',
-          additionalWebsites: '',
-          preferredDate: '',
-          preferredTime: '',
-          meetingPlatform: 'teams',
-          additionalNotes: ''
-        });
-        navigate('/resources/audit/thank-you');
-      } else {
-        throw new Error(result.message);
-      }
+      await submitLead(
+        'audit',
+        { name: formData.name, email: formData.email, website: formData.website, message: formData.additionalNotes, hp: e.target.elements?.hp?.value },
+        {
+          additionalWebsites: formData.additionalWebsites,
+          preferredDate: formData.preferredDate,
+          preferredTime: formData.preferredTime,
+          meetingPlatform: formData.meetingPlatform,
+        }
+      );
+      setSubmitStatus({
+        loading: false,
+        message: 'Thank you! Your audit booking has been submitted successfully.',
+        isError: false
+      });
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        website: '',
+        additionalWebsites: '',
+        preferredDate: '',
+        preferredTime: '',
+        meetingPlatform: 'teams',
+        additionalNotes: ''
+      });
+      navigate('/resources/audit/thank-you');
     } catch (error) {
       setSubmitStatus({
         loading: false,
@@ -107,6 +112,7 @@ const AuditPage = () => {
                 className="bg-white/5 p-8 rounded-2xl border border-white/10"
               >
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  <LeadHoneypot />
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-white mb-2">Full Name</label>

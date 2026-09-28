@@ -2,16 +2,19 @@ const express = require('express');
 const fetch = require('node-fetch');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const { handleLead } = require('./lead');
 
 dotenv.config();
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: '32kb' }));
 
 app.use(cors({
     origin: ['http://localhost:5173', 'https://virtara.co.za', 'https://www.virtara.co.za'],
     methods: ['POST'],
     credentials: true
 }));
+
+app.post('/api/lead', handleLead);
 
 app.post('/api/subscribe', async (req, res) => {
   const { email, name } = req.body;
@@ -47,6 +50,8 @@ app.post('/api/subscribe', async (req, res) => {
   }
 });
 
+// Deprecated: the forms now post to /api/lead. This accepted raw HTML from
+// any caller; remove it once the site that uses /api/lead is live.
 app.post('/api/send-email', async (req, res) => {
   const { subject, message } = req.body;
   
