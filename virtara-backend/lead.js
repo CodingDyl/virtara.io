@@ -14,7 +14,9 @@ const fetch = require('node-fetch');
 
 const SOURCES = ['start-a-project', 'contact', 'seo', 'starter', 'professional', 'enterprise', 'health-check', 'audit'];
 const MAGNET_SOURCE = /^magnet-[a-z0-9](?:[a-z0-9-]{0,30}[a-z0-9])?$/;
-const EMAIL = /^[^\s@<>"',;]{1,64}@[^\s@<>"',;]{1,190}\.[A-Za-z]{2,24}$/;
+// Letters, digits and . _ % + - ' before the @ (no ? & = / #, which turn a mailto: link into one with a
+// hidden recipient); mirrors Virtec's own check so a bad address is refused at the first hop too.
+const EMAIL = /^[\p{L}\p{N}._%+'-]{1,64}@[\p{L}\p{N}.-]{1,190}\.\p{L}{2,24}$/u;
 const LIMITS = { name: 120, email: 254, phone: 40, company: 160, website: 300, message: 4000, page: 200 };
 
 // Per-instance, per-IP: 5 submissions in 10 minutes. Enough for a person who
@@ -54,7 +56,7 @@ function readLead(body) {
   const name = text(body.name, LIMITS.name);
   if (!name) errors.push('Please add your name');
   const email = text(body.email, LIMITS.email);
-  if (!email || !EMAIL.test(email)) errors.push('Please add a valid email address');
+  if (!email || !EMAIL.test(email) || email.includes('..')) errors.push('Please add a valid email address');
 
   const details = {};
   if (body.details && typeof body.details === 'object' && !Array.isArray(body.details)) {
@@ -236,7 +238,7 @@ async function handleNewsletter(req, res) {
   const action = body.action === 'unsubscribe' ? 'unsubscribe' : body.action === 'subscribe' ? 'subscribe' : undefined;
   const email = text(body.email, LIMITS.email);
   if (!action) return res.status(400).json({ message: 'Unknown request' });
-  if (!email || !EMAIL.test(email)) return res.status(400).json({ message: 'Please enter a valid email address' });
+  if (!email || !EMAIL.test(email) || email.includes('..')) return res.status(400).json({ message: 'Please enter a valid email address' });
 
   const base = process.env.VIRTEC_BASE_URL;
   const key = process.env.VIRTARA_SITE_LEADS_KEY;
