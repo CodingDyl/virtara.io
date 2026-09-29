@@ -2,7 +2,7 @@ const express = require('express');
 const fetch = require('node-fetch');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const { handleLead } = require('./lead');
+const { handleLead, handleNewsletter } = require('./lead');
 
 dotenv.config();
 const app = express();
@@ -50,14 +50,58 @@ app.post('/api/subscribe', async (req, res) => {
   }
 });
 
-// Deprecated: the forms now post to /api/lead. This accepted raw HTML from
-// any caller; remove it once the site that uses /api/lead is live.
+app.post('/api/newsletter', handleNewsletter);
+
+/**
+ * Deprecated. The forms now post to /api/lead, so nothing in the current site
+ * calls this. It stays only until the deployed site has been replaced (an old
+ * cached page would otherwise lose its form), and it is locked down meanwhile:
+ * it used to send any caller's raw HTML as info@virtara.co.za, which is a
+ * phishing tool. Now everything is escaped (only line breaks survive), the
+ * subject is prefixed so it cannot pass for anything else, sizes are capped,
+ * and it is rate limited. Each use is logged; delete it once the log is quiet.
+ */
+const SEND_EMAIL_WINDOW_MS = 10 * 60_000;
+const SEND_EMAIL_MAX = 5;
+const sendEmailHits = new Map();
+
+function allowSendEmail(ip, now = Date.now()) {
+  if (sendEmailHits.size > 5000) sendEmailHits.clear();
+  const hits = (sendEmailHits.get(ip) || []).filter((at) => now - at < SEND_EMAIL_WINDOW_MS);
+  const allowed = hits.length < SEND_EMAIL_MAX;
+  if (allowed) hits.push(now);
+  sendEmailHits.set(ip, hits);
+  return allowed;
+}
+
+function escapeForEmail(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 app.post('/api/send-email', async (req, res) => {
-  const { subject, message } = req.body;
-  
-  // Add this debug log
-  console.log('API Key present:', !!process.env.RESEND_API_KEY);
-  
+  const { subject, message } = req.body || {};
+  const ip = String(req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown').split(',')[0].trim();
+  console.warn('DEPRECATED /api/send-email used; the site should be posting to /api/lead');
+
+  if (typeof subject !== 'string' || typeof message !== 'string' || !subject.trim() || !message.trim()) {
+    return res.status(400).json({ message: 'Subject and message are required' });
+  }
+  if (subject.length > 150 || message.length > 6000) {
+    return res.status(413).json({ message: 'Too long' });
+  }
+  if (!allowSendEmail(ip)) {
+    return res.status(429).json({ message: 'Too many messages. Please try again later.' });
+  }
+
+  // The old forms wrote <br /> for line breaks; that is the only markup kept.
+  const html = escapeForEmail(message.replace(/<br\s*\/?>/gi, '\n')).replace(/\n/g, '<br>');
+  const safeSubject = `[Website form] ${subject.replace(/[\r\n]+/g, ' ').trim()}`.slice(0, 200);
+
   try {
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -68,14 +112,14 @@ app.post('/api/send-email', async (req, res) => {
       body: JSON.stringify({
         from: 'Contact Form <info@virtara.co.za>',
         to: 'info@virtara.co.za',
-        subject: subject,
-        html: message,
+        subject: safeSubject,
+        html,
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.log('Resend error:', errorText);
+      console.log('Resend error:', errorText.slice(0, 300));
       return res.status(500).json({ message: 'Failed to send email' });
     }
 

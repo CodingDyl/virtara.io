@@ -7,7 +7,7 @@ import { toast, Toaster } from 'react-hot-toast';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { client } from '../lib/sanity';
-import { subscribeToNewsletter } from '../config/firebase';
+import { subscribeToNewsletter } from '../server/newsletter';
 import Badge from '../components/ui/Badge';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';

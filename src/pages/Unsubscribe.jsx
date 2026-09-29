@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import { Helmet } from 'react-helmet-async';
 import { toast, Toaster } from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { unsubscribeFromNewsletter } from '../config/firebase';
+import { unsubscribeFromNewsletter } from '../server/newsletter';
 
 const Unsubscribe = () => {
   const [isUnsubscribed, setIsUnsubscribed] = useState(false);

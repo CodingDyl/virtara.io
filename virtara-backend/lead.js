@@ -219,4 +219,50 @@ async function handleLead(req, res) {
   return res.status(502).json({ message: 'We could not send that just now. Please email info@virtara.co.za.' });
 }
 
-module.exports = { handleLead, readLead };
+/**
+ * POST /api/newsletter: subscribe or unsubscribe, through Virtec.
+ *
+ * The browser cannot write Virtec's database, so this does it with the site
+ * key. The answer never says whether the address was on the list. Unsubscribing
+ * takes only an address (as it always did), so it is rate limited per visitor.
+ */
+async function handleNewsletter(req, res) {
+  const body = req.body && typeof req.body === 'object' ? req.body : {};
+  const ip = String(req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown').split(',')[0].trim();
+  if (!allow(`newsletter:${ip}`)) {
+    return res.status(429).json({ message: 'Too many attempts. Please try again in a few minutes.' });
+  }
+
+  const action = body.action === 'unsubscribe' ? 'unsubscribe' : body.action === 'subscribe' ? 'subscribe' : undefined;
+  const email = text(body.email, LIMITS.email);
+  if (!action) return res.status(400).json({ message: 'Unknown request' });
+  if (!email || !EMAIL.test(email)) return res.status(400).json({ message: 'Please enter a valid email address' });
+
+  const base = process.env.VIRTEC_BASE_URL;
+  const key = process.env.VIRTARA_SITE_LEADS_KEY;
+  if (!base || !key) {
+    console.error('Newsletter request not saved: Virtec is not configured');
+    return res.status(502).json({ message: 'We could not update the list just now. Please try again later.' });
+  }
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
+  try {
+    const response = await fetch(new URL('/api/inbound/subscribers', base).toString(), {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action, email: email.toLowerCase(), name: text(body.name, LIMITS.name) }),
+      redirect: 'manual',
+      signal: controller.signal,
+    });
+    if (response.status === 200) return res.status(200).json({ ok: true });
+    console.error(`Newsletter request not saved: Virtec answered ${response.status}: ${(await response.text()).slice(0, 300)}`);
+  } catch (error) {
+    console.error(`Newsletter request not saved: Virtec unreachable: ${error.message}`);
+  } finally {
+    clearTimeout(timer);
+  }
+  return res.status(502).json({ message: 'We could not update the list just now. Please try again later.' });
+}
+
+module.exports = { handleLead, handleNewsletter, readLead };
