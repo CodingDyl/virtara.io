@@ -13,6 +13,7 @@ const fetch = require('node-fetch');
  */
 
 const SOURCES = ['start-a-project', 'contact', 'seo', 'starter', 'professional', 'enterprise', 'health-check', 'audit'];
+const MAGNET_SOURCE = /^magnet-[a-z0-9](?:[a-z0-9-]{0,30}[a-z0-9])?$/;
 const EMAIL = /^[^\s@<>"',;]{1,64}@[^\s@<>"',;]{1,190}\.[A-Za-z]{2,24}$/;
 const LIMITS = { name: 120, email: 254, phone: 40, company: 160, website: 300, message: 4000, page: 200 };
 
@@ -48,7 +49,8 @@ function escapeHtml(value) {
 function readLead(body) {
   const errors = [];
   const source = text(body.source, 40);
-  if (!SOURCES.includes(source)) errors.push('Unknown form');
+  // Lead magnets add sources without a code change: magnet-<slug>.
+  if (!SOURCES.includes(source) && !MAGNET_SOURCE.test(source || '')) errors.push('Unknown form');
   const name = text(body.name, LIMITS.name);
   if (!name) errors.push('Please add your name');
   const email = text(body.email, LIMITS.email);

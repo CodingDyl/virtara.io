@@ -89,3 +89,13 @@ body {
     animation-duration: 3s;
   }
 }
+
+/* Lead magnet read pages print as black on white, whatever the site theme. */
+@media print {
+  .guide-print,
+  .guide-print * {
+    color: #000 !important;
+    background: transparent !important;
+    border-color: #ccc !important;
+  }
+}

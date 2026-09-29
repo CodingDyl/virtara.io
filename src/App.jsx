@@ -30,6 +30,9 @@ const HealthThankYou = lazy(() => import('./pages/Resources/HealthCheck/HealthTh
 const AuditPage = lazy(() => import('./pages/Resources/Audit/AuditPage'))
 const AuditThankYou = lazy(() => import('./pages/Resources/Audit/AuditThankYou'))
 const ThankYou = lazy(() => import('./pages/Resources/StartaProject/ThankYou'))
+const GuidesIndex = lazy(() => import('./pages/Resources/Guides/GuidesIndex'))
+const GuidePage = lazy(() => import('./pages/Resources/Guides/GuidePage'))
+const GuideRead = lazy(() => import('./pages/Resources/Guides/GuideRead'))
 
 const Starter = lazy(() => import('./pages/TailoredRoutes/WebDevelopment/Starter/Starter'))
 const StarterThankYou = lazy(() => import('./pages/TailoredRoutes/WebDevelopment/Starter/StarterThankYou'))
@@ -82,6 +85,9 @@ function App() {
             <Route path="/resources/health-check/thank-you" element={<HealthThankYou />} />
             <Route path="/resources/audit" element={<AuditPage />} />
             <Route path="/resources/audit/thank-you" element={<AuditThankYou />} />
+            <Route path="/guides" element={<GuidesIndex />} />
+            <Route path="/guides/:slug" element={<GuidePage />} />
+            <Route path="/guides/:slug/read" element={<GuideRead />} />
             <Route path="/legal/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/legal/terms-of-service" element={<TermsOfService />} />
             <Route path="/legal/cookie-policy" element={<CookiePolicy />} />
