@@ -1,19 +1,23 @@
 import { Helmet } from 'react-helmet-async';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom';
 import { FaArrowRight, FaPrint } from 'react-icons/fa';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import LeadMagnetBody from '../../../components/LeadMagnetBody';
-import { findLeadMagnet, isLeadMagnetUnlocked } from '../../../lib/leadMagnets';
+import { findLeadMagnet, isLeadMagnetUnlocked, unlockLeadMagnet } from '../../../lib/leadMagnets';
 import GuideNotFound from './GuideNotFound';
 
 /** The resource itself, for someone who signed up. Printable, and kept out of search. */
 const GuideRead = () => {
   const { slug } = useParams();
+  const [searchParams] = useSearchParams();
   const magnet = findLeadMagnet(slug);
 
   if (!magnet) return <GuideNotFound />;
-  if (!isLeadMagnetUnlocked(magnet.slug)) return <Navigate to={`/guides/${magnet.slug}`} replace />;
+  // The signup email links here with ?via=email, often on another device.
+  const fromEmail = searchParams.get('via') === 'email';
+  if (fromEmail) unlockLeadMagnet(magnet.slug);
+  if (!fromEmail && !isLeadMagnetUnlocked(magnet.slug)) return <Navigate to={`/guides/${magnet.slug}`} replace />;
 
   return (
     <>
