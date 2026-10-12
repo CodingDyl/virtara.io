@@ -1,68 +1,53 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Button from "./ui/Button";
 
 const CookieConsent = () => {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
-    // Check if user has already accepted cookies
-    const cookieConsent = localStorage.getItem('cookieConsent');
-    if (!cookieConsent) {
+    try {
+      if (!localStorage.getItem("cookieConsent")) setShowBanner(true);
+    } catch {
       setShowBanner(true);
     }
   }, []);
 
-  const acceptCookies = () => {
-    localStorage.setItem('cookieConsent', 'true');
-    setShowBanner(false);
-  };
-
-  const declineCookies = () => {
-    localStorage.setItem('cookieConsent', 'false');
+  const decide = (value) => {
+    try {
+      localStorage.setItem("cookieConsent", value);
+    } catch {
+      /* storage blocked: the banner just won't remember */
+    }
     setShowBanner(false);
   };
 
   if (!showBanner) return null;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 50 }}
-      className="fixed bottom-0 left-0 right-0 z-50 bg-[#161616] border-t border-white/10"
+    <div
+      role="region"
+      aria-label="Cookie consent"
+      className="fixed inset-x-3 bottom-3 z-50 animate-rise sm:inset-x-auto sm:left-5 sm:max-w-md md:bottom-6 md:left-6"
     >
-      <div className="container mx-auto px-4 sm:px-6 py-4">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex-1">
-            <p className="text-white/70 text-sm md:text-base">
-              We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
-              <Link to="/legal/cookie-policy" className="text-[#8df6ff] hover:text-[#4ea4ff] ml-1 transition-colors">
-                Read our cookie policy
-              </Link>
-            </p>
-          </div>
-          <div className="flex gap-3">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={declineCookies}
-              className="px-4 py-2 bg-transparent text-white border border-white/20 rounded-full text-sm font-medium hover:bg-white/10 transition-colors"
-            >
-              Decline
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={acceptCookies}
-              className="px-4 py-2 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-white rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
-            >
-              Accept
-            </motion.button>
-          </div>
+      <div className="rounded-card border border-edge bg-charcoal/95 p-5 shadow-float backdrop-blur-xl">
+        <p className="text-nav font-normal leading-relaxed text-mist">
+          We use cookies to understand how the site is used. Read our{" "}
+          <Link to="/legal/cookie-policy" className="text-link">
+            cookie policy
+          </Link>
+          .
+        </p>
+        <div className="mt-4 flex gap-2">
+          <Button size="sm" onClick={() => decide("true")}>
+            Accept
+          </Button>
+          <Button size="sm" variant="secondary" onClick={() => decide("false")}>
+            Decline
+          </Button>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

@@ -1,12 +1,12 @@
-import { motion } from "framer-motion";
-import { FaArrowRight } from 'react-icons/fa';
-import Navbar from '../../../components/Navbar';
-import Footer from '../../../components/Footer';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { healthCheckPreview } from '../../../assets';
 import { useNavigate } from 'react-router-dom';
+import { IconCheck } from '@tabler/icons-react';
+import { healthCheckPreview } from '../../../assets';
 import { subscribeToNewsletter } from '../../../config/firebase';
+import PageShell from '../../../components/layout/PageShell';
+import PageHero from '../../../components/layout/PageHero';
+import Button from '../../../components/ui/Button';
 
 const Checklist = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +15,7 @@ const Checklist = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -59,14 +60,14 @@ const Checklist = () => {
       console.error('Error submitting form:', error);
       setIsSubmitting(false);
       setIsSuccess(false);
-      // You might want to add error state handling here
+      setError("We couldn't send the checklist just now. Please try again, or email info@virtara.co.za.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <>
+    <PageShell>
       <Helmet>
         <title>Free Website Conversion Checklist | Virtara</title>
         <meta name="description" content="Download our free website conversion checklist to discover why your website isn't converting and how to fix it. Quick 5-minute assessment to boost your conversion rates." />
@@ -74,140 +75,92 @@ const Checklist = () => {
         <link rel="canonical" href="https://virtara.co.za/resources/health-check" />
       </Helmet>
 
-      <div className="bg-[#050910] min-h-screen">
-        <Navbar />
+      <PageHero
+        announcement={{ label: 'Free download' }}
+        title="Discover why your website isn't converting."
+        lead="Takes 5 minutes. Spots leaks. Saves customers."
+      />
 
-        <section className="min-h-screen pt-32 md:pt-40 pb-12">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-4xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="text-center mb-12"
-              >
-                <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-6">
-                  Discover Why Your Website Isn't
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
-                    {" "}Converting
-                  </span>
-                </h1>
-                <p className="text-xl text-white/70 mb-8">
-                  Takes 5 minutes. Spots leaks. Saves customers.
-                </p>
-              </motion.div>
-
-              <div className="grid md:grid-cols-2 gap-12 items-center">
-                {/* Form Section */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="bg-white/5 p-8 rounded-2xl border border-white/10"
-                >
-                  {!isSuccess ? (
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div>
-                        <label htmlFor="name" className="block text-white mb-2">Name</label>
-                        <input
-                          type="text"
-                          id="name"
-                          required
-                          className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-[#8df6ff]"
-                          placeholder="Enter your name"
-                          value={formData.name}
-                          onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="block text-white mb-2">Email</label>
-                        <input
-                          type="email"
-                          id="email"
-                          required
-                          className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-[#8df6ff]"
-                          placeholder="Enter your email"
-                          value={formData.email}
-                          onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        />
-                      </div>
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full px-6 py-4 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-white rounded-full font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50"
-                      >
-                        {isSubmitting ? (
-                          <div className="flex items-center gap-2">
-                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                            Processing...
-                          </div>
-                        ) : (
-                          <>
-                            Get My Free Checklist
-                            <FaArrowRight />
-                          </>
-                        )}
-                      </motion.button>
-                    </form>
-                  ) : (
-                    <div className="text-center py-8">
-                      <h3 className="text-2xl font-bold text-white mb-4">Thank You!</h3>
-                      <p className="text-white/70">
-                        Check your email for your free checklist.
-                      </p>
-                    </div>
-                  )}
-                </motion.div>
-
-                {/* Image Section */}
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  className="relative"
-                >
-                  {/* Replace with your actual checklist mockup image */}
-                  <div className="aspect-[3/4] bg-gradient-to-br from-[#8df6ff]/20 to-[#4ea4ff]/20 rounded-2xl border border-white/10 p-8 flex items-center justify-center">
-                    <img
-                      src={healthCheckPreview}
-                      alt="Preview of the Virtara website health check checklist"
-                      width="900"
-                      height="1200"
-                      className="w-full h-full object-cover rounded-2xl"
+      <section className="pb-24 md:pb-32" aria-label="Get the checklist">
+        <div className="shell grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <div className="rounded-card border border-edge bg-charcoal shadow-frame">
+              <div className="border-b border-edge px-6 py-5 sm:px-8">
+                <h2 className="text-title text-cloud">Get the checklist</h2>
+                <p className="mt-1 text-nav font-normal text-mist">We'll email it straight to you.</p>
+              </div>
+              {!isSuccess ? (
+                <form onSubmit={handleSubmit} className="space-y-5 p-6 sm:p-8">
+                  <div>
+                    <label htmlFor="hc-name" className="field-label">Name</label>
+                    <input
+                      type="text"
+                      id="hc-name"
+                      autoComplete="name"
+                      required
+                      className="field-input"
+                      placeholder="Your name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     />
                   </div>
-                </motion.div>
-              </div>
-
-              {/* Benefits Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="mt-16 text-center"
-              >
-                <h2 className="text-2xl font-bold text-white mb-8">What You'll Discover:</h2>
-                <div className="grid sm:grid-cols-3 gap-6">
-                  {[
-                    "Common conversion killers",
-                    "Quick-win optimization tips",
-                    "Expert conversion strategies"
-                  ].map((benefit, index) => (
-                    <div key={index} className="p-6 bg-white/5 rounded-xl border border-white/10">
-                      <p className="text-white/70">{benefit}</p>
-                    </div>
-                  ))}
+                  <div>
+                    <label htmlFor="hc-email" className="field-label">Email</label>
+                    <input
+                      type="email"
+                      id="hc-email"
+                      autoComplete="email"
+                      required
+                      className="field-input"
+                      placeholder="you@company.co.za"
+                      aria-invalid={error ? 'true' : undefined}
+                      aria-describedby={error ? 'hc-error' : undefined}
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    />
+                    {error && <p id="hc-error" role="alert" className="field-error">{error}</p>}
+                  </div>
+                  <Button type="submit" size="lg" loading={isSubmitting} showArrow className="w-full font-semibold">
+                    {isSubmitting ? 'Processing…' : 'Get my free checklist'}
+                  </Button>
+                </form>
+              ) : (
+                <div className="p-8 text-center" role="status">
+                  <h3 className="text-title text-cloud">Thank you!</h3>
+                  <p className="mt-2 text-body text-mist">Check your email for your free checklist.</p>
                 </div>
-              </motion.div>
+              )}
+            </div>
+
+            <h2 className="mt-10 text-feature text-cloud">What you'll discover</h2>
+            <ul className="mt-4 space-y-3">
+              {['Common conversion killers', 'Quick-win optimisation tips', 'Expert conversion strategies'].map((benefit) => (
+                <li key={benefit} className="flex items-center gap-3 text-body text-frost">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-signal/15 text-signal">
+                    <IconCheck size={12} stroke={2.6} aria-hidden="true" />
+                  </span>
+                  {benefit}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* The document itself, on a lit stage */}
+          <div className="relative">
+            <div aria-hidden="true" className="absolute inset-8 bg-signal/20 blur-3xl" />
+            <div className="relative mx-auto max-w-md -rotate-1 rounded-card border border-edge bg-charcoal p-3 shadow-frame">
+              <img
+                src={healthCheckPreview}
+                alt="Preview of the Virtara website health check checklist"
+                width="900"
+                height="1200"
+                className="aspect-[3/4] w-full rounded-[10px] object-cover object-top"
+              />
             </div>
           </div>
-        </section>
-
-        <Footer />
-      </div>
-    </>
+        </div>
+      </section>
+    </PageShell>
   );
 };
 

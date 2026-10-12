@@ -1,70 +1,22 @@
-import { motion } from 'framer-motion';
-import { FaHeart } from 'react-icons/fa';
-import Footer from '../components/Footer';
 import { Helmet } from 'react-helmet-async';
+import MinimalShell from '../components/layout/MinimalShell';
+import Button from '../components/ui/Button';
 
-const ComeBack = () => {
-  return (
-    <>
-      <Helmet>
-        <title>See You Soon | Virtara Newsletter</title>
-        <meta name="description" content="Thank you for being part of Virtara's newsletter community" />
-        <meta name="robots" content="noindex, follow" />
-        <link rel="canonical" href="https://virtara.co.za/comeback" />
-      </Helmet>
-      <div className="bg-[#050910] min-h-screen">
-        <section className="min-h-screen flex items-center justify-center">
-          <div className="container mx-auto px-4 sm:px-6 py-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-2xl mx-auto text-center"
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                className="text-center"
-              >
-                <div className="mb-8 flex justify-center">
-                  <motion.div
-                    animate={{
-                      scale: [1, 1.2, 1],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
-                  >
-                    <FaHeart className="text-[#4ea4ff] w-16 h-16" />
-                  </motion.div>
-                </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
-                  Until We Meet Again!
-                </h2>
-                <p className="text-lg text-white/70 mb-8">
-                  You've been successfully unsubscribed from our newsletter. We appreciate the time 
-                  you spent with us and hope our paths cross again in the future. Remember, our 
-                  door is always open if you'd like to return!
-                </p>
-                <motion.a
-                  href="/"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="inline-block px-8 py-3 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-white rounded-full font-medium hover:opacity-90 transition-opacity"
-                >
-                  Return to Homepage
-                </motion.a>
-              </motion.div>
-            </motion.div>
-          </div>
-        </section>
-        <Footer />
-      </div>
-    </>
-  );
-};
+const ComeBack = () => (
+  <MinimalShell>
+    <Helmet>
+      <title>See You Soon | Virtara Newsletter</title>
+      <meta name="description" content="Thank you for being part of Virtara's newsletter community" />
+      <meta name="robots" content="noindex, follow" />
+      <link rel="canonical" href="https://virtara.co.za/comeback" />
+    </Helmet>
+    <h1 className="text-display text-cloud">Until we meet again.</h1>
+    <p className="mt-5 text-lead text-frost">
+      You've been successfully unsubscribed from our newsletter. We appreciate the time you spent with us — our door is always
+      open if you'd like to return.
+    </p>
+    <Button to="/" size="lg" className="mt-8 font-semibold">Return to homepage</Button>
+  </MinimalShell>
+);
 
 export default ComeBack;

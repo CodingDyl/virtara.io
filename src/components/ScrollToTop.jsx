@@ -1,57 +1,36 @@
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowUp } from 'react-icons/fa';
+import { useEffect, useState } from "react";
+import { IconArrowUp } from "@tabler/icons-react";
+import { cn } from "../utils/cn";
 
+/**
+ * The floating launcher (Featurebase's lower-right circle), in Signal Blue.
+ * Appears once the visitor is well into a page.
+ */
 const ScrollToTop = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener('scroll', toggleVisibility);
-    return () => window.removeEventListener('scroll', toggleVisibility);
+    const onScroll = () => setVisible(window.scrollY > 600);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.button
-          initial={{ opacity: 0, scale: 0, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0, y: 20 }}
-          onClick={scrollToTop}
-          whileHover={{ 
-            scale: 1.1, 
-            y: -2,
-            boxShadow: "0 0 30px rgba(0, 242, 254, 0.4)"
-          }}
-          whileTap={{ scale: 0.9 }}
-          className="fixed bottom-8 right-8 z-50 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] p-4 rounded-full shadow-2xl hover:shadow-glow transition-all duration-300 group"
-          aria-label="Scroll to top"
-        >
-          <motion.div
-            animate={{ y: [0, -2, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <FaArrowUp className="text-white text-lg group-hover:text-white transition-colors duration-300" />
-          </motion.div>
-        </motion.button>
+    <button
+      type="button"
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      aria-label="Back to top"
+      tabIndex={visible ? 0 : -1}
+      className={cn(
+        "fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-pill bg-signal text-cloud",
+        "shadow-[0_0_0_1px_rgba(0,0,0,0.5),0_10px_30px_-6px_rgba(78,164,255,0.55)] transition-[opacity,transform,background-color] duration-base ease-out hover:bg-[#62b0ff] md:bottom-6 md:right-6",
+        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
       )}
-    </AnimatePresence>
+    >
+      <IconArrowUp size={20} stroke={2} aria-hidden="true" />
+    </button>
   );
 };
 
-export default ScrollToTop; 
+export default ScrollToTop;

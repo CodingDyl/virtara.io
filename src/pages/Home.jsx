@@ -1,130 +1,150 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import Badge from "../components/ui/Badge";
-import { bg_hero, mpower, vaja, virtec } from "../assets";
-
-// three.js + @react-three/fiber is ~830 kB. The hero is a gradient with the
-// WebGL layer on top, so it reads correctly without it.
-const Silk = lazy(() => import("../components/Silk"));
-
-/**
- * Silk is decoration. Loading it eagerly put 830 kB in front of the hero
- * headline on a mobile connection, so it waits for an idle callback after
- * mount. It never loads at all for prefers-reduced-motion (a continuously
- * animating background is exactly what that setting asks us not to ship) or
- * when the browser reports Save-Data / a 2g-3g connection.
- */
-function useDeferredHeroBackground() {
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const connection = navigator.connection;
-    if (connection?.saveData) return;
-    if (connection?.effectiveType && !connection.effectiveType.includes("4g")) return;
-
-    const schedule = window.requestIdleCallback ?? ((cb) => window.setTimeout(cb, 200));
-    const cancel = window.cancelIdleCallback ?? window.clearTimeout;
-    const handle = schedule(() => setReady(true), { timeout: 2000 });
-
-    return () => cancel(handle);
-  }, []);
-
-  return ready;
-}
+import { IconArrowLeft, IconRefresh } from "@tabler/icons-react";
+import PageShell from "../components/layout/PageShell";
+import PageHero from "../components/layout/PageHero";
+import SectionHeading from "../components/layout/SectionHeading";
+import ClosingBand from "../components/layout/ClosingBand";
+import ClientWorkspace from "../components/home/ClientWorkspace";
+import ServicesRail from "../components/home/ServicesRail";
+import Button from "../components/ui/Button";
+import { bg_hero } from "../assets";
+import { cn } from "../utils/cn";
 
 const trustClients = ["Vaja", "MPower Ratings", "Virtec Marketing", "Aureya", "Clarity"];
-
-const proofCards = [
-  {
-    id: "vaja",
-    title: "Vaja",
-    kpi: "30% Conversion Rate Lift",
-    before: "Outdated UX and unclear service pages.",
-    after: "Focused information architecture and conversion-first CTAs.",
-    image: vaja,
-    link: "https://vaja.co.za",
-    size: "md:col-span-2"
-  },
-  {
-    id: "mpower",
-    title: "MPower Ratings",
-    kpi: "2.1x More Qualified Inquiries",
-    before: "Low-intent leads from broad landing pages.",
-    after: "High-intent journey mapped around BEE verification use-cases.",
-    image: mpower,
-    link: "https://mpowerratings.co.za",
-    size: "md:col-span-1"
-  },
-  {
-    id: "virtec",
-    title: "Virtec Marketing",
-    kpi: "41% Increase in Demo Requests",
-    before: "No visual hierarchy for key decision points.",
-    after: "Bento storytelling with clear offer framing and proof blocks.",
-    image: virtec,
-    link: "https://virtec.vercel.app",
-    size: "md:col-span-1"
-  }
-];
-
-const tickerResults = [
-  "Vaja: +30% conversions in 90 days",
-  "MPower Ratings: +2.1x qualified leads",
-  "Virtec: +41% demo bookings",
-  "Average lighthouse performance: 97+",
-  "Latest SEO sprint: +18 ranking keywords this week"
-];
 
 const discoverySteps = [
   {
     key: "revenueGoal",
+    label: "Revenue goal",
     question: "What is your target monthly revenue from digital in the next 6 months?",
-    options: ["R350k-R900k", "R900k-R1.8M", "R1.8M-R4.5M", "R4.5M+"]
+    options: ["R350k–R900k", "R900k–R1.8M", "R1.8M–R4.5M", "R4.5M+"],
   },
   {
     key: "leadVolume",
+    label: "Lead requirement",
     question: "How many qualified leads do you need per month to hit that target?",
-    options: ["10-25", "25-50", "50-100", "100+"]
+    options: ["10–25", "25–50", "50–100", "100+"],
   },
   {
     key: "primaryConstraint",
+    label: "Main blocker",
     question: "What is the main blocker in your current funnel?",
-    options: ["Low-quality traffic", "Poor site conversion", "Weak sales follow-through", "No clear analytics"]
-  }
+    options: ["Low-quality traffic", "Poor site conversion", "Weak sales follow-through", "No clear analytics"],
+  },
 ];
 
-function Home() {
+function LeadQualifier() {
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState({});
-  const showHeroBackground = useDeferredHeroBackground();
 
   const currentStep = discoverySteps[stepIndex];
-  const isQuizComplete = stepIndex >= discoverySteps.length;
+  const isComplete = stepIndex >= discoverySteps.length;
 
-  const suggestedAuditFocus = useMemo(() => {
-    if (!isQuizComplete) return "";
-
+  const focus = useMemo(() => {
+    if (!isComplete) return "";
     const blocker = answers.primaryConstraint;
     if (blocker === "Poor site conversion") return "Conversion architecture and CRO";
     if (blocker === "Low-quality traffic") return "Acquisition and SEO alignment";
     if (blocker === "Weak sales follow-through") return "Lead qualification and handoff system";
-    return "Attribution and full-funnel optimization";
-  }, [answers, isQuizComplete]);
+    return "Attribution and full-funnel optimisation";
+  }, [answers, isComplete]);
 
-  const handleAnswer = (value) => {
+  const answer = (value) => {
     setAnswers((prev) => ({ ...prev, [currentStep.key]: value }));
     setStepIndex((prev) => prev + 1);
   };
 
+  const restart = () => {
+    setStepIndex(0);
+    setAnswers({});
+  };
+
   return (
-    <main className="bg-[#060A11] text-white min-h-screen virtara-body">
+    <div className="overflow-hidden rounded-card border border-edge bg-charcoal shadow-frame">
+      {/* Progress */}
+      <div className="flex items-center justify-between gap-4 border-b border-edge px-5 py-3.5">
+        <span className="text-[13px] font-medium text-frost">Growth audit · quick scope</span>
+        <div className="flex items-center gap-3">
+          <div className="flex gap-1" aria-hidden="true">
+            {discoverySteps.map((s, i) => (
+              <span
+                key={s.key}
+                className={cn(
+                  "h-1 w-6 rounded-full transition-colors duration-base",
+                  i < stepIndex ? "bg-signal" : i === stepIndex ? "bg-frost/60" : "bg-edge-strong"
+                )}
+              />
+            ))}
+          </div>
+          <span className="figure text-[13px] text-mist">
+            {Math.min(stepIndex + 1, discoverySteps.length)}/{discoverySteps.length}
+          </span>
+        </div>
+      </div>
+
+      <div className="p-5 sm:p-8" aria-live="polite">
+        {!isComplete ? (
+          <div key={currentStep.key} className="animate-fade-in">
+            <p className="text-caption text-quiet">{currentStep.label}</p>
+            <h3 className="mt-2 text-title text-cloud">{currentStep.question}</h3>
+            <div className="mt-6 grid gap-2 sm:grid-cols-2">
+              {currentStep.options.map((option) => (
+                <button
+                  key={option}
+                  type="button"
+                  onClick={() => answer(option)}
+                  className="group flex items-center justify-between rounded-control border border-edge bg-ink px-4 py-3.5 text-left text-body text-frost transition-colors duration-fast hover:border-signal/50 hover:bg-steel hover:text-cloud"
+                >
+                  {option}
+                  <span
+                    aria-hidden="true"
+                    className="h-4 w-4 rounded-full border border-edge-strong transition-colors duration-fast group-hover:border-signal group-hover:bg-signal/20"
+                  />
+                </button>
+              ))}
+            </div>
+            {stepIndex > 0 && (
+              <button
+                type="button"
+                onClick={() => setStepIndex((i) => i - 1)}
+                className="mt-5 inline-flex items-center gap-1.5 text-nav text-mist transition-colors duration-fast hover:text-cloud"
+              >
+                <IconArrowLeft size={15} stroke={1.8} aria-hidden="true" />
+                Back
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className="animate-fade-in">
+            <p className="text-caption text-quiet">Your highest-leverage focus</p>
+            <h3 className="mt-2 text-title text-cloud">{focus}</h3>
+            <dl className="mt-6 divide-y divide-edge rounded-control border border-edge bg-ink text-nav">
+              {discoverySteps.map((s) => (
+                <div key={s.key} className="flex items-center justify-between gap-4 px-4 py-3">
+                  <dt className="font-normal text-mist">{s.label}</dt>
+                  <dd className="text-right font-medium text-cloud">{answers[s.key]}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button to="/start-your-project" showArrow>
+                Book a strategy audit
+              </Button>
+              <Button variant="secondary" onClick={restart} icon={<IconRefresh stroke={1.8} />}>
+                Start over
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function Home() {
+  return (
+    <PageShell>
       <Helmet>
         <title>Virtara | Digital Assets That Outperform Your Competition</title>
         <meta
@@ -136,7 +156,6 @@ function Home() {
           content="digital agency, web design, web development, conversion optimization, SEO, lead generation"
         />
         <link rel="canonical" href="https://virtara.co.za/" />
-
         <script type="application/ld+json">
           {`
             {
@@ -156,232 +175,86 @@ function Home() {
         </script>
       </Helmet>
 
-      <Navbar />
+      <PageHero
+        announcement={{ label: "Free: the website conversion checklist", to: "/resources/health-check" }}
+        title="We build digital assets that outperform your competition."
+        lead="Premium web strategy, engineering and SEO for South African brands that care about measurable outcomes."
+        actions={
+          <>
+            <Button href="#lead-qualifier" size="lg" className="font-semibold">
+              Book a strategy audit
+            </Button>
+            <Button to="/our-work" variant="secondary" size="lg">
+              Explore client wins
+            </Button>
+          </>
+        }
+      >
+        <ClientWorkspace />
+      </PageHero>
 
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-36 pb-20">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-[#04070c]" />
-          {showHeroBackground && (
-            <Suspense fallback={null}>
-              <Silk speed={4} scale={0.95} color="#0059ff" noiseIntensity={1.05} rotation={0} />
-            </Suspense>
-          )}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(3,104,255,0.25),transparent_45%),radial-gradient(circle_at_85%_20%,rgba(0,232,255,0.2),transparent_45%),linear-gradient(180deg,rgba(4,7,12,0.75)_0%,rgba(6,10,17,0.96)_70%)]" />
-        </div>
-
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
-              className="mb-5"
-            >
-              <Badge variant="primary" size="lg">Outcome-First Digital Agency</Badge>
-            </motion.div>
-
-            <motion.h1
-              initial={{ y: 16 }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="virtara-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight max-w-5xl"
-            >
-              <span className="inline-block">We Build Digital Assets</span>{" "}
-              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#35d7ff] via-[#66a4ff] to-[#9ff0ff]">that Outperform</span>{" "}
-              <span className="inline-block">Your Competition.</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-2xl text-lg sm:text-xl text-[#d0dcff] mt-8 leading-relaxed"
-            >
-              Premium web strategy, engineering, and SEO execution for brands that care about measurable outcomes.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.18, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-10 flex flex-wrap gap-4"
-            >
-              <button
-                onClick={() => {
-                  document.querySelector("#lead-qualifier")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="px-8 py-4 rounded-full font-semibold text-[#03152f] bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] hover:brightness-110 transition-all duration-300 shadow-[0_8px_45px_rgba(25,139,255,0.35)] flex items-center gap-3"
-              >
-                <span>Book a Strategy Audit</span>
-                <FaArrowRight />
-              </button>
-
-              <Link to="/our-work">
-                <button className="px-8 py-4 rounded-full border border-white/20 backdrop-blur-xl bg-white/[0.04] hover:bg-white/[0.09] transition-colors duration-300">
-                  Explore Client Wins
-                </button>
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-white/10 bg-[#070d17]">
-        <div className="container mx-auto px-4 sm:px-6 py-6">
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm sm:text-base text-[#b3c7ff]">
-            <span className="uppercase tracking-[0.22em] text-[#7b90bf]">Trusted by</span>
+      {/* Social proof */}
+      <section aria-labelledby="trust-heading" className="pb-8 pt-20 md:pt-28">
+        <div className="shell text-center">
+          <h2 id="trust-heading" className="text-body font-normal text-frost">
+            Trusted by growth-focused South African brands
+          </h2>
+          <ul className="mx-auto mt-8 flex max-w-4xl flex-wrap items-center justify-center gap-x-12 gap-y-5">
             {trustClients.map((client) => (
-              <span key={client} className="font-semibold tracking-wide">{client}</span>
+              <li key={client} className="text-[19px] font-semibold tracking-[-0.02em] text-mist/80">
+                {client}
+              </li>
             ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section className="section" aria-labelledby="services-heading">
+        <div className="shell">
+          <SectionHeading
+            id="services-heading"
+            title="One team for the site, the search and the growth behind it."
+            lead="Strategy, design, engineering, SEO and paid media under one roof — so nothing gets lost between agencies. Every package is priced in rand, up front."
+            action={
+              <Button to="/services" showArrow>
+                Services & pricing
+              </Button>
+            }
+          />
+          <div className="mt-12">
+            <ServicesRail />
           </div>
         </div>
       </section>
 
-      <section className="py-20 md:py-24 bg-[#050910]">
-        <div className="container mx-auto px-4 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.65 }}
-            className="mb-12"
-          >
-            <h2 className="virtara-display text-4xl sm:text-5xl md:text-6xl">Proof of Work</h2>
-            <p className="mt-4 text-[#b3c7ff] max-w-3xl text-lg">
-              Bento-style project modules with before vs. after clarity. Every card links straight to the live site.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {proofCards.map((card, index) => (
-              <motion.a
-                key={card.id}
-                href={card.link}
-                target="_blank"
-                rel="noreferrer"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: index * 0.08 }}
-                viewport={{ once: true }}
-                className={`${card.size} group rounded-[26px] p-[1px] bg-gradient-to-br from-[#2d4cff] via-[#57d8ff] to-[#192436]`}
-              >
-                <div className="h-full rounded-[25px] bg-[#071122]/85 border border-white/10 p-5 sm:p-6 backdrop-blur-xl flex flex-col">
-                  <div className="flex items-start justify-between gap-3 mb-4">
-                    <h3 className="text-2xl font-semibold text-white">{card.title}</h3>
-                    <span className="text-xs uppercase tracking-[0.18em] text-[#7ea4ff]">Case Study</span>
-                  </div>
-
-                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden border border-white/10 bg-[#0f1728]">
-                    <img
-                      src={card.image}
-                      alt={`${card.title} website, redesigned by Virtara`}
-                      loading="lazy"
-                      width="1280"
-                      height="800"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out motion-safe:group-hover:scale-[1.04]"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-gradient-to-t from-black/80 to-transparent px-4 pb-3 pt-8 text-xs font-semibold text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-                      Visit the live site
-                      <FaArrowRight className="text-[#7af5ff]" aria-hidden="true" />
-                    </div>
-                  </div>
-
-                  <p className="mt-4 text-[#86f8ff] font-semibold">{card.kpi}</p>
-
-                  <div className="mt-4 space-y-3 text-sm text-[#c6d7ff] leading-relaxed">
-                    <p>
-                      <span className="text-[#ff9ca5] font-medium">Before:</span> {card.before}
-                    </p>
-                    <p>
-                      <span className="text-[#94ffc0] font-medium">After:</span> {card.after}
-                    </p>
-                  </div>
-                </div>
-              </motion.a>
-            ))}
-          </div>
+      {/* Qualifier */}
+      <section id="lead-qualifier" className="section" aria-labelledby="qualifier-heading">
+        <div className="shell grid items-center gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+          <SectionHeading
+            id="qualifier-heading"
+            title="Find your highest-leverage fix in three questions."
+            lead="Tell us where you want to be and what's in the way. We'll point you at the part of your funnel that will move revenue first — then go deeper on a strategy audit."
+          />
+          <LeadQualifier />
         </div>
       </section>
 
-      <section className="py-8 border-y border-white/10 bg-[#070d17] overflow-hidden">
-        <div className="ticker-wrap">
-          <div className="ticker-track">
-            {[...tickerResults, ...tickerResults].map((result, index) => (
-              <div key={`${result}-${index}`} className="ticker-item">
-                <FaCheckCircle className="text-[#7af5ff]" />
-                <span>{result}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="lead-qualifier" className="py-20 md:py-24 bg-[#050910]">
-        <div className="container mx-auto px-4 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.65 }}
-            className="max-w-4xl mx-auto rounded-[32px] border border-white/15 bg-[linear-gradient(145deg,rgba(255,255,255,0.09),rgba(255,255,255,0.02))] backdrop-blur-2xl p-6 sm:p-10"
-          >
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-              <h2 className="virtara-display text-3xl sm:text-4xl md:text-5xl">Interactive Lead Qualifier</h2>
-              <span className="text-sm uppercase tracking-[0.18em] text-[#99b8ff]">
-                Step {Math.min(stepIndex + 1, discoverySteps.length)} of {discoverySteps.length}
-              </span>
-            </div>
-
-            {!isQuizComplete ? (
-              <div>
-                <h3 className="text-xl sm:text-2xl text-[#e7f0ff] mb-6 leading-relaxed">{currentStep.question}</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {currentStep.options.map((option) => (
-                    <button
-                      key={option}
-                      onClick={() => handleAnswer(option)}
-                      className="text-left px-5 py-4 rounded-2xl border border-white/15 bg-white/[0.04] hover:bg-white/[0.1] hover:border-[#70d0ff]/70 transition-all duration-200"
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className="space-y-6">
-                <p className="text-lg text-[#dbebff]">
-                  Great, your growth target is clear. Based on your inputs, your likely highest-leverage focus is <span className="font-semibold text-[#8fe8ff]">{suggestedAuditFocus}</span>.
-                </p>
-                <div className="rounded-2xl border border-[#5ca3ff]/45 bg-[#0a1527] p-5 text-sm text-[#b7ceff] space-y-2">
-                  <p>Revenue Goal: {answers.revenueGoal}</p>
-                  <p>Lead Requirement: {answers.leadVolume}</p>
-                  <p>Primary Constraint: {answers.primaryConstraint}</p>
-                </div>
-                <div className="flex flex-wrap gap-4">
-                  <Link to="/start-your-project">
-                    <button className="px-8 py-4 rounded-full font-semibold text-[#03152f] bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] hover:brightness-110 transition-all duration-300 shadow-[0_8px_45px_rgba(25,139,255,0.35)] flex items-center gap-3">
-                      <span>Book a Strategy Audit</span>
-                      <FaArrowRight />
-                    </button>
-                  </Link>
-                  <button
-                    onClick={() => {
-                      setStepIndex(0);
-                      setAnswers({});
-                    }}
-                    className="px-6 py-4 rounded-full border border-white/20 hover:bg-white/[0.08] transition-colors"
-                  >
-                    Restart Quiz
-                  </button>
-                </div>
-              </div>
-            )}
-          </motion.div>
-        </div>
-      </section>
-
-      <Footer />
-    </main>
+      <ClosingBand
+        title="Ready to outperform?"
+        lead="Book a strategy audit and leave with a clear, prioritised plan for your site."
+        actions={
+          <>
+            <Button to="/contact-us" size="lg" className="font-semibold">
+              Book an audit
+            </Button>
+            <Button to="/start-your-project" variant="secondary" size="lg">
+              Start a project
+            </Button>
+          </>
+        }
+      />
+    </PageShell>
   );
 }
 

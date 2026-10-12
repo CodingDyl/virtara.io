@@ -1,7 +1,4 @@
-import { motion } from 'framer-motion';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
-import { Helmet } from 'react-helmet-async';
+import LegalPage from '../../components/layout/LegalPage';
 
 const TermsOfService = () => {
   const sections = [
@@ -40,66 +37,27 @@ const TermsOfService = () => {
   ];
 
   return (
-    <div className="bg-[#050910] min-h-screen">
-      <Helmet>
-        <title>Terms of Service | Virtara</title>
-        <meta name="description" content="Review the terms of service for using Virtara's web development, SEO, and digital marketing services." />
-        <link rel="canonical" href="https://virtara.co.za/legal/terms-of-service" />
-      </Helmet>
-      <Navbar />
-
-      <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto"
-          >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-8">
-              Terms of
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
-                {" "}Service
-              </span>
-            </h1>
-            <p className="text-lg text-white/70 mb-12">
-              Please read these terms carefully before using our services. These terms establish the rules and regulations for the use of our services.
-            </p>
-
-            <div className="space-y-12">
-              {sections.map((section, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors"
-                >
-                  <h2 className="text-white text-xl font-semibold mb-4">{section.title}</h2>
-                  <p className="text-white/70">{section.content}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              className="mt-12 text-center"
-            >
-              <p className="text-white/70 mb-8">
-                Last updated: {new Date().toLocaleDateString()}
-              </p>
-              <p className="text-white/70">
-                For any questions regarding these terms, please contact us.
-              </p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      <Footer />
-    </div>
+    <LegalPage
+      metaTitle="Terms of Service | Virtara"
+      metaDescription="Read Virtara's terms of service covering project scope, payments, intellectual property, confidentiality, and termination."
+      canonical="https://virtara.co.za/legal/terms-of-service"
+      path="/legal/terms-of-service"
+      title="Terms of service"
+      lead="Please read these terms carefully before using our services. These terms establish the rules and regulations for the use of our services."
+      footer={
+        <>
+          <p>Last updated: {new Date().toLocaleDateString()}</p>
+          <p className="mt-2">For any questions regarding these terms, please <a href="/contact-us" className="text-link">contact us</a>.</p>
+        </>
+      }
+    >
+      {sections.map((section) => (
+        <section key={section.title}>
+          <h2>{section.title}</h2>
+          <p>{section.content}</p>
+        </section>
+      ))}
+    </LegalPage>
   );
 };
 

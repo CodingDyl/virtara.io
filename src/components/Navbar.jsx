@@ -1,242 +1,413 @@
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from "framer-motion";
-import { smallLogo } from '../assets';
-import { Link, useNavigate } from 'react-router-dom';
+import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { IconChevronDown, IconX, IconMenu2, IconArrowUpRight } from "@tabler/icons-react";
+import Logo from "./brand/Logo";
+import Button from "./ui/Button";
+import { menus, primaryLinks, cta, secondaryCta } from "./navigation/menus";
+import { cn } from "../utils/cn";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+/* ---------------------------------------------------------------------------
+ * Mega-menu pieces
+ * ------------------------------------------------------------------------ */
 
-  // Enhanced menu animations
-  const menuVariants = {
-    initial: {
-      opacity: 0,
-      y: -20,
-      scale: 0.95
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.3,
-        ease: "easeOut"
-      }
-    },
-    exit: {
-      opacity: 0,
-      y: -20,
-      scale: 0.95,
-      transition: {
-        duration: 0.2,
-        ease: "easeIn"
-      }
-    }
-  };
+const MenuItem = ({ item, onNavigate }) => {
+  const Icon = item.icon;
+  return (
+    <Link
+      to={item.to}
+      onClick={onNavigate}
+      className="group flex items-start gap-3.5 rounded-control p-3 transition-colors duration-fast hover:bg-white/[0.035] focus-visible:bg-white/[0.035]"
+    >
+      <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-edge bg-steel text-frost transition-colors duration-fast group-hover:border-edge-strong group-hover:text-cloud">
+        <Icon size={18} stroke={1.6} aria-hidden="true" />
+      </span>
+      <span className="min-w-0">
+        <span className="block text-nav font-semibold text-cloud">{item.title}</span>
+        <span className="mt-0.5 block text-nav font-normal text-quiet transition-colors duration-fast group-hover:text-mist">
+          {item.desc}
+        </span>
+      </span>
+    </Link>
+  );
+};
 
-  const menuItemVariants = {
-    initial: { opacity: 0, x: -20 },
-    animate: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -20 }
-  };
+const SceneCard = ({ card, onNavigate }) => (
+  <Link
+    to={card.to}
+    onClick={onNavigate}
+    className="group relative isolate flex min-h-[300px] flex-col justify-end overflow-hidden rounded-card border border-edge bg-ink p-4"
+  >
+    <img
+      src={card.image}
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+      width="640"
+      height="853"
+      className="absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-slow ease-out group-hover:scale-[1.03]"
+    />
+    <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,rgba(5,6,8,0)_35%,rgba(5,6,8,0.92)_88%)]" />
+    <span className="flex items-center gap-1 text-nav font-semibold text-cloud">
+      {card.title}
+      <IconArrowUpRight size={14} stroke={2} aria-hidden="true" className="text-quiet transition-transform duration-base group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-cloud" />
+    </span>
+    <span className="mt-1 text-[13px] leading-[1.45] text-mist">{card.desc}</span>
+  </Link>
+);
 
-  // Close menu when screen size changes to desktop
-  React.useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsOpen(false);
-      }
+const ScreenCard = ({ card, onNavigate }) => (
+  <Link
+    to={card.to}
+    onClick={onNavigate}
+    className="group relative isolate flex min-h-[300px] flex-col justify-end overflow-hidden rounded-card border border-edge bg-charcoal p-4"
+  >
+    {/* A miniature browser window holding a real screenshot. */}
+    <div aria-hidden="true" className="absolute inset-x-4 top-4 -z-10 overflow-hidden rounded-[10px] border border-edge bg-steel shadow-float transition-transform duration-slow ease-out group-hover:-translate-y-1">
+      <div className="flex items-center gap-1.5 border-b border-edge px-2.5 py-2">
+        <span className="h-1.5 w-1.5 rounded-full bg-edge-strong" />
+        <span className="h-1.5 w-1.5 rounded-full bg-edge-strong" />
+        <span className="h-1.5 w-1.5 rounded-full bg-edge-strong" />
+        <span className="ml-1.5 h-2.5 flex-1 rounded-full bg-ink" />
+      </div>
+      <img src={card.image} alt="" loading="lazy" decoding="async" className="aspect-[16/11] w-full object-cover object-top" />
+    </div>
+    <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,rgba(15,18,25,0)_30%,rgba(15,18,25,0.96)_62%)]" />
+    {card.label && (
+      <span className="mb-2 inline-flex w-fit items-center gap-1.5 rounded-pill border border-edge bg-ink px-2 py-0.5 text-[12px] font-medium text-mist">
+        <span className="h-1.5 w-1.5 rounded-full bg-signal" />
+        {card.label}
+      </span>
+    )}
+    <span className="flex items-center gap-1 text-nav font-semibold text-cloud">
+      {card.title}
+      <IconArrowUpRight size={14} stroke={2} aria-hidden="true" className="text-quiet transition-transform duration-base group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-cloud" />
+    </span>
+    <span className="mt-1 text-[13px] leading-[1.45] text-mist">{card.desc}</span>
+  </Link>
+);
+
+const MegaPanel = ({ menu, onNavigate }) => {
+  const cardCount = menu.cards.length;
+  return (
+    <div
+      key={menu.id}
+      className={cn(
+        "grid animate-fade-in gap-2 p-2",
+        cardCount === 2 && "grid-cols-[minmax(0,1fr)_224px_224px]",
+        cardCount === 1 && "grid-cols-[minmax(0,1fr)_260px]"
+      )}
+    >
+      <div className="flex flex-col justify-center gap-0.5 pr-2">
+        {menu.items.map((item) => (
+          <MenuItem key={item.to} item={item} onNavigate={onNavigate} />
+        ))}
+      </div>
+      {menu.cards.map((card) =>
+        card.kind === "screen" ? (
+          <ScreenCard key={card.title} card={card} onNavigate={onNavigate} />
+        ) : (
+          <SceneCard key={card.title} card={card} onNavigate={onNavigate} />
+        )
+      )}
+    </div>
+  );
+};
+
+/* ---------------------------------------------------------------------------
+ * Mobile sheet
+ * ------------------------------------------------------------------------ */
+
+const MobileSheet = ({ open, onClose }) => {
+  const [expanded, setExpanded] = useState(null);
+  const closeRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+    setExpanded(null);
+    closeRef.current?.focus();
+    const onKey = (e) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    const { overflow } = document.body.style;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = overflow;
     };
+  }, [open, onClose]);
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  if (!open) return null;
 
-  const handleLinkClick = (path) => {
-    setIsOpen(false);
-    navigate(path);
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }, 100);
-  };
+  const rowClass =
+    "flex w-full items-center justify-between py-3.5 text-left text-[19px] font-medium tracking-[-0.01em] text-frost transition-colors duration-fast hover:text-cloud";
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-6">
-      <motion.nav 
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="max-w-[780px] w-full rounded-full border border-[#74a7ff]/30 bg-[linear-gradient(120deg,rgba(6,12,24,0.92),rgba(8,16,33,0.9))] backdrop-blur-xl shadow-[0_14px_60px_rgba(3,35,84,0.45)]"
-      >
-        <div className="px-6 py-3">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link to="/">
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="text-white font-bold text-lg md:text-3xl cursor-pointer flex items-center gap-2 group"
-            >
-              <motion.img 
-                src={smallLogo} 
-                alt="Virtara Logo" 
-                className="w-6 md:w-10 h-6 md:h-10 transition-transform duration-300 group-hover:rotate-12" 
-              />
-              <span className="virtara-display bg-gradient-to-r from-[#eaf2ff] via-[#d6ebff] to-[#85d7ff] bg-clip-text text-transparent">
-                Virtara
-              </span>
-            </motion.div>
-            </Link>
+    <div
+      id="mobile-menu"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site menu"
+      className="fixed inset-0 z-[60] flex animate-fade-in flex-col bg-canvas lg:hidden"
+    >
+      <div className="flex h-16 shrink-0 items-center justify-between px-4 sm:px-6">
+        <Link to="/" onClick={onClose} aria-label="Virtara home">
+          <Logo />
+        </Link>
+        <button
+          ref={closeRef}
+          type="button"
+          onClick={onClose}
+          aria-label="Close menu"
+          className="-mr-2 flex h-11 w-11 items-center justify-center rounded-control text-frost hover:bg-white/[0.04] hover:text-cloud"
+        >
+          <IconX size={22} stroke={1.6} />
+        </button>
+      </div>
 
-            {/* Mobile Menu Button */}
-            <motion.button 
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="md:hidden text-white p-2 relative z-50"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
-            >
-              <motion.div
-                animate={isOpen ? "open" : "closed"}
-                className="w-6 h-6 flex flex-col justify-center items-center"
-              >
-                <motion.span
-                  variants={{
-                    closed: { rotate: 0, y: 0 },
-                    open: { rotate: 45, y: 6 }
-                  }}
-                  className="w-6 h-0.5 bg-white block transition-all duration-300"
-                />
-                <motion.span
-                  variants={{
-                    closed: { opacity: 1 },
-                    open: { opacity: 0 }
-                  }}
-                  className="w-6 h-0.5 bg-white block mt-1 transition-all duration-300"
-                />
-                <motion.span
-                  variants={{
-                    closed: { rotate: 0, y: 0 },
-                    open: { rotate: -45, y: -6 }
-                  }}
-                  className="w-6 h-0.5 bg-white block mt-1 transition-all duration-300"
-                />
-              </motion.div>
-            </motion.button>
-
-            {/* Desktop Menu */}
-            <div className="hidden md:flex items-center rounded-full p-1 backdrop-blur-sm border border-[#77b5ff]/20 bg-[#0c1628]/80">
-              {[
-                { title: 'Services', path: 'services' },
-                { title: 'Our Work', path: 'our-work' },
-                { title: 'Blog', path: 'web-development-blog' }
-              ].map(({ title, path }) => (
-                <Link 
-                  key={path} 
-                  to={`/${path}`}
-                  onClick={() => handleLinkClick(`/${path}`)}
+      <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-4 pb-6 sm:px-6">
+        <ul className="divide-y divide-edge/70">
+          {menus.map((menu) => {
+            const isOpen = expanded === menu.id;
+            return (
+              <li key={menu.id}>
+                <button
+                  type="button"
+                  className={rowClass}
+                  aria-expanded={isOpen}
+                  aria-controls={`m-${menu.id}`}
+                  onClick={() => setExpanded(isOpen ? null : menu.id)}
                 >
-                  <motion.div
-                    className="text-sm text-[#b7ccf6] hover:text-white px-4 py-2 rounded-full transition-all duration-300 relative overflow-hidden group"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-[#2f7bff]/35 to-[#71ddff]/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      initial={false}
-                    />
-                    <span className="relative z-10">{title}</span>
-                  </motion.div>
-                </Link>
-              ))}
-              <Link to="/contact-us" onClick={() => handleLinkClick('/contact-us')}>
-                <motion.button 
-                  whileHover={{ 
-                    scale: 1.05, 
-                    boxShadow: "0 0 28px rgba(78, 164, 255, 0.45)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className="ml-1 px-6 py-2 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-[#03152f] text-sm font-semibold rounded-full transition-all duration-300 hover:brightness-110"
-                >
-                  Book Audit
-                </motion.button>
+                  {menu.label}
+                  <IconChevronDown
+                    size={18}
+                    stroke={1.6}
+                    aria-hidden="true"
+                    className={cn("text-quiet transition-transform duration-base ease-out", isOpen && "rotate-180 text-frost")}
+                  />
+                </button>
+                {isOpen && (
+                  <ul id={`m-${menu.id}`} className="animate-fade-in pb-3">
+                    {menu.items.map((item) => (
+                      <li key={item.to}>
+                        <Link
+                          to={item.to}
+                          onClick={onClose}
+                          className="flex items-center gap-3 rounded-control px-1 py-2.5 text-body text-mist hover:text-cloud"
+                        >
+                          <span className="flex h-8 w-8 items-center justify-center rounded-[9px] border border-edge bg-steel text-frost">
+                            <item.icon size={16} stroke={1.6} aria-hidden="true" />
+                          </span>
+                          {item.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
+          {primaryLinks.map((link) => (
+            <li key={link.to}>
+              <Link to={link.to} onClick={onClose} className={rowClass}>
+                {link.label}
               </Link>
-            </div>
+            </li>
+          ))}
+          <li>
+            <Link to="/contact-us" onClick={onClose} className={rowClass}>
+              Contact
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
+      <div className="shrink-0 border-t border-edge/70 px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5 sm:px-6">
+        <Button to={cta.to} onClick={onClose} size="lg" className="w-full">
+          {cta.label}
+        </Button>
+        <p className="mt-4 text-center text-body text-mist">
+          Ready to brief us?{" "}
+          <Link to={secondaryCta.to} onClick={onClose} className="font-medium text-signal-soft hover:text-cloud">
+            {secondaryCta.label}
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+/* ---------------------------------------------------------------------------
+ * Navbar
+ * ------------------------------------------------------------------------ */
+
+const OPEN_DELAY = 70;
+const CLOSE_DELAY = 140;
+
+const Navbar = () => {
+  const [active, setActive] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const timer = useRef(null);
+  const triggers = useRef({});
+  const location = useLocation();
+  const panelId = useId();
+
+  const clear = () => window.clearTimeout(timer.current);
+  const close = useCallback(() => {
+    clear();
+    setActive(null);
+  }, []);
+  const closeMobile = useCallback(() => setMobileOpen(false), []);
+
+  // Hover intent: opening is near-instant once a menu is already showing, so
+  // sweeping across triggers swaps panels without flicker.
+  const scheduleOpen = (id) => {
+    clear();
+    timer.current = window.setTimeout(() => setActive(id), active ? 0 : OPEN_DELAY);
+  };
+  const scheduleClose = () => {
+    clear();
+    timer.current = window.setTimeout(() => setActive(null), CLOSE_DELAY);
+  };
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Any navigation closes every menu.
+  useEffect(() => {
+    close();
+    setMobileOpen(false);
+  }, [location.pathname, location.hash, close]);
+
+  useEffect(() => {
+    if (!active) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        triggers.current[active]?.focus();
+        close();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [active, close]);
+
+  useEffect(() => () => clear(), []);
+
+  const activeMenu = menus.find((m) => m.id === active);
+  const solid = scrolled || active;
+
+  const navLink =
+    "inline-flex h-9 items-center gap-1 rounded-control px-3.5 text-nav font-medium transition-colors duration-fast";
+
+  return (
+    <>
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-base ease-out",
+          solid ? "border-b border-edge/70 bg-canvas/80 backdrop-blur-xl" : "border-b border-transparent bg-transparent"
+        )}
+        onMouseLeave={scheduleClose}
+      >
+        <div className="shell flex h-16 items-center justify-between gap-6">
+          <Link to="/" aria-label="Virtara home" className="-ml-1 rounded-control p-1">
+            <Logo />
+          </Link>
+
+          {/* Desktop */}
+          <nav aria-label="Main" className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
+            <ul className="flex items-center">
+              {menus.map((menu) => {
+                const isActive = active === menu.id;
+                return (
+                  <li key={menu.id} onMouseEnter={() => scheduleOpen(menu.id)}>
+                    <button
+                      ref={(el) => (triggers.current[menu.id] = el)}
+                      type="button"
+                      aria-expanded={isActive}
+                      aria-controls={panelId}
+                      onClick={() => (isActive ? close() : (clear(), setActive(menu.id)))}
+                      className={cn(navLink, isActive ? "text-cloud" : "text-frost hover:text-cloud")}
+                    >
+                      {menu.label}
+                      <IconChevronDown
+                        size={14}
+                        stroke={2}
+                        aria-hidden="true"
+                        className={cn("text-quiet transition-transform duration-base ease-out", isActive && "rotate-180 text-frost")}
+                      />
+                    </button>
+                  </li>
+                );
+              })}
+              {primaryLinks.map((link) => (
+                <li key={link.to} onMouseEnter={scheduleClose}>
+                  <Link
+                    to={link.to}
+                    aria-current={location.pathname === link.to ? "page" : undefined}
+                    className={cn(navLink, location.pathname === link.to ? "text-cloud" : "text-frost hover:text-cloud")}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="hidden items-center gap-2 lg:flex" onMouseEnter={scheduleClose}>
+            <Link to={secondaryCta.to} className={cn(navLink, "text-frost hover:text-cloud")}>
+              {secondaryCta.label}
+            </Link>
+            <Button to={cta.to} size="sm" className="font-semibold">
+              {cta.label}
+            </Button>
           </div>
 
-          {/* Mobile Menu */}
-          <AnimatePresence>
-            {isOpen && (
-              <motion.div 
-                variants={menuVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                className="md:hidden absolute left-0 right-0 top-full mt-4 rounded-2xl p-6 space-y-2 border border-[#74a7ff]/30 bg-[linear-gradient(140deg,rgba(6,12,24,0.96),rgba(8,16,33,0.92))] backdrop-blur-xl shadow-[0_14px_60px_rgba(3,35,84,0.45)]"
-              >
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
-                  className="space-y-4"
-                >
-                  {[
-                    { title: 'Our Work', path: 'our-work' },
-                    { title: 'Services', path: 'services' },
-                    { title: 'Blog', path: 'web-development-blog' }
-                  ].map(({ title, path }, index) => (
-                    <motion.div
-                      key={path}
-                      variants={menuItemVariants}
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      <Link 
-                        to={`/${path}`}
-                        onClick={() => handleLinkClick(`/${path}`)}
-                      >
-                        <motion.div
-                          className="block text-lg text-[#b7ccf6] hover:text-white px-4 py-3 rounded-xl hover:bg-[#1a2f52]/60 transition-all duration-300 group"
-                          whileHover={{ x: 10 }}
-                        >
-                          <span className="flex items-center gap-3">
-                            <span className="text-[#8cb3f8] text-sm font-mono">0{index + 1}</span>
-                            {title}
-                          </span>
-                        </motion.div>
-                      </Link>
-                    </motion.div>
-                  ))}
-                  <motion.div
-                    variants={menuItemVariants}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    transition={{ delay: 0.4 }}
-                  >
-                    <Link to="/contact-us" onClick={() => handleLinkClick('/contact-us')}>
-                      <motion.button 
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="w-full px-6 py-3 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-[#03152f] text-lg font-semibold rounded-xl hover:brightness-110 transition-all duration-300"
-                      >
-                        Book Strategy Audit
-                      </motion.button>
-                    </Link>
-                  </motion.div>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Mobile trigger */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+            className="-mr-2 flex h-11 w-11 items-center justify-center rounded-control text-frost hover:bg-white/[0.04] hover:text-cloud lg:hidden"
+          >
+            <IconMenu2 size={22} stroke={1.6} />
+          </button>
         </div>
-      </motion.nav>
-    </div>
-  )
-}
 
-export default Navbar
+        {/* Mega panel */}
+        <div
+          id={panelId}
+          className={cn("absolute inset-x-0 top-full hidden lg:block", !activeMenu && "pointer-events-none")}
+          onMouseEnter={clear}
+        >
+          {activeMenu && (
+            <div className="shell flex justify-center pt-2">
+              <div className="w-full max-w-[920px] animate-menu-in overflow-hidden rounded-card border border-edge bg-charcoal/95 shadow-float backdrop-blur-xl">
+                <MegaPanel menu={activeMenu} onNavigate={close} />
+              </div>
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* The page dims and softens behind an open menu. */}
+      <div
+        aria-hidden="true"
+        onClick={close}
+        className={cn(
+          "fixed inset-0 z-40 hidden bg-canvas/55 backdrop-blur-[6px] transition-opacity duration-base ease-out lg:block",
+          activeMenu ? "opacity-100" : "pointer-events-none opacity-0"
+        )}
+      />
+
+      <MobileSheet open={mobileOpen} onClose={closeMobile} />
+    </>
+  );
+};
+
+export default Navbar;

@@ -14,7 +14,6 @@
     "@mantine/core": "^8.1.2",
     "@mantine/hooks": "^8.1.2",
     "@portabletext/react": "^3.2.1",
-    "@react-three/fiber": "^8.15.19",
     "@sanity/client": "^7.6.0",
     "@tabler/icons-react": "^3.34.0",
     "@upstash/qstash": "^2.8.1",
@@ -24,8 +23,6 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "firebase": "^11.10.0",
-    "framer-motion": "^12.23.0",
-    "motion": "^12.23.0",
     "openai": "^5.8.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -39,7 +36,6 @@
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "^1.0.7",
-    "three": "^0.178.0",
     "vite-plugin-sitemap": "^0.8.2"
   },
   "devDependencies": {

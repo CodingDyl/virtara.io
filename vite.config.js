@@ -23,7 +23,8 @@ export default defineConfig({
         '/resources/audit',
         '/legal/privacy-policy',
         '/legal/terms-of-service',
-        '/legal/cookie-policy'
+        '/legal/cookie-policy',
+        '/brand'
       ],
     })
   ],

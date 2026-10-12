@@ -1,99 +1,45 @@
-import { motion } from "framer-motion";
-import { FaArrowRight } from 'react-icons/fa';
-import Navbar from '../../../components/Navbar';
-import Footer from '../../../components/Footer';
-import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
+import { IconCheck } from '@tabler/icons-react';
+import ThankYouPage from '../../../components/layout/ThankYouPage';
+import Button from '../../../components/ui/Button';
 
-const HealthThankYou = () => {
-    const navigate = useNavigate();
-  return (
-    <>
-      <Helmet>
-        <title>Thank You - Website Health Check | Virtara</title>
-        <meta name="description" content="Thank you for downloading our website health check. Upgrade to a personalized website audit for expert insights." />
-        <meta name="robots" content="noindex, follow" />
-        <link rel="canonical" href="https://virtara.co.za/resources/health-check/thank-you" />
-      </Helmet>
-
-      <div className="bg-[#050910] min-h-screen">
-        <Navbar />
-        
-        <section className="min-h-screen pt-32 md:pt-40 pb-12">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-3xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="text-center mb-12"
-              >
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
-                  Thanks! Your Checklist Is on Its
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]">
-                    {" "}Way!
-                  </span>
-                </h1>
-                <p className="text-xl text-white/70 mb-8">
-                  Check your inbox for the 5-Minute Website Health Check.
-                </p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="bg-white/5 p-8 rounded-2xl border border-white/10 text-center"
-              >
-                <h2 className="text-2xl font-bold text-white mb-4">
-                  Want Us to Do the Heavy Lifting?
-                </h2>
-                <div className="mb-6">
-                  <span className="text-3xl font-bold text-[#8df6ff] line-through mr-3">R499</span>
-                  <span className="text-4xl font-bold text-white">R299</span>
-                </div>
-                <p className="text-white/70 mb-8">
-                  Grab a 30-minute Website Audit and get a custom fix-it plan from our experts.
-                  We'll analyze your site and show you exactly what needs to change to boost conversions.
-                </p>
-                <motion.a
-                  onClick={() => navigate('/resources/audit')}// Replace with your actual payment link
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="inline-block px-8 py-4 bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-white rounded-full font-medium flex items-center justify-center gap-2 hover:opacity-90 hover:cursor-pointer transition-opacity"
-                >
-                  Claim My Audit Now
-                  <FaArrowRight />
-                </motion.a>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="mt-12 text-center"
-              >
-                <h3 className="text-xl font-bold text-white mb-6">What's Included:</h3>
-                <div className="grid sm:grid-cols-3 gap-6">
-                  {[
-                    "30-Minute Expert Analysis",
-                    "Custom Action Plan",
-                    "Priority Support"
-                  ].map((benefit, index) => (
-                    <div key={index} className="p-6 bg-white/5 rounded-xl border border-white/10">
-                      <p className="text-white/70">{benefit}</p>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        <Footer />
+const HealthThankYou = () => (
+  <ThankYouPage
+    metaTitle="Thank You - Website Health Check | Virtara"
+    metaDescription="Thank you for downloading our website health check. Upgrade to a personalized website audit for expert insights."
+    canonical="https://virtara.co.za/resources/health-check/thank-you"
+    title="Thanks! Your checklist is on its way."
+    lead="Check your inbox for the 5-Minute Website Health Check."
+  >
+    <div className="grid overflow-hidden rounded-card border border-signal/40 bg-charcoal shadow-frame md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+      <div className="p-6 sm:p-8">
+        <h2 className="text-title text-cloud">Want us to do the heavy lifting?</h2>
+        <p className="mt-3 text-body text-mist">
+          Grab a 30-minute website audit and get a custom fix-it plan from our experts. We'll analyse your site and show you exactly
+          what needs to change to boost conversions.
+        </p>
+        <p className="mt-6 flex items-baseline gap-3">
+          <span className="figure text-[36px] leading-none text-cloud">R299</span>
+          <span className="figure text-[18px] text-quiet line-through">R499</span>
+        </p>
+        <Button to="/resources/audit" size="lg" showArrow className="mt-6 font-semibold">
+          Claim my audit now
+        </Button>
       </div>
-    </>
-  );
-};
+      <div className="border-t border-edge bg-ink/60 p-6 sm:p-8 md:border-l md:border-t-0">
+        <h3 className="text-nav font-medium text-frost">What's included</h3>
+        <ul className="mt-4 space-y-3">
+          {['30-minute expert analysis', 'Custom action plan', 'Priority support'].map((b) => (
+            <li key={b} className="flex items-center gap-3 text-body text-frost">
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-signal/15 text-signal">
+                <IconCheck size={12} stroke={2.6} aria-hidden="true" />
+              </span>
+              {b}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </ThankYouPage>
+);
 
 export default HealthThankYou;

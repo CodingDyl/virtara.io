@@ -1,91 +1,145 @@
-/* Sora + Chakra Petch are loaded from index.html with a preconnect. An
-   @import here would sit behind the CSS request instead of starting in
-   parallel with it. */
+/* Inter + Chakra Petch load from index.html with a preconnect. Tokens live in
+   src/design/tokens.js; tailwind.config.js writes them to :root as --v-*. */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
-  --virtara-bg: #050910;
-  --virtara-text: #edf4ff;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-html,
-body {
-  width: 100%;
-  min-height: 100%;
-  overflow-x: hidden;
-  background: var(--virtara-bg);
-  color: var(--virtara-text);
-}
-
-body {
-  position: relative;
-}
-
-.virtara-body {
-  font-family: "Sora", sans-serif;
-}
-
-.virtara-display {
-  font-family: "Chakra Petch", sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.ticker-wrap {
-  width: 100%;
-  overflow: hidden;
-  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-}
-
-.ticker-track {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: max-content;
-  animation: tickerScroll 28s linear infinite;
-}
-
-.ticker-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  white-space: nowrap;
-  border: 1px solid rgba(133, 170, 255, 0.4);
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 9999px;
-  padding: 0.5rem 1rem;
-  color: #d7e4ff;
-  font-size: 0.875rem;
-}
-
-@keyframes tickerScroll {
-  from {
-    transform: translateX(0);
+@layer base {
+  :root {
+    color-scheme: dark;
   }
-  to {
-    transform: translateX(-50%);
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'cv11', 'ss01';
+    scroll-padding-top: 88px;
+  }
+
+  html,
+  body {
+    min-height: 100%;
+    overflow-x: clip;
+    @apply bg-canvas font-sans text-body text-mist;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-cloud;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    @apply bg-signal/30 text-cloud;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--v-signal));
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  /* Any text a visitor types sits on a surface, never on the canvas. */
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
+
+@layer components {
+  /* The page container. One width, one gutter, everywhere. */
+  .shell {
+    @apply mx-auto w-full max-w-shell px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Vertical rhythm for a page section. */
+  .section {
+    @apply py-20 md:py-28;
+  }
+
+  /* Hairline-separated surface. Elevation is declared once: border OR shadow. */
+  .surface {
+    @apply rounded-card border border-edge bg-ink;
+  }
+
+  .surface-raised {
+    @apply rounded-card border border-edge bg-charcoal;
+  }
+
+  /* Form fields */
+  .field-label {
+    @apply mb-2 block text-nav text-frost;
+  }
+
+  .field-input {
+    @apply w-full rounded-control border border-edge bg-ink px-4 py-3 text-body text-cloud transition-colors duration-fast ease-out placeholder:text-quiet hover:border-edge-strong focus:border-signal focus:outline-none focus:ring-2 focus:ring-signal/25;
+  }
+
+  .field-input[aria-invalid='true'] {
+    @apply border-critical/70 focus:border-critical focus:ring-critical/25;
+  }
+
+  select.field-input {
+    @apply appearance-none bg-no-repeat pr-10;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%238a92a6' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 14px center;
+  }
+
+  .field-hint {
+    @apply mt-2 text-caption text-quiet;
+  }
+
+  .field-error {
+    @apply mt-2 text-caption text-critical;
+  }
+
+  /* An inline text link inside running copy. */
+  .text-link {
+    @apply text-signal-soft underline decoration-signal/40 underline-offset-4 transition-colors duration-fast hover:text-cloud hover:decoration-cloud/60;
+  }
+
+  /* Signature numerals: KPIs, prices, counters. */
+  .figure {
+    @apply font-signature font-medium tabular-nums tracking-tight;
+  }
+}
+
+@layer utilities {
+  /* Fades a horizontal strip in and out at its edges. */
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  /* Fades a block out at the bottom — used where the product frame meets
+     the next section. */
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, #000 70%, transparent);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ticker-track {
-    animation-duration: 0.01ms;
-    animation-iteration-count: 1;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 
-  /* The route-change spinner. A loading indicator still needs to read as
-     "busy", so it slows to a crawl rather than stopping outright. */
+  /* The route-change spinner still needs to read as "busy". */
   .animate-spin {
-    animation-duration: 3s;
+    animation-duration: 3s !important;
+    animation-iteration-count: infinite !important;
   }
 }

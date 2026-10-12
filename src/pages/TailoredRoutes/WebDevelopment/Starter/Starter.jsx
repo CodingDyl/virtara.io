@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import Navbar from '../../../../components/Navbar';
-import Footer from '../../../../components/Footer';
+import PageShell from '../../../../components/layout/PageShell';
 import { useNavigate } from 'react-router-dom';
 import Notification from '../../../../components/Notifications/notification';
 import sendEmail from "../../../../server/workflow";
@@ -109,15 +108,13 @@ const Starter = () => {
   };
 
   return (
-    <>
+    <PageShell>
       <Helmet>
         <title>Starter Website Package | Web Development | Virtara</title>
         <meta name="description" content="Get started with our Starter Website Package. Perfect for small businesses and startups looking to establish a professional online presence." />
         <meta name="keywords" content="starter website package, web development, small business website, startup website" />
         <link rel="canonical" href="https://virtara.co.za/web-development/starter" />
       </Helmet>
-      <div className="bg-[#050910] min-h-screen">
-        <Navbar />
         <Notification
           message={notification.message}
           type={notification.type}
@@ -125,8 +122,9 @@ const Starter = () => {
           onClose={() => setNotification(prev => ({ ...prev, isVisible: false }))}
         />
 
-        <section className="min-h-screen pt-32 md:pt-32 pb-12 md:pb-20">
-          <div className="container mx-auto px-4 sm:px-6">
+        <section className="relative overflow-hidden pb-24 pt-28 md:pb-32 md:pt-36">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-glow" />
+          <div className="shell relative">
             <WebDevForm
               tier="Starter"
               formData={formData}
@@ -137,9 +135,7 @@ const Starter = () => {
           </div>
         </section>
 
-        <Footer />
-      </div>
-    </>
+    </PageShell>
   );
 };
 

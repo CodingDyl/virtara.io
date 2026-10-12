@@ -1,37 +1,37 @@
 import { useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 import {
-  FaBullseye,
-  FaChartLine,
-  FaCheck,
-  FaCode,
-  FaEnvelopeOpenText,
-  FaLayerGroup,
-  FaPaintBrush,
-  FaSearch,
-  FaShieldAlt,
-  FaShoppingCart,
-  FaUsers
-} from 'react-icons/fa';
-import { useNavigate, useLocation } from 'react-router-dom';
+  IconTarget,
+  IconPalette,
+  IconCode,
+  IconShoppingCart,
+  IconSearch,
+  IconChartLine,
+  IconUsers,
+  IconMailOpened,
+  IconStack2,
+  IconShieldCheck,
+} from '@tabler/icons-react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import Badge from '../components/ui/Badge';
-import Card from '../components/ui/Card';
+import PageShell from '../components/layout/PageShell';
+import PageHero from '../components/layout/PageHero';
+import SectionHeading from '../components/layout/SectionHeading';
+import ClosingBand from '../components/layout/ClosingBand';
 import Button from '../components/ui/Button';
+import PlanCard from '../components/ui/PlanCard';
+import { cn } from '../utils/cn';
 
 const serviceCatalog = [
-  { icon: <FaBullseye className="w-5 h-5" />, title: 'Strategy & Positioning' },
-  { icon: <FaPaintBrush className="w-5 h-5" />, title: 'Brand Identity & Messaging' },
-  { icon: <FaCode className="w-5 h-5" />, title: 'Web Design & Development' },
-  { icon: <FaShoppingCart className="w-5 h-5" />, title: 'E-commerce Builds' },
-  { icon: <FaSearch className="w-5 h-5" />, title: 'Technical + Content SEO' },
-  { icon: <FaChartLine className="w-5 h-5" />, title: 'Google Ads / Performance Media' },
-  { icon: <FaUsers className="w-5 h-5" />, title: 'Social Media Content Systems' },
-  { icon: <FaEnvelopeOpenText className="w-5 h-5" />, title: 'Email & CRM Automation' },
-  { icon: <FaLayerGroup className="w-5 h-5" />, title: 'Conversion Rate Optimization' },
-  { icon: <FaShieldAlt className="w-5 h-5" />, title: 'Maintenance, Security & Hosting Ops' }
+  { icon: IconTarget, title: 'Strategy & Positioning' },
+  { icon: IconPalette, title: 'Brand Identity & Messaging' },
+  { icon: IconCode, title: 'Web Design & Development' },
+  { icon: IconShoppingCart, title: 'E-commerce Builds' },
+  { icon: IconSearch, title: 'Technical + Content SEO' },
+  { icon: IconChartLine, title: 'Google Ads / Performance Media' },
+  { icon: IconUsers, title: 'Social Media Content Systems' },
+  { icon: IconMailOpened, title: 'Email & CRM Automation' },
+  { icon: IconStack2, title: 'Conversion Rate Optimization' },
+  { icon: IconShieldCheck, title: 'Maintenance, Security & Hosting Ops' }
 ];
 
 const tabs = [
@@ -231,30 +231,31 @@ const pricingByTab = {
 function Services() {
   const [activeTab, setActiveTab] = useState('development');
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    if (location.hash === '#seo') {
-      setActiveTab('seo');
-      return;
-    }
-    if (location.hash === '#development') {
-      setActiveTab('development');
-      return;
-    }
-    if (location.hash === '#growth') {
-      setActiveTab('growth');
-      return;
-    }
-    if (location.hash === '#retainer') {
-      setActiveTab('retainer');
-    }
+    const id = location.hash.slice(1);
+    if (pricingByTab[id]) setActiveTab(id);
   }, [location.hash]);
 
   const activeData = useMemo(() => pricingByTab[activeTab], [activeTab]);
 
+  const selectTab = (id) => {
+    setActiveTab(id);
+    window.history.replaceState({}, '', `#${id}`);
+  };
+
+  // Arrow keys move between tabs (WAI-ARIA tabs pattern).
+  const onTabKey = (e, index) => {
+    const delta = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!delta) return;
+    e.preventDefault();
+    const next = tabs[(index + delta + tabs.length) % tabs.length].id;
+    selectTab(next);
+    document.getElementById(`tab-${next}`)?.focus();
+  };
+
   return (
-    <>
+    <PageShell>
       <Helmet>
         <title>Digital Agency Services & Pricing (South Africa) | Virtara</title>
         <meta
@@ -268,183 +269,123 @@ function Services() {
         <link rel="canonical" href="https://virtara.co.za/services" />
       </Helmet>
 
-      <main className="bg-[#050910] min-h-screen text-white virtara-body">
-        <Navbar />
+      <PageHero
+        announcement={{ label: 'Services + transparent SA pricing' }}
+        title="Full-stack digital growth, built for the South African market."
+        lead="No hidden fees. Clear scope. Real deliverables. Choose once-off builds or monthly growth retainers aligned to your stage."
+        actions={
+          <>
+            <Button href="#packages" size="lg" className="font-semibold">See packages</Button>
+            <Button to="/start-your-project" variant="secondary" size="lg">Book a strategy audit</Button>
+          </>
+        }
+      />
 
-        <section className="pt-32 md:pt-36 pb-14 md:pb-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(20,99,255,0.28),transparent_38%),radial-gradient(circle_at_78%_5%,rgba(96,219,255,0.2),transparent_34%)]" />
-          <div className="container mx-auto px-6 relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65 }}
-              className="max-w-5xl mx-auto text-center"
-            >
-              <Badge variant="primary" size="lg" className="mb-5">Services + Transparent SA Pricing</Badge>
-              <h1 className="virtara-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.96] tracking-tight mb-6">
-                Full-Stack Digital Growth Services
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]"> Built for the South African Market</span>
-              </h1>
-              <p className="text-lg md:text-xl text-[#c2d4ff] max-w-3xl mx-auto leading-relaxed">
-                No hidden fees. Clear scope. Real deliverables. Choose once-off builds or monthly growth retainers aligned to your stage.
-              </p>
-            </motion.div>
-          </div>
-        </section>
-
-        <section className="pb-8">
-          <div className="container mx-auto px-6">
-            <Card className="max-w-6xl mx-auto border border-[#74a7ff]/30 bg-[linear-gradient(120deg,rgba(8,16,33,0.85),rgba(8,16,33,0.5))]">
-              <Card.Content>
-                <div className="grid md:grid-cols-3 gap-6 text-sm md:text-base text-[#c5d8ff]">
-                  <div>
-                    <p className="font-semibold text-white mb-2">Pricing includes</p>
-                    <p>Planning, implementation, QA and reporting for the chosen scope.</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-white mb-2">Pricing excludes</p>
-                    <p>Media spend, premium plugins/licenses, and third-party platform fees.</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-white mb-2">Commitment model</p>
-                    <p>Builds are once-off. Retainers are month-to-month unless otherwise specified.</p>
-                  </div>
-                </div>
-              </Card.Content>
-            </Card>
-          </div>
-        </section>
-
-        <section className="pb-16 md:pb-20">
-          <div className="container mx-auto px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55 }}
-              className="max-w-6xl mx-auto"
-            >
-              <h2 className="virtara-display text-3xl md:text-4xl mb-6">Everything You Need Under One Team</h2>
-              <div className="flex flex-wrap gap-3">
-                {serviceCatalog.map((service) => (
-                  <div
-                    key={service.title}
-                    className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-3 flex items-center gap-3"
-                  >
-                    <span className="text-[#84dcff]">{service.icon}</span>
-                    <span className="text-[#d7e5ff] text-sm md:text-base">{service.title}</span>
-                  </div>
-                ))}
+      {/* Terms */}
+      <section aria-label="What pricing covers">
+        <div className="shell">
+          <dl className="grid divide-y divide-edge border-y border-edge md:grid-cols-3 md:divide-x md:divide-y-0">
+            {[
+              ['Pricing includes', 'Planning, implementation, QA and reporting for the chosen scope.'],
+              ['Pricing excludes', 'Media spend, premium plugins/licenses, and third-party platform fees.'],
+              ['Commitment model', 'Builds are once-off. Retainers are month-to-month unless otherwise specified.'],
+            ].map(([t, d]) => (
+              <div key={t} className="py-6 md:px-8 md:first:pl-0 md:last:pr-0">
+                <dt className="text-nav font-medium text-cloud">{t}</dt>
+                <dd className="mt-1.5 text-nav font-normal leading-relaxed text-mist">{d}</dd>
               </div>
-            </motion.div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      {/* Catalogue */}
+      <section className="section pb-0 md:pb-0" aria-labelledby="catalog-heading">
+        <div className="shell">
+          <SectionHeading id="catalog-heading" title="Everything you need under one team." />
+          <ul className="mt-8 flex flex-wrap gap-2">
+            {serviceCatalog.map(({ icon: Icon, title }) => (
+              <li key={title} className="flex items-center gap-2.5 rounded-pill border border-edge bg-ink py-2 pl-3 pr-4 text-nav text-frost">
+                <Icon size={16} stroke={1.6} aria-hidden="true" className="text-mist" />
+                {title}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Packages */}
+      <section id="packages" className="section scroll-mt-20" aria-labelledby="packages-heading">
+        <div className="shell">
+          <span id={activeTab} className="block -translate-y-24" aria-hidden="true" />
+          <h2 id="packages-heading" className="sr-only">Packages and pricing</h2>
+          <div
+            role="tablist"
+            aria-label="Service categories"
+            className="-mx-4 flex gap-1 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden"
+          >
+            {tabs.map((tab, i) => {
+              const on = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  id={`tab-${tab.id}`}
+                  role="tab"
+                  type="button"
+                  aria-selected={on}
+                  aria-controls="packages-panel"
+                  tabIndex={on ? 0 : -1}
+                  onClick={() => selectTab(tab.id)}
+                  onKeyDown={(e) => onTabKey(e, i)}
+                  className={cn(
+                    'flex shrink-0 items-center gap-2 rounded-control px-4 py-2.5 text-body font-medium transition-colors duration-fast',
+                    on ? 'bg-white/[0.04] text-cloud' : 'text-mist hover:text-frost'
+                  )}
+                >
+                  <span
+                    aria-hidden="true"
+                    className={cn('h-1.5 w-1.5 rotate-45 rounded-[1px]', on ? 'bg-signal shadow-[0_0_8px_rgb(var(--v-signal))]' : 'bg-edge-strong')}
+                  />
+                  {tab.label}
+                </button>
+              );
+            })}
           </div>
-        </section>
 
-        <section className="pb-20 md:pb-24" id={activeTab}>
-          <div className="container mx-auto px-6">
-            <div className="max-w-6xl mx-auto">
-              <div className="flex flex-wrap gap-3 mb-10">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => {
-                      setActiveTab(tab.id);
-                      window.history.replaceState({}, '', `#${tab.id}`);
-                    }}
-                    className={`rounded-full px-5 py-3 text-sm md:text-base transition-all duration-300 border ${
-                      activeTab === tab.id
-                        ? 'bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-[#04142d] border-transparent font-semibold'
-                        : 'bg-white/[0.03] text-[#bfd2fb] border-white/15 hover:bg-white/[0.08]'
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
+          <div id="packages-panel" role="tabpanel" aria-labelledby={`tab-${activeTab}`} key={activeTab} className="mt-8 animate-fade-in">
+            <div className="max-w-2xl">
+              <h3 className="text-section text-cloud">{activeData.title}</h3>
+              <p className="mt-3 text-body text-frost">{activeData.subtitle}</p>
+            </div>
 
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35 }}
-              >
-                <div className="mb-10">
-                  <h3 className="virtara-display text-3xl md:text-5xl mb-3">{activeData.title}</h3>
-                  <p className="text-[#b7cbfa] text-lg">{activeData.subtitle}</p>
-                </div>
-
-                <div className="space-y-5">
-                  {activeData.packages.map((pkg) => (
-                    <Card
-                      key={pkg.name}
-                      className={`border ${pkg.highlighted ? 'border-[#79deff]/70' : 'border-white/10'} bg-[linear-gradient(160deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))]`}
-                      hover
-                    >
-                      <Card.Content className="md:p-7">
-                        <div className="grid md:grid-cols-[1.15fr_1fr] gap-6 md:gap-8 items-start">
-                          <div>
-                            {pkg.highlighted && (
-                              <Badge variant="gradient" className="mb-4">Most Selected</Badge>
-                            )}
-                            <h4 className="text-2xl font-semibold text-white mb-2">{pkg.name}</h4>
-                            <p className="text-3xl font-bold text-[#8df6ff] mb-2">{pkg.price}</p>
-                            <p className="text-sm text-[#9dc0ff] mb-4">{pkg.support}</p>
-                            <p className="text-sm text-[#d0dcff] leading-relaxed">{pkg.idealFor}</p>
-                          </div>
-
-                          <div>
-                            <ul className="space-y-3 mb-7">
-                              {pkg.features.map((feature) => (
-                                <li key={feature} className="text-sm text-[#cfddff] flex items-start gap-2">
-                                  <FaCheck className="mt-1 w-3.5 h-3.5 text-[#7de2ff] flex-shrink-0" />
-                                  <span>{feature}</span>
-                                </li>
-                              ))}
-                            </ul>
-                            <Button
-                              variant="gradient"
-                              size="md"
-                              className="w-full md:w-auto"
-                              onClick={() => navigate('/start-your-project')}
-                              showArrow
-                            >
-                              Book a Strategy Audit
-                            </Button>
-                          </div>
-                        </div>
-                      </Card.Content>
-                    </Card>
-                  ))}
-                </div>
-              </motion.div>
+            <div className="mt-10 grid gap-4 lg:grid-cols-3">
+              {activeData.packages.map((pkg) => (
+                <PlanCard
+                  key={pkg.name}
+                  name={pkg.name}
+                  price={pkg.price}
+                  note={pkg.support}
+                  description={pkg.idealFor}
+                  features={pkg.features}
+                  highlighted={pkg.highlighted}
+                />
+              ))}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="pb-20">
-          <div className="container mx-auto px-6">
-            <Card className="max-w-5xl mx-auto border border-[#74a7ff]/35 bg-[linear-gradient(130deg,rgba(7,17,35,0.9),rgba(8,16,33,0.55))] text-center">
-              <Card.Content>
-                <h3 className="virtara-display text-3xl md:text-5xl mb-5">Need a Custom Scope?</h3>
-                <p className="text-[#c7d9ff] max-w-3xl mx-auto mb-8 text-lg leading-relaxed">
-                  If your goals need a blended stack across SEO, paid media, automation and website optimization, we can build a custom monthly roadmap with fixed deliverables.
-                </p>
-                <div className="flex flex-wrap items-center justify-center gap-4">
-                  <Button variant="gradient" size="lg" onClick={() => navigate('/start-your-project')}>
-                    Book a Strategy Audit
-                  </Button>
-                  <Button variant="outline" size="lg" onClick={() => navigate('/contact-us')}>
-                    Talk to the Team
-                  </Button>
-                </div>
-              </Card.Content>
-            </Card>
-          </div>
-        </section>
-
-        <Footer />
-      </main>
-    </>
+      <ClosingBand
+        title="Need a custom scope?"
+        lead="If your goals need a blended stack across SEO, paid media, automation and website optimisation, we can build a custom monthly roadmap with fixed deliverables."
+        actions={
+          <>
+            <Button to="/start-your-project" size="lg" className="font-semibold">Book a strategy audit</Button>
+            <Button to="/contact-us" variant="secondary" size="lg">Talk to the team</Button>
+          </>
+        }
+      />
+    </PageShell>
   );
 }
 

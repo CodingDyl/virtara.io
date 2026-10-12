@@ -1,39 +1,44 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaCheckCircle, FaTimesCircle, FaTimes } from 'react-icons/fa';
+import { useEffect } from 'react';
+import { IconCircleCheck, IconAlertCircle, IconX } from '@tabler/icons-react';
+import { cn } from '../../utils/cn';
 
+/**
+ * Toast for form results. Dark floating panel; colour lives only in the icon.
+ * Success toasts dismiss themselves; errors wait for the visitor.
+ */
 const Notification = ({ message, type, isVisible, onClose }) => {
-  const bgColor = type === 'success' 
-    ? 'bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff]' 
-    : 'bg-gradient-to-r from-red-500 to-red-600';
+  const success = type === 'success';
+
+  useEffect(() => {
+    if (!isVisible || !success) return;
+    const t = window.setTimeout(onClose, 6000);
+    return () => window.clearTimeout(t);
+  }, [isVisible, success, onClose]);
+
+  if (!isVisible) return null;
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -50 }}
-          className="fixed top-24 right-4 z-50 min-w-[320px] max-w-md"
+    <div
+      role={success ? 'status' : 'alert'}
+      className="fixed right-4 top-20 z-[70] w-[calc(100%-2rem)] max-w-sm animate-menu-in"
+    >
+      <div className="flex items-start gap-3 rounded-card border border-edge bg-charcoal/95 p-4 shadow-float backdrop-blur-xl">
+        {success ? (
+          <IconCircleCheck size={20} stroke={1.8} aria-hidden="true" className="mt-px shrink-0 text-positive" />
+        ) : (
+          <IconAlertCircle size={20} stroke={1.8} aria-hidden="true" className="mt-px shrink-0 text-critical" />
+        )}
+        <p className={cn('flex-1 text-nav font-normal leading-relaxed text-frost')}>{message}</p>
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Dismiss"
+          className="-m-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-[8px] text-quiet transition-colors duration-fast hover:bg-white/[0.05] hover:text-cloud"
         >
-          <div className={`${bgColor} rounded-lg shadow-lg p-4 text-white flex items-center justify-between`}>
-            <div className="flex items-center space-x-3">
-              {type === 'success' ? (
-                <FaCheckCircle className="w-5 h-5" />
-              ) : (
-                <FaTimesCircle className="w-5 h-5" />
-              )}
-              <p className="text-sm font-medium">{message}</p>
-            </div>
-            <button
-              onClick={onClose}
-              className="text-white/80 hover:text-white transition-colors"
-            >
-              <FaTimes className="w-4 h-4" />
-            </button>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          <IconX size={15} stroke={1.8} />
+        </button>
+      </div>
+    </div>
   );
 };
 

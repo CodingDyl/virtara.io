@@ -1,50 +1,60 @@
-import { motion } from "framer-motion";
 import { cn } from "../../utils/cn";
 
-const Badge = ({ 
-  children, 
-  variant = "default", 
+/**
+ * Low-contrast pill. Badges label things; they never act as buttons.
+ * `signal` adds the blue marker dot for a selected or live state.
+ */
+const variants = {
+  default: "bg-ink text-mist border-edge",
+  signal: "bg-ink text-frost border-edge",
+  positive: "bg-positive/10 text-positive border-positive/25",
+  caution: "bg-caution/10 text-caution border-caution/25",
+  critical: "bg-critical/10 text-critical border-critical/25",
+};
+
+// Older call sites still pass these names.
+const aliases = {
+  primary: "signal",
+  secondary: "default",
+  gradient: "signal",
+  outline: "default",
+  success: "positive",
+  warning: "caution",
+  error: "critical",
+};
+
+const sizes = {
+  sm: "h-6 px-2.5 text-caption gap-1.5",
+  md: "h-7 px-3 text-caption gap-2",
+  lg: "h-8 px-3.5 text-nav gap-2",
+};
+
+const Badge = ({
+  children,
+  variant = "default",
   size = "md",
-  animated = true,
   className = "",
-  ...props 
+  // eslint-disable-next-line no-unused-vars
+  animated,
+  ...props
 }) => {
-  const baseClasses = "inline-flex items-center justify-center font-medium rounded-full transition-all duration-300";
-  
-  const variants = {
-    default: "bg-white/10 text-white border border-white/20",
-    primary: "bg-gradient-to-r from-[#8df6ff]/20 to-[#8df6ff]/10 text-[#8df6ff] border border-[#8df6ff]/30",
-    secondary: "bg-gradient-to-r from-[#4ea4ff]/20 to-[#4ea4ff]/10 text-[#4ea4ff] border border-[#4ea4ff]/30",
-    gradient: "bg-gradient-to-r from-[#8df6ff] to-[#4ea4ff] text-white",
-    success: "bg-green-500/20 text-green-400 border border-green-500/30",
-    warning: "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30",
-    error: "bg-red-500/20 text-red-400 border border-red-500/30",
-    outline: "bg-transparent text-white border border-white/30 hover:bg-white/10",
-  };
-
-  const sizes = {
-    sm: "px-2 py-1 text-xs",
-    md: "px-3 py-1 text-sm",
-    lg: "px-4 py-2 text-base",
-  };
-
-  const BadgeComponent = animated ? motion.span : "span";
-
+  const key = aliases[variant] ?? variant;
   return (
-    <BadgeComponent
+    <span
       className={cn(
-        baseClasses,
-        variants[variant],
-        sizes[size],
+        "inline-flex items-center rounded-pill border font-medium",
+        variants[key] ?? variants.default,
+        sizes[size] ?? sizes.md,
         className
       )}
-      whileHover={animated ? { scale: 1.05 } : undefined}
-      whileTap={animated ? { scale: 0.95 } : undefined}
       {...props}
     >
+      {key === "signal" && (
+        <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-signal shadow-[0_0_8px_rgb(var(--v-signal))]" />
+      )}
       {children}
-    </BadgeComponent>
+    </span>
   );
 };
 
-export default Badge; 
+export default Badge;

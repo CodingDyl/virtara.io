@@ -1,11 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { lazy, Suspense, useEffect } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 import AnalyticsTracker from './components/AnalyticsTracker'
 import LoadingSpinner from './components/ui/LoadingSpinner'
 
-// Below-the-fold chrome. Both use framer-motion; deferring them keeps the
-// animation library off the entry chunk.
+// Below-the-fold chrome. Neither is needed for first paint.
 const ScrollToTop = lazy(() => import('./components/ScrollToTop'))
 const CookieConsent = lazy(() => import('./components/CookieConsent'))
 
@@ -20,6 +19,7 @@ const StartaProject = lazy(() => import('./pages/StartaProject'))
 const MaintenanceSupport = lazy(() => import('./pages/MaintenanceSupport'))
 const Unsubscribe = lazy(() => import('./pages/Unsubscribe'))
 const ComeBack = lazy(() => import('./pages/ComeBack'))
+const Brand = lazy(() => import('./pages/Brand'))
 
 const PrivacyPolicy = lazy(() => import('./pages/Legal/PrivacyPolicy'))
 const TermsOfService = lazy(() => import('./pages/Legal/TermsOfService'))
@@ -43,11 +43,36 @@ const SeoThankYou = lazy(() => import('./pages/TailoredRoutes/Seo/SeoThankYou'))
 // Matches the site's dark background so a route swap never flashes white.
 function RouteFallback() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#0F0F0F]">
+    <div className="flex min-h-screen items-center justify-center bg-canvas">
       <LoadingSpinner size="lg" variant="brand" />
       <span className="sr-only">Loading page</span>
     </div>
   )
+}
+
+// New page → top of the page; a #hash → that section (under the fixed nav,
+// via scroll-padding-top in index.css).
+function RouteScroll() {
+  const { pathname, hash } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    if (!hash) return
+
+    // The target lives in a lazy page that may not have rendered yet.
+    const id = decodeURIComponent(hash.slice(1))
+    let frame
+    const started = performance.now()
+    const seek = () => {
+      const el = document.getElementById(id)
+      if (el) el.scrollIntoView()
+      else if (performance.now() - started < 1500) frame = requestAnimationFrame(seek)
+    }
+    seek()
+    return () => cancelAnimationFrame(frame)
+  }, [pathname, hash])
+
+  return null
 }
 
 function App() {
@@ -60,6 +85,7 @@ function App() {
   return (
     <HelmetProvider>
       <Router>
+        <RouteScroll />
         <Suspense fallback={<RouteFallback />}>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -101,6 +127,7 @@ function App() {
 
             <Route path="/unsubscribe" element={<Unsubscribe />} />
             <Route path="/comeback" element={<ComeBack />} />
+            <Route path="/brand" element={<Brand />} />
           </Routes>
         </Suspense>
         <AnalyticsTracker />

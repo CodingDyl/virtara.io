@@ -18,4 +18,10 @@ import marketing_2 from "./marketing_2.webp"
 
 import healthCheckPreview from "./health_check_preview.webp"
 
-export { virtec, vaja, mpower, clarity, aureya, bg_hero, web_design_bento, brand_strat, seo_op, digi_marketing, smallLogo, marketing_1, marketing_2, healthCheckPreview }
+// Atmospheric scenes (Higgsfield Soul Location). Mega-menu cards and the closing band.
+import capetown from "./atmos/capetown.webp"
+import karoo from "./atmos/karoo.webp"
+import joburg from "./atmos/joburg.webp"
+import drakensberg from "./atmos/drakensberg.webp"
+
+export { virtec, vaja, mpower, clarity, aureya, bg_hero, web_design_bento, brand_strat, seo_op, digi_marketing, smallLogo, marketing_1, marketing_2, healthCheckPreview, capetown, karoo, joburg, drakensberg }

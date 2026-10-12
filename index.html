@@ -16,12 +16,12 @@
          round-trips; loading the stylesheet with media="print" and flipping
          it to "all" on load keeps it off the critical path entirely. The
          fonts use display=swap, so text paints immediately in the fallback
-         and reflows once Sora/Chakra Petch arrive. -->
+         and reflows once Inter/Chakra Petch arrive. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600&family=Inter:wght@400;500;600&display=swap"
       media="print"
       onload="this.media='all'"
       fetchpriority="high"
@@ -29,7 +29,7 @@
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600&family=Inter:wght@400;500;600&display=swap"
       />
     </noscript>
 
@@ -55,9 +55,17 @@
     />
     <meta name="twitter:image" content="https://virtara.co.za/og-image.png" />
 
-    <meta name="theme-color" content="#0F0F0F" />
+    <meta name="theme-color" content="#050608" />
   </head>
-  <body>
+  <body class="bg-canvas">
+    <!--
+      DIRECTION (impeccable) — Blue-hour console.
+      THESIS: Virtara proves outcomes; the page is a quiet near-black stage and the client's real work is the product in the frame.
+      OWN-WORLD: Featurebase-calibrated dark system (flat charcoal layers, 1px hairlines, near-white filled actions, Inter 500) with Virtara's electric blue as the single signal and Chakra Petch for figures.
+      STORY: hero → client workspace rising from the fold → unboxed proof → services as deliverables → three-question qualifier → Drakensberg close.
+      FIRST VIEWPORT: centred display line, two actions, the workspace frame breaking the fold.
+      FORM: tokens in src/design/tokens.js; rules in DESIGN.md; live book at /brand.
+    -->
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
