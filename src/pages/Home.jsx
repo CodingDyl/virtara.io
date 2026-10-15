@@ -5,7 +5,7 @@ import PageShell from "../components/layout/PageShell";
 import PageHero from "../components/layout/PageHero";
 import SectionHeading from "../components/layout/SectionHeading";
 import ClosingBand from "../components/layout/ClosingBand";
-import ClientWorkspace from "../components/home/ClientWorkspace";
+import HeroVideo from "../components/home/HeroVideo";
 import ServicesRail from "../components/home/ServicesRail";
 import Button from "../components/ui/Button";
 import { bg_hero } from "../assets";
@@ -190,7 +190,7 @@ function Home() {
           </>
         }
       >
-        <ClientWorkspace />
+        <HeroVideo />
       </PageHero>
 
       {/* Social proof */}
