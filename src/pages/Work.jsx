@@ -7,6 +7,7 @@ import PageHero from '../components/layout/PageHero';
 import SectionHeading from '../components/layout/SectionHeading';
 import ClosingBand from '../components/layout/ClosingBand';
 import Button from '../components/ui/Button';
+import ProjectSphere from '../components/work/ProjectSphere';
 import { projects } from '../data/projects';
 import { cn } from '../utils/cn';
 
@@ -121,6 +122,12 @@ function Work() {
         title="Digital projects built to outperform."
         lead="Real before-and-after outcomes across strategy, design and engineering. Every card opens the live site."
       />
+
+      <section aria-label="Project explorer" className="pb-12 md:pb-16">
+        <div className="shell">
+          <ProjectSphere projects={projects} />
+        </div>
+      </section>
 
       <section aria-label="Projects" className="pb-20 md:pb-28">
         <div className="shell grid gap-4 lg:grid-cols-3">
