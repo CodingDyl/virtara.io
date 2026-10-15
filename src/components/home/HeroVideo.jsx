@@ -8,7 +8,8 @@ import { cn } from "../../utils/cn";
  * click on the film unmutes it. When it ends (or is paused) a scrim with a play
  * button takes over, and the film never loops on its own.
  *
- * Two cuts: 16:9 for wider screens, 9:16 below `md`.
+ * Two cuts, each in its own device: 16:9 in a tablet-style frame on `md`+,
+ * 9:16 in a phone-style frame below.
  */
 
 const VIDEO = {
@@ -117,14 +118,46 @@ const HeroVideo = () => {
       <div className="relative">
         <div aria-hidden="true" className="pointer-events-none absolute -inset-x-10 -top-16 h-40 bg-atmosphere blur-2xl" />
 
+        {/* Device: iPad-style on md+, iPhone-style below. A hairline bezel on ink, not a glossy mockup. */}
         <div
           ref={frameRef}
           className={cn(
-            "relative mx-auto overflow-hidden rounded-card border border-edge bg-charcoal shadow-frame",
-            portrait ? "w-full max-w-[min(100%,calc(80svh*9/16))]" : "w-full"
+            "relative mx-auto border border-edge-strong bg-ink shadow-frame",
+            portrait
+              ? "w-full max-w-[min(100%,calc(78svh*9/16))] rounded-[44px] p-[10px]"
+              : "w-full rounded-[28px] p-3"
           )}
-          style={{ aspectRatio: `${cut.width} / ${cut.height}` }}
         >
+          {/* Camera */}
+          {!portrait && (
+            <span
+              aria-hidden="true"
+              className="absolute left-1/2 top-[3px] h-[5px] w-[5px] -translate-x-1/2 rounded-full bg-edge-strong"
+            />
+          )}
+          {/* Side buttons */}
+          {portrait && (
+            <>
+              <span aria-hidden="true" className="absolute -left-[3px] top-[104px] h-8 w-[3px] rounded-l-[2px] bg-edge-strong" />
+              <span aria-hidden="true" className="absolute -left-[3px] top-[148px] h-8 w-[3px] rounded-l-[2px] bg-edge-strong" />
+              <span aria-hidden="true" className="absolute -right-[3px] top-[128px] h-14 w-[3px] rounded-r-[2px] bg-edge-strong" />
+            </>
+          )}
+
+          <div
+            className={cn(
+              "relative overflow-hidden bg-charcoal",
+              portrait ? "rounded-[34px]" : "rounded-[16px]"
+            )}
+            style={{ aspectRatio: `${cut.width} / ${cut.height}` }}
+          >
+            {/* Dynamic Island */}
+            {portrait && (
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute left-1/2 top-3 z-10 h-[22px] w-[78px] -translate-x-1/2 rounded-pill bg-canvas"
+              />
+            )}
           <video
             key={cut.src}
             ref={videoRef}
@@ -190,6 +223,7 @@ const HeroVideo = () => {
               </button>
             </div>
           )}
+          </div>
         </div>
       </div>
     </div>
