@@ -17,6 +17,7 @@ const Blog = lazy(() => import('./pages/Blog'))
 const BlogPost = lazy(() => import('./pages/BlogPost'))
 const StartaProject = lazy(() => import('./pages/StartaProject'))
 const MaintenanceSupport = lazy(() => import('./pages/MaintenanceSupport'))
+const Concierge = lazy(() => import('./pages/Concierge'))
 const Unsubscribe = lazy(() => import('./pages/Unsubscribe'))
 const ComeBack = lazy(() => import('./pages/ComeBack'))
 const Brand = lazy(() => import('./pages/Brand'))
@@ -96,6 +97,7 @@ function App() {
             <Route path="/web-development-blog" element={<Blog />} />
             <Route path="/web-development-blog/:slug" element={<BlogPost />} />
             <Route path="/maintenance-support" element={<MaintenanceSupport />} />
+            <Route path="/concierge" element={<Concierge />} />
             <Route path="/starta-project" element={<StartaProject />} />
             <Route path="/start-your-project" element={<StartaProject />} />
 

@@ -101,7 +101,10 @@ export const menus = [
   },
 ];
 
-export const primaryLinks = [{ label: "Our work", to: "/our-work" }];
+export const primaryLinks = [
+  { label: "Concierge", to: "/concierge" },
+  { label: "Our work", to: "/our-work" },
+];
 
 export const cta = { label: "Book an audit", to: "/contact-us" };
 export const secondaryCta = { label: "Start a project", to: "/start-your-project" };
