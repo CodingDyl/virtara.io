@@ -30,7 +30,7 @@ const plans = [
     name: "Growth",
     price: "R1,299",
     note: "Up to 1,000 chats a month",
-    features: ["Everything in Starter", "Bookings in the chat, through Cal.com", "Quote request forms", "Weekly results email (coming soon)"],
+    features: ["Everything in Starter", "Bookings in the chat, through Cal.com", "Quote request forms", "Weekly results email"],
     highlighted: true,
   },
   {
