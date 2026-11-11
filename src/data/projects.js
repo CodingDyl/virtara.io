@@ -1,9 +1,15 @@
-import { virtec, vaja, mpower, clarity, aureya } from "../assets";
+import { virtec, vaja, mpower, clarity, aureya, plsteel, kblegal, bonded, concierge, pantrypilot, jurivo, voxmachine } from "../assets";
 
 /**
- * Client work. One record per project, read by Home's workspace and the Work
- * page. Client KPI figures were removed pending owner confirmation (see
- * PRODUCT.md) — do not add figures or quotes here until the owner supplies them.
+ * Client work and Virtara's own products. One record per project, read by the
+ * Work page and Home's workspace (which shows only the first five, so keep the
+ * original client projects first). Client KPI figures were removed pending
+ * owner confirmation (see PRODUCT.md) — do not add figures or quotes here until
+ * the owner supplies them.
+ *
+ * `before` / `after` are optional: write them only where a published case study
+ * or the old-versus-new site supports them. `own: true` marks a Virtara product
+ * (not client work); its category starts "Own product".
  */
 export const projects = [
   {
@@ -65,5 +71,83 @@ export const projects = [
     before: "Poor UX and unclear value communication for technical services.",
     after: "Clear project credibility and intent-driven CTAs.",
     stack: ["React", "TailwindCSS", "Three.js"],
+  },
+  {
+    id: "plsteel",
+    title: "PL Steel",
+    category: "Manufacturing",
+    image: plsteel,
+    link: "https://www.plsteel.co.za",
+    domain: "plsteel.co.za",
+    summary: "Website for a Johannesburg steel fabrication company and its services.",
+    before: "No dedicated website to present its fabrication services.",
+    after: "A full site covering laser and plasma cutting, CNC bending and structural steel.",
+    stack: ["React", "TailwindCSS", "Sanity"],
+  },
+  {
+    id: "kblegal",
+    title: "Kochukov & Blume",
+    category: "Legal",
+    image: kblegal,
+    link: "https://www.kblegal.co.za",
+    domain: "kblegal.co.za",
+    summary: "Website for a law firm, built around its practice areas and consultations.",
+    before: "Needed an updated web presence that made the firm easier to engage.",
+    after: "A new site that sets out each practice area and offers consultation scheduling.",
+    stack: ["Next.js", "TailwindCSS", "GSAP"],
+  },
+  {
+    id: "bonded",
+    title: "Bonded Jewellery",
+    category: "E-commerce",
+    image: bonded,
+    link: "https://www.bondedjewellery.co.za",
+    domain: "bondedjewellery.co.za",
+    summary: "Online storefront for a South African fine and bridal jewellery brand.",
+    stack: ["Next.js", "TailwindCSS", "Supabase"],
+  },
+  {
+    id: "concierge",
+    title: "Concierge",
+    category: "Own product · AI",
+    own: true,
+    image: concierge,
+    link: "https://virtara.co.za/concierge",
+    domain: "virtara.co.za/concierge",
+    summary: "AI website assistant that answers visitors and sends each enquiry with a summary and score.",
+    stack: ["Next.js", "Supabase", "Claude"],
+  },
+  {
+    id: "pantrypilot",
+    title: "Pantry Pilot",
+    category: "Own product · App",
+    own: true,
+    image: pantrypilot,
+    link: "https://www.pantrypilot.co.za",
+    domain: "pantrypilot.co.za",
+    summary: "Meal-planning app that turns the food in your pantry into a meal idea and a grocery list.",
+    stack: ["Expo", "React Native", "Supabase"],
+  },
+  {
+    id: "jurivo",
+    title: "Jurivo",
+    category: "Own product · Agency",
+    own: true,
+    image: jurivo,
+    link: "https://www.jurivo.co.za",
+    domain: "jurivo.co.za",
+    summary: "Site for a digital growth agency serving established South African law firms.",
+    stack: ["Next.js", "TailwindCSS", "Supabase"],
+  },
+  {
+    id: "voxmachine",
+    title: "VoxMachine",
+    category: "Own product · AI",
+    own: true,
+    image: voxmachine,
+    link: "https://www.voxmachine.co.za",
+    domain: "voxmachine.co.za",
+    summary: "Marketing platform that learns a business, plans its content and publishes once approved.",
+    stack: ["Next.js", "Supabase", "Anthropic API"],
   },
 ];

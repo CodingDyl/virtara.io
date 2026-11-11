@@ -67,22 +67,24 @@ const ProjectCard = ({ project, wide, eager }) => (
         </div>
       </div>
       <p className="mt-4 text-nav font-normal leading-relaxed text-mist">{project.summary}</p>
-      <dl className="mt-5 grid gap-3 border-t border-edge pt-5 text-nav font-normal sm:grid-cols-2">
-        <div>
-          <dt className="flex items-center gap-2 font-medium text-frost">
-            <span className="h-1.5 w-1.5 rounded-full bg-critical" aria-hidden="true" />
-            Before
-          </dt>
-          <dd className="mt-1 leading-relaxed text-mist">{project.before}</dd>
-        </div>
-        <div>
-          <dt className="flex items-center gap-2 font-medium text-frost">
-            <span className="h-1.5 w-1.5 rounded-full bg-positive" aria-hidden="true" />
-            After
-          </dt>
-          <dd className="mt-1 leading-relaxed text-mist">{project.after}</dd>
-        </div>
-      </dl>
+      {project.before && project.after && (
+        <dl className="mt-5 grid gap-3 border-t border-edge pt-5 text-nav font-normal sm:grid-cols-2">
+          <div>
+            <dt className="flex items-center gap-2 font-medium text-frost">
+              <span className="h-1.5 w-1.5 rounded-full bg-critical" aria-hidden="true" />
+              Before
+            </dt>
+            <dd className="mt-1 leading-relaxed text-mist">{project.before}</dd>
+          </div>
+          <div>
+            <dt className="flex items-center gap-2 font-medium text-frost">
+              <span className="h-1.5 w-1.5 rounded-full bg-positive" aria-hidden="true" />
+              After
+            </dt>
+            <dd className="mt-1 leading-relaxed text-mist">{project.after}</dd>
+          </div>
+        </dl>
+      )}
       <ul className="mt-auto flex flex-wrap gap-1.5 pt-6" aria-label="Stack">
         {project.stack.map((item) => (
           <li key={item} className="rounded-pill border border-edge px-2.5 py-1 text-[12px] text-mist">
@@ -95,8 +97,11 @@ const ProjectCard = ({ project, wide, eager }) => (
 );
 
 function Work() {
-  // Lead with two wide features, then the rest in a three-up row.
-  const [first, second, ...rest] = projects;
+  // Client work leads with two wide features, then a three-up grid. Own
+  // products follow in their own grid with a wide card at each end.
+  const clientWork = projects.filter((p) => !p.own);
+  const ownProducts = projects.filter((p) => p.own);
+  const [first, second, ...rest] = clientWork;
 
   return (
     <PageShell>
@@ -116,7 +121,7 @@ function Work() {
       <PageHero
         announcement={{ label: 'Proof of work' }}
         title="Digital projects built to outperform."
-        lead="Real before-and-after outcomes across strategy, design and engineering. Every card opens the live site."
+        lead="Websites and products built across strategy, design and engineering. Every card opens the live site."
       />
 
       <section aria-label="Project explorer" className="pb-12 md:pb-16">
@@ -125,7 +130,7 @@ function Work() {
         </div>
       </section>
 
-      <section aria-label="Projects" className="pb-20 md:pb-28">
+      <section aria-label="Client projects" className="pb-12 md:pb-16">
         <div className="shell grid gap-4 lg:grid-cols-3">
           <ProjectCard project={first} wide eager />
           <ProjectCard project={second} eager />
@@ -134,6 +139,23 @@ function Work() {
           ))}
         </div>
       </section>
+
+      {ownProducts.length > 0 && (
+        <section aria-labelledby="own-products-heading" className="pb-20 md:pb-28">
+          <div className="shell">
+            <SectionHeading
+              id="own-products-heading"
+              title="Our own products"
+              lead="Software we designed and built ourselves, not client work. Each is live on its own domain."
+            />
+            <div className="mt-8 grid gap-4 lg:grid-cols-3">
+              {ownProducts.map((p, i) => (
+                <ProjectCard key={p.id} project={p} wide={ownProducts.length === 4 && (i === 0 || i === 3)} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section aria-label="Track record" className="pb-20 md:pb-28">
         <div className="shell">

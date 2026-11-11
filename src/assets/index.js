@@ -3,6 +3,13 @@ import vaja from "./projects/vaja_img.webp"
 import mpower from "./projects/mpower_img.webp"
 import clarity from "./projects/clarity.webp"
 import aureya from "./projects/aureya.webp"
+import plsteel from "./projects/plsteel.webp"
+import kblegal from "./projects/kblegal.webp"
+import bonded from "./projects/bonded.webp"
+import concierge from "./projects/concierge.webp"
+import pantrypilot from "./projects/pantrypilot.webp"
+import jurivo from "./projects/jurivo.webp"
+import voxmachine from "./projects/voxmachine.webp"
 
 import bg_hero from "./bg_hero.webp"
 
@@ -24,4 +31,4 @@ import karoo from "./atmos/karoo.webp"
 import joburg from "./atmos/joburg.webp"
 import drakensberg from "./atmos/drakensberg.webp"
 
-export { virtec, vaja, mpower, clarity, aureya, bg_hero, web_design_bento, brand_strat, seo_op, digi_marketing, smallLogo, marketing_1, marketing_2, healthCheckPreview, capetown, karoo, joburg, drakensberg }
+export { virtec, vaja, mpower, clarity, aureya, plsteel, kblegal, bonded, concierge, pantrypilot, jurivo, voxmachine, bg_hero, web_design_bento, brand_strat, seo_op, digi_marketing, smallLogo, marketing_1, marketing_2, healthCheckPreview, capetown, karoo, joburg, drakensberg }

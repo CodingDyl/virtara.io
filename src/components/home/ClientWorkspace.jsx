@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { IconExternalLink, IconLock, IconLayoutDashboard } from "@tabler/icons-react";
-import { projects } from "../../data/projects";
+import { projects as allProjects } from "../../data/projects";
 import { cn } from "../../utils/cn";
 
 /**
@@ -20,6 +20,10 @@ const Initial = ({ title, active }) => (
     {title[0]}
   </span>
 );
+
+// The workspace is built around five client projects (tabs, rail, before/after).
+// Later records, including Virtara's own products, live on the Work page only.
+const projects = allProjects.slice(0, 5);
 
 const ClientWorkspace = () => {
   const [activeId, setActiveId] = useState(projects[0].id);

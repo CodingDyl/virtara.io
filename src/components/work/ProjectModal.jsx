@@ -101,22 +101,24 @@ const ProjectModal = ({ project, onClose }) => {
 
           <p className="mt-4 text-body text-mist">{project.summary}</p>
 
-          <dl className="mt-5 grid gap-4 border-t border-edge pt-5 text-nav font-normal sm:grid-cols-2">
-            <div>
-              <dt className="flex items-center gap-2 font-medium text-frost">
-                <span className="h-1.5 w-1.5 rounded-full bg-critical" aria-hidden="true" />
-                Before
-              </dt>
-              <dd className="mt-1 leading-relaxed text-mist">{project.before}</dd>
-            </div>
-            <div>
-              <dt className="flex items-center gap-2 font-medium text-frost">
-                <span className="h-1.5 w-1.5 rounded-full bg-positive" aria-hidden="true" />
-                After
-              </dt>
-              <dd className="mt-1 leading-relaxed text-mist">{project.after}</dd>
-            </div>
-          </dl>
+          {project.before && project.after && (
+            <dl className="mt-5 grid gap-4 border-t border-edge pt-5 text-nav font-normal sm:grid-cols-2">
+              <div>
+                <dt className="flex items-center gap-2 font-medium text-frost">
+                  <span className="h-1.5 w-1.5 rounded-full bg-critical" aria-hidden="true" />
+                  Before
+                </dt>
+                <dd className="mt-1 leading-relaxed text-mist">{project.before}</dd>
+              </div>
+              <div>
+                <dt className="flex items-center gap-2 font-medium text-frost">
+                  <span className="h-1.5 w-1.5 rounded-full bg-positive" aria-hidden="true" />
+                  After
+                </dt>
+                <dd className="mt-1 leading-relaxed text-mist">{project.after}</dd>
+              </div>
+            </dl>
+          )}
 
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
             <ul className="flex flex-wrap gap-1.5" aria-label="Stack">
