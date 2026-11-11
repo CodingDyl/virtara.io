@@ -53,7 +53,8 @@ const pricingByTab = {
       idealFor: plan.idealFor,
       features: [...plan.features, `Live in ${plan.weeks}`, plan.deposit],
       highlighted: plan.highlighted,
-      to: `/start-your-project?plan=${plan.id}`
+      to: `/start-your-project?plan=${plan.id}`,
+      cta: "Start this project"
     }))
   },
   seo: {
@@ -142,7 +143,7 @@ function Services() {
         actions={
           <>
             <Button href="#packages" size="lg" className="font-semibold">See packages</Button>
-            <Button to="/start-your-project" variant="secondary" size="lg">Book a strategy audit</Button>
+            <Button to="/resources/audit" variant="secondary" size="lg">Book a strategy audit</Button>
           </>
         }
       />
@@ -235,6 +236,7 @@ function Services() {
                   features={pkg.features}
                   highlighted={pkg.highlighted}
                   to={pkg.to}
+                  cta={pkg.cta}
                 />
               ))}
             </div>
@@ -247,7 +249,7 @@ function Services() {
         lead="If your goals need a blended stack across SEO, paid media, automation and website optimisation, we can build a custom monthly roadmap with fixed deliverables."
         actions={
           <>
-            <Button to="/start-your-project" size="lg" className="font-semibold">Book a strategy audit</Button>
+            <Button to="/resources/audit" size="lg" className="font-semibold">Book a strategy audit</Button>
             <Button to="/contact-us" variant="secondary" size="lg">Talk to the team</Button>
           </>
         }
