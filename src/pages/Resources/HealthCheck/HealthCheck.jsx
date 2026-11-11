@@ -27,7 +27,10 @@ const Checklist = () => {
       // First, update Firestore through the subscribeToNewsletter function
       const subscriptionResult = await subscribeToNewsletter(formData.email, formData.name);
       
-      if (!subscriptionResult.success) {
+      // An email that is already stored must still get the checklist, so only
+      // other failures stop here. Matches the message in subscribeToNewsletter.
+      const alreadySubscribed = subscriptionResult.message === 'This email is already subscribed';
+      if (!subscriptionResult.success && !alreadySubscribed) {
         throw new Error(subscriptionResult.message);
       }
 
