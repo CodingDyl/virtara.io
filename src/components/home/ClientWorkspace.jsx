@@ -153,11 +153,9 @@ const ClientWorkspace = () => {
 
             {/* Engagement details */}
             <div key={project.id} className="animate-fade-in p-5">
-              <p className="text-caption text-quiet">Engagement outcome</p>
-              <p className="mt-3 flex items-baseline gap-2">
-                <span className="figure text-[44px] leading-none text-cloud">{project.kpi.value}</span>
-              </p>
-              <p className="mt-1 text-nav font-normal text-mist">{project.kpi.label}</p>
+              <p className="text-caption text-quiet">Client project</p>
+              <p className="mt-2 text-title text-cloud">{project.title}</p>
+              <p className="mt-1 text-nav font-normal text-mist">{project.category}</p>
 
               <dl className="mt-6 divide-y divide-edge border-y border-edge text-[13px]">
                 <div className="py-3">

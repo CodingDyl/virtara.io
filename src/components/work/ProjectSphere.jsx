@@ -238,7 +238,7 @@ const ProjectSphere = ({ projects }) => {
             ref={(el) => (tileRefs.current[i] = el)}
             type="button"
             data-tile
-            aria-label={`${project.title}, ${project.category}. ${project.kpi.value} ${project.kpi.label}. Open details`}
+            aria-label={`${project.title}, ${project.category}. Open details`}
             onFocus={() => faceTile(i)}
             onClick={(e) => openProject(e, project)}
             className="group absolute left-1/2 top-1/2 block cursor-pointer text-left will-change-transform"
@@ -272,7 +272,6 @@ const ProjectSphere = ({ projects }) => {
                   <span className="block truncate text-[12px] font-semibold leading-tight text-cloud">{project.title}</span>
                   <span className="block truncate text-[10px] leading-tight text-quiet">{project.category}</span>
                 </span>
-                <span className="figure shrink-0 text-[15px] leading-none text-cloud">{project.kpi.value}</span>
               </span>
             </span>
           </button>

@@ -97,10 +97,6 @@ const ProjectModal = ({ project, onClose }) => {
               </h2>
               <p className="mt-0.5 text-caption text-quiet">{project.category}</p>
             </div>
-            <div className="shrink-0 text-right">
-              <p className="figure text-[32px] leading-none text-cloud">{project.kpi.value}</p>
-              <p className="mt-1 text-caption text-mist">{project.kpi.label}</p>
-            </div>
           </div>
 
           <p className="mt-4 text-body text-mist">{project.summary}</p>

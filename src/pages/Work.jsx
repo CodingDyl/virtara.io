@@ -65,10 +65,6 @@ const ProjectCard = ({ project, wide, eager }) => (
           </h2>
           <p className="text-caption text-quiet">{project.category}</p>
         </div>
-        <div className="text-right">
-          <p className="figure text-[26px] leading-none text-cloud">{project.kpi.value}</p>
-          <p className="mt-1 text-caption text-mist">{project.kpi.label}</p>
-        </div>
       </div>
       <p className="mt-4 text-nav font-normal leading-relaxed text-mist">{project.summary}</p>
       <dl className="mt-5 grid gap-3 border-t border-edge pt-5 text-nav font-normal sm:grid-cols-2">
