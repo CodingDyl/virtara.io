@@ -55,6 +55,10 @@ function LeadQualifier() {
     setStepIndex((prev) => prev + 1);
   };
 
+  const auditUrl = `/resources/audit?${new URLSearchParams(
+    Object.fromEntries(discoverySteps.map((s) => [s.key, answers[s.key] ?? ""]))
+  ).toString()}`;
+
   const restart = () => {
     setStepIndex(0);
     setAnswers({});
@@ -128,7 +132,7 @@ function LeadQualifier() {
               ))}
             </dl>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Button to="/start-your-project" showArrow>
+              <Button to={auditUrl} showArrow>
                 Book a strategy audit
               </Button>
               <Button variant="secondary" onClick={restart} icon={<IconRefresh stroke={1.8} />}>
@@ -181,7 +185,7 @@ function Home() {
         lead="Premium web strategy, engineering and SEO for South African brands that care about measurable outcomes."
         actions={
           <>
-            <Button href="#lead-qualifier" size="lg" className="font-semibold">
+            <Button to="/resources/audit" size="lg" className="font-semibold">
               Book a strategy audit
             </Button>
             <Button to="/our-work" variant="secondary" size="lg">
@@ -245,7 +249,7 @@ function Home() {
         lead="Book a strategy audit and leave with a clear, prioritised plan for your site."
         actions={
           <>
-            <Button to="/contact-us" size="lg" className="font-semibold">
+            <Button to="/resources/audit" size="lg" className="font-semibold">
               Book an audit
             </Button>
             <Button to="/start-your-project" variant="secondary" size="lg">

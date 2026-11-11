@@ -177,7 +177,7 @@ function Work() {
         lead="We'll map your current funnel, find the conversion bottlenecks, and build a practical growth roadmap."
         actions={
           <>
-            <Button to="/start-your-project" size="lg" className="font-semibold">
+            <Button to="/resources/audit" size="lg" className="font-semibold">
               Book a strategy audit
             </Button>
             <Button to="/services" variant="secondary" size="lg">

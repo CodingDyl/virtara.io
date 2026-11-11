@@ -16,7 +16,7 @@ const PlanCard = ({
   highlighted = false,
   badge = "Most selected",
   cta = "Book a strategy audit",
-  to = "/start-your-project",
+  to = "/resources/audit",
   onClick,
   className,
 }) => (

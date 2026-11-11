@@ -1,14 +1,22 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { submitAuditBooking } from '../../../config/firebase';
 import PageShell from '../../../components/layout/PageShell';
 import PageHero from '../../../components/layout/PageHero';
 import Button from '../../../components/ui/Button';
 import { trackEvent } from '../../../lib/analytics';
+import sendEmail from '../../../server/workflow';
+
+const QUIZ_FIELDS = [
+  { key: 'revenueGoal', label: 'Revenue goal' },
+  { key: 'leadVolume', label: 'Lead requirement' },
+  { key: 'primaryConstraint', label: 'Main blocker' },
+];
 
 const AuditPage = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -38,9 +46,37 @@ const AuditPage = () => {
     setSubmitStatus({ loading: true, message: '', isError: false });
 
     try {
-      const result = await submitAuditBooking(formData);
-      
+      const quiz = {};
+      QUIZ_FIELDS.forEach(({ key }) => {
+        const value = searchParams.get(key);
+        if (value) quiz[key] = value;
+      });
+
+      const result = await submitAuditBooking({ ...formData, ...quiz });
+
       if (result.success) {
+        try {
+          const quizLines = QUIZ_FIELDS.filter(({ key }) => quiz[key])
+            .map(({ key, label }) => `${label}: ${quiz[key]}, <br />`)
+            .join('\n');
+          await sendEmail(
+            'Audit booking request',
+            `
+        Name: ${formData.name}, <br />
+        Email: ${formData.email}, <br />
+        Website: ${formData.website}, <br />
+        Additional websites: ${formData.additionalWebsites}, <br />
+        Preferred date: ${formData.preferredDate}, <br />
+        Preferred time: ${formData.preferredTime}, <br />
+        Platform: ${formData.meetingPlatform}, <br />
+        ${quizLines}
+        Notes: ${formData.additionalNotes}
+      `,
+            { replyTo: formData.email, name: formData.name }
+          );
+        } catch (emailError) {
+          console.error('Audit booking email failed:', emailError);
+        }
         trackEvent("generate_lead", { form: "audit_booking" });
         setSubmitStatus({
           loading: false,

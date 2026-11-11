@@ -106,5 +106,5 @@ export const primaryLinks = [
   { label: "Our work", to: "/our-work" },
 ];
 
-export const cta = { label: "Book an audit", to: "/contact-us" };
+export const cta = { label: "Book an audit", to: "/resources/audit" };
 export const secondaryCta = { label: "Start a project", to: "/start-your-project" };

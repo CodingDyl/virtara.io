@@ -162,7 +162,7 @@ const BlogPost = () => {
       <ClosingBand
         title="Want this applied to your site?"
         lead="Book a strategy audit and we'll show you where your site is leaving revenue on the table."
-        actions={<Button to="/contact-us" size="lg" className="font-semibold">Book an audit</Button>}
+        actions={<Button to="/resources/audit" size="lg" className="font-semibold">Book an audit</Button>}
       />
     </PageShell>
   );

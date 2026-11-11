@@ -14,15 +14,11 @@ const HealthThankYou = () => (
       <div className="p-6 sm:p-8">
         <h2 className="text-title text-cloud">Want us to do the heavy lifting?</h2>
         <p className="mt-3 text-body text-mist">
-          Grab a 30-minute website audit and get a custom fix-it plan from our experts. We'll analyse your site and show you exactly
+          Book a free 30-minute website audit and get a custom fix-it plan from our experts. We'll analyse your site and show you exactly
           what needs to change to boost conversions.
         </p>
-        <p className="mt-6 flex items-baseline gap-3">
-          <span className="figure text-[36px] leading-none text-cloud">R299</span>
-          <span className="figure text-[18px] text-quiet line-through">R499</span>
-        </p>
         <Button to="/resources/audit" size="lg" showArrow className="mt-6 font-semibold">
-          Claim my audit now
+          Book my free audit
         </Button>
       </div>
       <div className="border-t border-edge bg-ink/60 p-6 sm:p-8 md:border-l md:border-t-0">
