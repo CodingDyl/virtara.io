@@ -20,7 +20,7 @@ import ClosingBand from '../components/layout/ClosingBand';
 import Button from '../components/ui/Button';
 import PlanCard from '../components/ui/PlanCard';
 import { cn } from '../utils/cn';
-import { buildPlans, seoPlans, aeoStarter, adsPlans, retainerPlans, careNote } from '../data/pricing';
+import { buildPlans, seoPlans, aeoStarter, adsPlans, retainerPlans, carePlans, growthBundle } from '../data/pricing';
 
 const serviceCatalog = [
   { icon: IconTarget, title: 'Strategy & Positioning' },
@@ -45,13 +45,18 @@ const tabs = [
 const pricingByTab = {
   development: {
     title: 'Web & Commerce Builds',
-    subtitle: 'Once-off implementation with clear scope and timeline.',
+    subtitle: 'Low upfront cost with a monthly care plan, or pay once. Your choice.',
     packages: buildPlans.map((plan) => ({
       name: plan.name,
-      price: plan.priceLabel,
-      support: careNote(plan),
+      price: plan.planPriceLabel,
+      support: plan.onceOffNote,
       idealFor: plan.idealFor,
-      features: [...plan.features, plan.timeline, plan.deposit],
+      features: [
+        ...plan.features,
+        `12-month care plan from ${carePlans[0].price}/mo, hosting included`,
+        plan.timeline,
+        plan.deposit
+      ],
       highlighted: plan.highlighted,
       to: `/start-your-project?plan=${plan.id}`,
       cta: "Start this project"
@@ -63,7 +68,7 @@ const pricingByTab = {
     packages: seoPlans.map((plan) => ({
       name: plan.name,
       price: plan.priceLabel,
-      support: `Setup fee: ${plan.setupFee} once-off`,
+      support: plan.setupFee ? `Setup fee: ${plan.setupFee} once-off` : 'No setup fee',
       idealFor: plan.idealFor,
       features: plan.features,
       highlighted: plan.highlighted
@@ -155,7 +160,7 @@ function Services() {
             {[
               ['Pricing includes', 'Planning, implementation, QA and reporting for the chosen scope.'],
               ['Pricing excludes', 'Media spend, premium plugins/licenses, and third-party platform fees.'],
-              ['Commitment model', 'Builds are once-off. Retainers are month-to-month unless otherwise specified.'],
+              ['Commitment model', 'Builds are once-off, or lower upfront with a 12-month care plan. Other retainers are month-to-month.'],
             ].map(([t, d]) => (
               <div key={t} className="py-6 md:px-8 md:first:pl-0 md:last:pr-0">
                 <dt className="text-nav font-medium text-cloud">{t}</dt>
@@ -225,7 +230,7 @@ function Services() {
               <p className="mt-3 text-body text-frost">{activeData.subtitle}</p>
             </div>
 
-            <div className="mt-10 grid gap-4 lg:grid-cols-3">
+            <div className={cn('mt-10 grid gap-4', activeData.packages.length === 4 ? 'md:grid-cols-2' : 'lg:grid-cols-3')}>
               {activeData.packages.map((pkg) => (
                 <PlanCard
                   key={pkg.name}
@@ -240,6 +245,13 @@ function Services() {
                 />
               ))}
             </div>
+
+            {activeTab === 'development' && (
+              <p className="mt-8 max-w-2xl text-nav font-normal leading-relaxed text-mist">
+                {growthBundle.name}, {growthBundle.priceLabel}: Essential care with hosting, Visibility Starter and the Concierge website assistant on one monthly invoice. {growthBundle.term}.{' '}
+                <Link to="/contact-us" className="text-link">Ask about the bundle</Link>
+              </p>
+            )}
 
             {activeTab === 'seo' && (
               <p className="mt-8 max-w-2xl text-nav font-normal leading-relaxed text-mist">

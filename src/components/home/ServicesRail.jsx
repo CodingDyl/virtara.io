@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import { clarity } from "../../assets";
 import { cn } from "../../utils/cn";
+import { buildPlans, seoPlans, adsPlans, carePlans } from "../../data/pricing";
 
 /**
  * Four services, each shown as the thing it produces. Example panes are
@@ -141,7 +142,7 @@ const services = [
     icon: IconBrowser,
     title: "Web design & development",
     desc: "Conversion-first sites and commerce builds, scoped once, shipped fast.",
-    price: "From R12,500 once-off",
+    price: `From ${buildPlans[0].planPriceLabel}`,
     points: ["5–15 page builds with conversion-focused structure", "CMS, blog, booking and CRM integrations", "Average Lighthouse performance of 97+"],
     to: "/services#development",
     Pane: WebPane,
@@ -151,7 +152,7 @@ const services = [
     icon: IconSearch,
     title: "SEO + AEO",
     desc: "Month-to-month retainers that compound. No lock-in contracts. AEO is built in, so AI assistants can find and quote you too.",
-    price: "From R4,500 / month",
+    price: `From ${seoPlans[0].price} / month`,
     points: ["Technical baseline and indexing fixes", "Google Business Profile optimisation", "Monthly ranking and lead report"],
     to: "/services#seo",
     Pane: SeoPane,
@@ -161,7 +162,7 @@ const services = [
     icon: IconChartArrowsVertical,
     title: "Paid media & growth",
     desc: "Google and Meta campaigns run against a cost-per-lead target.",
-    price: "From R6,500 / month management",
+    price: `From ${adsPlans[0].price} / month management`,
     points: ["Conversion tracking and dashboards", "Weekly optimisation and budget pacing", "Lead-quality scoring loop"],
     to: "/services#growth",
     Pane: GrowthPane,
@@ -171,7 +172,7 @@ const services = [
     icon: IconShieldCheck,
     title: "Maintenance & support",
     desc: "Updates, backups, security and fixes — handled before you notice.",
-    price: "From R1,000 / month",
+    price: `From ${carePlans[0].price} / month`,
     points: ["Monthly CMS and plugin updates", "Weekly secure backups and uptime monitoring", "Priority support on Pro and Premium plans"],
     to: "/maintenance-support",
     Pane: CarePane,

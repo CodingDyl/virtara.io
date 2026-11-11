@@ -60,7 +60,7 @@ const ChoiceGroup = ({ label, name, options, value, onChange }) => (
   </fieldset>
 );
 
-const budgetLabel = (plan) => `${plan.name}, ${plan.priceLabel.replace(' once-off', '')}`;
+const budgetLabel = (plan) => `${plan.name}, ${plan.planPriceLabel}`;
 
 function StartaProject() {
   const [searchParams] = useSearchParams();

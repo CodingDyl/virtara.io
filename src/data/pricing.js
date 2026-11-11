@@ -11,6 +11,9 @@ export const buildPlans = [
     name: 'Launch Site',
     price: 'R12,500',
     priceLabel: 'R12,500 once-off',
+    planPrice: 'R4,900',
+    planPriceLabel: 'R4,900 with a care plan',
+    onceOffNote: 'or R12,500 once-off without a plan',
     idealFor: 'Startups and service businesses that need a conversion-ready web presence.',
     carePlanId: 'essential',
     features: [
@@ -28,6 +31,9 @@ export const buildPlans = [
     name: 'Growth Site',
     price: 'R28,000',
     priceLabel: 'R28,000 once-off',
+    planPrice: 'R12,500',
+    planPriceLabel: 'R12,500 with a care plan',
+    onceOffNote: 'or R28,000 once-off without a plan',
     idealFor: 'SMEs that need multi-service funnels and stronger conversion architecture.',
     carePlanId: 'pro',
     highlighted: true,
@@ -46,6 +52,9 @@ export const buildPlans = [
     name: 'Commerce / Custom Platform',
     price: 'R55,000',
     priceLabel: 'From R55,000 once-off',
+    planPrice: 'From R25,000',
+    planPriceLabel: 'From R25,000 with a care plan',
+    onceOffNote: 'or from R55,000 once-off without a plan',
     idealFor: 'Brands needing e-commerce, portals, memberships or custom workflows.',
     carePlanId: 'premium',
     features: [
@@ -65,6 +74,7 @@ export const carePlans = [
     price: 'R1,000',
     priceLabel: 'R1,000/month',
     features: [
+      'Hosting included',
       'Monthly CMS & Plugin Updates',
       'Weekly Secure Backups',
       'Basic Malware Scans',
@@ -79,6 +89,7 @@ export const carePlans = [
     priceLabel: 'R2,500/month',
     highlighted: true,
     features: [
+      'Hosting included',
       'All Essential Features',
       'Performance Optimization',
       '2 Hours Content Updates',
@@ -93,6 +104,7 @@ export const carePlans = [
     price: 'R5,000',
     priceLabel: 'R5,000/month',
     features: [
+      'Hosting included',
       'All Pro Features',
       '5 Hours Custom Development',
       'E-Commerce Support',
@@ -104,6 +116,21 @@ export const carePlans = [
 ];
 
 export const seoPlans = [
+  {
+    id: 'visibility-starter',
+    name: 'Visibility Starter',
+    price: 'R1,950',
+    priceLabel: 'R1,950/mo',
+    setupFee: null,
+    idealFor: 'New and small sites that want to be found on Google and in AI answers without a big retainer.',
+    features: [
+      'Google Business Profile kept up to date',
+      '1 page optimised for search and AI answers each month',
+      'FAQ schema on key pages',
+      'Quarterly AI visibility check',
+      'Short monthly report'
+    ]
+  },
   {
     id: 'local',
     name: 'Local SEO + AEO Foundation',
@@ -271,7 +298,16 @@ export const retainerPlans = [
   }
 ];
 
-export const careNote = (plan) => {
-  const care = carePlans.find((c) => c.id === plan.carePlanId);
-  return care ? `Optional care plan: ${care.name}, ${care.price}/mo` : undefined;
+export const growthBundle = {
+  id: 'growth-bundle',
+  name: 'Growth Bundle',
+  price: 'R2,950',
+  priceLabel: 'R2,950/mo',
+  term: '12-month term',
+  includes: [
+    'Essential care with hosting',
+    'Visibility Starter (SEO + AEO)',
+    'Concierge Starter website assistant'
+  ],
+  saving: 'Saves R599 a month against buying each separately'
 };

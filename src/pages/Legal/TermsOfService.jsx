@@ -16,7 +16,7 @@ const TermsOfService = () => {
     },
     {
       title: "4. Payment Terms",
-      content: "Website builds are invoiced as a 50% deposit before work starts and the remaining 50% on completion of the work. We reserve the right to pause services for overdue accounts."
+      content: "Website builds are invoiced as a 50% deposit before work starts and the remaining 50% on completion of the work. Build prices offered with a care plan require a 12-month care plan; if the plan is cancelled early, the difference between the plan price and the once-off price of the build becomes payable. We reserve the right to pause services for overdue accounts."
     },
     {
       title: "5. Intellectual Property",
