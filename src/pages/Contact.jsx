@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { IconMail, IconPhone, IconMapPin, IconSend } from '@tabler/icons-react';
 import emailjs from '@emailjs/browser';
 import { Helmet } from 'react-helmet-async';
@@ -10,13 +11,17 @@ import { trackEvent } from '../lib/analytics';
 import { saveLead } from '../config/firebase';
 import { IconInput } from '../components/ui/Field';
 
+const TRIAL_MESSAGE = "I'd like the 14-day Concierge trial for my website: ";
+
 const Contact = () => {
+  const isTrial = useSearchParams()[0].get('topic') === 'concierge-trial';
+  const formId = isTrial ? 'concierge_trial' : 'contact';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     subject: '',
-    message: ''
+    message: isTrial ? TRIAL_MESSAGE : ''
   });
   const [isLoading, setIsLoading] = useState(false);
   const [notification, setNotification] = useState({
@@ -52,13 +57,13 @@ const Contact = () => {
       );
       
       saveLead({
-        form: "contact",
+        form: formId,
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         details: { subject: formData.subject, message: formData.message }
       });
-      trackEvent("generate_lead", { form: "contact" });
+      trackEvent("generate_lead", { form: formId });
       setNotification({
         message: 'Message sent successfully! We will get back to you soon.',
         type: 'success',
