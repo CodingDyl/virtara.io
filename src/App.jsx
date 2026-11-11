@@ -1,6 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { lazy, Suspense, useEffect } from 'react'
-import { HelmetProvider } from 'react-helmet-async'
 import AnalyticsTracker from './components/AnalyticsTracker'
 import LoadingSpinner from './components/ui/LoadingSpinner'
 
@@ -84,8 +83,7 @@ function App() {
   }, []);
 
   return (
-    <HelmetProvider>
-      <Router>
+    <>
         <RouteScroll />
         <Suspense fallback={<RouteFallback />}>
           <Routes>
@@ -137,8 +135,7 @@ function App() {
           <ScrollToTop />
           <CookieConsent />
         </Suspense>
-      </Router>
-    </HelmetProvider>
+    </>
   )
 }
 
