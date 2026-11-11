@@ -16,7 +16,7 @@ const TermsOfService = () => {
     },
     {
       title: "4. Payment Terms",
-      content: "Payment terms vary based on the selected service package. Specific payment schedules will be outlined in individual service agreements. We reserve the right to pause services for overdue accounts."
+      content: "Website builds are invoiced 50% to start and 50% at launch. We reserve the right to pause services for overdue accounts."
     },
     {
       title: "5. Intellectual Property",

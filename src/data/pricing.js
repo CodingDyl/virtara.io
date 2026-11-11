@@ -6,6 +6,8 @@
 export const buildPlans = [
   {
     id: 'launch',
+    weeks: '2–3 weeks',
+    deposit: '50% to start, 50% at launch',
     name: 'Launch Site',
     price: 'R12,500',
     priceLabel: 'R12,500 once-off',
@@ -21,6 +23,8 @@ export const buildPlans = [
   },
   {
     id: 'growth',
+    weeks: '4–6 weeks',
+    deposit: '50% to start, 50% at launch',
     name: 'Growth Site',
     price: 'R28,000',
     priceLabel: 'R28,000 once-off',
@@ -37,6 +41,8 @@ export const buildPlans = [
   },
   {
     id: 'commerce',
+    weeks: '8–12 weeks',
+    deposit: '50% to start, 50% at launch',
     name: 'Commerce / Custom Platform',
     price: 'R55,000',
     priceLabel: 'From R55,000 once-off',

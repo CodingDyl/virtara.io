@@ -51,7 +51,7 @@ const pricingByTab = {
       price: plan.priceLabel,
       support: careNote(plan),
       idealFor: plan.idealFor,
-      features: plan.features,
+      features: [...plan.features, `Live in ${plan.weeks}`, plan.deposit],
       highlighted: plan.highlighted,
       to: `/start-your-project?plan=${plan.id}`
     }))
