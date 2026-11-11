@@ -17,6 +17,7 @@ const PlanCard = ({
   badge = "Most selected",
   cta = "Book a strategy audit",
   to = "/resources/audit",
+  href,
   onClick,
   className,
 }) => (
@@ -52,7 +53,8 @@ const PlanCard = ({
     </ul>
     {cta && (
       <Button
-        to={onClick ? undefined : to}
+        to={onClick || href ? undefined : to}
+        href={href}
         onClick={onClick}
         variant={highlighted ? "primary" : "secondary"}
         className={cn("mt-8 w-full", highlighted && "font-semibold")}

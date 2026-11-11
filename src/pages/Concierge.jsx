@@ -31,7 +31,7 @@ const plans = [
   },
 ];
 
-const TRIAL_URL = "/contact-us?topic=concierge-trial";
+const START_URL = "https://concierge.virtara.co.za/start";
 
 const Concierge = () => {
   return (
@@ -51,7 +51,7 @@ const Concierge = () => {
         lead="Concierge learns your business from your website, answers visitors at any hour, and hands you every enquiry with a summary and a score."
         actions={
           <>
-            <Button to={TRIAL_URL} size="lg" className="font-semibold">Start free for 14 days</Button>
+            <Button href={START_URL} size="lg" className="font-semibold">Start free for 14 days</Button>
             <Button onClick={() => window.concierge?.("open")} variant="secondary" size="lg">Try it on this page</Button>
           </>
         }
@@ -90,7 +90,7 @@ const Concierge = () => {
                 highlighted={p.highlighted}
                 badge="Recommended"
                 cta="Start free for 14 days"
-                to={TRIAL_URL}
+                href={`${START_URL}?plan=${p.key}`}
               />
             ))}
           </div>
@@ -108,11 +108,11 @@ const Concierge = () => {
         <div className="shell grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
           <SectionHeading
             id="trial-heading"
-            title="We set it up for you, free for 14 days"
-            lead="Tell us about your website and we'll set Concierge up on it for you."
+            title="Start free for 14 days"
+            lead="Enter your website and Concierge reads it and builds your assistant in about a minute. No card needed. After 14 days, subscribe to keep it running."
           />
           <div>
-            <Button to={TRIAL_URL} size="lg" className="font-semibold">Start free for 14 days</Button>
+            <Button href={START_URL} size="lg" className="font-semibold">Start free for 14 days</Button>
           </div>
         </div>
       </section>
