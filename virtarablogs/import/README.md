@@ -8,6 +8,7 @@
 cd virtarablogs
 npm install            # first time only
 npx sanity login
+npx sanity dataset import import/old-project-posts.ndjson production --replace
 npx sanity dataset import import/2026-11-posts.ndjson production --replace
 ```
 
@@ -18,7 +19,7 @@ npx sanity dataset import import/2026-11-posts.ndjson production --replace
 - `https://virtara.co.za/web-development-blog` lists both posts, newest first.
 - `https://virtara.co.za/web-development-blog/website-cost-south-africa`
 - `https://virtara.co.za/web-development-blog/web-design-johannesburg`
-- Raw data: `https://j8knkfc7.api.sanity.io/v2024-03-20/data/query/production?query=*[_type=="post"&&_id match "post-web*"]{_id,title}` (the site reads through the CDN, so allow a minute).
+- Raw data: `https://h9swrh5t.api.sanity.io/v2024-03-20/data/query/production?query=*[_type=="post"&&_id match "post-web*"]{_id,title}` (the site reads through the CDN, so allow a minute).
 
 The posts have no main image: cards show an empty dark box, and the article page omits the image block. Add one in Studio (`npx sanity dev`, open the post, set Main image) if wanted.
 

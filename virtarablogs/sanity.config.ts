@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'default',
   title: 'virtara_blogs',
 
-  projectId: 'j8knkfc7',
+  projectId: 'h9swrh5t',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],
