@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { lazy, Suspense, useEffect } from 'react'
 import AnalyticsTracker from './components/AnalyticsTracker'
 import LoadingSpinner from './components/ui/LoadingSpinner'
@@ -106,6 +106,7 @@ function App() {
             <Route path="/thank-you" element={<HealthThankYou />} />
             <Route path="/checklist/thank-you" element={<HealthThankYou />} />
             <Route path="/resources/health-check/thank-you" element={<HealthThankYou />} />
+            <Route path="/audit" element={<Navigate to="/resources/audit" replace />} />
             <Route path="/resources/audit" element={<AuditPage />} />
             <Route path="/resources/audit/thank-you" element={<AuditThankYou />} />
             <Route path="/legal/privacy-policy" element={<PrivacyPolicy />} />

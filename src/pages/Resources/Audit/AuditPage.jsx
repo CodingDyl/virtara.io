@@ -1,12 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { submitAuditBooking } from '../../../config/firebase';
 import PageShell from '../../../components/layout/PageShell';
 import PageHero from '../../../components/layout/PageHero';
-import Button from '../../../components/ui/Button';
 import { trackEvent } from '../../../lib/analytics';
-import sendEmail from '../../../server/workflow';
+
+const CAL_LINK = 'dylan-petzer-zfzvl2/30min';
+const CAL_URL = `https://cal.com/${CAL_LINK}`;
+// Cal ignores a second inline embed in a namespace, so each mount gets its own.
+let embedCount = 0;
+
+// Cal's dark theme mapped onto the site tokens (see DESIGN.md).
+const CAL_DARK_VARS = {
+  'cal-brand': '#4ea4ff',
+  'cal-brand-emphasis': '#8fc5ff',
+  'cal-brand-text': '#050608',
+  'cal-text': '#dee3ec',
+  'cal-text-emphasis': '#ffffff',
+  'cal-text-subtle': '#aeb6c9',
+  'cal-text-muted': '#8a92a6',
+  'cal-bg': '#0f1219',
+  'cal-bg-emphasis': '#1e2330',
+  'cal-bg-subtle': '#151a24',
+  'cal-bg-muted': '#0f1219',
+  'cal-border': '#1e2330',
+  'cal-border-emphasis': '#2a3142',
+  'cal-border-subtle': '#1e2330',
+  'cal-border-booker': '#1e2330',
+};
 
 const QUIZ_FIELDS = [
   { key: 'revenueGoal', label: 'Revenue goal' },
@@ -17,95 +38,80 @@ const QUIZ_FIELDS = [
 const AuditPage = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    website: '',
-    additionalWebsites: '',
-    preferredDate: '',
-    preferredTime: '',
-    meetingPlatform: 'teams',
-    additionalNotes: ''
-  });
+  const embedRef = useRef(null);
+  const navigateRef = useRef(navigate);
+  navigateRef.current = navigate;
 
-  const [submitStatus, setSubmitStatus] = useState({
-    loading: false,
-    message: '',
-    isError: false
-  });
+  // Quiz answers arrive as query params; hand them to the booking's notes field.
+  const notes = QUIZ_FIELDS.filter(({ key }) => searchParams.get(key))
+    .map(({ key, label }) => `${label}: ${searchParams.get(key)}`)
+    .join('\n');
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  // Cal.com's vanilla inline embed. Runs in an effect only: the page is prerendered.
+  useEffect(() => {
+    const container = embedRef.current;
+    if (!container) return undefined;
+    let active = true;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitStatus({ loading: true, message: '', isError: false });
-
-    try {
-      const quiz = {};
-      QUIZ_FIELDS.forEach(({ key }) => {
-        const value = searchParams.get(key);
-        if (value) quiz[key] = value;
-      });
-
-      const result = await submitAuditBooking({ ...formData, ...quiz });
-
-      if (result.success) {
-        try {
-          const quizLines = QUIZ_FIELDS.filter(({ key }) => quiz[key])
-            .map(({ key, label }) => `${label}: ${quiz[key]}, <br />`)
-            .join('\n');
-          await sendEmail(
-            'Audit booking request',
-            `
-        Name: ${formData.name}, <br />
-        Email: ${formData.email}, <br />
-        Website: ${formData.website}, <br />
-        Additional websites: ${formData.additionalWebsites}, <br />
-        Preferred date: ${formData.preferredDate}, <br />
-        Preferred time: ${formData.preferredTime}, <br />
-        Platform: ${formData.meetingPlatform}, <br />
-        ${quizLines}
-        Notes: ${formData.additionalNotes}
-      `,
-            { replyTo: formData.email, name: formData.name }
-          );
-        } catch (emailError) {
-          console.error('Audit booking email failed:', emailError);
+    (function (C, A, L) {
+      const p = (a, ar) => { a.q.push(ar); };
+      const d = C.document;
+      C.Cal = C.Cal || function () {
+        const cal = C.Cal;
+        const ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement('script')).src = A;
+          cal.loaded = true;
         }
-        trackEvent("generate_lead", { form: "audit_booking" });
-        setSubmitStatus({
-          loading: false,
-          message: 'Thank you! Your audit booking has been submitted successfully.',
-          isError: false
-        });
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          website: '',
-          additionalWebsites: '',
-          preferredDate: '',
-          preferredTime: '',
-          meetingPlatform: 'teams',
-          additionalNotes: ''
-        });
-        navigate('/resources/audit/thank-you');
-      } else {
-        throw new Error(result.message);
-      }
-    } catch (error) {
-      setSubmitStatus({
-        loading: false,
-        message: error.message || 'Something went wrong. Please try again.',
-        isError: true
-      });
-    }
-  };
+        if (ar[0] === L) {
+          const api = function () { p(api, arguments); };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === 'string') {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ['initNamespace', namespace]);
+          } else p(cal, ar);
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+    const namespace = `audit-${++embedCount}`;
+    window.Cal('init', namespace, { origin: 'https://app.cal.com' });
+    const cal = window.Cal.ns[namespace];
+
+    cal('inline', {
+      elementOrSelector: container,
+      calLink: CAL_LINK,
+      layout: 'month_view',
+      config: { layout: 'month_view', theme: 'dark', ...(notes && { notes }) },
+    });
+    cal('ui', {
+      theme: 'dark',
+      layout: 'month_view',
+      hideEventTypeDetails: false,
+      cssVarsPerTheme: { light: CAL_DARK_VARS, dark: CAL_DARK_VARS },
+    });
+    // bookingSuccessfulV2 is the current event; bookingSuccessful is deprecated.
+    cal('on', {
+      action: 'bookingSuccessfulV2',
+      callback: () => {
+        if (!active) return;
+        active = false;
+        trackEvent('generate_lead', { form: 'audit_booking' });
+        navigateRef.current('/resources/audit/thank-you');
+      },
+    });
+
+    return () => {
+      active = false;
+      container.innerHTML = '';
+    };
+  }, [notes]);
 
   return (
     <PageShell>
@@ -121,76 +127,17 @@ const AuditPage = () => {
         lead="Let's analyse your website and create a custom plan to boost your conversions."
       />
 
-      <section className="pb-24 md:pb-32" aria-label="Booking form">
-        <div className="shell max-w-3xl">
-          <div className="rounded-card border border-edge bg-charcoal shadow-frame">
-            <form onSubmit={handleSubmit} className="space-y-5 p-6 sm:p-8">
-              <div className="grid gap-5 md:grid-cols-2">
-                <div>
-                  <label htmlFor="name" className="field-label">Full name</label>
-                  <input type="text" id="name" name="name" autoComplete="name" value={formData.name} onChange={handleChange} className="field-input" required />
-                </div>
-                <div>
-                  <label htmlFor="email" className="field-label">Email address</label>
-                  <input type="email" id="email" name="email" autoComplete="email" value={formData.email} onChange={handleChange} className="field-input" required />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="website" className="field-label">Primary website to audit</label>
-                <input type="url" id="website" name="website" placeholder="https://example.co.za" value={formData.website} onChange={handleChange} className="field-input" required />
-              </div>
-              <div>
-                <label htmlFor="additionalWebsites" className="field-label">Additional website links <span className="text-quiet">(optional)</span></label>
-                <input
-                  type="text"
-                  id="additionalWebsites"
-                  name="additionalWebsites"
-                  placeholder="Add any additional URLs, separated by commas"
-                  value={formData.additionalWebsites}
-                  onChange={handleChange}
-                  aria-describedby="additionalWebsites-hint"
-                  className="field-input"
-                />
-                <p id="additionalWebsites-hint" className="field-hint">E.g. competitor websites or other sites you'd like us to reference.</p>
-              </div>
-              <div className="grid gap-5 md:grid-cols-3">
-                <div>
-                  <label htmlFor="preferredDate" className="field-label">Preferred date</label>
-                  <input type="date" id="preferredDate" name="preferredDate" value={formData.preferredDate} onChange={handleChange} className="field-input [color-scheme:dark]" required />
-                </div>
-                <div>
-                  <label htmlFor="preferredTime" className="field-label">Preferred time</label>
-                  <input type="time" id="preferredTime" name="preferredTime" value={formData.preferredTime} onChange={handleChange} className="field-input [color-scheme:dark]" required />
-                </div>
-                <div>
-                  <label htmlFor="meetingPlatform" className="field-label">Platform</label>
-                  <select id="meetingPlatform" name="meetingPlatform" value={formData.meetingPlatform} onChange={handleChange} className="field-input [&>option]:bg-charcoal">
-                    <option value="teams">Microsoft Teams</option>
-                    <option value="zoom">Zoom</option>
-                  </select>
-                </div>
-              </div>
-              <div>
-                <label htmlFor="additionalNotes" className="field-label">Additional notes</label>
-                <textarea id="additionalNotes" name="additionalNotes" value={formData.additionalNotes} onChange={handleChange} rows="4" className="field-input resize-y" />
-              </div>
-
-              {submitStatus.message && (
-                <p
-                  role={submitStatus.isError ? 'alert' : 'status'}
-                  className={submitStatus.isError
-                    ? 'rounded-control border border-critical/25 bg-critical/10 px-4 py-3 text-nav font-normal text-critical'
-                    : 'rounded-control border border-positive/25 bg-positive/10 px-4 py-3 text-nav font-normal text-positive'}
-                >
-                  {submitStatus.message}
-                </p>
-              )}
-
-              <Button type="submit" size="lg" loading={submitStatus.loading} className="w-full font-semibold">
-                {submitStatus.loading ? 'Submitting…' : 'Book my audit session'}
-              </Button>
-            </form>
+      <section className="pb-24 md:pb-32" aria-label="Book a time">
+        <div className="shell max-w-4xl">
+          <div className="overflow-hidden rounded-card border border-edge bg-charcoal shadow-frame">
+            <div ref={embedRef} className="min-h-[720px] w-full md:min-h-[540px]" />
           </div>
+          <p className="mt-5 text-center text-nav font-normal text-quiet">
+            Calendar not loading?{' '}
+            <a href={CAL_URL} target="_blank" rel="noopener noreferrer" className="text-signal-soft underline-offset-4 hover:underline">
+              Open the booking page
+            </a>
+          </p>
         </div>
       </section>
     </PageShell>
