@@ -3,26 +3,9 @@ import { IconInput, SelectField as Select, CheckboxCard as Checkbox } from '../.
 import { Link } from 'react-router-dom';
 import { formIndustries, formWebsiteGoals, formPriorities } from '../../../../constants';
 import Button from '../../../../components/ui/Button';
+import { buildPlans } from '../../../../data/pricing';
 
-const packageFeatures = {
-  starter: ["Custom Design", "Mobile Responsive", "4 Pages", "Contact Form", "Basic SEO"],
-  professional: [
-    "Everything in Starter",
-    "E-Commerce Integration",
-    "10 Pages",
-    "CMS Integration",
-    "Advanced SEO",
-    "Social Media Integration"
-  ],
-  enterprise: [
-    "Everything in Professional",
-    "Custom Functionality",
-    "Unlimited Pages",
-    "AI Integration",
-    "Priority Support",
-    "Analytics Dashboard"
-  ]
-};
+const planIdByTier = { starter: 'launch', professional: 'growth', enterprise: 'commerce' };
 
 const tierBlurb = {
   Starter: 'Ideal for small businesses and startups looking to establish a professional online presence.',
@@ -39,14 +22,14 @@ const WebDevForm = ({
   isSubmitting = false
 }) => {
   const getTierData = (dataObject) => dataObject[tier.toLowerCase()] || dataObject.starter;
-  const features = packageFeatures[tier.toLowerCase()] ?? packageFeatures.starter;
+  const plan = buildPlans.find((p) => p.id === planIdByTier[tier.toLowerCase()]) ?? buildPlans[0];
 
   return (
     <div className="mx-auto max-w-5xl">
       <div className="mx-auto max-w-3xl text-center">
         <p className="mb-6 inline-flex items-center gap-2 rounded-pill border border-edge bg-ink py-1.5 pl-3 pr-3.5 text-nav text-mist">
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-signal shadow-[0_0_10px_rgb(var(--v-signal))]" />
-          {tier} package
+          {plan.name} package
         </p>
         <h1 className="text-display text-cloud">Let's build something exceptional.</h1>
         <p className="mx-auto mt-5 max-w-xl text-lead text-frost">
@@ -58,10 +41,11 @@ const WebDevForm = ({
         {/* Selected package */}
         <aside className="rounded-card border border-edge bg-ink p-6 lg:sticky lg:top-24">
           <p className="text-caption text-quiet">Selected package</p>
-          <h2 className="mt-1 text-title text-cloud">{tier} website</h2>
+          <h2 className="mt-1 text-title text-cloud">{plan.name}</h2>
+          <p className="mt-1 text-nav font-normal text-quiet">{plan.priceLabel}</p>
           <p className="mt-2 text-nav font-normal leading-relaxed text-mist">{tierBlurb[tier] ?? tierBlurb.Starter}</p>
           <ul className="mt-5 space-y-2.5 border-t border-edge pt-5">
-            {features.map((f) => (
+            {plan.features.map((f) => (
               <li key={f} className="flex items-start gap-2.5 text-nav font-normal text-frost">
                 <IconCheck size={16} stroke={2} aria-hidden="true" className="mt-0.5 shrink-0 text-signal" />
                 {f}

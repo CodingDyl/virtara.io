@@ -9,7 +9,7 @@ import {
 } from "@tabler/icons-react";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Notification from "../components/Notifications/notification";
 import sendEmail from "../server/workflow";
 import PageShell from "../components/layout/PageShell";
@@ -19,6 +19,7 @@ import { IconInput } from "../components/ui/Field";
 import { cn } from "../utils/cn";
 import { trackEvent } from '../lib/analytics';
 import { saveLead } from '../config/firebase';
+import { buildPlans } from '../data/pricing';
 
 /** A single-choice chip group that still takes part in native form validation. */
 const ChoiceGroup = ({ label, name, options, value, onChange }) => (
@@ -59,14 +60,18 @@ const ChoiceGroup = ({ label, name, options, value, onChange }) => (
   </fieldset>
 );
 
+const budgetLabel = (plan) => `${plan.name}, ${plan.priceLabel.replace(' once-off', '')}`;
+
 function StartaProject() {
+  const [searchParams] = useSearchParams();
+  const preselected = buildPlans.find((plan) => plan.id === searchParams.get("plan"));
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     company: "",
     website: "",
-    budget: "",
+    budget: preselected ? budgetLabel(preselected) : "",
     service: "",
     message: ""
   });
@@ -172,10 +177,8 @@ function StartaProject() {
   ];
 
   const projectSizes = [
-    "Starter (R8,000 - R25,000)",
-    "Growth (R25,000 - R65,000)",
-    "Scale (R65,000 - R150,000)",
-    "Enterprise (R150,000+)"
+    ...buildPlans.map((plan) => budgetLabel(plan)),
+    "Not sure yet"
   ];
 
   const benefits = [

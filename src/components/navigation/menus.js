@@ -56,9 +56,9 @@ export const menus = [
     id: "pricing",
     label: "Pricing",
     items: [
-      { title: "Starter website", desc: "A professional presence for new businesses", to: "/web-development/starter", icon: IconRocket },
-      { title: "Professional website", desc: "Multi-page sites with CMS and advanced SEO", to: "/web-development/professional", icon: IconStack2 },
-      { title: "Enterprise website", desc: "Custom platforms with complex requirements", to: "/web-development/enterprise", icon: IconBuildingSkyscraper },
+      { title: "Launch Site", desc: "A professional presence for new businesses", to: "/web-development/starter", icon: IconRocket },
+      { title: "Growth Site", desc: "Multi-page sites with CMS and advanced SEO", to: "/web-development/professional", icon: IconStack2 },
+      { title: "Commerce / Custom Platform", desc: "Custom platforms with complex requirements", to: "/web-development/enterprise", icon: IconBuildingSkyscraper },
       { title: "SEO packages", desc: "Rank for the searches your buyers make", to: "/seo", icon: IconSearch },
       { title: "All services & pricing", desc: "Every package, side by side, in rand", to: "/services", icon: IconListDetails },
     ],

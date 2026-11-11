@@ -20,6 +20,7 @@ import ClosingBand from '../components/layout/ClosingBand';
 import Button from '../components/ui/Button';
 import PlanCard from '../components/ui/PlanCard';
 import { cn } from '../utils/cn';
+import { buildPlans, seoPlans, adsPlans, retainerPlans, careNote } from '../data/pricing';
 
 const serviceCatalog = [
   { icon: IconTarget, title: 'Strategy & Positioning' },
@@ -45,186 +46,51 @@ const pricingByTab = {
   development: {
     title: 'Web & Commerce Builds',
     subtitle: 'Once-off implementation with clear scope and timeline.',
-    packages: [
-      {
-        name: 'Launch Site',
-        price: 'R12,500 once-off',
-        support: 'Optional care plan: from R1,200/mo',
-        idealFor: 'Startups and service businesses that need a conversion-ready web presence.',
-        features: [
-          'Up to 5 pages, mobile-first design',
-          'CMS setup + lead capture forms',
-          'Core technical SEO + analytics setup',
-          '2 rounds of revisions',
-          'Launch training + handover docs'
-        ]
-      },
-      {
-        name: 'Growth Site',
-        price: 'R28,000 once-off',
-        support: 'Optional care plan: from R2,500/mo',
-        idealFor: 'SMEs that need multi-service funnels and stronger conversion architecture.',
-        features: [
-          '8-15 pages + conversion-focused information architecture',
-          'Advanced CMS, blog and gated resources',
-          'Speed/performance optimization + event tracking',
-          'Booking/calendar or CRM form integrations',
-          'Copy framework and CRO recommendations'
-        ],
-        highlighted: true
-      },
-      {
-        name: 'Commerce / Custom Platform',
-        price: 'From R55,000 once-off',
-        support: 'Optional care plan: from R4,500/mo',
-        idealFor: 'Brands needing e-commerce, portals, memberships or custom workflows.',
-        features: [
-          'Shopify/WooCommerce or custom build',
-          'Payments, shipping, product and offer architecture',
-          'Automation hooks (email, CRM, remarketing)',
-          'Staging + QA + launch checklist',
-          'Technical documentation and team onboarding'
-        ]
-      }
-    ]
+    packages: buildPlans.map((plan) => ({
+      name: plan.name,
+      price: plan.priceLabel,
+      support: careNote(plan),
+      idealFor: plan.idealFor,
+      features: plan.features,
+      highlighted: plan.highlighted,
+      to: `/start-your-project?plan=${plan.id}`
+    }))
   },
   seo: {
     title: 'SEO & Content Systems',
     subtitle: 'Month-to-month retainers. No lock-in contracts.',
-    packages: [
-      {
-        name: 'Local SEO Foundation',
-        price: 'R4,500/mo',
-        support: 'Setup fee: R3,500 once-off',
-        idealFor: 'Local service businesses targeting a city/region.',
-        features: [
-          'Technical baseline + indexing fixes',
-          'Google Business Profile optimization',
-          'Keyword map for 10 priority terms',
-          '2 optimized pages per month',
-          'Monthly ranking + lead report'
-        ]
-      },
-      {
-        name: 'SEO Growth Engine',
-        price: 'R8,500/mo',
-        support: 'Setup fee: R5,500 once-off',
-        idealFor: 'SMEs that need consistent lead growth from organic search.',
-        features: [
-          'Everything in Foundation',
-          'Technical sprint + schema optimization',
-          '4 pages/posts optimized per month',
-          'Internal linking + content refresh system',
-          'Quarterly competitor gap analysis'
-        ],
-        highlighted: true
-      },
-      {
-        name: 'Competitive SEO',
-        price: 'R14,500/mo',
-        support: 'Setup fee: R8,500 once-off',
-        idealFor: 'High-competition niches or multi-location businesses.',
-        features: [
-          'Advanced technical + crawl budget management',
-          'Content roadmap and editorial planning',
-          'Authority/link outreach execution',
-          'Programmatic landing page support',
-          'Executive growth reporting + strategy calls'
-        ]
-      }
-    ]
+    packages: seoPlans.map((plan) => ({
+      name: plan.name,
+      price: plan.priceLabel,
+      support: `Setup fee: ${plan.setupFee} once-off`,
+      idealFor: plan.idealFor,
+      features: plan.features,
+      highlighted: plan.highlighted
+    }))
   },
   growth: {
     title: 'Paid Media & Funnel Growth',
     subtitle: 'Management fee shown below. Ad spend billed directly to ad platforms.',
-    packages: [
-      {
-        name: 'Ads Starter',
-        price: 'R6,500/mo management',
-        support: 'Recommended ad spend: R7,500 - R20,000/mo',
-        idealFor: 'Testing paid acquisition with controlled budgets.',
-        features: [
-          'Single-channel setup (Google or Meta)',
-          'Conversion tracking + dashboard setup',
-          'Weekly optimization and budget pacing',
-          '2 campaign structures with ad variants',
-          'Monthly strategy report'
-        ]
-      },
-      {
-        name: 'Performance Sprint',
-        price: 'R9,800/mo management',
-        support: 'Recommended ad spend: R20,000 - R60,000/mo',
-        idealFor: 'Businesses scaling lead volume with clear CAC targets.',
-        features: [
-          'Multi-campaign funnel (cold, warm, remarketing)',
-          'Landing page CRO feedback each month',
-          'Creative testing framework',
-          'Lead quality scoring loop',
-          'Bi-weekly growth calls'
-        ],
-        highlighted: true
-      },
-      {
-        name: 'Full Funnel Performance',
-        price: 'R15,500/mo management',
-        support: 'Recommended ad spend: R60,000+/mo',
-        idealFor: 'High-ticket offers or established sales teams.',
-        features: [
-          'Google + Meta + remarketing orchestration',
-          'Advanced attribution and funnel reporting',
-          'Offer and creative iteration sprints',
-          'Email nurture journey alignment',
-          'Weekly executive updates'
-        ]
-      }
-    ]
+    packages: adsPlans.map((plan) => ({
+      name: plan.name,
+      price: plan.priceLabel,
+      support: `Recommended ad spend: ${plan.adSpend}`,
+      idealFor: plan.idealFor,
+      features: plan.features,
+      highlighted: plan.highlighted
+    }))
   },
   retainer: {
     title: 'Brand, Content & Revenue Retainers',
     subtitle: 'Ongoing growth support across design, content and conversion systems.',
-    packages: [
-      {
-        name: 'Brand Foundation Sprint',
-        price: 'R9,500 once-off',
-        support: 'Timeline: 2-3 weeks',
-        idealFor: 'New brands needing clear identity, offer framing and messaging.',
-        features: [
-          'Brand positioning workshop',
-          'Visual direction and key brand assets',
-          'Offer and messaging framework',
-          'Landing page wireframe + CTA strategy',
-          'Brand usage guide'
-        ]
-      },
-      {
-        name: 'Content + Social Engine',
-        price: 'R5,500/mo',
-        support: 'Includes 1-2 social platforms',
-        idealFor: 'Businesses that need consistent publishing and authority content.',
-        features: [
-          'Monthly content calendar',
-          '8-12 branded content pieces',
-          'Copywriting + design production',
-          'Community and DM response support',
-          'Performance summary and next-step plan'
-        ]
-      },
-      {
-        name: 'Fractional Growth Team',
-        price: 'From R18,000/mo',
-        support: 'Custom scope by revenue goals',
-        idealFor: 'Companies wanting one team across web, SEO, ads and conversion.',
-        features: [
-          'Monthly growth roadmap and priority sprints',
-          'Cross-channel campaign orchestration',
-          'Conversion and analytics ownership',
-          'Design/dev implementation bandwidth',
-          'Dedicated strategist and execution pod'
-        ],
-        highlighted: true
-      }
-    ]
+    packages: retainerPlans.map((plan) => ({
+      name: plan.name,
+      price: plan.priceLabel,
+      support: plan.note,
+      idealFor: plan.idealFor,
+      features: plan.features,
+      highlighted: plan.highlighted
+    }))
   }
 };
 
@@ -368,6 +234,7 @@ function Services() {
                   description={pkg.idealFor}
                   features={pkg.features}
                   highlighted={pkg.highlighted}
+                  to={pkg.to}
                 />
               ))}
             </div>

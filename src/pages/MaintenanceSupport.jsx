@@ -6,6 +6,7 @@ import SectionHeading from '../components/layout/SectionHeading';
 import ClosingBand from '../components/layout/ClosingBand';
 import Button from '../components/ui/Button';
 import PlanCard from '../components/ui/PlanCard';
+import { carePlans } from '../data/pricing';
 
 const MaintenanceSupport = () => {
   const maintenanceServices = [
@@ -28,45 +29,6 @@ const MaintenanceSupport = () => {
       icon: IconChartLine,
       title: "Growth Support",
       description: "Proactive improvements and feature development as needed."
-    }
-  ];
-
-  const plans = [
-    {
-      title: "Essential Maintenance",
-      price: "R1,000",
-      features: [
-        "Monthly CMS & Plugin Updates",
-        "Weekly Secure Backups",
-        "Basic Malware Scans",
-        "Uptime Monitoring",
-        "48-hour Email Support"
-      ]
-    },
-    {
-      title: "Pro Maintenance",
-      price: "R2,500",
-      features: [
-        "All Essential Features",
-        "Performance Optimization",
-        "2 Hours Content Updates",
-        "Advanced Security Scans",
-        "24-hour Priority Support",
-        "Monthly Analytics Review"
-      ],
-      highlighted: true
-    },
-    {
-      title: "Premium Maintenance",
-      price: "R5,000",
-      features: [
-        "All Pro Features",
-        "5 Hours Custom Development",
-        "E-Commerce Support",
-        "Proactive Improvements",
-        "2-Hour Downtime Response",
-        "Dedicated Account Manager"
-      ]
     }
   ];
 
@@ -109,10 +71,10 @@ const MaintenanceSupport = () => {
         <div className="shell">
           <SectionHeading id="plans-heading" title="Plans" />
           <div className="mt-10 grid gap-4 lg:grid-cols-3">
-            {plans.map((plan) => (
+            {carePlans.map((plan) => (
               <PlanCard
-                key={plan.title}
-                name={plan.title}
+                key={plan.id}
+                name={plan.name}
                 price={plan.price}
                 suffix="/month"
                 features={plan.features}
