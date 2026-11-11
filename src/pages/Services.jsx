@@ -59,7 +59,7 @@ const pricingByTab = {
   },
   seo: {
     title: 'SEO + AEO Systems',
-    subtitle: 'Rank on Google and get named in AI answers. Month-to-month retainers, no lock-in contracts.',
+    subtitle: 'Rank on Google and get named in AI answers with answer engine optimisation (AEO). Month-to-month retainers, no lock-in contracts.',
     packages: seoPlans.map((plan) => ({
       name: plan.name,
       price: plan.priceLabel,
