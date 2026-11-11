@@ -1,12 +1,14 @@
 # Website Health Check: three-email follow-up sequence
 
-Copy for the owner to load into Sender as an automation.
+This sequence is now sent by the backend (`virtara-backend/index.js`, `/api/subscribe`) through Resend scheduled sending, so no Sender automation is needed.
+The copy in that code is the source of truth; this doc is a readable mirror and may drift.
 
 **Trigger:** subscriber gets the tag `website-health-check` (the site's `/api/subscribe` already applies it).
 **Timing:** email 1 immediately, email 2 three days later, email 3 seven days after sign-up (four days after email 2).
 **From:** Virtara, info@virtara.co.za. **Reply-to:** info@virtara.co.za, so replies reach a person.
-**Merge field:** `{$firstname}` is Sender's first-name field. Check the exact merge tag in your Sender template editor.
-**Before loading:** replace `[CHECKLIST LINK]` with the public URL of `website-health-check.pdf` (the file lives in `virtara-backend/public/`). Confirm it opens in a private browser window.
+**Greeting:** the backend uses the HTML-escaped name, or "there" if none (replaces `{$firstname}`).
+**Checklist link:** `https://virtara-backend.vercel.app/files/website-health-check.pdf` (served from `virtara-backend/public/` via `vercel.json`). Confirm it opens in a private browser window.
+**Footer line on every email:** "You're getting this because you downloaded the Virtara website checklist. Unsubscribe: https://virtara.co.za/unsubscribe" (the link carries `?email=<address>`, which the unsubscribe page prefills). Returning subscribers get email 1 only.
 
 Notes on facts: the audit is free and about 30 minutes (the checklist PDF itself still says "R299" and "virtara.co.za/audit", see the owner note at the end). The three failures in email 2 are items 1, 3 and 4 on the checklist. No statistics are quoted, on purpose: the PDF contains figures ("20% per second", "over 60% mobile", "doubles conversions") that the audit did not confirm, so they are left out here.
 
@@ -17,11 +19,11 @@ Notes on facts: the audit is free and about 30 minutes (the checklist PDF itself
 **Subject:** Your 5-Minute Website Health Check
 **Preview text:** Open it on your phone, it takes five minutes.
 
-Hi {$firstname},
+Hi {name},
 
 Thanks for asking for the checklist. Here it is:
 
-**[Download the 5-Minute Website Health Check]([CHECKLIST LINK])**
+**[Download the 5-Minute Website Health Check](https://virtara-backend.vercel.app/files/website-health-check.pdf)**
 
 How to use it:
 
@@ -36,8 +38,7 @@ In a few days I'll send you a short note on the three checks people most often g
 If you get stuck anywhere, reply to this email. It comes straight to me.
 
 Regards,
-Dylan
-Virtara, Johannesburg
+Dylan, Virtara
 
 ---
 
@@ -46,9 +47,9 @@ Virtara, Johannesburg
 **Subject:** Three checks on the list that cost you enquiries
 **Preview text:** Speed, Google and one clear button.
 
-Hi {$firstname},
+Hi {name},
 
-Did you get through the checklist? If you haven't yet, it's still five minutes: [CHECKLIST LINK]
+Did you get through the checklist? If you haven't yet, it's still five minutes: https://virtara-backend.vercel.app/files/website-health-check.pdf
 
 Three of the five checks are the ones we'd look at first on any site, because they sit directly between a visitor and an enquiry.
 
@@ -64,8 +65,7 @@ Open your homepage and ask: if I had ten seconds, what would I click? If the ans
 If any of these came up on your checklist, you don't have to fix them alone. In a few days I'll tell you how we can look at your site with you, at no cost.
 
 Regards,
-Dylan
-Virtara
+Dylan, Virtara
 
 ---
 
@@ -74,7 +74,7 @@ Virtara
 **Subject:** A free 30-minute look at your website
 **Preview text:** We'll show you what's worth fixing first.
 
-Hi {$firstname},
+Hi {name},
 
 A week ago you ran our health check on your website. Whatever score you got, the next question is usually "what do I fix first?"
 
@@ -91,11 +91,9 @@ What happens:
 If now isn't the right time, that's fine. The checklist is yours to keep and reuse whenever you update the site.
 
 Regards,
-Dylan
-Virtara
-16 Hume Road, Johannesburg
+Dylan, Virtara
 
-*(Sender requires an unsubscribe link in the footer of every email. Keep the default one.)*
+*(Every email ends with the footer line above.)*
 
 ---
 
@@ -103,4 +101,4 @@ Virtara
 
 - `HealthThankYou.jsx` and the checklist PDF both still mention the audit price (R299, "was R499") and an old audit URL. Task 3 of the plan removes the page text; the PDF needs re-exporting by hand with "free" and `virtara.co.za/resources/audit`.
 - Email 2 says "at no cost" and email 3 says "free", consistent with the I3 decision.
-- Sign-off name and role are placeholders from the footer's details. Change to whoever should be replying.
+- Sign-off is "Dylan, Virtara". Change it in the code if someone else should be replying.

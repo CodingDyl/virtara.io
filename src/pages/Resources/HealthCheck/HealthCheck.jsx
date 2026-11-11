@@ -42,7 +42,8 @@ const Checklist = () => {
         },
         body: JSON.stringify({
           email: formData.email,
-          name: formData.name
+          name: formData.name,
+          returning: alreadySubscribed
         }),
       });
 
