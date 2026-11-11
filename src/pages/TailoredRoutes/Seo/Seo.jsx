@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { IconSearch, IconChartLine, IconTarget, IconAward, IconMail, IconPhone, IconBuilding, IconWorld } from '@tabler/icons-react';
+import { IconSearch, IconChartLine, IconTarget, IconAward, IconMail, IconPhone, IconBuilding, IconWorld, IconCheck } from '@tabler/icons-react';
 import Notification from '../../../components/Notifications/notification';
 import sendEmail from "../../../server/workflow";
 import PageShell from '../../../components/layout/PageShell';
@@ -10,6 +10,7 @@ import Button from '../../../components/ui/Button';
 import { IconInput, SelectField, CheckboxCard } from '../../../components/ui/Field';
 import { trackEvent } from '../../../lib/analytics';
 import { saveLead } from '../../../config/firebase';
+import { seoPlans, aeoStarter } from '../../../data/pricing';
 
 const Seo = () => {
   const navigate = useNavigate();
@@ -28,7 +29,8 @@ const Seo = () => {
     contentCreation: false,
     localSEO: false,
     technicalSEO: false,
-    linkBuilding: false
+    linkBuilding: false,
+    aeo: false
   });
 
   const [notification, setNotification] = useState({
@@ -77,8 +79,8 @@ const Seo = () => {
     },
     {
       icon: IconAward,
-      title: "Build Authority",
-      description: "Establish your brand as a trusted leader in your industry"
+      title: "Show up in AI answers",
+      description: "Clear answers, FAQs and schema make it easier for AI assistants to find, trust and quote your business"
     }
   ];
 
@@ -126,6 +128,7 @@ const Seo = () => {
         - Local SEO: ${formData.localSEO ? 'Yes' : 'No'}<br />
         - Technical SEO: ${formData.technicalSEO ? 'Yes' : 'No'}<br />
         - Link Building: ${formData.linkBuilding ? 'Yes' : 'No'}<br />
+        - AEO: ${formData.aeo ? 'Yes' : 'No'}<br />
         `,
         { replyTo: formData.email, name: formData.name }
       );
@@ -169,9 +172,9 @@ const Seo = () => {
   return (
     <PageShell>
       <Helmet>
-        <title>SEO Services | Boost Your Search Rankings | Virtara</title>
-        <meta name="description" content="Get found by more customers with our proven SEO strategies. Boost your search rankings and drive organic traffic to your website." />
-        <meta name="keywords" content="SEO services, search engine optimization, organic traffic, keyword ranking, local SEO" />
+        <title>SEO + AEO Services | Get Found on Google and in AI Answers | Virtara</title>
+        <meta name="description" content={`SEO and answer engine optimisation (AEO) for South African businesses. Rank on Google and get named when people ask ChatGPT, Gemini or Perplexity. From ${seoPlans[0].price} a month.`} />
+        <meta name="keywords" content="SEO services, search engine optimization, organic traffic, keyword ranking, local SEO, AEO, answer engine optimisation, AI search optimisation South Africa" />
         <link rel="canonical" href="https://virtara.co.za/seo" />
       </Helmet>
 
@@ -183,13 +186,13 @@ const Seo = () => {
       />
 
       <PageHero
-        announcement={{ label: 'SEO services' }}
-        title="Boost your search rankings."
-        lead="Get found by more customers with our proven SEO strategies."
+        announcement={{ label: 'SEO + AEO services' }}
+        title="Get found on Google and in AI answers."
+        lead="SEO gets you ranked. Answer engine optimisation (AEO) gets you named when people ask ChatGPT, Gemini, Perplexity or Google's AI Overviews. Every Virtara SEO package now includes both."
         actions={
           <>
-            <Button href="#seo-analysis" size="lg" className="font-semibold">Get your free SEO analysis</Button>
-            <Button to="/services#seo" variant="secondary" size="lg">See SEO packages</Button>
+            <Button href="#seo-analysis" size="lg" className="font-semibold">Get your free SEO + AEO analysis</Button>
+            <Button to="/services#seo" variant="secondary" size="lg">See SEO + AEO packages</Button>
           </>
         }
       />
@@ -205,6 +208,27 @@ const Seo = () => {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="section pb-0 pt-10 md:pt-14" aria-labelledby="aeo-starter-heading">
+        <div className="shell max-w-4xl">
+          <div className="grid gap-8 rounded-card border border-edge bg-ink p-6 md:grid-cols-2 md:gap-10 md:p-7">
+            <div className="flex flex-col">
+              <h2 id="aeo-starter-heading" className="text-feature text-cloud">{aeoStarter.name}</h2>
+              <p className="figure mt-5 text-[28px] leading-tight text-cloud">{aeoStarter.priceLabel}</p>
+              <p className="mt-5 text-nav font-normal leading-relaxed text-mist">{aeoStarter.idealFor}</p>
+              <Button href="#seo-analysis" variant="secondary" className="mt-8 w-full md:w-auto md:self-start" showArrow>Ask about AEO Starter</Button>
+            </div>
+            <ul className="space-y-3 border-t border-edge pt-6 md:border-l md:border-t-0 md:pl-10 md:pt-0">
+              {aeoStarter.features.map((feature) => (
+                <li key={feature} className="flex items-start gap-2.5 text-nav font-normal text-frost">
+                  <IconCheck size={16} stroke={2} aria-hidden="true" className="mt-0.5 shrink-0 text-signal" />
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -259,6 +283,7 @@ const Seo = () => {
                   <CheckboxCard name="localSEO" checked={formData.localSEO} onChange={handleInputChange}>Local SEO</CheckboxCard>
                   <CheckboxCard name="technicalSEO" checked={formData.technicalSEO} onChange={handleInputChange}>Technical SEO</CheckboxCard>
                   <CheckboxCard name="linkBuilding" checked={formData.linkBuilding} onChange={handleInputChange}>Link building</CheckboxCard>
+                  <CheckboxCard name="aeo" checked={formData.aeo} onChange={handleInputChange}>AEO (AI search visibility)</CheckboxCard>
                 </div>
               </fieldset>
               <div className="flex justify-end border-t border-edge pt-6">
