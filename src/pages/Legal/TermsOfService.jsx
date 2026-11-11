@@ -16,7 +16,7 @@ const TermsOfService = () => {
     },
     {
       title: "4. Payment Terms",
-      content: "Website builds are invoiced 50% to start and 50% at launch. We reserve the right to pause services for overdue accounts."
+      content: "Website builds are invoiced as a 50% deposit before work starts and the remaining 50% on completion of the work. We reserve the right to pause services for overdue accounts."
     },
     {
       title: "5. Intellectual Property",

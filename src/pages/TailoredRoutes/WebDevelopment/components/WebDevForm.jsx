@@ -45,7 +45,7 @@ const WebDevForm = ({
           <p className="mt-1 text-nav font-normal text-quiet">{plan.priceLabel}</p>
           <p className="mt-2 text-nav font-normal leading-relaxed text-mist">{tierBlurb[tier] ?? tierBlurb.Starter}</p>
           <ul className="mt-5 space-y-2.5 border-t border-edge pt-5">
-            {[...plan.features, `Live in ${plan.weeks}`, plan.deposit].map((f) => (
+            {[...plan.features, plan.timeline, plan.deposit].map((f) => (
               <li key={f} className="flex items-start gap-2.5 text-nav font-normal text-frost">
                 <IconCheck size={16} stroke={2} aria-hidden="true" className="mt-0.5 shrink-0 text-signal" />
                 {f}
