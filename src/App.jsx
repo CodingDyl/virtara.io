@@ -2,10 +2,10 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { lazy, Suspense, useEffect } from 'react'
 import AnalyticsTracker from './components/AnalyticsTracker'
 import LoadingSpinner from './components/ui/LoadingSpinner'
+import CookieConsent from './components/CookieConsent'
 
 // Below-the-fold chrome. Neither is needed for first paint.
 const ScrollToTop = lazy(() => import('./components/ScrollToTop'))
-const CookieConsent = lazy(() => import('./components/CookieConsent'))
 
 // Every page is code-split so a visitor only downloads the route they land on.
 const Home = lazy(() => import('./pages/Home'))
