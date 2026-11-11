@@ -6,6 +6,7 @@ import PageHero from "../components/layout/PageHero";
 import SectionHeading from "../components/layout/SectionHeading";
 import Button from "../components/ui/Button";
 import PlanCard from "../components/ui/PlanCard";
+import { trackEvent } from '../lib/analytics';
 
 /** Where Concierge runs; override with VITE_CONCIERGE_URL to point at a local copy. */
 const CONCIERGE_URL = import.meta.env.VITE_CONCIERGE_URL || "https://concierge.virtara.co.za";
@@ -59,6 +60,7 @@ const Waitlist = ({ plan, onPlanChange }) => {
         body: JSON.stringify(body),
       });
       const data = await res.json().catch(() => ({}));
+      if (res.ok) trackEvent("generate_lead", { form: "concierge_waitlist" });
       setStatus(res.ok ? { state: "done", email: body.email } : { state: "error", message: data.error || "That didn't send. Please try again." });
     } catch {
       setStatus({ state: "error", message: "That didn't send. Check your connection and try again." });

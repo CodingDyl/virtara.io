@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "./ui/Button";
+import { initializeGA, trackPageView } from "../lib/analytics";
 
 const CookieConsent = () => {
   const [showBanner, setShowBanner] = useState(false);
@@ -20,6 +21,10 @@ const CookieConsent = () => {
       /* storage blocked: the banner just won't remember */
     }
     setShowBanner(false);
+    if (value === "true") {
+      initializeGA();
+      trackPageView(window.location.pathname);
+    }
   };
 
   if (!showBanner) return null;

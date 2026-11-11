@@ -5,6 +5,7 @@ import Notification from '../../../../components/Notifications/notification';
 import sendEmail from "../../../../server/workflow";
 import WebDevForm from '../components/WebDevForm';
 import { Helmet } from 'react-helmet-async';
+import { trackEvent } from '../../../../lib/analytics';
 
 const Enterprise = () => {
   const navigate = useNavigate();
@@ -75,6 +76,7 @@ const Enterprise = () => {
         `
       );
 
+      trackEvent("generate_lead", { form: "package_enterprise" });
       setNotification({
         message: "Thanks for your interest! We'll reach out within 24 hours to discuss your enterprise project.",
         type: 'success',

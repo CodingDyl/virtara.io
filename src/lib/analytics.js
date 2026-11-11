@@ -1,7 +1,15 @@
 const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
+export function hasAnalyticsConsent() {
+  try {
+    return localStorage.getItem("cookieConsent") === "true";
+  } catch {
+    return false;
+  }
+}
+
 export function initializeGA() {
-  if (!measurementId || typeof window === "undefined") {
+  if (!measurementId || typeof window === "undefined" || !hasAnalyticsConsent()) {
     return;
   }
 
@@ -37,4 +45,12 @@ export function trackPageView(path) {
     page_location: window.location.href,
     page_title: document.title,
   });
+}
+
+export function trackEvent(name, params = {}) {
+  if (!measurementId || typeof window === "undefined" || typeof window.gtag !== "function") {
+    return;
+  }
+
+  window.gtag("event", name, params);
 }

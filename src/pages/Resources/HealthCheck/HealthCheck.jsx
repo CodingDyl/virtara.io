@@ -7,6 +7,7 @@ import { subscribeToNewsletter } from '../../../config/firebase';
 import PageShell from '../../../components/layout/PageShell';
 import PageHero from '../../../components/layout/PageHero';
 import Button from '../../../components/ui/Button';
+import { trackEvent } from '../../../lib/analytics';
 
 const Checklist = () => {
   const [formData, setFormData] = useState({
@@ -48,6 +49,7 @@ const Checklist = () => {
       }
       
       // Show success state
+      trackEvent("generate_lead", { form: "health_check" });
       setIsSuccess(true);
 
       // Wait a moment to ensure the download starts

@@ -17,6 +17,7 @@ import PageHero from "../components/layout/PageHero";
 import Button from "../components/ui/Button";
 import { IconInput } from "../components/ui/Field";
 import { cn } from "../utils/cn";
+import { trackEvent } from '../lib/analytics';
 
 /** A single-choice chip group that still takes part in native form validation. */
 const ChoiceGroup = ({ label, name, options, value, onChange }) => (
@@ -119,6 +120,7 @@ function StartaProject() {
       `
       );
 
+      trackEvent("generate_lead", { form: "project_brief" });
       resetForm();
       setNotification({
         message: "Email sent successfully!",

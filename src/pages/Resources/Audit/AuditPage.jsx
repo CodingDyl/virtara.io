@@ -5,6 +5,7 @@ import { submitAuditBooking } from '../../../config/firebase';
 import PageShell from '../../../components/layout/PageShell';
 import PageHero from '../../../components/layout/PageHero';
 import Button from '../../../components/ui/Button';
+import { trackEvent } from '../../../lib/analytics';
 
 const AuditPage = () => {
     const navigate = useNavigate();
@@ -40,6 +41,7 @@ const AuditPage = () => {
       const result = await submitAuditBooking(formData);
       
       if (result.success) {
+        trackEvent("generate_lead", { form: "audit_booking" });
         setSubmitStatus({
           loading: false,
           message: 'Thank you! Your audit booking has been submitted successfully.',

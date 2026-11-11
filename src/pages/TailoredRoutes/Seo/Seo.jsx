@@ -8,6 +8,7 @@ import PageShell from '../../../components/layout/PageShell';
 import PageHero from '../../../components/layout/PageHero';
 import Button from '../../../components/ui/Button';
 import { IconInput, SelectField, CheckboxCard } from '../../../components/ui/Field';
+import { trackEvent } from '../../../lib/analytics';
 
 const Seo = () => {
   const navigate = useNavigate();
@@ -127,6 +128,7 @@ const Seo = () => {
         `
       );
 
+      trackEvent("generate_lead", { form: "seo" });
       setNotification({
         message: "Thanks for your interest! We'll analyze your requirements and reach out within 24 hours.",
         type: 'success',

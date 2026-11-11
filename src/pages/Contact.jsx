@@ -6,6 +6,7 @@ import Notification from '../components/Notifications/notification';
 import PageShell from '../components/layout/PageShell';
 import PageHero from '../components/layout/PageHero';
 import Button from '../components/ui/Button';
+import { trackEvent } from '../lib/analytics';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -46,6 +47,7 @@ const Contact = () => {
         'tlvH-LCyKA7B18wvK'
       );
       
+      trackEvent("generate_lead", { form: "contact" });
       setNotification({
         message: 'Message sent successfully! We will get back to you soon.',
         type: 'success',
