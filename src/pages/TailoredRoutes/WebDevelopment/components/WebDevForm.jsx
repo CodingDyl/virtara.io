@@ -1,4 +1,4 @@
-import { IconMail, IconBuilding, IconArrowLeft, IconCheck } from '@tabler/icons-react';
+import { IconMail, IconPhone, IconBuilding, IconArrowLeft, IconCheck } from '@tabler/icons-react';
 import { IconInput, SelectField as Select, CheckboxCard as Checkbox } from '../../../../components/ui/Field';
 import { Link } from 'react-router-dom';
 import { formIndustries, formWebsiteGoals, formPriorities } from '../../../../constants';
@@ -92,6 +92,10 @@ const WebDevForm = ({
               <div>
                 <label htmlFor="wd-email" className="field-label">Email address *</label>
                 <IconInput icon={IconMail} id="wd-email" type="email" name="email" autoComplete="email" value={formData.email} onChange={handleInputChange} placeholder="you@company.co.za" required />
+              </div>
+              <div>
+                <label htmlFor="wd-phone" className="field-label">Phone or WhatsApp number</label>
+                <IconInput icon={IconPhone} id="wd-phone" type="tel" name="phone" autoComplete="tel" value={formData.phone} onChange={handleInputChange} placeholder="072 123 4567" />
               </div>
               <div>
                 <label htmlFor="wd-business" className="field-label">Business name *</label>

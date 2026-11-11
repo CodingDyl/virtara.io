@@ -1,6 +1,10 @@
 const BACKEND_URL = 'https://virtara-backend.vercel.app' 
 
-const sendEmail = async (subject: string, message: string) => {
+const sendEmail = async (
+    subject: string,
+    message: string,
+    extra: { replyTo?: string; name?: string } = {}
+) => {
     try {
         const response = await fetch(`${BACKEND_URL}/api/send-email`, {
             method: 'POST',
@@ -9,7 +13,8 @@ const sendEmail = async (subject: string, message: string) => {
             },
             body: JSON.stringify({
                 subject,
-                message
+                message,
+                ...extra
             }),
         });
 

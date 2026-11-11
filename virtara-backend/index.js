@@ -47,31 +47,75 @@ app.post('/api/subscribe', async (req, res) => {
   }
 });
 
+const EMAIL_SHAPE = /^[^\s@<>",;]+@[^\s@<>",;]+\.[^\s@<>",;]+$/;
+
+const escapeHtml = (value) =>
+  String(value ?? '').replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  })[c]);
+
 app.post('/api/send-email', async (req, res) => {
-  const { subject, message } = req.body;
-  
+  const { subject, message, replyTo, name } = req.body;
+  const validReplyTo =
+    typeof replyTo === 'string' && replyTo.length <= 254 && EMAIL_SHAPE.test(replyTo.trim())
+      ? replyTo.trim()
+      : null;
+
   // Add this debug log
   console.log('API Key present:', !!process.env.RESEND_API_KEY);
-  
+
   try {
+    const payload = {
+      from: 'Contact Form <info@virtara.co.za>',
+      to: 'info@virtara.co.za',
+      subject: subject,
+      html: message,
+    };
+    if (validReplyTo) payload.reply_to = validReplyTo;
+
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        from: 'Contact Form <info@virtara.co.za>',
-        to: 'info@virtara.co.za',
-        subject: subject,
-        html: message,
-      }),
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
       console.log('Resend error:', errorText);
       return res.status(500).json({ message: 'Failed to send email' });
+    }
+
+    // Auto-reply to the visitor. Fixed copy only: nothing from the request
+    // except the HTML-escaped name, so this cannot be used to send arbitrary text.
+    if (validReplyTo) {
+      try {
+        const safeName = escapeHtml(typeof name === 'string' ? name.trim().slice(0, 100) : '') || 'there';
+        const reply = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: 'Virtara <info@virtara.co.za>',
+            to: validReplyTo,
+            subject: "We've got your message",
+            html: `<p>Hi ${safeName},</p><p>Thanks for getting in touch with Virtara. We've received your enquiry and will reply within one business day. If it's urgent, call or WhatsApp +27 72 327 1040.</p>`,
+          }),
+        });
+        if (!reply.ok) {
+          console.log('Resend auto-reply error:', await reply.text());
+        }
+      } catch (replyError) {
+        console.error('Error sending auto-reply:', replyError);
+      }
     }
 
     return res.status(200).json({ message: 'Email sent successfully' });

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { IconChevronDown, IconX, IconMenu2, IconArrowUpRight } from "@tabler/icons-react";
+import { IconChevronDown, IconX, IconMenu2, IconArrowUpRight, IconPhone, IconBrandWhatsapp } from "@tabler/icons-react";
 import Logo from "./brand/Logo";
 import Button from "./ui/Button";
 import { menus, primaryLinks, cta, secondaryCta } from "./navigation/menus";
@@ -114,6 +114,10 @@ const MegaPanel = ({ menu, onNavigate }) => {
   );
 };
 
+const PHONE_HREF = "tel:+27723271040";
+const PHONE_LABEL = "+27 72 327 1040";
+const WHATSAPP_HREF = "https://wa.me/27723271040";
+
 /* ---------------------------------------------------------------------------
  * Mobile sheet
  * ------------------------------------------------------------------------ */
@@ -222,6 +226,14 @@ const MobileSheet = ({ open, onClose }) => {
       </nav>
 
       <div className="shrink-0 border-t border-edge/70 px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5 sm:px-6">
+        <div className="mb-4 grid grid-cols-2 gap-3">
+          <Button href={PHONE_HREF} variant="secondary" size="lg" icon={<IconPhone stroke={1.8} />}>
+            Call
+          </Button>
+          <Button href={WHATSAPP_HREF} target="_blank" rel="noreferrer" variant="secondary" size="lg" icon={<IconBrandWhatsapp stroke={1.8} />}>
+            WhatsApp
+          </Button>
+        </div>
         <Button to={cta.to} onClick={onClose} size="lg" className="w-full">
           {cta.label}
         </Button>
@@ -357,11 +369,17 @@ const Navbar = () => {
             </ul>
           </nav>
 
-          <div className="hidden items-center gap-2 lg:flex" onMouseEnter={scheduleClose}>
+          <div className="hidden items-center gap-0 lg:flex xl:gap-0.5" onMouseEnter={scheduleClose}>
+            <a href={PHONE_HREF} aria-label={`Call ${PHONE_LABEL}`} className={cn(navLink, "hidden px-2 text-frost hover:text-cloud xl:inline-flex")} title={PHONE_LABEL}>
+              <IconPhone size={16} stroke={1.8} aria-hidden="true" />
+            </a>
+            <a href={WHATSAPP_HREF} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" className={cn(navLink, "hidden px-2 text-frost hover:text-cloud xl:inline-flex")} title="WhatsApp">
+              <IconBrandWhatsapp size={16} stroke={1.8} aria-hidden="true" />
+            </a>
             <Link to={secondaryCta.to} className={cn(navLink, "text-frost hover:text-cloud")}>
               {secondaryCta.label}
             </Link>
-            <Button to={cta.to} size="sm" className="font-semibold">
+            <Button to={cta.to} size="sm" className="ml-2 font-semibold">
               {cta.label}
             </Button>
           </div>

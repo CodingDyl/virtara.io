@@ -9,6 +9,7 @@ import PageHero from '../../../components/layout/PageHero';
 import Button from '../../../components/ui/Button';
 import { IconInput, SelectField, CheckboxCard } from '../../../components/ui/Field';
 import { trackEvent } from '../../../lib/analytics';
+import { saveLead } from '../../../config/firebase';
 
 const Seo = () => {
   const navigate = useNavigate();
@@ -125,9 +126,23 @@ const Seo = () => {
         - Local SEO: ${formData.localSEO ? 'Yes' : 'No'}<br />
         - Technical SEO: ${formData.technicalSEO ? 'Yes' : 'No'}<br />
         - Link Building: ${formData.linkBuilding ? 'Yes' : 'No'}<br />
-        `
+        `,
+        { replyTo: formData.email, name: formData.name }
       );
 
+      saveLead({
+        form: "seo",
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        details: {
+          businessName: formData.businessName,
+          industry: formData.industry,
+          currentWebsite: formData.currentWebsite,
+          targetLocation: formData.targetLocation,
+          businessGoals: formData.businessGoals
+        }
+      });
       trackEvent("generate_lead", { form: "seo" });
       setNotification({
         message: "Thanks for your interest! We'll analyze your requirements and reach out within 24 hours.",
@@ -211,7 +226,7 @@ const Seo = () => {
                   <IconInput icon={IconMail} id="seo-email" type="email" name="email" autoComplete="email" value={formData.email} onChange={handleInputChange} placeholder="you@company.co.za" required />
                 </div>
                 <div>
-                  <label htmlFor="seo-phone" className="field-label">Phone number</label>
+                  <label htmlFor="seo-phone" className="field-label">Phone or WhatsApp number</label>
                   <IconInput icon={IconPhone} id="seo-phone" type="tel" name="phone" autoComplete="tel" value={formData.phone} onChange={handleInputChange} placeholder="+27 12 345 6789" />
                 </div>
                 <div>

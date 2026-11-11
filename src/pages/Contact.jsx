@@ -7,11 +7,14 @@ import PageShell from '../components/layout/PageShell';
 import PageHero from '../components/layout/PageHero';
 import Button from '../components/ui/Button';
 import { trackEvent } from '../lib/analytics';
+import { saveLead } from '../config/firebase';
+import { IconInput } from '../components/ui/Field';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     subject: '',
     message: ''
   });
@@ -41,12 +44,20 @@ const Contact = () => {
         {
           from_name: formData.name,
           from_email: formData.email,
+          phone: formData.phone,
           subject: formData.subject,
           message: formData.message,
         },
         'tlvH-LCyKA7B18wvK'
       );
       
+      saveLead({
+        form: "contact",
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        details: { subject: formData.subject, message: formData.message }
+      });
       trackEvent("generate_lead", { form: "contact" });
       setNotification({
         message: 'Message sent successfully! We will get back to you soon.',
@@ -54,7 +65,7 @@ const Contact = () => {
         isVisible: true
       });
       
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
     } catch (error) {
       console.error('Error sending email:', error);
       setNotification({
@@ -156,6 +167,10 @@ const Contact = () => {
                   <label htmlFor="c-email" className="field-label">Email</label>
                   <input id="c-email" type="email" name="email" autoComplete="email" value={formData.email} onChange={handleInputChange} className="field-input" required placeholder="you@company.co.za" />
                 </div>
+              </div>
+              <div>
+                <label htmlFor="c-phone" className="field-label">Phone or WhatsApp number</label>
+                <IconInput icon={IconPhone} id="c-phone" type="tel" name="phone" autoComplete="tel" value={formData.phone} onChange={handleInputChange} placeholder="072 123 4567" />
               </div>
               <div>
                 <label htmlFor="c-subject" className="field-label">Subject</label>

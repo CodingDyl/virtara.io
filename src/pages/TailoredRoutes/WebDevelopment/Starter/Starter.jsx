@@ -6,6 +6,7 @@ import sendEmail from "../../../../server/workflow";
 import WebDevForm from '../components/WebDevForm';
 import { Helmet } from 'react-helmet-async';
 import { trackEvent } from '../../../../lib/analytics';
+import { saveLead } from '../../../../config/firebase';
 
 const Starter = () => {
   const navigate = useNavigate();
@@ -66,6 +67,7 @@ const Starter = () => {
         <br />
         Name: ${formData.name} <br />
         Email: ${formData.email} <br />
+        Phone: ${formData.phone || 'Not provided'} <br />
         Business Name: ${formData.businessName} <br />
         <br />
 
@@ -82,9 +84,25 @@ const Starter = () => {
         - SEO Optimization: ${formData.seoOptimization ? 'Yes' : 'No'} <br />
         - Content Writing: ${formData.contentWriting ? 'Yes' : 'No'} <br />
         - Maintenance: ${formData.maintenance ? 'Yes' : 'No'} <br />
-        `
+        `,
+        { replyTo: formData.email, name: formData.name }
       );
 
+      saveLead({
+        form: "package_starter",
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        details: {
+          businessName: formData.businessName,
+          industry: formData.industry,
+          websiteGoal: formData.websiteGoal,
+          mainPriority: formData.mainPriority,
+          seoOptimization: formData.seoOptimization,
+          contentWriting: formData.contentWriting,
+          maintenance: formData.maintenance
+        }
+      });
       trackEvent("generate_lead", { form: "package_starter" });
       setNotification({
         message: "Thanks for your interest! We'll reach out within 24 hours to discuss your project.",

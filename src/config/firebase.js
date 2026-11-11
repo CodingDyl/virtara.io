@@ -115,4 +115,17 @@ export const submitAuditBooking = async (bookingData) => {
   }
 };
 
+export const saveLead = async (lead) => {
+  try {
+    await addDoc(collection(db, 'leads'), {
+      ...lead,
+      submittedAt: serverTimestamp()
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Error saving lead:', error);
+    return { success: false };
+  }
+};
+
 export { app, db };

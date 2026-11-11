@@ -18,6 +18,7 @@ import Button from "../components/ui/Button";
 import { IconInput } from "../components/ui/Field";
 import { cn } from "../utils/cn";
 import { trackEvent } from '../lib/analytics';
+import { saveLead } from '../config/firebase';
 
 /** A single-choice chip group that still takes part in native form validation. */
 const ChoiceGroup = ({ label, name, options, value, onChange }) => (
@@ -117,9 +118,23 @@ function StartaProject() {
         Budget: ${formData.budget}, <br />
         Service: ${formData.service}, <br />
         Message: ${formData.message}
-      `
+      `,
+        { replyTo: formData.email, name: formData.name }
       );
 
+      saveLead({
+        form: "project_brief",
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        details: {
+          company: formData.company,
+          website: formData.website,
+          budget: formData.budget,
+          service: formData.service,
+          message: formData.message
+        }
+      });
       trackEvent("generate_lead", { form: "project_brief" });
       resetForm();
       setNotification({
@@ -274,7 +289,7 @@ function StartaProject() {
                   <IconInput icon={IconMail} id="p-email" type="email" name="email" autoComplete="email" value={formData.email} onChange={handleInputChange} placeholder="you@company.co.za" required />
                 </div>
                 <div>
-                  <label htmlFor="p-phone" className="field-label">Phone number</label>
+                  <label htmlFor="p-phone" className="field-label">Phone or WhatsApp number</label>
                   <IconInput icon={IconPhone} id="p-phone" type="tel" name="phone" autoComplete="tel" value={formData.phone} onChange={handleInputChange} placeholder="+27 12 345 6789" />
                 </div>
                 <div>
