@@ -11,7 +11,7 @@ import {
   IconStack2,
   IconShieldCheck,
 } from '@tabler/icons-react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import PageShell from '../components/layout/PageShell';
 import PageHero from '../components/layout/PageHero';
@@ -20,14 +20,14 @@ import ClosingBand from '../components/layout/ClosingBand';
 import Button from '../components/ui/Button';
 import PlanCard from '../components/ui/PlanCard';
 import { cn } from '../utils/cn';
-import { buildPlans, seoPlans, adsPlans, retainerPlans, careNote } from '../data/pricing';
+import { buildPlans, seoPlans, aeoStarter, adsPlans, retainerPlans, careNote } from '../data/pricing';
 
 const serviceCatalog = [
   { icon: IconTarget, title: 'Strategy & Positioning' },
   { icon: IconPalette, title: 'Brand Identity & Messaging' },
   { icon: IconCode, title: 'Web Design & Development' },
   { icon: IconShoppingCart, title: 'E-commerce Builds' },
-  { icon: IconSearch, title: 'Technical + Content SEO' },
+  { icon: IconSearch, title: 'SEO + AEO (AI search)' },
   { icon: IconChartLine, title: 'Google Ads / Performance Media' },
   { icon: IconUsers, title: 'Social Media Content Systems' },
   { icon: IconMailOpened, title: 'Email & CRM Automation' },
@@ -37,7 +37,7 @@ const serviceCatalog = [
 
 const tabs = [
   { id: 'development', label: 'Web & Commerce' },
-  { id: 'seo', label: 'SEO & Content' },
+  { id: 'seo', label: 'SEO + AEO' },
   { id: 'growth', label: 'Paid Media & Growth' },
   { id: 'retainer', label: 'Brand & Retainer' }
 ];
@@ -58,8 +58,8 @@ const pricingByTab = {
     }))
   },
   seo: {
-    title: 'SEO & Content Systems',
-    subtitle: 'Month-to-month retainers. No lock-in contracts.',
+    title: 'SEO + AEO Systems',
+    subtitle: 'Rank on Google and get named in AI answers. Month-to-month retainers, no lock-in contracts.',
     packages: seoPlans.map((plan) => ({
       name: plan.name,
       price: plan.priceLabel,
@@ -127,11 +127,11 @@ function Services() {
         <title>Digital Agency Services & Pricing (South Africa) | Virtara</title>
         <meta
           name="description"
-          content="Transparent South African digital agency pricing for web development, SEO, paid media, branding, content and growth retainers."
+          content="Transparent South African digital agency pricing for web development, SEO and AEO, paid media, branding, content and growth retainers."
         />
         <meta
           name="keywords"
-          content="digital agency pricing South Africa, web design pricing, SEO pricing, Google ads management South Africa"
+          content="digital agency pricing South Africa, web design pricing, SEO pricing, Google ads management South Africa, AEO pricing South Africa, answer engine optimisation"
         />
         <link rel="canonical" href="https://virtara.co.za/services" />
       </Helmet>
@@ -240,6 +240,13 @@ function Services() {
                 />
               ))}
             </div>
+
+            {activeTab === 'seo' && (
+              <p className="mt-8 max-w-2xl text-nav font-normal leading-relaxed text-mist">
+                Not ready for a retainer? {aeoStarter.name}, {aeoStarter.priceLabel}: an answer-ready rewrite of up to 10 pages, schema and an AI visibility baseline.{' '}
+                <Link to="/seo" className="text-link">See SEO + AEO</Link>
+              </p>
+            )}
           </div>
         </div>
       </section>

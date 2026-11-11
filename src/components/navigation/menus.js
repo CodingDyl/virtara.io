@@ -29,7 +29,7 @@ export const menus = [
     label: "Services",
     items: [
       { title: "Web design & development", desc: "Conversion-first sites and commerce builds", to: "/services#development", icon: IconBrowser },
-      { title: "SEO & content", desc: "Technical, local and content SEO retainers", to: "/services#seo", icon: IconSearch },
+      { title: "SEO & content", desc: "Technical, local and content SEO with AEO built in", to: "/services#seo", icon: IconSearch },
       { title: "Paid media & growth", desc: "Google and Meta campaigns tied to your CAC", to: "/services#growth", icon: IconChartArrowsVertical },
       { title: "Brand & retainers", desc: "Positioning, content and a fractional growth team", to: "/services#retainer", icon: IconSparkles },
       { title: "Maintenance & support", desc: "Security, updates, backups and hosting ops", to: "/maintenance-support", icon: IconShieldCheck },
@@ -59,7 +59,7 @@ export const menus = [
       { title: "Launch Site", desc: "A professional presence for new businesses", to: "/web-development/starter", icon: IconRocket },
       { title: "Growth Site", desc: "Multi-page sites with CMS and advanced SEO", to: "/web-development/professional", icon: IconStack2 },
       { title: "Commerce / Custom Platform", desc: "Custom platforms with complex requirements", to: "/web-development/enterprise", icon: IconBuildingSkyscraper },
-      { title: "SEO packages", desc: "Rank for the searches your buyers make", to: "/seo", icon: IconSearch },
+      { title: "SEO + AEO packages", desc: "Rank on Google and get named by AI assistants", to: "/seo", icon: IconSearch },
       { title: "All services & pricing", desc: "Every package, side by side, in rand", to: "/services", icon: IconListDetails },
     ],
     cards: [

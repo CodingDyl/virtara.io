@@ -149,8 +149,8 @@ const services = [
   {
     id: "seo",
     icon: IconSearch,
-    title: "SEO & content",
-    desc: "Month-to-month retainers that compound. No lock-in contracts.",
+    title: "SEO + AEO",
+    desc: "Month-to-month retainers that compound. No lock-in contracts. AEO is built in, so AI assistants can find and quote you too.",
     price: "From R4,500 / month",
     points: ["Technical baseline and indexing fixes", "Google Business Profile optimisation", "Monthly ranking and lead report"],
     to: "/services#seo",

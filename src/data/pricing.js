@@ -106,38 +106,42 @@ export const carePlans = [
 export const seoPlans = [
   {
     id: 'local',
-    name: 'Local SEO Foundation',
+    name: 'Local SEO + AEO Foundation',
     price: 'R4,500',
     priceLabel: 'R4,500/mo',
     setupFee: 'R3,500',
-    idealFor: 'Local service businesses targeting a city/region.',
+    idealFor: 'Local service businesses that want to be found on Google and in AI answers.',
     features: [
       'Technical baseline + indexing fixes',
       'Google Business Profile optimization',
       'Keyword map for 10 priority terms',
       '2 optimized pages per month',
-      'Monthly ranking + lead report'
+      'Monthly ranking + lead report',
+      'Answer-ready FAQ sections with FAQ schema on key pages',
+      'Baseline check of how AI assistants describe your business'
     ]
   },
   {
     id: 'growth-engine',
-    name: 'SEO Growth Engine',
+    name: 'SEO + AEO Growth Engine',
     price: 'R8,500',
     priceLabel: 'R8,500/mo',
     setupFee: 'R5,500',
-    idealFor: 'SMEs that need consistent lead growth from organic search.',
+    idealFor: 'SMEs that need steady lead growth from search and AI assistants.',
     highlighted: true,
     features: [
       'Everything in Foundation',
       'Technical sprint + schema optimization',
       '4 pages/posts optimized per month',
       'Internal linking + content refresh system',
-      'Quarterly competitor gap analysis'
+      'Quarterly competitor gap analysis',
+      'AEO structure on every page we optimise: direct answers, FAQs and schema',
+      'Monthly AI visibility check across ChatGPT, Gemini, Perplexity and Google AI Overviews'
     ]
   },
   {
     id: 'competitive',
-    name: 'Competitive SEO',
+    name: 'Competitive SEO + AEO',
     price: 'R14,500',
     priceLabel: 'R14,500/mo',
     setupFee: 'R8,500',
@@ -147,10 +151,26 @@ export const seoPlans = [
       'Content roadmap and editorial planning',
       'Authority/link outreach execution',
       'Programmatic landing page support',
-      'Executive growth reporting + strategy calls'
+      'Executive growth reporting + strategy calls',
+      'AI visibility tracked against named competitors',
+      'Brand and entity consistency work across the sources AI assistants read'
     ]
   }
 ];
+
+export const aeoStarter = {
+  id: 'aeo-starter',
+  name: 'AEO Starter',
+  price: 'R7,500',
+  priceLabel: 'R7,500 once-off',
+  idealFor: 'Businesses that want to be AI-ready before committing to a monthly retainer.',
+  features: [
+    'Answer-ready rewrite of up to 10 priority pages',
+    'FAQ and Q&A schema on those pages',
+    'AI visibility baseline: how ChatGPT, Gemini, Perplexity and Google AI Overviews describe you today',
+    'One round of revisions'
+  ]
+};
 
 export const adsPlans = [
   {
