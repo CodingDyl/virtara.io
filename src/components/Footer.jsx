@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { IconBrandX, IconBrandLinkedin, IconBrandInstagram } from "@tabler/icons-react";
+import { IconBrandX, IconBrandLinkedin, IconBrandInstagram, IconPhone, IconBrandWhatsapp } from "@tabler/icons-react";
 import Logo from "./brand/Logo";
 import { menus } from "./navigation/menus";
 
@@ -16,6 +16,8 @@ const legalLinks = [
 ];
 
 const socials = [
+  { label: "Call +27 72 327 1040", href: "tel:+27723271040", icon: IconPhone },
+  { label: "Chat on WhatsApp", href: "https://wa.me/27723271040", icon: IconBrandWhatsapp },
   { label: "Virtara on X", href: "https://x.com/Virtara_SA", icon: IconBrandX },
   { label: "Virtara on LinkedIn", href: "https://www.linkedin.com/company/virtara", icon: IconBrandLinkedin },
   { label: "Virtara on Instagram", href: "https://www.instagram.com/virtara.io/", icon: IconBrandInstagram },
@@ -56,8 +58,7 @@ const Footer = () => (
                 <a
                   href={href}
                   aria-label={label}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className="flex h-9 w-9 items-center justify-center rounded-control border border-edge text-mist transition-colors duration-fast hover:border-edge-strong hover:text-cloud"
                 >
                   <Icon size={17} stroke={1.6} aria-hidden="true" />

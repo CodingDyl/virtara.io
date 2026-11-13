@@ -115,7 +115,6 @@ const MegaPanel = ({ menu, onNavigate }) => {
 };
 
 const PHONE_HREF = "tel:+27723271040";
-const PHONE_LABEL = "+27 72 327 1040";
 const WHATSAPP_HREF = "https://wa.me/27723271040";
 
 /* ---------------------------------------------------------------------------
@@ -370,12 +369,6 @@ const Navbar = () => {
           </nav>
 
           <div className="hidden items-center gap-0 lg:flex xl:gap-0.5" onMouseEnter={scheduleClose}>
-            <a href={PHONE_HREF} aria-label={`Call ${PHONE_LABEL}`} className={cn(navLink, "hidden px-2 text-frost hover:text-cloud xl:inline-flex")} title={PHONE_LABEL}>
-              <IconPhone size={16} stroke={1.8} aria-hidden="true" />
-            </a>
-            <a href={WHATSAPP_HREF} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" className={cn(navLink, "hidden px-2 text-frost hover:text-cloud xl:inline-flex")} title="WhatsApp">
-              <IconBrandWhatsapp size={16} stroke={1.8} aria-hidden="true" />
-            </a>
             <Link to={secondaryCta.to} className={cn(navLink, "text-frost hover:text-cloud")}>
               {secondaryCta.label}
             </Link>
