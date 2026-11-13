@@ -11,7 +11,6 @@ import {
   IconNotebook,
   IconClipboardCheck,
   IconCalendarEvent,
-  IconPalette,
 } from "@tabler/icons-react";
 import { capetown, karoo, joburg, vaja, healthCheckPreview } from "../../assets";
 
@@ -79,7 +78,6 @@ export const menus = [
       { title: "Blog", desc: "Field notes on SEO, performance and conversion", to: "/web-development-blog", icon: IconNotebook },
       { title: "Conversion checklist", desc: "Find out why your site isn't converting", to: "/resources/health-check", icon: IconClipboardCheck },
       { title: "Book a website audit", desc: "A personal review of your site with our team", to: "/resources/audit", icon: IconCalendarEvent },
-      { title: "Brand book", desc: "The Virtara design system, in the open", to: "/brand", icon: IconPalette },
     ],
     cards: [
       {

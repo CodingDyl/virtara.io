@@ -7,7 +7,6 @@ const companyLinks = [
   { title: "Our work", to: "/our-work" },
   { title: "Start a project", to: "/start-your-project" },
   { title: "Contact", to: "/contact-us" },
-  { title: "Brand book", to: "/brand" },
 ];
 
 const legalLinks = [

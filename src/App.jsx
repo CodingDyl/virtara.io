@@ -19,7 +19,8 @@ const MaintenanceSupport = lazy(() => import('./pages/MaintenanceSupport'))
 const Concierge = lazy(() => import('./pages/Concierge'))
 const Unsubscribe = lazy(() => import('./pages/Unsubscribe'))
 const ComeBack = lazy(() => import('./pages/ComeBack'))
-const Brand = lazy(() => import('./pages/Brand'))
+// Internal only: the brand book is left out of production builds.
+const Brand = import.meta.env.DEV ? lazy(() => import('./pages/Brand')) : null
 
 const PrivacyPolicy = lazy(() => import('./pages/Legal/PrivacyPolicy'))
 const TermsOfService = lazy(() => import('./pages/Legal/TermsOfService'))
@@ -128,7 +129,7 @@ function App() {
 
             <Route path="/unsubscribe" element={<Unsubscribe />} />
             <Route path="/comeback" element={<ComeBack />} />
-            <Route path="/brand" element={<Brand />} />
+            {Brand && <Route path="/brand" element={<Brand />} />}
           </Routes>
         </Suspense>
         <AnalyticsTracker />
