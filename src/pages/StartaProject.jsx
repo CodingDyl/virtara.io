@@ -206,14 +206,10 @@ function StartaProject() {
   return (
     <PageShell>
       <Helmet>
-        <title>Start Your Digital Project | Web Development & Marketing Solutions</title>
+        <title>Start a Website Project | Virtara</title>
         <meta
           name="description"
           content="Ready to start your digital project? Let's collaborate to create innovative web solutions and marketing strategies that drive results for your business."
-        />
-        <meta
-          name="keywords"
-          content="start project, web development project, digital marketing services, custom solutions"
         />
         <link rel="canonical" href="https://virtara.co.za/start-your-project" />
       </Helmet>

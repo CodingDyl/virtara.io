@@ -10,7 +10,21 @@ import Button from '../../../components/ui/Button';
 import { IconInput, SelectField, CheckboxCard } from '../../../components/ui/Field';
 import { trackEvent } from '../../../lib/analytics';
 import { saveLead } from '../../../config/firebase';
+import Faq from '../../../components/seo/Faq';
+import JsonLd from '../../../components/seo/JsonLd'
+import { SITE, offer, serviceNode, breadcrumbNode } from '../../../data/schema';
+import { seoFaqs } from '../../../data/faqs';
 import { seoPlans, aeoStarter } from '../../../data/pricing';
+
+const schema = [
+  serviceNode({
+    name: 'SEO + AEO services',
+    description: 'SEO and answer engine optimisation (AEO) for South African businesses.',
+    url: `${SITE}/seo`,
+    offers: [...seoPlans.map((p) => offer(p.name, p.price, { monthly: true })), offer(aeoStarter.name, aeoStarter.price)],
+  }),
+  breadcrumbNode([['Home', `${SITE}/`], ['SEO + AEO', `${SITE}/seo`]]),
+];
 
 const Seo = () => {
   const navigate = useNavigate();
@@ -174,9 +188,9 @@ const Seo = () => {
       <Helmet>
         <title>SEO + AEO Services | Get Found on Google and in AI Answers | Virtara</title>
         <meta name="description" content={`SEO and answer engine optimisation (AEO) for South African businesses. Rank on Google and get named when people ask ChatGPT, Gemini or Perplexity. From ${seoPlans[0].price} a month.`} />
-        <meta name="keywords" content="SEO services, search engine optimization, organic traffic, keyword ranking, local SEO, AEO, answer engine optimisation, AI search optimisation South Africa" />
         <link rel="canonical" href="https://virtara.co.za/seo" />
       </Helmet>
+      <JsonLd nodes={schema} />
 
       <Notification
         message={notification.message}
@@ -231,6 +245,8 @@ const Seo = () => {
           </div>
         </div>
       </section>
+
+      <Faq id="faq-heading" title="SEO and AEO questions" items={seoFaqs} />
 
       <section id="seo-analysis" className="section scroll-mt-16" aria-labelledby="seo-form-heading">
         <div className="shell max-w-4xl">

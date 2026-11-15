@@ -5,8 +5,26 @@ import Notification from '../../../../components/Notifications/notification';
 import sendEmail from "../../../../server/workflow";
 import WebDevForm from '../components/WebDevForm';
 import { Helmet } from 'react-helmet-async';
+import Faq from '../../../../components/seo/Faq';
+import JsonLd from '../../../../components/seo/JsonLd'
+import { SITE, offer, serviceNode, breadcrumbNode } from '../../../../data/schema';
+import { packageFaqs } from '../../../../data/faqs';
+import { buildPlans } from '../../../../data/pricing';
+
 import { trackEvent } from '../../../../lib/analytics';
 import { saveLead } from '../../../../config/firebase';
+
+const plan = buildPlans.find((p) => p.id === 'launch');
+const url = `${SITE}/web-development/starter`;
+const schema = [
+  serviceNode({
+    name: plan.name,
+    description: plan.idealFor,
+    url,
+    offers: [offer(`${plan.name}, with a care plan`, plan.planPrice), offer(`${plan.name}, once-off`, plan.price)],
+  }),
+  breadcrumbNode([['Home', `${SITE}/`], ['Services', `${SITE}/services`], [plan.name, url]]),
+];
 
 const Starter = () => {
   const navigate = useNavigate();
@@ -130,11 +148,11 @@ const Starter = () => {
   return (
     <PageShell>
       <Helmet>
-        <title>Starter Website Package | Web Development | Virtara</title>
-        <meta name="description" content="Get started with our Starter Website Package. Perfect for small businesses and startups looking to establish a professional online presence." />
-        <meta name="keywords" content="starter website package, web development, small business website, startup website" />
+        <title>{`Small Business Website Design, from ${plan.planPrice} | Virtara`}</title>
+        <meta name="description" content={`A 5-page small business website, live in 3 to 6 working days. ${plan.planPriceLabel}, ${plan.onceOffNote}.`} />
         <link rel="canonical" href="https://virtara.co.za/web-development/starter" />
       </Helmet>
+      <JsonLd nodes={schema} />
         <Notification
           message={notification.message}
           type={notification.type}
@@ -155,6 +173,7 @@ const Starter = () => {
           </div>
         </section>
 
+      <Faq id="faq-heading" title="Questions about your website" items={packageFaqs} />
     </PageShell>
   );
 };

@@ -6,7 +6,21 @@ import SectionHeading from '../components/layout/SectionHeading';
 import ClosingBand from '../components/layout/ClosingBand';
 import Button from '../components/ui/Button';
 import PlanCard from '../components/ui/PlanCard';
+import Faq from '../components/seo/Faq';
+import JsonLd from '../components/seo/JsonLd'
+import { SITE, offer, serviceNode, breadcrumbNode } from '../data/schema';
+import { maintenanceFaqs } from '../data/faqs';
 import { carePlans } from '../data/pricing';
+
+const schema = [
+  serviceNode({
+    name: 'Website maintenance and hosting',
+    description: 'Website maintenance with hosting included: updates, backups, security and support.',
+    url: `${SITE}/maintenance-support`,
+    offers: carePlans.map((p) => offer(p.name, p.price, { monthly: true })),
+  }),
+  breadcrumbNode([['Home', `${SITE}/`], ['Website maintenance', `${SITE}/maintenance-support`]]),
+];
 
 const MaintenanceSupport = () => {
   const maintenanceServices = [
@@ -35,11 +49,11 @@ const MaintenanceSupport = () => {
   return (
     <PageShell>
       <Helmet>
-        <title>Website Maintenance & Support Services | Professional Site Care</title>
-        <meta name="description" content="Keep your website secure, fast, and up-to-date with our professional maintenance and support services. Choose from three comprehensive care plans." />
-        <meta name="keywords" content="website maintenance, website support, security updates, performance optimization, technical support" />
+        <title>{`Website Maintenance & Hosting Plans in South Africa, from ${carePlans[0].priceLabel} | Virtara`}</title>
+        <meta name="description" content={`Website maintenance with hosting included: updates, backups, security and support from ${carePlans[0].priceLabel}.`} />
         <link rel="canonical" href="https://virtara.co.za/maintenance-support" />
       </Helmet>
+      <JsonLd nodes={schema} />
 
       <PageHero
         announcement={{ label: 'Site care plans' }}
@@ -87,6 +101,8 @@ const MaintenanceSupport = () => {
           </div>
         </div>
       </section>
+
+      <Faq id="faq-heading" title="Maintenance questions" items={maintenanceFaqs} />
 
       <ClosingBand
         title="Ready to keep your site in perfect shape?"

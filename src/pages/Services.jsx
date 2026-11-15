@@ -19,8 +19,29 @@ import SectionHeading from '../components/layout/SectionHeading';
 import ClosingBand from '../components/layout/ClosingBand';
 import Button from '../components/ui/Button';
 import PlanCard from '../components/ui/PlanCard';
+import Faq from '../components/seo/Faq';
+import JsonLd from '../components/seo/JsonLd'
+import { SITE, offer, serviceNode, breadcrumbNode } from '../data/schema';
+import { servicesFaqs } from '../data/faqs';
 import { cn } from '../utils/cn';
 import { buildPlans, seoPlans, aeoStarter, adsPlans, retainerPlans, carePlans, growthBundle } from '../data/pricing';
+
+const launch = buildPlans.find((p) => p.id === 'launch');
+
+const serviceSchema = [
+  serviceNode({
+    name: 'Website design, SEO and digital marketing',
+    description: 'Fixed-price website builds, online stores, SEO + AEO, Google Ads management and website maintenance for businesses in South Africa.',
+    url: `${SITE}/services`,
+    offers: [
+      ...buildPlans.map((p) => offer(`${p.name}, with a care plan`, p.planPrice)),
+      ...seoPlans.map((p) => offer(p.name, p.price, { monthly: true })),
+      ...adsPlans.map((p) => offer(`${p.name} management`, p.price, { monthly: true })),
+      ...carePlans.map((p) => offer(p.name, p.price, { monthly: true })),
+    ],
+  }),
+  breadcrumbNode([['Home', `${SITE}/`], ['Services', `${SITE}/services`]]),
+];
 
 const serviceCatalog = [
   { icon: IconTarget, title: 'Strategy & Positioning' },
@@ -129,17 +150,14 @@ function Services() {
   return (
     <PageShell>
       <Helmet>
-        <title>Digital Agency Services & Pricing (South Africa) | Virtara</title>
+        <title>Website Design Prices & Digital Marketing Packages in South Africa | Virtara</title>
         <meta
           name="description"
-          content="Transparent South African digital agency pricing for web development, SEO and AEO, paid media, branding, content and growth retainers."
-        />
-        <meta
-          name="keywords"
-          content="digital agency pricing South Africa, web design pricing, SEO pricing, Google ads management South Africa, AEO pricing South Africa, answer engine optimisation"
+          content={`Fixed prices for website design, online stores, SEO + AEO, Google Ads and maintenance in South Africa. Websites from ${launch.planPrice}, SEO from ${seoPlans[0].priceLabel}.`}
         />
         <link rel="canonical" href="https://virtara.co.za/services" />
       </Helmet>
+      <JsonLd nodes={serviceSchema} />
 
       <PageHero
         announcement={{ label: 'Services + transparent SA pricing' }}
@@ -262,6 +280,8 @@ function Services() {
           </div>
         </div>
       </section>
+
+      <Faq id="faq-heading" title="Pricing questions" items={servicesFaqs} />
 
       <ClosingBand
         title="Need a custom scope?"

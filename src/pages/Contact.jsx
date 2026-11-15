@@ -114,7 +114,7 @@ const Contact = () => {
   return (
     <PageShell>
       <Helmet>
-        <title>Contact Us | Virtara</title>
+        <title>Contact Virtara | Web Design Agency in Johannesburg</title>
         <meta name="description" content="Contact Virtara to discuss your website, SEO, or growth project. We respond quickly and can help scope your next digital initiative." />
         <link rel="canonical" href="https://virtara.co.za/contact-us" />
       </Helmet>

@@ -8,7 +8,12 @@ import ClosingBand from "../components/layout/ClosingBand";
 import HeroVideo from "../components/home/HeroVideo";
 import ServicesRail from "../components/home/ServicesRail";
 import Button from "../components/ui/Button";
+import Faq from "../components/seo/Faq";
+import { homeFaqs } from "../data/faqs";
+import { buildPlans } from "../data/pricing";
 import { cn } from "../utils/cn";
+
+const launch = buildPlans.find((p) => p.id === "launch");
 
 const trustClients = ["Vaja", "MPower Ratings", "Virtec Marketing", "Aureya", "Clarity"];
 
@@ -149,14 +154,10 @@ function Home() {
   return (
     <PageShell>
       <Helmet>
-        <title>Virtara | Digital Assets That Outperform Your Competition</title>
+        <title>Web Design & Development Agency in Johannesburg, South Africa | Virtara</title>
         <meta
           name="description"
-          content="Virtara builds high-performance digital assets for growth-focused brands. See measurable outcomes, live client proof, and book a strategy audit."
-        />
-        <meta
-          name="keywords"
-          content="digital agency, web design, web development, conversion optimization, SEO, lead generation"
+          content={`Virtara is a web design and development agency in Johannesburg. Small business websites from ${launch.planPrice}, online stores, SEO + AEO, Google Ads and an AI website assistant, for businesses across South Africa.`}
         />
         <link rel="canonical" href="https://virtara.co.za/" />
       </Helmet>
@@ -164,7 +165,7 @@ function Home() {
       <PageHero
         announcement={{ label: "Free: the website conversion checklist", to: "/resources/health-check" }}
         title="We build digital assets that outperform your competition."
-        lead="Premium web strategy, engineering and SEO for South African brands that care about measurable outcomes."
+        lead="Virtara is a web design and development agency in Johannesburg. We build websites and online stores, then grow them with SEO, AEO and Google Ads, for businesses across South Africa."
         actions={
           <>
             <Button to="/resources/audit" size="lg" className="font-semibold">
@@ -225,6 +226,8 @@ function Home() {
           <LeadQualifier />
         </div>
       </section>
+
+      <Faq id="faq-heading" title="Questions business owners ask us" items={homeFaqs} />
 
       <ClosingBand
         title="Ready to outperform?"

@@ -5,8 +5,26 @@ import Notification from '../../../../components/Notifications/notification';
 import sendEmail from "../../../../server/workflow";
 import WebDevForm from '../components/WebDevForm';
 import { Helmet } from 'react-helmet-async';
+import Faq from '../../../../components/seo/Faq';
+import JsonLd from '../../../../components/seo/JsonLd'
+import { SITE, offer, serviceNode, breadcrumbNode } from '../../../../data/schema';
+import { packageFaqs } from '../../../../data/faqs';
+import { buildPlans } from '../../../../data/pricing';
+
 import { trackEvent } from '../../../../lib/analytics';
 import { saveLead } from '../../../../config/firebase';
+
+const plan = buildPlans.find((p) => p.id === 'growth');
+const url = `${SITE}/web-development/professional`;
+const schema = [
+  serviceNode({
+    name: plan.name,
+    description: plan.idealFor,
+    url,
+    offers: [offer(`${plan.name}, with a care plan`, plan.planPrice), offer(`${plan.name}, once-off`, plan.price)],
+  }),
+  breadcrumbNode([['Home', `${SITE}/`], ['Services', `${SITE}/services`], [plan.name, url]]),
+];
 
 const Professional = () => {
   const navigate = useNavigate();
@@ -121,11 +139,11 @@ const Professional = () => {
   return (
     <PageShell>
       <Helmet>
-        <title>Professional Website Package | Web Development | Virtara</title>
-        <meta name="description" content="Get our Professional Website Package. Perfect for businesses requiring advanced functionality and custom features." />
-        <meta name="keywords" content="professional website package, web development, business website, custom features" />
+        <title>{`Business Website Design & Development, from ${plan.planPrice} | Virtara`}</title>
+        <meta name="description" content={`An 8 to 15 page business website with blog, bookings and tracking. ${plan.planPriceLabel}, ${plan.onceOffNote}.`} />
         <link rel="canonical" href="https://virtara.co.za/web-development/professional" />
       </Helmet>
+      <JsonLd nodes={schema} />
         <Notification
           message={notification.message}
           type={notification.type}
@@ -146,6 +164,7 @@ const Professional = () => {
           </div>
         </section>
 
+      <Faq id="faq-heading" title="Questions about your website" items={packageFaqs} />
     </PageShell>
   );
 };

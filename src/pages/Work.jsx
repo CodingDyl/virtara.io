@@ -106,14 +106,10 @@ function Work() {
   return (
     <PageShell>
       <Helmet>
-        <title>Our Work | Conversion-Focused Digital Projects</title>
+        <title>Our Work: Websites Built for South African Businesses | Virtara</title>
         <meta
           name="description"
           content="Explore Virtara case studies and project outcomes across web development, design, and growth systems."
-        />
-        <meta
-          name="keywords"
-          content="digital agency portfolio, case studies, web development projects, conversion optimization"
         />
         <link rel="canonical" href="https://virtara.co.za/our-work" />
       </Helmet>

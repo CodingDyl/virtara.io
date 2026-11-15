@@ -5,8 +5,26 @@ import Notification from '../../../../components/Notifications/notification';
 import sendEmail from "../../../../server/workflow";
 import WebDevForm from '../components/WebDevForm';
 import { Helmet } from 'react-helmet-async';
+import Faq from '../../../../components/seo/Faq';
+import JsonLd from '../../../../components/seo/JsonLd'
+import { SITE, offer, serviceNode, breadcrumbNode } from '../../../../data/schema';
+import { packageFaqs } from '../../../../data/faqs';
+import { buildPlans } from '../../../../data/pricing';
+
 import { trackEvent } from '../../../../lib/analytics';
 import { saveLead } from '../../../../config/firebase';
+
+const plan = buildPlans.find((p) => p.id === 'commerce');
+const url = `${SITE}/web-development/enterprise`;
+const schema = [
+  serviceNode({
+    name: plan.name,
+    description: plan.idealFor,
+    url,
+    offers: [offer(`${plan.name}, with a care plan`, plan.planPrice), offer(`${plan.name}, once-off`, plan.price)],
+  }),
+  breadcrumbNode([['Home', `${SITE}/`], ['Services', `${SITE}/services`], [plan.name, url]]),
+];
 
 const Enterprise = () => {
   const navigate = useNavigate();
@@ -121,11 +139,11 @@ const Enterprise = () => {
   return (
     <PageShell>
       <Helmet>
-        <title>Enterprise Website Package | Web Development | Virtara</title>
-        <meta name="description" content="Get our Enterprise Website Package. Ideal for large-scale projects with complex requirements and custom solutions." />
-        <meta name="keywords" content="enterprise website package, web development, large-scale projects, custom solutions" />
+        <title>{'Ecommerce Website & Online Store Development in South Africa | Virtara'}</title>
+        <meta name="description" content={`Online stores and custom platforms on Shopify, WooCommerce or custom code. ${plan.planPriceLabel}, ${plan.onceOffNote}.`} />
         <link rel="canonical" href="https://virtara.co.za/web-development/enterprise" />
       </Helmet>
+      <JsonLd nodes={schema} />
         <Notification
           message={notification.message}
           type={notification.type}
@@ -146,6 +164,7 @@ const Enterprise = () => {
           </div>
         </section>
 
+      <Faq id="faq-heading" title="Questions about your website" items={packageFaqs} />
     </PageShell>
   );
 };

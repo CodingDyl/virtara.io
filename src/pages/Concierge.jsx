@@ -5,6 +5,10 @@ import PageHero from "../components/layout/PageHero";
 import SectionHeading from "../components/layout/SectionHeading";
 import Button from "../components/ui/Button";
 import PlanCard from "../components/ui/PlanCard";
+import Faq from "../components/seo/Faq";
+import JsonLd from "../components/seo/JsonLd"
+import { SITE, offer, breadcrumbNode } from "../data/schema";
+import { conciergeFaqs } from "../data/faqs";
 
 const steps = [
   { icon: IconBook2, title: "Learns your business", description: "Reads your website and drafts what it knows: services, prices, areas and hours. You check it before it goes live." },
@@ -33,17 +37,30 @@ const plans = [
 
 const START_URL = "https://concierge.virtara.co.za/start";
 
+const schema = [
+  {
+    "@type": "SoftwareApplication",
+    name: "Concierge by Virtara",
+    applicationCategory: "BusinessApplication",
+    url: `${SITE}/concierge`,
+    provider: { "@id": `${SITE}/#organization` },
+    offers: plans.map((p) => offer(`Concierge ${p.name}`, p.price, { monthly: true })),
+  },
+  breadcrumbNode([["Home", `${SITE}/`], ["Concierge", `${SITE}/concierge`]]),
+];
+
 const Concierge = () => {
   return (
     <PageShell>
       <Helmet>
-        <title>Concierge: an AI website assistant that turns visitors into enquiries | Virtara</title>
+        <title>{`AI Chatbot for Your Website, from ${plans[0].price} a month | Concierge by Virtara`}</title>
         <meta
           name="description"
           content="Concierge by Virtara learns your business from your website, answers visitors day and night, and sends you every enquiry with a summary and a score. From R599 a month."
         />
         <link rel="canonical" href="https://virtara.co.za/concierge" />
       </Helmet>
+      <JsonLd nodes={schema} />
 
       <PageHero
         announcement={{ label: "New from Virtara" }}
@@ -103,6 +120,8 @@ const Concierge = () => {
           </p>
         </div>
       </section>
+
+      <Faq id="faq-heading" title="Questions about Concierge" items={conciergeFaqs(plans)} />
 
       <section id="trial" className="section scroll-mt-20 pt-0" aria-labelledby="trial-heading">
         <div className="shell grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
