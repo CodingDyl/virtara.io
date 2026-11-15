@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { IconPlayerPlayFilled, IconReload, IconVolume, IconVolumeOff } from "@tabler/icons-react";
+import { IconPlayerPlayFilled, IconVolume, IconVolumeOff } from "@tabler/icons-react";
 import { cn } from "../../utils/cn";
 
 /**
  * Home's product frame: a 30s retro film on what a website does for a business.
- * Plays once, muted, the first time it scrolls into view. Sound is opt-in: a
- * click on the film unmutes it. When it ends (or is paused) a scrim with a play
- * button takes over, and the film never loops on its own.
+ * Starts muted the first time it scrolls into view, then loops. Sound is
+ * opt-in: a click on the film unmutes it. When it is paused a scrim with a
+ * play button takes over.
  *
  * Two cuts, each in its own device: 16:9 in a tablet-style frame on `md`+,
  * 9:16 in a phone-style frame below.
@@ -50,7 +50,7 @@ const HeroVideo = () => {
   const videoRef = useRef(null);
   const frameRef = useRef(null);
   const autoplayedRef = useRef(false);
-  // idle (never started) | playing | paused | ended
+  // idle (never started) | playing | paused
   const [status, setStatus] = useState("idle");
   const [muted, setMuted] = useState(true);
 
@@ -86,11 +86,10 @@ const HeroVideo = () => {
     const video = videoRef.current;
     if (!video) return;
     autoplayedRef.current = true;
-    if (status === "ended") video.currentTime = 0;
     video.muted = false;
     setMuted(false);
     video.play().catch(() => {});
-  }, [status]);
+  }, []);
 
   const onSurfaceClick = () => {
     const video = videoRef.current;
@@ -111,7 +110,7 @@ const HeroVideo = () => {
   };
 
   const showOverlay = status !== "playing";
-  const overlayLabel = status === "ended" ? "Watch again" : status === "paused" ? "Resume" : "Play with sound";
+  const overlayLabel = status === "paused" ? "Resume" : "Play with sound";
 
   return (
     <div className="shell">
@@ -166,15 +165,13 @@ const HeroVideo = () => {
             width={cut.width}
             height={cut.height}
             muted
+            loop
             playsInline
             preload="metadata"
             aria-label="Retro animated film: how a good website helps a local business get found, trusted and open for customers"
             className="absolute inset-0 h-full w-full bg-ink object-cover"
             onPlay={() => setStatus("playing")}
-            onPause={(e) => {
-              if (!e.currentTarget.ended) setStatus("paused");
-            }}
-            onEnded={() => setStatus("ended")}
+            onPause={() => setStatus("paused")}
           />
 
           {/* While playing, the whole film is one button: first click turns sound on, later clicks pause. */}
@@ -212,11 +209,7 @@ const HeroVideo = () => {
                 className="group flex flex-col items-center gap-3 rounded-card p-4 text-cloud"
               >
                 <span className="flex h-16 w-16 items-center justify-center rounded-pill bg-cloud/90 text-charcoal shadow-raised transition-colors duration-fast group-hover:bg-cloud sm:h-[72px] sm:w-[72px]">
-                  {status === "ended" ? (
-                    <IconReload size={26} stroke={1.8} aria-hidden="true" />
-                  ) : (
-                    <IconPlayerPlayFilled size={26} aria-hidden="true" className="translate-x-px" />
-                  )}
+                  <IconPlayerPlayFilled size={26} aria-hidden="true" className="translate-x-px" />
                 </span>
                 <span className="text-nav font-medium">{overlayLabel}</span>
                 <span className="sr-only">(30 second video)</span>
