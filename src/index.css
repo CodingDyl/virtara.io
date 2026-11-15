@@ -112,6 +112,201 @@
   .figure {
     @apply font-signature font-medium tabular-nums tracking-tight;
   }
+
+  /* FAQ drawer (components/seo/Faq.jsx): index cards standing in a tray.
+     Cards further back sit darker and a little narrower; the open card is
+     lifted out, lit along its top edge in signal blue. */
+  .faq-drawer {
+    @apply rounded-card border border-edge bg-charcoal;
+    padding: 12px 12px 0;
+    interpolate-size: allow-keywords;
+  }
+
+  .faq-tray {
+    @apply grid bg-canvas;
+    padding: 46px 12px 14px;
+    border-radius: 10px 10px 4px 4px;
+    box-shadow:
+      inset 0 14px 16px -10px rgb(0 0 0 / 0.9),
+      inset 0 0 0 1px rgb(var(--v-edge) / 0.7);
+  }
+
+  .faq-card {
+    --faq-bg: rgb(var(--v-steel));
+    --faq-bg: color-mix(in oklab, rgb(var(--v-steel)), rgb(var(--v-ink)) calc(30% + var(--depth, 0) * 55%));
+    --faq-lamp: rgb(255 255 255 / 0.09);
+    position: relative;
+    margin-inline: calc(var(--depth, 0) * 6px);
+    border-radius: 8px 8px 2px 2px;
+    background: var(--faq-bg);
+    /* Top edge catches the light; the card throws a shadow back onto the one behind. */
+    box-shadow:
+      inset 0 1px 0 var(--faq-lamp),
+      0 -8px 12px -6px rgb(0 0 0 / 0.7);
+    transition:
+      transform theme('transitionDuration.base') theme('transitionTimingFunction.out'),
+      margin theme('transitionDuration.base') theme('transitionTimingFunction.out'),
+      box-shadow theme('transitionDuration.base') theme('transitionTimingFunction.out');
+  }
+
+  .faq-card[open] {
+    --faq-bg: rgb(var(--v-steel));
+    --faq-lamp: rgb(var(--v-signal) / 0.6);
+    z-index: 2;
+    /* Room above for the lift, and below so the next card's tab stays clear. */
+    margin-block: 10px 14px;
+    transform: translateY(-10px);
+    box-shadow:
+      inset 0 1px 0 var(--faq-lamp),
+      0 -6px 10px -6px rgb(0 0 0 / 0.7),
+      0 22px 30px -16px rgb(0 0 0 / 0.85);
+  }
+
+  @media (hover: hover) {
+    .faq-card:not([open]):hover {
+      transform: translateY(-3px);
+    }
+  }
+
+  /* The card's top edge: index number, question, open/close mark. */
+  .faq-edge {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    column-gap: 14px;
+    padding: 16px 16px 28px;
+    list-style: none;
+    cursor: pointer;
+    border-radius: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .faq-edge::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-edge:focus-visible {
+    outline: 2px solid rgb(var(--v-signal));
+    outline-offset: -4px;
+  }
+
+  /* The topic tab stands up from the top edge at its station. */
+  .faq-tab {
+    @apply text-quiet;
+    position: absolute;
+    bottom: calc(100% - 1px);
+    left: var(--tab-l, auto);
+    right: var(--tab-r, auto);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    height: 23px;
+    padding: 1px 11px 0;
+    border-radius: 6px 6px 0 0;
+    background: var(--faq-bg);
+    box-shadow:
+      inset 0 1px 0 var(--faq-lamp),
+      0 -5px 8px -5px rgb(0 0 0 / 0.7);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  /* The site's rotated-square marker: blue on the card that is out. */
+  .faq-tab::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    transform: rotate(45deg);
+    background: rgb(var(--v-edge-strong));
+  }
+
+  .faq-card[open] .faq-tab {
+    @apply text-frost;
+  }
+
+  .faq-card[open] .faq-tab::before {
+    background: rgb(var(--v-signal));
+  }
+
+  .faq-mark {
+    position: relative;
+    align-self: center;
+    width: 12px;
+    height: 12px;
+  }
+
+  .faq-mark::before,
+  .faq-mark::after {
+    content: '';
+    position: absolute;
+    inset: 5.25px 0 auto;
+    height: 1.5px;
+    background: rgb(var(--v-mist));
+  }
+
+  .faq-mark::after {
+    transform: rotate(90deg);
+    transition: transform theme('transitionDuration.base') theme('transitionTimingFunction.out');
+  }
+
+  .faq-card[open] .faq-mark::after {
+    transform: rotate(0deg);
+  }
+
+  /* The answer opens by the platform's own details transition where the
+     browser has one; elsewhere it simply opens. */
+  .faq-card::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size 320ms theme('transitionTimingFunction.out'),
+      content-visibility 320ms allow-discrete;
+  }
+
+  .faq-card[open]::details-content {
+    block-size: auto;
+  }
+
+  .faq-face {
+    margin: -10px 16px 0;
+    padding: 16px 0 20px;
+    border-top: 1px solid rgb(var(--v-edge-strong));
+  }
+
+  @media (min-width: 640px) {
+    .faq-edge {
+      grid-template-columns: 2rem minmax(0, 1fr) auto;
+      padding-inline: 20px;
+    }
+
+    .faq-face {
+      margin-inline: 20px;
+      padding-left: calc(2rem + 14px);
+    }
+  }
+
+  /* The drawer's front plate: a label holder and a finger slot. */
+  .faq-front {
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    padding: 14px 0 16px;
+  }
+
+  .faq-pull {
+    @apply block bg-canvas;
+    width: 72px;
+    height: 8px;
+    border-radius: 9999px;
+    box-shadow:
+      inset 0 3px 3px -2px rgb(0 0 0 / 0.9),
+      inset 0 0 0 1px rgb(var(--v-edge) / 0.7);
+  }
 }
 
 @layer utilities {
