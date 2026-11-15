@@ -3,10 +3,11 @@ import { renderToPipeableStream } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import App from './App.jsx'
+import { PrerenderDataProvider } from './lib/prerenderData'
 
 // Pages are React.lazy, so renderToString would emit only the loading
 // spinner. Waiting for onAllReady resolves every lazy page first.
-export function render(url) {
+export function render(url, data = null) {
   const helmetContext = {}
   return new Promise((resolve, reject) => {
     let html = ''
@@ -19,15 +20,17 @@ export function render(url) {
     sink.on('finish', () => {
       const { helmet } = helmetContext
       const head = helmet
-        ? [helmet.title, helmet.meta, helmet.link].map((h) => h.toString()).join('')
+        ? [helmet.title, helmet.meta, helmet.link, helmet.script].map((h) => h.toString()).join('')
         : ''
       resolve({ html, head })
     })
     const stream = renderToPipeableStream(
       <HelmetProvider context={helmetContext}>
-        <StaticRouter location={url}>
-          <App />
-        </StaticRouter>
+        <PrerenderDataProvider value={data}>
+          <StaticRouter location={url}>
+            <App />
+          </StaticRouter>
+        </PrerenderDataProvider>
       </HelmetProvider>,
       {
         onAllReady() {

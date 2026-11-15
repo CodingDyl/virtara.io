@@ -1,3 +1,5 @@
+# Search crawlers allowed below (the rule for * covers them all):
+#   Googlebot, Bingbot, OAI-SearchBot, PerplexityBot, Claude-SearchBot
 User-agent: *
 Allow: /
 Sitemap: https://virtara.co.za/sitemap.xml

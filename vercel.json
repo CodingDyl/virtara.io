@@ -1,8 +1,80 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/contact{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/starta-project{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/resources/start-a-project/thank-you{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/checklist{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/thank-you{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/checklist/thank-you{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/resources/health-check/thank-you{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/audit{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/resources/audit/thank-you{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/web-development/starter/thank-you{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/starter/thank-you{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/web-development/professional/thank-you{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/professional/thank-you{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/web-development/enterprise/thank-you{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/enterprise/thank-you{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/seo/thank-you{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/unsubscribe{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/comeback{/}?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/web-development-blog/:slug{/}?",
       "destination": "/index.html"
     }
   ]
-} 
+}

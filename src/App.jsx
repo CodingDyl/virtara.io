@@ -3,6 +3,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import AnalyticsTracker from './components/AnalyticsTracker'
 import LoadingSpinner from './components/ui/LoadingSpinner'
 import CookieConsent from './components/CookieConsent'
+import SiteSchema from './components/seo/SiteSchema'
 
 // Below-the-fold chrome. Neither is needed for first paint.
 const ScrollToTop = lazy(() => import('./components/ScrollToTop'))
@@ -19,6 +20,7 @@ const MaintenanceSupport = lazy(() => import('./pages/MaintenanceSupport'))
 const Concierge = lazy(() => import('./pages/Concierge'))
 const Unsubscribe = lazy(() => import('./pages/Unsubscribe'))
 const ComeBack = lazy(() => import('./pages/ComeBack'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 // Internal only: the brand book is left out of production builds.
 const Brand = import.meta.env.DEV ? lazy(() => import('./pages/Brand')) : null
 
@@ -85,6 +87,7 @@ function App() {
 
   return (
     <>
+        <SiteSchema />
         <RouteScroll />
         <Suspense fallback={<RouteFallback />}>
           <Routes>
@@ -130,6 +133,7 @@ function App() {
             <Route path="/unsubscribe" element={<Unsubscribe />} />
             <Route path="/comeback" element={<ComeBack />} />
             {Brand && <Route path="/brand" element={<Brand />} />}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
         <AnalyticsTracker />

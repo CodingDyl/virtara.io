@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs && node scripts/indexnow.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -35,8 +35,7 @@
     "resend": "^4.6.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^3.4.17",
-    "tailwindcss-animate": "^1.0.7",
-    "vite-plugin-sitemap": "^0.8.2"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",

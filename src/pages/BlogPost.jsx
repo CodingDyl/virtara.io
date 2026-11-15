@@ -3,7 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { PortableText } from '@portabletext/react';
 import { Helmet } from 'react-helmet-async';
 import { IconArrowLeft, IconShare, IconCheck } from '@tabler/icons-react';
-import { client } from '../lib/sanity';
+import { client, POST_QUERY } from '../lib/sanity';
+import { usePrerenderData } from '../lib/prerenderData';
 import PageShell from '../components/layout/PageShell';
 import ClosingBand from '../components/layout/ClosingBand';
 import Button from '../components/ui/Button';
@@ -41,25 +42,32 @@ const BackLink = () => (
   </Link>
 );
 
+const SITE = 'https://virtara.co.za';
+
+// Fixed zone so the build server and the visitor's browser print the same date.
+const formatDate = (iso) =>
+  new Date(iso).toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Africa/Johannesburg' });
+
+const bodyText = (body) =>
+  (body || [])
+    .filter((b) => b._type === 'block')
+    .map((b) => (b.children || []).map((c) => c.text).join(''))
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
 const BlogPost = () => {
   const { slug } = useParams();
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // A post embedded at build time renders straight away; the fetch below refreshes it.
+  const prerendered = usePrerenderData()?.post;
+  const initial = prerendered?.slug === slug ? prerendered : null;
+  const [post, setPost] = useState(initial);
+  const [loading, setLoading] = useState(!initial);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const query = `*[_type == "post" && slug.current == $slug][0] {
-          title,
-          publishedAt,
-          body,
-          readTime,
-          "mainImage": mainImage.asset->url,
-          "author": author->name,
-          "categories": categories[]->title
-        }`;
-        
-        const post = await client.fetch(query, { slug });
+        const post = await client.fetch(POST_QUERY, { slug });
         setPost(post);
       } catch (error) {
         console.error('Error fetching post:', error);
@@ -96,17 +104,32 @@ const BlogPost = () => {
     );
   }
 
-  const date = post.publishedAt
-    ? new Date(post.publishedAt).toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' })
-    : null;
+  const date = post.publishedAt ? formatDate(post.publishedAt) : null;
+  // Only shown when the post was edited on a later day than it was published.
+  const updated =
+    post._updatedAt && formatDate(post._updatedAt) !== date ? formatDate(post._updatedAt) : null;
+  const url = `${SITE}/web-development-blog/${slug}`;
+  const description = post.excerpt || bodyText(post.body).slice(0, 155);
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description,
+    ...(post.mainImage && { image: post.mainImage }),
+    datePublished: post.publishedAt,
+    dateModified: post._updatedAt || post.publishedAt,
+    author: { '@id': `${SITE}/#organization` },
+    publisher: { '@id': `${SITE}/#organization` },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  };
 
   return (
     <PageShell>
       <Helmet>
         <title>{`${post.title} | Virtara Blog`}</title>
-        <meta name="description" content={post.excerpt || post.description} />
-        <meta name="keywords" content={post.keywords || 'digital marketing, web development, design trends'} />
-        <link rel="canonical" href={`https://virtara.co.za/web-development-blog/${slug}`} />
+        <meta name="description" content={description} />
+        <link rel="canonical" href={url} />
+        <script type="application/ld+json">{JSON.stringify(schema).replace(/</g, '\\u003c')}</script>
       </Helmet>
 
       <article className="relative pt-28 md:pt-36">
@@ -126,6 +149,12 @@ const BlogPost = () => {
               {post.author && <span className="text-frost">{post.author}</span>}
               {post.author && date && <span aria-hidden="true" className="text-quiet">·</span>}
               {date && <time dateTime={post.publishedAt}>{date}</time>}
+              {updated && (
+                <>
+                  <span aria-hidden="true" className="text-quiet">·</span>
+                  <span>Updated <time dateTime={post._updatedAt}>{updated}</time></span>
+                </>
+              )}
               {post.readTime && (
                 <>
                   <span aria-hidden="true" className="text-quiet">·</span>

@@ -8,7 +8,6 @@ import ClosingBand from "../components/layout/ClosingBand";
 import HeroVideo from "../components/home/HeroVideo";
 import ServicesRail from "../components/home/ServicesRail";
 import Button from "../components/ui/Button";
-import { bg_hero } from "../assets";
 import { cn } from "../utils/cn";
 
 const trustClients = ["Vaja", "MPower Ratings", "Virtec Marketing", "Aureya", "Clarity"];
@@ -160,23 +159,6 @@ function Home() {
           content="digital agency, web design, web development, conversion optimization, SEO, lead generation"
         />
         <link rel="canonical" href="https://virtara.co.za/" />
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "ProfessionalService",
-              "name": "Virtara",
-              "description": "We build digital assets that outperform the competition.",
-              "image": "${bg_hero}",
-              "url": "https://virtara.co.za/",
-              "address": {
-                "@type": "PostalAddress",
-                "addressCountry": "South Africa"
-              },
-              "serviceType": ["Web Design", "Web Development", "SEO", "Growth Strategy"]
-            }
-          `}
-        </script>
       </Helmet>
 
       <PageHero

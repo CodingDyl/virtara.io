@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { toast, Toaster } from 'react-hot-toast';
 import { IconArrowUpRight, IconMail } from '@tabler/icons-react';
-import { client } from '../lib/sanity';
+import { client, POSTS_QUERY } from '../lib/sanity';
+import { usePrerenderData } from '../lib/prerenderData';
 import { subscribeToNewsletter } from '../config/firebase';
 import PageShell from '../components/layout/PageShell';
 import PageHero from '../components/layout/PageHero';
@@ -13,7 +14,7 @@ import { toastOptions } from '../components/ui/toastOptions';
 
 const formatDate = (iso) =>
   iso
-    ? new Date(iso).toLocaleDateString('en-ZA', { year: 'numeric', month: 'short', day: 'numeric' })
+    ? new Date(iso).toLocaleDateString('en-ZA', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'Africa/Johannesburg' })
     : null;
 
 const Meta = ({ post }) => (
@@ -83,27 +84,17 @@ const categories = ['all', 'Trends', 'Digital Marketing', 'Technology', 'AI'];
 
 function Blog() {
   const [activeCategory, setActiveCategory] = useState('all');
-  const [blogPosts, setBlogPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Posts embedded at build time render straight away; the fetch below refreshes them.
+  const prerendered = usePrerenderData()?.posts;
+  const [blogPosts, setBlogPosts] = useState(prerendered ?? []);
+  const [loading, setLoading] = useState(!prerendered);
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const query = `*[_type == "post"] | order(publishedAt desc) {
-          _id,
-          title,
-          publishedAt,
-          excerpt,
-          readTime,
-          "slug": slug.current,
-          "mainImage": mainImage.asset->url,
-          "author": author->name,
-          "categories": categories[]->title
-        }`;
-
-        const posts = await client.fetch(query);
+        const posts = await client.fetch(POSTS_QUERY);
         setBlogPosts(posts);
       } catch (error) {
         console.error('Error fetching posts:', error);
@@ -164,14 +155,10 @@ function Blog() {
   return (
     <PageShell>
       <Helmet>
-        <title>Blog | Digital Strategy, SEO & Growth Insights</title>
+        <title>Web Design, SEO & Digital Marketing Blog for South African Businesses | Virtara</title>
         <meta
           name="description"
           content="Read the latest Virtara insights on SEO, digital strategy, web performance, and growth systems for modern businesses."
-        />
-        <meta
-          name="keywords"
-          content="digital marketing blog, SEO insights, web development strategy, growth marketing"
         />
         <link rel="canonical" href="https://virtara.co.za/web-development-blog" />
       </Helmet>
