@@ -12,7 +12,9 @@ export const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
   _id,
   title,
   publishedAt,
-  _updatedAt,
+  // The three 2024 posts were copied into this project on 11 Nov 2026; that
+  // copy is not an edit, so they report their publish date as last modified.
+  "_updatedAt": select(_updatedAt == "2026-11-11T15:54:12Z" => publishedAt, _updatedAt),
   excerpt,
   readTime,
   "slug": slug.current,
@@ -24,7 +26,9 @@ export const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
 export const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
   title,
   publishedAt,
-  _updatedAt,
+  // The three 2024 posts were copied into this project on 11 Nov 2026; that
+  // copy is not an edit, so they report their publish date as last modified.
+  "_updatedAt": select(_updatedAt == "2026-11-11T15:54:12Z" => publishedAt, _updatedAt),
   excerpt,
   body,
   readTime,
